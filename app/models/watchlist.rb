@@ -16,8 +16,7 @@ class Watchlist < ActiveRecord::Base
     # anothe posible solution is creation of addition tables, instead of logical mapping
 
     # SHARED BETWEEN IDEAS, PROJECTS, JOBS
-    indexes [ watch.title,
-              watch.description,
+    indexes [ watch.description, #watch.title,
               watch.user.first_name, watch.user.last_name, watch.user.company, watch.user.login,
               watch.user.locations.location, watch.industries.name]
 
