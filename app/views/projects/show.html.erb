@@ -1,0 +1,111 @@
+<% content_for :title do %>Project<% end %>
+
+<%= render :partial => 'menu' %>
+
+
+<% unless @project %>
+  Sorry, no project to see here.
+<% else %>
+  <table border="0" width="100%">
+    <tr>
+      <td valign="top" width="400">
+
+  <h1><%=h @project.title %></h1>
+   <%= render :partial => '/shared/stars', :locals => { :scorable => @project}  %>
+
+  <p>Posted by <%=h @project.user ? @project.user.login : "Anonymous" %><br />
+     Poster location: <%=h @project.location_string %></p> 
+
+  <p>Original post: <%=h @project.created_at %><br />
+  Last updated: <%=h @project.updated_at %></i></p>
+
+  <% if @project.idea %>
+    <p><b>This project was spawned from the "<%= link_to h(@project.idea.title), idea_path(:id => @project.idea) %>" idea.</b></p>
+  <% end %>
+
+    <h2>Description</h2>
+        <p><%= simple_format( sanitize(@project.description) ) %></p>
+
+    <% if @project.wiki and @project.wiki != "" %>
+      <h2>Mini Wiki</h2>
+      <p><%= sanitize(strip_tags(@wiki)).to_html %></p>
+    <% end %>
+
+      </td>
+      <td valign="top" align="center">
+        <div id="projectdashboard">
+
+          <% if @project.user_id == current_user.id %>
+            <p><%= link_to "Edit project", edit_project_path(:id => @project) %></p>
+
+            <p><b>Status:</b>
+              <% if @project.active %>
+                 Active
+              <% else %>
+                 <i>INACTIVE</i><br />(only project members can see it)
+              <% end %>
+            </p>
+          <% end %>
+
+           <%= render :partial => '/shared/add_remove_watch_or_interest', :locals => { :object => @project}  %>
+
+
+         <p><b>Posted jobs for this project: <%= @project.scorecard.active_jobs_count %></b></p>
+
+         <% for job in @project.jobs %>
+           <p><%= link_to h(job.title), job_path(:id => job) %></p>
+
+         <% end %>
+
+         <% if @project.user_id == current_user.id %>
+            <%= button_to "Post a Job", new_project_job_path(@project), { :method => :get } %>
+         <% end %>
+
+          <%= button_to_delete_if_allowed @project %>
+
+
+       </div>
+      </td>
+    </tr>
+  </table>
+
+    
+  <% if @project.scorecard.active_members_count > 0 %>
+    <div id="team">
+      <h2>Project Members</h2>
+      <table border="0">
+        <% @project.filled_positions.each do |member| %>
+          <tr>
+            <td valign="top" width="200">
+              <h3><%= member.job.title %></h3>Joined project: <%= member.created_at %>
+            </td><td valign="top">
+              <%= render :partial => member.user %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+
+
+
+  <hr />
+  <h2><%= pluralize @project.scorecard.total_comments_count, "Comment" %></h2>
+
+  <%= render :partial => @project.comments %>
+
+    <hr />
+  <h2>Post a comment</h2>
+<div id="postcomment">
+
+      <% form_tag post_project_comment_path do -%>
+      <%= text_area_tag 'newcomment', @comment, :rows => 10, :cols => 38 %>
+
+       <%= hidden_field_tag 'project', @project.id %>
+
+      <p><%= submit_tag 'Post Comment' %></p>
+      <% end %>
+</div>
+
+
+<% end %>

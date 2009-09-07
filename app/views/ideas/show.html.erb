@@ -1,0 +1,86 @@
+<% content_for :title do %>Idea <% end %>
+
+<%= render :partial => 'menu' %>
+
+
+<% if @idea.blank? %>
+  <p>Sorry, no idea to see here.</p>
+<% else %>
+
+  <table border="0" width="100%">
+    <tr>
+      <td valign="top" width="400">
+
+       <h1><%=h @idea.title %></h1>
+       <%= render :partial => '/shared/stars', :locals => { :scorable => @idea}  %>
+
+        <p>Relevant industries: <%= @idea.industries_string %></p>
+
+        <p>Posted by <%=h @idea.user ? @idea.user.login : "Anonymous" %><br />
+        Poster location: <%= @idea.location_string %></p> 
+
+        <p>Original post: <%= @idea.created_at %><br />
+        Last updated: <%= @idea.updated_at %></p>
+
+    <h2>Description</h2>
+
+        <p><%= simple_format(strip_tags(@idea.description)) %></p>
+
+      </td>
+      <td valign="top" align="center">
+        <div id="ideadashboard">
+
+          <% if @idea.user_id == current_user.id %>
+            <p><%= link_to "Edit idea", edit_idea_path(:id => @idea) %></p>
+
+            <p><b>Status:</b>
+              <% if @idea.active %>
+                 Active
+              <% else %>
+                 <i>INACTIVE</i><br />(only you can see it)
+              <% end %>
+            </p>
+          <% end %>
+
+           <p><b>Active spawned projects:</b> <%= @idea.scorecard.active_projects_count %></p>
+           <% for project in @idea.projects %>
+             <% if project.active? %>
+               <p><%= link_to h(project.title), project_path(:id => project) %></p>
+             <% end %>
+           <% end %>
+
+            <p><%= button_to "Launch Project", new_idea_project_path(@idea), { :method => :get } %></p>
+  
+            <p><%= render :partial => '/shared/add_remove_watch_or_interest', :locals => { :object => @idea}  %></p>
+
+        
+          <%= button_to_delete_if_allowed @idea %>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+
+
+
+  <hr />
+  <h2><%= pluralize @idea.scorecard.total_comments_count, "Comment" %></h2>
+
+  <%= render :partial => @idea.comments %>
+
+
+    <hr />
+  <h2>Post a comment</h2>
+<div id="postcomment">
+
+      <% form_tag post_idea_comment_path do -%>
+      <%= text_area_tag 'newcomment', @comment, :rows => 10, :cols => 38 %>
+
+       <%= hidden_field_tag 'idea', @idea.id %>
+
+      <p><%= submit_tag 'Post Comment' %></p>
+      <% end %>
+</div>
+
+
+<% end %>

@@ -1,0 +1,22 @@
+  <%= div_tag_for(user) %> 
+    <table width="100%">
+      <tr>
+        <td><h2><%= link_to URI.encode(user.login), user_path(:id => user) %>
+        <br /><%= render :partial => '/shared/stars', :locals => { :scorable => user} %>
+
+        </h2><hr /></td>
+      </tr>
+      <tr>
+        <td>
+          <%= stats_for(user) %>
+        </td>
+      </tr>
+      <tr>
+        <td><i>Joined: <%= time_ago_in_words(user.created_at) %> ago | Last logon: <%= time_ago_in_words(user.logon.last) %> ago</i></td>
+      </tr>
+      
+    </table>
+
+  <%= dashboard_for(user) %> 
+
+  </div>

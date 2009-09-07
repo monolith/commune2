@@ -1,0 +1,21 @@
+<% content_for :title do %>Delete Account<% end %>
+
+    <h1>Are you sure you want to delete your account?</h1>
+
+      <%= error_messages_for :current_user %>
+    <p>We are sorry to see you go.  To delete your account, please enter your password.</p>
+<% form_tag delete_account_path do -%>
+ 
+       <p><%= label_tag 'Password' %><br />
+
+       <%= password_field 'password', nil %></p>
+
+<br /><br />
+     <%= render :partial => '/shared/reCAPTCHA' %>
+
+<br /><br />
+<h2>You will not be able to undo this action...</h2>
+  <p><%= submit_tag 'DELETE MY ACCOUNT' %></p>
+
+<% end -%>
+

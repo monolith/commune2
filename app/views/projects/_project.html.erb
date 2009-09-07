@@ -1,0 +1,28 @@
+<%= div_tag_for(project) %> 
+
+  <table width ="100%">
+      <tr>
+        <td>
+          <h2>
+            <%= link_to h(project.title), project_path(project) %>
+            <%= render :partial => '/shared/stars', :locals => { :scorable => project} %>
+          </h2>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= show_description(project) %>
+          <hr />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= stats_for(project) %>
+        </td>
+      </tr>
+  </table>
+
+  <%= dashboard_for(project) %> 
+
+</div>
+

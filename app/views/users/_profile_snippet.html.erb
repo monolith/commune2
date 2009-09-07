@@ -1,0 +1,24 @@
+<% if @profiles.blank? %>
+  Sorry, no profiles to see here.
+<% else %>
+
+
+  <% for profile in @profiles %>
+
+  <div id="profilesnippet">
+    <table width="100%">
+      <tr>
+        <td><h2><%= link_to profile.login, view_profile_path(:login => profile.login) %>
+        <br /><%= render :partial => '/shared/stars', :locals => { :scorable => profile} %>
+
+        </h2><hr /></td>
+      </tr>
+
+      <tr>
+        <td><i>Member since <%= profile.created_at %></i></td>
+      </tr>
+    </table>
+    </div>
+
+  <% end %>
+<% end %>

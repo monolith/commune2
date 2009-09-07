@@ -1,0 +1,20 @@
+  <% content_for :title do %>Invitation<% end %>
+  <%= render :partial => 'menu' %>
+
+  <h1>New Invitation</h1>
+  <p><i>Commune2 is a closed network.  Without this invitation, the person will not be able to register.</i></p>
+  <p><b>NOTE:</b> You can invite only one person at a time, and only 4 people per 24 hours.</p>
+  <p><h2>You currently have <%= pluralize current_user.available_invitations, "available invitation" %>.</h2> 
+
+  <% if current_user.available_invitations > 0 %>
+    <% form_for @invitation do |f| -%>
+      <%= f.error_messages %>
+      <p><%= label_tag 'Enter email address (who do you want to invite?)' %></p>
+      <p><%= f.text_field :email, :size => 40 %></p>
+
+      <p><%= label_tag 'Personalized message (250 characters max)' %></p>
+      <p><%= f.text_area :message, :cols => "50", :rows => "7" %></p>
+
+      <p><%= submit_tag 'Invite' %></p>
+    <% end -%>
+  <% end %>

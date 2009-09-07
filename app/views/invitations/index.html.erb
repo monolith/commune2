@@ -1,0 +1,13 @@
+<% content_for :title do %>Invitations<% end %>
+
+<%= render :partial => 'menu' %>
+
+<h1><%= pluralize @invitations.total_entries, "Invitation" %></h1>
+<% unless @invitations %>
+  You have not invited anyone yet,  <%= link_to "invite", new_invitation_path %> someone!
+<% end %>
+
+<% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
+<%= render :partial => @invitations %>
+
+<%= will_paginate @invitations %>

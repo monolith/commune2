@@ -1,0 +1,14 @@
+<% content_for :title do %>My Projects<% end %>
+
+<%= render :partial => 'menu' %>
+
+
+<h1>My Projects</h1>
+
+<% if @projects.blank? %>
+  You have not posted any projects yet.  Click <%= link_to 'here', new_project_path %> if you would like to make your first post.
+<% else %>
+  <%= render :partial => @projects %>
+<% end %>
+
+<%= will_paginate @projects %>

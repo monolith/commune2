@@ -1,0 +1,7 @@
+<%=h @who %> has sent you a message through Commune2. You can view this person's profile here: <%= user_url(@profile) %>
+
+NOTE: Your email address was not revealed to <%=h @who %> by sending this email.  However, if you reply you WILL reveal your email address.  Do not reply unless you are comfortable revealing your email address.
+
+MESSAGE:
+
+<%=h strip_tags(@message) %>

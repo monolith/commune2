@@ -1,0 +1,13 @@
+<% if job_application.job %>
+  <div id="project_roles">
+    <table border="0">
+        <tr>
+          <td valign="top" width="250">
+            <h3><%= job_application.job.title %></h3>
+          </td><td valign="top">
+            <%= render :partial => job_application.job.project %>
+          </td>
+        </tr>
+    </table>
+  </div>
+<% end %>

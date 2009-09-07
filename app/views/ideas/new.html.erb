@@ -1,0 +1,31 @@
+<% content_for :title do %>New Idea<% end %>
+
+<%= render :partial => 'menu' %>
+<h1>New Idea</h1>
+
+<div id="post">
+
+     <% form_for @idea do |f| -%>
+     <%= f.error_messages %>
+
+     <p>Is this idea active or inactive?
+       <%= f.radio_button :active, "true", :checked => true %>Active
+       <%= f.radio_button :active, "false" %>Inactive <br />
+       <i>Only active ideas can be viewed by others.</i></p>
+
+
+      <p><%= label_tag 'Title' %><br/>
+      <%= f.text_field :title, :size => 50 %></p>
+
+
+      <p><%= label_tag 'Description' %><br/>
+      <%= f.text_area :description, :rows => 10, :cols => 38 %></p>
+
+<p>Select relevant industries (no more than 5 please)</p> 
+
+      <%= render :partial => '/shared/industries', :locals => { :industry_ids => @industry_ids } %>
+
+
+      <p><%= submit_tag "Post Idea" %></p>
+      <% end %>
+</div>

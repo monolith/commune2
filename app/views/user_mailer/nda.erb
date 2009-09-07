@@ -1,0 +1,9 @@
+The following is a copy of the non-disclosure agreement electronically signed by <%=h @nda.first_name %> <%=h @nda.last_name %>.
+
+This needs to be signed and mailed (or faxed).
+
+A copy is also available on <%=h @url %>
+
+= = =
+
+<%=h strip_tags(sanitize(@nda.agreement)) %>

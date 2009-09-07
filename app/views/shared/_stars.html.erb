@@ -1,0 +1,26 @@
+	<span class="inline-rating">
+
+
+		<link href="/stylesheets/star_rating.css" rel="stylesheet" type="text/css" media="all">
+
+<% percentage = scorable.scorecard.average / 5 * 100 %>
+	<ul class="star-rating">
+
+		<li class="current-rating" style="width:<%= percentage %>%;">Currently <%= scorable.scorecard.average.round(2)%>/5 Stars.</li>
+    
+    
+
+    <% i = {1 => "one-star", 2 => "two-stars", 3 => "three-stars", 4 => "four-stars", 5 => "five-stars" } %>
+    <% i.sort.each do |number, word| %>
+    
+
+		  <li><a href="<%= rate_path %>?scorecard=<%= scorable.scorecard.id %>&stars=<%= number %>" title="<%= number %> out of 5" class="<%= word %>" id="<%= number %>"><%= number %></a></li>    
+    <% end %>
+
+    
+	</ul>
+
+</span>
+
+   <font size=2>(<%= pluralize(scorable.scorecard.ratings_count, 'rating') %>)</font>
+

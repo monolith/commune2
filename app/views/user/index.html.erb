@@ -1,0 +1,33 @@
+<% content_for :title do %>Home<% end %>
+
+
+<table id="splash">
+  <tr>
+    <td valign="top">
+    
+      <center>
+
+    <h1>Changes are happening... hold on...</h1>
+
+        <% if logged_in? %>
+
+        <% else %>
+          <p>If you have been invited to to join, please <%= link_to "register", signup_path %>.</p>
+          <p>If your registration has been activated, you can <%= link_to "log in", login_path %>.</p>
+
+        <% end %>
+      </center>
+
+    </td></tr><tr><td valign="center">
+
+        <center>
+          <p>&nbsp;</p>
+
+        <img src="/images/logo.jpg">
+  <p>&nbsp;</p>
+
+        </center>
+
+
+    </td></tr>
+</table>

@@ -1,0 +1,18 @@
+<% content_for :title do %>Comments<% end %>
+
+  <% if @object %>
+    <%= render :partial => "/" + @object.class.to_s.downcase.pluralize + "/menu" %>
+
+
+    <h1><%= @object.class.to_s %></h1>
+    <%= render :partial => @object %>
+    
+    <h2><%= pluralize @object.scorecard.total_comments_count, "Comment" %></h2>
+
+    <%= render :partial => @comments %>
+
+    <%= will_paginate @projects %>
+    
+  <% else %>
+    Nothing to see here...
+  <% end %>

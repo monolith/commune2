@@ -1,0 +1,16 @@
+      <div id="menu2">
+        <table border="0" cellspacing="0" cellpadding="10"><tr>
+          <td width="100"><h3><%= link_to "Ideas Home", ideas_path %></h3></td>
+          <td width="100"><h3><%= link_to "My Ideas", my_ideas_path %></h3></td>
+          <td width="100"><h3><%= link_to "Post Idea", new_idea_path %></h3></td>
+          <td width="100"><h3>Browse</h3></td>          
+          <td><% form_tag ideas_path, :method => :get do %>
+              <%= text_field_tag :search, params[:search] %> </td>
+              
+          <td><%= submit_tag "Search Ideas", :name => nil %></td>
+          <% end %>
+          
+          </td>
+
+        </tr></table>
+       </div>

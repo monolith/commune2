@@ -1,0 +1,18 @@
+<% content_for :title do %>Jobs<% end %>
+
+<%= render :partial => 'menu' %>
+
+  <% if @project %>
+    <h1><%= pluralize @jobs.total_entries, "Job" %> for <%= @project.title %> project</h1>
+    <h2>Project</h2>
+    <%= render :partial => @project %>
+    <h2><%= pluralize @jobs.total_entries, "Job" %></h2>
+  <% else %>
+    <h1><%= pluralize @jobs.total_entries, "Job" %></h1>
+  <% end %>
+
+<% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
+
+<%= render :partial => @jobs %>
+
+<%= will_paginate @jobs %>

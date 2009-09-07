@@ -1,0 +1,15 @@
+<% content_for :title do %>My Ideas<% end %>
+
+<%= render :partial => 'menu' %>
+
+
+<h1>My Ideas</h1>
+
+<% if @ideas.blank? %>
+  You have not posted any ideas yet.  Click <%= link_to 'here', new_idea_path %> if you would like to make your first post.
+<% else %>
+  <%= render :partial => @ideas %>
+<% end %>
+
+<%= will_paginate @ideas %>
+

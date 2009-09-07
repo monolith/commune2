@@ -1,0 +1,11 @@
+        <%= label_tag 'Add new location (city)' %><br /><%= text_field_tag :new_location, @new_location, :size => 40 %>
+        
+          <% if @location && @location.count > 1 %>
+            <p><%= label_tag 'Multiple locations found, select one below or refine location above if none are right:' %>
+            <% @location.each do |place| %>
+              <br /><%= radio_button_tag 'location_select', place[:location] %>
+              <%= place[:location] %>
+            <% end %>
+          <% end %>
+          </p>
+

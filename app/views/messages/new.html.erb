@@ -1,0 +1,30 @@
+<h1>New Message</h1>
+
+<p><strong>NOTE:</strong> By sending this message you will reveal your email address.</p>
+<% form_for [@user, @message] do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :to_id %>
+
+  <table border="0" cellpadding="5">
+    <tr>
+      <td valign="top"><h2>To</h2></td>
+      <td><%= render :partial => @user %></td>
+    </tr>
+    <tr>
+      <td valign="top"><h2>Subject</h2></td>
+      <td><p><%= f.text_field :subject, :size => 49 %></p></td>
+    </tr>
+    <tr>
+      <td valign="top"><h2>Message</h2></td>
+      <td><p><%= f.text_area :body, :rows => 9, :cols => 57 %></p>
+      
+        <p><%= render :partial => '/shared/reCAPTCHA' %><p>
+
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="right"><%= f.submit "Send Message", :confirm => "Sending this message will reveal your email address to this person.  Send?" %></td>
+    </tr>
+  </table>
+
+<% end %>

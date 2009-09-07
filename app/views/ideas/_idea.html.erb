@@ -1,0 +1,27 @@
+<%= div_tag_for(idea) %> 
+
+  <table width="100%">
+    <tr>
+      <td>
+        <h2>
+          <%= link_to h(idea.title), idea_path(:id => idea) %>
+          <%= render :partial => '/shared/stars', :locals => { :scorable => idea} %>
+        </h2>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= show_description(idea) %>
+        <hr />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= stats_for(idea) %>
+      </td>
+    </tr>
+  </table>
+
+  <%= dashboard_for(idea) %> 
+
+</div>

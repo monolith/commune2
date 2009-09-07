@@ -1,0 +1,47 @@
+<% content_for :title do %>Editing Project<% end %>
+
+<%= render :partial => 'menu' %>
+
+<h1>Edit Project</h1>
+<p><%= link_to "Exit edit", project_path(:id => @project) %></p>
+
+<%= error_messages_for :project %>
+
+<div id="post">
+
+ <% form_for @project do |f| -%>
+
+     <p>Is this project active or inactive?
+       <%= f.radio_button :active, "true", :checked => true %>Active
+       <%= f.radio_button :active, "false" %>Inactive <br />
+       <i>Details of inactive projects (project page) only visible to project members.</i></p>
+
+
+      <p><%= label_tag 'Project title' %><br/>
+      <%= f.text_field :title, :size => 50 %></p>
+
+      <p><%= label_tag 'Description' %><br/>
+      <%= f.text_area :description, :rows => 10, :cols => 55 %></p>
+
+
+      <p>Select relevant industries (no more than 5 please)</p>
+      <%= render :partial => '/shared/industries', :locals => { :industry_ids => @industry_ids } %>
+
+      <h2>Wiki</h2>
+        
+        Basic wiki synthax reminders:<br />
+        <table cellspacing="10">
+          <tr><td>h3. Header</td><td>&rarr;</td><td><h3>Header</h3></td></tr>
+          <tr><td>*Bold*</td><td>&rarr;</td><td><b>Bold</b></td></tr>
+          <tr><td>_Italic_</td><td>&rarr;</td><td><i>Italic</i></td></tr>
+          <tr><td>* First bullet<br />* Second bullet</td><td>&rarr;</td><td>&#8226; First buller<br />&#8226; Second bullet</td></tr>
+          <tr><td># Numbered list<br /># Second item</td><td>&rarr;</td><td>1. Numbered list<br />2. Second item</td></tr>
+          <tr><td>"Commune2":http://commune2.com</td><td>&rarr;</td><td><a href="http://commune2.com">Commune2</a></td></tr>
+        </table>
+
+        <a href="http://hobix.com/textile/quick.html" target="_blank">Click here for detailed wiki synthax reference guide</a>.
+                 
+         <p><%= f.text_area :wiki, :rows => 25, :cols => 90 %></p>    
+      <p><%= submit_tag "Update" %></p>
+      <% end %>
+</div>

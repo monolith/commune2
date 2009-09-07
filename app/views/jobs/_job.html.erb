@@ -1,0 +1,20 @@
+
+<%= div_tag_for(job) %> 
+    <table width="100%">
+      <tr>
+        <td><h2><%= link_to h(job.title), job_path(:id => job) %></h2></td>
+      </tr>
+      <tr>
+        <td><%=h job.description[0..250] %><% if job.description.length > 250 %>...<% end %>
+        <hr />
+        </td>
+      </tr>
+      <tr>
+        <td><i>Posted by <%=h job.user.login %> <%= job.created_at %></i></td>
+      </tr>
+    </table>
+
+  <%= dashboard_for(job) %> 
+
+    </div>
+

@@ -1,0 +1,125 @@
+
+html, body, #wrapper, #splash {
+  background-color: #fff;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: small;
+  vertical-align: top;
+
+}
+
+#disclaimer {
+font-size: x-small;
+color: #808080;
+}
+
+#splash {
+ font-size: small;
+ color: #696969;
+ vertical-align: middle;
+ height: 100%;
+
+}
+
+
+#notice {
+  border: 5px solid #c3d19c;
+  background-color: #FFFFFF;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+#error {
+  border: 5px solid #f4a347;
+  background-color: #FFFFFF;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+
+
+#ideasnippet, #ideasnippet-inactive, #watchlist_ideasnippet, #comment, #projectsnippet, #watchlist_projectsnippet, #jobsnippet, #profilesnippet, #profilesnippet-inactive, #watchlist_profilesnippet, #projectsnippet-inactive, #invitationsnippet, #invitationsnippet-inactive, #map_canvas, #application, #project_roles, #resend_activation, #watchlist_jobsnippet, #jobsnippet-inactive {
+  border: 5px solid #707070;
+  background-color: #FFFFFF;
+  padding: 5px;
+  margin: 10px 0;
+  width: 400px;
+}
+#invitationsnippet, #invitationsnippet-inactive {
+  width: 600px;
+}
+#projectsnippet-inactive, #ideasnippet-inactive, #invitationsnippet-inactive, #jobsnippet-inactive, #profilesnippet-inactive {
+  border: 5px solid #C0C0C0;
+  background-color: #F0F0F0;
+}
+
+#watchlist_ideasnippet, #watchlist_projectsnippet, #watchlist_jobsnippet,#watchlist_profilesnippet {
+  border: 5px solid #FFD700;
+  background-color: #FFFFFF;
+}
+
+
+#menu {
+  border: 5px solid #d0d0d0;
+  background-color: #FFFFFF;
+  padding: 5px;
+  margin: 10px 0;
+}
+#menu2 {
+  border: 5px solid #a0a0a0;
+  background-color: #FFFFFF;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+#application, #project_roles {
+  width: 800px;
+  border: 5px solid #a0a0a0;
+}
+
+#reCAPTCHA {
+ color: #C0C0C0;
+font-size: x-small;
+
+}
+
+h1 {
+ color: #8bc441;
+}
+
+h2 {
+ color: #f4a347;
+}
+h3 {
+ color: #808080;
+}
+
+
+#newcomment, #ideadashboard, #projectdashboard, #jobdashboard, #profiledashboard, #special_message {
+  border: 5px solid #FFD700;
+  background-color: #FFFFFF;
+  padding: 5px;
+  margin: 10px 0;
+  width: 200px;
+}
+
+
+#newcomment {
+  width: 400px;
+}
+#dashboard {
+  background-color: #FFFFFF;
+  margin: 3px;
+  padding: 3px;
+  border-style:solid;
+  border-color: #D3D3D3;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: small;
+  vertical-align: top;
+
+}
+

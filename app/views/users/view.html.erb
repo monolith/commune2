@@ -1,0 +1,128 @@
+<%= render :partial => 'menu' %>
+
+<% if @profile.blank? %>
+  Sorry, no profile to see here.
+<% else %>
+
+  <table border="0" width="100%">
+    <tr>
+      <td valign="top" width="400">
+
+          <h1><%= @profile.login %></h1>
+          <%= render :partial => '/shared/stars', :locals => { :scorable => @profile} %>
+          
+          
+         <p><b><%= pluralize @profile.locations.count, "location" %></b>
+        <% geocodes = "" %>
+        <% @profile.locations.each do |location| %>
+          <br /><%= location.location %>
+          <% geocodes += location.longitude.to_s + "," + location.latitude.to_s + ",smallred|" %>
+        <% end %>
+        <% if @profile.locations.count > 0 %>
+          <div id="map_canvas" style="width: 255px; height: 100px"><img src="http://maps.google.com/staticmap?markers=<%= geocodes %>&zoom=0&size=255x100&key=<%= GoogleAPIKey %>&sensor=false&format=png8&" border="0"></div>
+          <% end %>
+      </p>
+                
+          
+          
+          
+           <% if @profile.first_name %><p><b>Name:</b> <%= @profile.first_name %> <%= @profile.last_name %></p><% end %>
+           <% if @profile.company %><p><b>Company:</b> <%= @profile.company %></p><% end %>
+           <% if @profile.headline %><p><b>Headline:</b> <%= @profile.headline %></p><% end %>
+           <% if @profile.purpose %><p><b>Purpose and specific interests:</b> <%= simple_format(@profile.purpose) %></p><% end %>
+
+           <% if @profile.industries.size > 0 %>
+              <p><b>General interests:</b>
+              <% @profile.industries.each do |industry| %>
+                <br /><%= industry.name %>
+              <% end %>
+              </p>
+           <% end %>
+
+           <% if @profile.general_skills.size > 0 %>
+              <p><b>General skills:</b>
+              <% @profile.general_skills.each do |skill| %>
+                <br /><%= skill.name %>
+              <% end %>
+              </p>
+           <% end %>
+
+           <% if @profile.skills %><p><b>Specific skills:</b><br /><%= simple_format(@profile.skills) %></p><% end %>
+
+           <% if @profile.experience %><p><b>Experience:</b><br /><%= simple_format(@profile.experience) %></p><% end %>
+
+           <% if @profile.education %><p><b>Education:</b><br /><%= simple_format(@profile.education) %></p><% end %>
+
+           <p>Member since: <%= @profile.created_at %></p>
+
+
+          <% if @ideas.size > 0 %>
+            <h2><%= pluralize @ideas.size, 'Idea' %></h2>
+            <%= render :partial => 'idea/idea_snippet' %>
+          <% end %>
+
+          <% if @projects.size > 0 %>
+            <h2><%= pluralize @projects.size, 'Project' %></h2>
+            <%= render :partial => 'project/project_snippet' %>
+          <% end %>
+
+          <% if @jobs.size > 0 %>
+            <h2><%= pluralize @jobs.size, 'Job' %></h2>
+            <%= render :partial => 'job/job_snippet' %>
+          <% end %>
+
+</td>
+
+
+
+      <td valign="top" align="center">
+        <div id="profiledashboard">
+
+          <% if @profile.id == current_user.id %>
+            <%= link_to 'Edit Profile', edit_profile_path %>
+          <% end %>
+
+          <% if @connected && @connected.invited %>
+            <%= @profile.login %> has added you as a contact.  You can add this person to your list if you like.
+            <% form_tag confirm_contact_path do -%>
+               <%= hidden_field_tag 'login', @profile.login %>
+               <p><%= submit_tag 'Add To Contacts' %></p>
+             <% end %>
+
+            <% form_tag remove_contact_path do -%>
+               <%= hidden_field_tag 'login', @profile.login %>
+               <p><%= submit_tag 'Do Not Add To Contacts' %></p>
+             <% end %>
+
+          <% elsif @connected %>
+            <p>Connected.</p>
+              <% form_tag update_status_path do -%>
+                <p>Trust level:
+               <%= hidden_field_tag 'login', @profile.login %>
+               <select name="trust_level">
+                 <%= options_for_select([ "1", "2", "3", "4", "5" ],@connected.trust_level.to_s) %>
+               </select>
+              </p>
+              <p><%= submit_tag 'Update Access Level' %></p>
+              <% end %>
+
+              <% form_tag remove_contact_path do -%>
+               <%= hidden_field_tag 'login', @profile.login %>
+               <p><%= submit_tag 'Remove From Contacts' %></p>
+             <% end %>
+
+
+          <% else %>
+              <% if @profile.id != current_user.id %>
+                <% form_tag add_contact_path do -%>
+                   <%= hidden_field_tag 'login', @profile.login %>
+                   <p><%= submit_tag 'Add To Contacts' %></p>
+                 <% end %>
+              <% end %>
+          <% end %>
+        </div>
+
+        </td>
+</tr></table>
+
+<% end %>

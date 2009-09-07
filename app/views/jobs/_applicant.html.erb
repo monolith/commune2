@@ -1,0 +1,15 @@
+
+   <div id='application'>
+   <table border="0">
+        <tr>
+          <td width="350" valign="top">
+            <h3><%=h application.user.login %></h3><%= simple_format sanitize(strip_tags(application.message)) %>
+          </td>
+          <td valign="top">
+            <% @profiles = Array.new %>
+            <% @profiles[0] = application.user %>
+            <%= render :partial => '/users/profile_snippet' %>
+          </td>
+        </tr>
+      </table>
+    </div>

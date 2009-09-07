@@ -1,0 +1,18 @@
+      <div id="menu2">
+        <table border="0" cellspacing="0" cellpadding="10"><tr>
+          <td width="100"><h3><%= link_to "Jobs Home", jobs_path %></h3></td>
+          <td width="100"><h3><%= link_to "My Posted Jobs", my_posted_jobs_path %></h3></td>
+          <td width="100"><h3><%= link_to "My Applied Jobs", my_job_applications_path %></h3></td>
+          <td width="100"><h3>Browse</h3></td>
+
+          <td><% form_tag jobs_path, :method => :get do %>
+              <%= text_field_tag :search, params[:search] %> </td>
+              
+          <td><%= submit_tag "Search Jobs", :name => nil %></td>
+          <% end %>
+          
+          </td>
+
+
+        </tr></table>
+       </div>

@@ -1,0 +1,14 @@
+<% content_for :title do %>My Posted Jobs<% end %>
+
+<%= render :partial => 'menu' %>
+
+
+<h1><%= @title %></h1>
+
+<% if @jobs.blank? %>
+  You have not posted any jobs yet.
+<% else %>
+  <%= render :partial => @jobs %>
+<% end %>
+
+<%= will_paginate @jobs %>

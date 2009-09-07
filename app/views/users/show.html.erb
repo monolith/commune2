@@ -1,0 +1,101 @@
+
+<%= render :partial => 'menu' %>
+
+<% if @profile.blank? %>
+  Sorry, no profile to see here.
+<% else %>
+
+<% content_for :title do %>User Profile<% end %>
+
+
+  <table border="0" width="100%">
+    <tr>
+      <td valign="top" width="400">
+
+          <h1><%=h @profile.login %></h1>
+          <%= render :partial => '/shared/stars', :locals => { :scorable => @profile} %>
+          
+          
+         <p><b><%= pluralize @profile.locations.count, "location" %></b>
+        <% geocodes = "" %>
+        <% @profile.locations.each do |location| %>
+          <br /><%= location.location %>
+          <% geocodes += location.longitude.to_s + "," + location.latitude.to_s + ",smallred|" %>
+        <% end %>
+        <% if @profile.locations.count > 0 %>
+          <div id="map_canvas" style="width: 255px; height: 100px"><img src="http://maps.google.com/staticmap?markers=<%= geocodes %>&zoom=0&size=255x100&key=<%= GoogleAPIKey %>&sensor=false&format=png8&" border="0"></div>
+          <% end %>
+      </p>
+                
+          
+          
+          
+           <% if @profile.name and @profile.name != ""  %><p><b>Name:</b> <%=h @profile.name %></p><% end %>
+           <% if @profile.company and @profile.company != "" %><p><b>Company:</b> <%=h @profile.company %></p><% end %>
+           <% if @profile.headline and @profile.headline != "" %><p><b>Headline:</b> <%=h @profile.headline %></p><% end %>
+           <% if @profile.purpose and @profile.purpose != "" %><p><b>Purpose and specific interests:</b> <%= simple_format(strip_tags(@profile.purpose)) %></p><% end %>
+
+           <% if @profile.industries.size > 0 %>
+              <p><b>General interests:</b>
+              <% @profile.industries.each do |industry| %>
+                <br /><%= industry.name %>
+              <% end %>
+              </p>
+           <% end %>
+
+           <% if @profile.general_skills.size > 0 %>
+              <p><b>General skills:</b>
+              <% @profile.general_skills.each do |skill| %>
+                <br /><%= skill.name %>
+              <% end %>
+              </p>
+           <% end %>
+
+           <% if @profile.skills and @profile.skills != "" %><p><b>Specific skills:</b><br /><%= simple_format(strip_tags(@profile.skills)) %></p><% end %>
+
+           <% if @profile.experience and @profile.experience != "" %><p><b>Experience:</b><br /><%= simple_format(strip_tags(@profile.experience)) %></p><% end %>
+
+           <% if @profile.education and @profile.education != "" %><p><b>Education:</b><br /><%= simple_format(strip_tags(@profile.education)) %></p><% end %>
+
+           <p>Member since: <%= @profile.created_at %></p>
+
+
+          <% if @ideas.size > 0 %>
+            <h2><%= pluralize @ideas.size, 'Idea' %></h2>
+            <%= render :partial => @ideas %>
+          <% end %>
+
+            <% if @positions.size > 0 %>
+              <h2><%= pluralize @profile.positions.size, 'Project' %></h2>
+              <%= render :partial => @profile.positions %>
+            <% end %>
+
+          <% if @jobs.size > 0 %>
+            <h2><%= pluralize @jobs.size, 'Job' %></h2>
+            <%= render :partial => @jobs %>
+          <% end %>
+
+</td>
+
+
+
+      <td valign="top" align="center">
+        <div id="profiledashboard">
+          <%= link_to 'Edit Profile', edit_user_path(current_user) if @profile == current_user %>
+          
+          <p>
+            <%= render :partial => '/shared/add_remove_watch_or_interest', :locals => { :object => @profile}  %>
+          </p>
+          <p>
+            <%= button_to "Send Message", new_user_message_path(@profile), { :method => :get }%>
+          </p>
+
+          <%= button_to_delete_if_allowed @profile %>
+
+
+        </div>
+
+        </td>
+</tr></table>
+
+<% end %>

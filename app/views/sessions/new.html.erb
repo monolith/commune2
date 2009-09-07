@@ -1,0 +1,42 @@
+<% content_for :title do %>Log On<% end %>
+
+  <h1>Log On</h1>
+  <% if @show_resend_activation_button %>
+    <div id="resend_activation">
+      <table border="0" width="100%">
+        <tr>
+          <td>    
+            <p>Did you activate your account?<br />Check your email for an activation link.</p>
+          </td><td>
+        <center>
+          <% form_tag resend_activation_link_path do %>
+            <%= hidden_field_tag :login, h(params[:login]) %>
+            <%= submit_tag 'Resend Activation' %>
+          <% end %>
+        </center>
+      </td></tr></table>
+    </div>
+  <% end %>
+
+<br />
+  <% form_tag session_path do -%>
+    <p><%= label_tag 'login or email' %><br />
+    <%= text_field_tag 'login', @login %></p>
+
+    <p><%= label_tag 'password' %> (CaSe SeNsAtIvE)<br/>
+    <%= password_field_tag 'password', nil %></p>
+
+    <p><%= label_tag 'remember_me', 'Remember me' %>
+    <%= check_box_tag 'remember_me', '1', @remember_me %></p>
+  <%= link_to 'Forgot password?', forgot_password_url %>
+
+
+     <%= render :partial => '/shared/reCAPTCHA' %>
+
+
+  <p><%= submit_tag 'Log in' %></p>
+
+
+  <p>NOTE: You must be registered first. If you need to register, please go <%= link_to "here", signup_path %>.</p>
+
+<% end -%>

@@ -1,0 +1,106 @@
+<% content_for :title do %>Editing Profile<% end %>
+
+<%= render :partial => 'menu' %>
+
+  <h1>My Profile / Account</h1>
+  <p><%= link_to 'Click here', user_path(current_user) %> to see how other people see your profile.</p>
+  <p>Your rating: <%= render :partial => '/shared/stars', :locals => { :scorable => @user} %></p>
+    
+
+  <h2>Profile (public information)</h2>
+  
+  <% form_for @user do |f| -%>
+  <%= f.error_messages %>
+    
+    <table border="0" cellspacing="10" cellpadding="0">
+
+      <tr><td valign="top">You are in <%= pluralize @user.locations.count, "location" %></td>
+        <td valign="top">
+
+        <% geocodes = "" %>
+        <% @user.locations.each do |location| %>
+          <%= location.location %>
+          <%= link_to '(remove)', remove_location_path + '?' + (location.location.to_query 'location') if @user.locations.count > 1 %><br/>
+          <% geocodes += location.longitude.to_s + "," + location.latitude.to_s + ",smallred|" %>
+        <% end %>
+
+        <% if @user.locations.count > 0 %>
+          <div id="map_canvas" style="width: 255px; height: 100px"><img src="http://maps.google.com/staticmap?markers=<%= geocodes %>&zoom=0&size=255x100&key=<%= GoogleAPIKey %>&sensor=false&format=png8&" border="0"></div>
+          <% end %>
+
+          <%= render :partial => '/shared/add_location' %>
+      
+        </td>
+      </tr>
+
+      <tr><td valign="top"><%= label_tag 'First name' %></td><td valign="top"><%= f.text_field :first_name, :size => 20 %></td></tr>
+      <tr><td valign="top"><%= label_tag 'Last name' %></td><td valign="top"><%= f.text_field :last_name, :size => 20 %></td></tr>
+      <tr><td valign="top"><%= label_tag 'Company / Organization' %></td><td valign="top"><%= f.text_field :company, :size => 40 %></td></tr>
+      <tr><td valign="top"><%= label_tag 'Headline' %></td><td valign="top"><%= f.text_field :headline, :size => 40 %></td></tr>
+
+      <tr><td valign="top"><%= label_tag 'Are you an individual user or another entity (organiation)?' %></td><td valign="top">
+      <%= f.radio_button :individual, "true" %>Individual
+      <%= f.radio_button :individual, "false" %>Entity</td></tr>
+      
+      <tr><td valign="top"><%= label_tag 'Currently available to work on projects?' %></td><td valign="top">
+      <%= f.radio_button :currently_available, "true" %>Yes
+      <%= f.radio_button :currently_available, "false" %>No</td></tr>
+      
+      
+      <tr><td valign="top"><%= label_tag 'What kind of compensation do you require?' %></td><td valign="top"><%= f.radio_button :no_cash_ok, "true" %>Anything goes <%= f.radio_button :no_cash_ok, "false" %>Cash ONLY</td></tr>
+
+  
+    <tr><td valign="top" colspan="2"><%= label_tag 'General interests' %></td></tr>
+    <tr><td valign="top" colspan="2"><i>Please select no more than 5:</i>
+
+      <%= render :partial => '/shared/industries', :locals => { :industry_ids => @industry_ids } %>
+
+    </td></tr>
+
+      <tr><td valign="top" colspan="2"><%= label_tag 'Purpose and specific interests' %></td></tr>
+      <tr><td valign="top" colspan="2"><i>What are you doing here, what would you want other to know about you?  500 character max.</i><br /><%= f.text_area :purpose, :cols => "70", :rows => "5" %></td></tr>
+
+ 
+      <tr><td valign="top" colspan="2"><%= label_tag 'General skills' %></td></tr>
+      <tr><td valign="top" colspan="2"><i>Please select no more than 5:</i>
+
+        <%= render :partial => '/shared/general_skills', :locals => { :skill_ids => @skill_ids} %>
+
+      </td></tr>
+ 
+      <tr><td valign="top" colspan="2"><%= label_tag 'Specific skills' %></td></tr>
+      <tr><td valign="top" colspan="2"><i>250 characters max</i><br /><%= f.text_area :skills, :cols => "70", :rows => "3" %></td></tr>
+
+
+      <tr><td valign="top" colspan="2"><%= label_tag 'Experience' %></td></tr>
+      <tr><td valign="top" colspan="2"><i>Relevant experience.  2000 character max.</i><br /><%= f.text_area :experience, :cols => "70", :rows => "20" %></td></tr>
+
+      <tr><td valign="top" colspan="2"><%= label_tag 'Education' %></td></tr>
+      <tr><td valign="top" colspan="2"><i>Relevant education.  500 character max.</i><br /><%= f.text_area :education, :cols => "70", :rows => "10" %></td></tr>
+
+      
+      <tr><td colspan="2"><h2>Account</h2></td></tr>   
+      <tr><td valign="top"><%= label_tag "What's the status of your account?" %></td><td valign="top">
+      <%= f.radio_button :active, "true" %>Active<br /><%= f.radio_button :active, "false" %>Inactive (no one will be able to view your profile)<br /><br /></td></tr>
+      <tr><td valign="top"><%= label_tag 'Login (username)' %></td><td valign="top"><%= f.text_field :login, :size => 20 %></td></tr>
+
+      <tr><td valign="top"><%= label_tag 'Email (no one else can see this)' %></td><td valign="top"><%= f.text_field :email, :size => 40 %></td></tr>
+      <tr><td valign="top"><%= label_tag 'Secondary email (no one else can see this)' %></td><td valign="top"><%= f.text_field :secondary_email, :size => 40 %></td></tr>
+        
+      <tr><td colspan="2"><h2>Save changes (password required)</h2></td></tr>   
+
+
+
+      <tr><td colspan="2">
+      
+      <p><%= label_tag 'Password' %></p><%= password_field_tag :password, nil, :size => 20 %>
+
+      <%= submit_tag 'Save Changes & Update Profile' %></td></tr>
+
+    <tr><td colspan="2"><p>Want to change your password?  Do it <%= link_to "here", change_password_path %> (any changes you made above would not be saved).</td></tr>
+
+    </table>
+
+    
+  <% end %>       
+

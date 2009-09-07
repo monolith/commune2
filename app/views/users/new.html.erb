@@ -1,0 +1,38 @@
+<% content_for :title do %>New Account<% end %>
+
+<% flash[:notice] = "Registration by invitation only." %>
+
+
+<h1>Registration</h1>
+
+
+
+<% form_for @user do |f| -%>
+<%= f.error_messages %>
+
+<p><%= label_tag 'login (username)' %><br/>
+<%= f.text_field :login %></p>
+
+<p><%= label_tag 'email' %><br/>
+<%= f.text_field :email %></p>
+
+
+<%= render :partial => '/shared/add_location' %>
+
+<p><%= label_tag 'password' %> (CaSe SeNsAtIvE)<br/>
+<%= f.password_field :password %></p>
+
+<p><%= label_tag 'password_confirmation', 'Confirm Password' %> (CaSe SeNsAtIvE)<br/>
+<%= f.password_field :password_confirmation %></p>
+
+
+
+<%= render :partial => '/shared/reCAPTCHA' %>
+
+<p><%= submit_tag 'Register' %></p>
+<% end -%>
+
+
+<p>NOTE: If you are registered and just need to log in, please go <%= link_to "here", login_path %>.</p>
+
+

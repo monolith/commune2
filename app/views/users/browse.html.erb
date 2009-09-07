@@ -1,0 +1,9 @@
+<%= render :partial => 'menu' %>
+
+
+<h1>Profiles</h1>
+<% if params[:search] %><h2>Search Criteria: <%= params[:search] %></h2><% end %>
+
+<%= render :partial => 'profile_snippet' %>
+
+<%= will_paginate @profiles %>

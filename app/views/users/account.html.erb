@@ -1,0 +1,20 @@
+
+
+    <h1>Account</h1>
+    <p>Login name: <i><%= current_user.login %></i></p>
+    <p>Email: <i><%= current_user.email %></i></p>
+
+
+    <p>Want to change your password?  Do it <%= link_to "here", change_password_path %>.
+
+
+    <% @nda = Nda.find_by_account_id(current_user.id) %>
+    <% if @nda %>
+      <div id="nda_show"><p>You have submitted an electornic non-disclosure agreement.  It is currently binding, but you if have not done so already, you need to print and sign it.  Click <%= link_to "here", nda_show_path %> to see this agreement.</p></div>
+    <% end %>
+
+    <% @invite = NdaInvite.find_by_email(current_user.email) %>
+    <% if @invite %>
+      <div id="nda_invite"><p>You have an invitation to sign a non-disclosure agreement.  Click <%= link_to "here", '/nda/' %> to fill it out.</p></div>
+    <% end %>
+

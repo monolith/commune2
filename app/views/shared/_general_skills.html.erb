@@ -1,0 +1,18 @@
+<table border="0" cellspacing="10">
+  <tr>
+    <td valign="top">
+      <% i = 0 %>
+      <% k = ($ALL_GENERAL_SKILLS.size.to_f / 3).round %>
+      <% $ALL_GENERAL_SKILLS.each do |skill| %>
+        <% if i % k == 0 %>
+          </td><td valign="top">
+        <% end %>
+
+        <%= check_box_tag "skill_ids[#{skill.id}]", {}, skill_ids.include?(skill.id) %>
+        <%= label_tag skill.name %><br />
+
+        <% i += 1 %>
+      <% end %>
+    </td>
+  </tr>
+</table>

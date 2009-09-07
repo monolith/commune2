@@ -1,0 +1,33 @@
+<% content_for :title do %>Editing Job<% end %>
+
+<%= render :partial => 'menu' %>
+
+<h1>Edit Job</h1>
+<p><%= link_to "Exit edit", job_path(:id => @job) %></p>
+
+<div id="post">
+
+<% form_for @job do |f| -%>
+
+  <%= f.error_messages %>
+
+     <p>Is this job post active or inactive?
+       <%= f.radio_button :active, "true", :checked => true %>Active
+       <%= f.radio_button :active, "false" %>Inactive <br />
+       <i>Only active job posts can be viewed by others.</i></p>
+
+      <p><%= label_tag 'Job title' %><br/>
+      <%= f.text_field :title, :size => 50 %></p>
+
+      <%= label_tag 'General skills' %><br />
+      <i>Please select no more than 5:</i>
+
+       <%= render :partial => '/shared/general_skills', :locals => { :skill_ids => @skill_ids } %>
+
+
+      <p><%= label_tag 'Description' %><br/>
+      <%= f.text_area :description, :rows => 10, :cols => 50 %></p>
+
+      <p><%= submit_tag "Update" %></p>
+      <% end %>
+</div>

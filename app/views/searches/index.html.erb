@@ -1,0 +1,11 @@
+<% content_for :title do %>Search Results<% end %>
+
+<h1><%= pluralize @results.total_entries, "Item" %> Found</h1>
+<h2>Search Criteria: <%=h params[:search] %></h2>
+<h2>Searched: Ideas, Projects, Jobs, Profiles</h2>
+<% @results.each do |result| %>
+  <%= render :partial => result %>
+<% end %>
+
+
+<%= will_paginate @results %>

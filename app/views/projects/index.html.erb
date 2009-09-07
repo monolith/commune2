@@ -1,0 +1,19 @@
+<% content_for :title do %>Projects<% end %>
+
+<%= render :partial => 'menu' %>
+
+  <% if @idea %>
+    <h1><%= pluralize @projects.total_entries, "Project" %> for <%= @idea.title %> ideas</h1>
+    <h2>Idea</h2>
+    <%= render :partial => @idea %>
+    <h2><%= pluralize @projects.total_entries, "Project" %></h2>
+  <% else %>
+    <h1><%= pluralize @projects.total_entries, "Project" %></h1>
+  <% end %>
+
+
+<% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
+
+<%= render :partial => @projects %>
+
+<%= will_paginate @projects %>
