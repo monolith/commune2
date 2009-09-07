@@ -20,7 +20,9 @@ namespace :thinking_sphinx do
       cd sphinx-0.9.8.1
       ./configure #{args.join(" ")}
       make
-      sudo make install
+#      sudo make install
+      make install
+
       rm -rf sphinx-0.9.8.1 sphinx-0.9.8.1.tar.gz
       CMD
       run commands.split(/\n\s+/).join(" && ")
@@ -69,7 +71,9 @@ namespace :thinking_sphinx do
   
   desc "Add the shared folder for sphinx files for the production environment"
   task :shared_sphinx_folder, :roles => :web do
-    sudo "mkdir -p #{shared_path}/db/sphinx/production"
+#    sudo "mkdir -p #{shared_path}/db/sphinx/production"
+    "mkdir -p #{shared_path}/db/sphinx/production"
+
   end
 
   def rake(*tasks)
