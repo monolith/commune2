@@ -1,4 +1,4 @@
 
 production:
-  bin_path: '/usr/local/bin/searchd'
+  bin_path: '/usr/local/bin/'
 
