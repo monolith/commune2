@@ -1,0 +1,4 @@
+
+production:
+  bin_path: '/opt/ruby-enterprise-1.8.6-20090610/bin'
+
