@@ -29,7 +29,7 @@ end
 
 every :reboot do
   # start up thinking sphinx after reboot
-  command "cd /var/www/apps/commune2/current && rake ts:config RAILS_ENV=production && rake ts:index RAILS_ENV=production && rake ts:start RAILS_ENV=production"
+  command "cd /var/www/apps/commune2/current && rake ts:start RAILS_ENV=production"
 end
 
 every :sunday, :at => "5:00am" do
