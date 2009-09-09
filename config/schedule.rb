@@ -22,10 +22,14 @@
 
 
 every 2.hours do
+  # need to do this as sameuser as the deployment user
+  command "su depl0y && cd /var/www/apps/commune2/current"
   rake "thinking_sphinx:index"
 end
 
 every :reboot do
+  # need to do this as sameuser as the deployment user
+  command "su depl0y && cd /var/www/apps/commune2/current"
   rake "thinking_sphinx:start"
 end
 
