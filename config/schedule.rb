@@ -22,12 +22,13 @@
 
 
 every 2.hours do
-  # need to do this as sameuser as the deployment user
+
+  # reindex with thinking sphinx every 2 hours
   command "cd /var/www/apps/commune2/current && rake thinking_sphinx:index RAILS_ENV=production"
 end
 
 every :reboot do
-  # need to do this as sameuser as the deployment user
+  # start up thinking sphinx after reboot
   command "cd /var/www/apps/commune2/current && rake thinking_sphinx:start RAILS_ENV=production"
 end
 
