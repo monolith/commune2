@@ -35,3 +35,7 @@ every :sunday, :at => "5:00am" do
   command "rm -rf #{RAILS_ROOT}/tmp/cache"
 end
 
+every :day, :at => "4:45am" do
+  command "apache2ctl graceful"
+end
+
