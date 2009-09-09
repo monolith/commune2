@@ -24,13 +24,13 @@
 every 2.hours do
   # need to do this as sameuser as the deployment user
   command "su depl0y && cd /var/www/apps/commune2/current"
-  rake "thinking_sphinx:index"
+  rake "thinking_sphinx:index RAILS_ENV=production"
 end
 
 every :reboot do
   # need to do this as sameuser as the deployment user
   command "su depl0y && cd /var/www/apps/commune2/current"
-  rake "thinking_sphinx:start"
+  rake "thinking_sphinx:start RAILS_ENV=production"
 end
 
 every :sunday, :at => "5:00am" do
