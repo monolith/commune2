@@ -24,12 +24,12 @@
 every 2.hours do
 
   # reindex with thinking sphinx every 2 hours
-  command "cd /var/www/apps/commune2/current && rake thinking_sphinx:index RAILS_ENV=production"
+  command "cd /var/www/apps/commune2/current && rake ts:index RAILS_ENV=production"
 end
 
 every :reboot do
   # start up thinking sphinx after reboot
-  command "cd /var/www/apps/commune2/current && rake thinking_sphinx:start RAILS_ENV=production"
+  command "cd /var/www/apps/commune2/current && && rake ts:index RAILS_ENV=production && rake ts:start RAILS_ENV=production"
 end
 
 every :sunday, :at => "5:00am" do
