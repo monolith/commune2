@@ -5,6 +5,14 @@ class Location < ActiveRecord::Base
   validates_uniqueness_of   :location, :scope => [:located_id, :located_type], :message => "Location already exists"
   
   after_save :update_location_for_indexing
+
+  attr_accessible :location,
+                  :country_name,
+                  :administrative_area_name,
+                  :locality_name,
+                  :latitude,
+                  :longitude
+
   
   define_index do
     indexes location

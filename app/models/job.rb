@@ -26,6 +26,12 @@ class Job < ActiveRecord::Base
   before_update :custom_counter_cache_before_update
   before_destroy :custom_counter_cache_before_destroy, :log
 
+
+  attr_accessible :title,
+                  :description,
+                  :active,
+                  :project_id
+                  
   def self.get(conditions, order, page)
      paginate :include => [:user, :project],
               :per_page => 10, :page => page,

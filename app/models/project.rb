@@ -33,6 +33,14 @@ class Project < ActiveRecord::Base
   before_destroy :custom_counter_cache_before_destroy, :log
 
 
+
+  attr_accessible :title,
+                  :description,
+                  :active,
+                  :idea_id,
+                  :wiki
+
+
   def self.get(conditions, order, page)
      paginate :include => [:scorecard, :user ],
               :per_page => 10, :page => page,
@@ -69,56 +77,6 @@ class Project < ActiveRecord::Base
       self.comments.create :comment => comment, :user => commentator
   end
 
-  def add_user_as_project_manager
-      # add poster as project manager
-      # this method is call back after create
-      add_team_member! :user => self.user, # person who just posted the project
-                       :title => "Project Manager",
-                       :description => "Original project founder",
-                       :message => "Auto generated during project creation"
-  end
-  
-  def add_team_member!(args)
-    # this methods only works if job and job_application do not validate presense of parent  
-    # need to address the above since code changed
-    
-    user = args[:user]
-    title = args[:title] || "Unknown job"
-    description = args[:description] || "Description missing"
-    message = args[:message] || "Created through model"
-
-    unless user and user.class == User
-      return false
-    end
-
-    # will default user's skills as skills needed for job, if no skills passed
-    if user.general_skills.count > 0
-      skills = user.general_skills
-    else
-      skills = GeneralSkill.find_by_name "Judgement and decision making"
-    end
-
-    job=self.jobs.new :title => title,
-                      :user => user,
-                      :description => description,
-                      :open => false
-  
-    job.general_skills << skills 
-    
-    if job.save(false) # skips validations                   
-      job_application = job.job_applications.new  :user => user,
-                                                  :hired => true,
-                                                  :message => message,
-                                                  :project => self
-      if job_application.save(false)
-        return true
-      else
-        return false
-      end
-      return false
-    end
-      
-  end
 
   def watchers_since(timestamp)
     wlists.count :conditions => "watchlists.created_at > timestamp('" + timestamp.to_s + "')"
@@ -142,6 +100,64 @@ class Project < ActiveRecord::Base
   
   def updated_since?(timestamp)
     updated_at > timestamp # returns true if updated since date, false otherwise
+  end
+
+
+
+
+protected
+
+
+  def add_user_as_project_manager
+      # add poster as project manager
+      # this method is call back after create
+      add_team_member! :member => self.user, # person who just posted the project
+                       :title => "Project Manager",
+                       :description => "Original project founder",
+                       :message => "Auto generated during project creation"
+  end
+  
+
+  def add_team_member!(args)
+    # this methods only works if job and job_application do not validate presense of parent  
+    # need to address the above since code changed
+    
+    # this method will add a job and job application
+    
+    user = args[:user] || self.user
+    member = args[:member]
+    title = args[:title] || "Unknown job"
+    description = args[:description] || "Description missing"
+    message = args[:message] || "Created through model"
+
+    unless user and user.class == User and member and member.class == User
+      return false
+    end
+
+    # will default user's skills as skills needed for job, if no skills passed
+    if member.general_skills.count > 0
+      skills = member.general_skills
+    else
+      skills = GeneralSkill.find_by_name "Judgement and decision making"
+    end
+
+    job=user.jobs.new :project_id => self.id,
+                      :title => title,
+                      :description => description,
+                      :open => false
+  
+    job.general_skills << skills 
+    
+    if job.save(false)
+      job_application = job.job_applications.new  :user => member,
+                                                  :hired => true,
+                                                  :message => message,
+                                                  :project => self
+      job_application.save!
+    else
+      return false
+    end
+      
   end
 
 

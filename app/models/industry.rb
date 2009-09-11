@@ -4,6 +4,8 @@ class Industry < ActiveRecord::Base
 
   has_many :relevant_industries, :dependent => :destroy
 
+  attr_accessible # nothing should be modified
+  
   def self.update_industries( args )
   # THIS ENTIRE THING IS REALLY A HACK
   # FOR WHATEVER REASONS VALIDATIONS DO NOT WORK RIGHT

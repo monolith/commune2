@@ -8,6 +8,7 @@ class Rating < ActiveRecord::Base
 
   after_save :adjust_scorecard_rating
   
+  attr_accessible # nothing
   
   private
   

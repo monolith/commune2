@@ -8,6 +8,12 @@ class Message < ActiveRecord::Base
   validate  :to_must_be_real_and_active_user, :from_must_be_real_user
   
   after_create :send_message
+
+
+  attr_accessible :to_id,
+                  :subject,
+                  :body
+
   
   def to_must_be_real_and_active_user
     if to_id.nil?

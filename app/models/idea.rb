@@ -26,6 +26,11 @@ class Idea < ActiveRecord::Base
   before_destroy :custom_counter_cache_before_destroy, :log
 
 
+  attr_accessible :title,
+                  :description,
+                  :active
+
+
   def self.get(conditions, order, page)
      paginate :include => [:user, :scorecard],
               :per_page => 10, :page => page,

@@ -63,6 +63,13 @@ class JobsController < ApplicationController
     # will need to add check if another idea with same or similar title exists
     @job = current_user.jobs.new(params[:job])
     @project = @job.project
+    
+    unless @project.members.include? current_user
+      # current user must be a project member in order to create a project
+      flash[:error] = "You are not a member of this project, cannot create job."
+      redirect_back_or_default('/')
+      return    
+    end
     @skill_ids = (params[:skill_ids] || {}).keys.collect{|s| s.to_i}
     
     
@@ -93,6 +100,10 @@ class JobsController < ApplicationController
 
 
   def update
+
+    # should not be able to update project
+    # if later supported, should verify that current user is a project member of both
+    params.delete("project_id")
   
     @job = Job.find params[:id]
     @skill_ids = (params[:skill_ids] || {}).keys.collect{|s| s.to_i}

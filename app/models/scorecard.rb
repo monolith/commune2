@@ -6,6 +6,8 @@ class Scorecard < ActiveRecord::Base
   validates_presence_of     :scorable_id
   validates_presence_of     :scorable_type
 
+  attr_accessible # nothing
+
 
   def adjust_rating
    

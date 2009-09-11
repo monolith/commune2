@@ -3,6 +3,8 @@ class Watchlist < ActiveRecord::Base
   belongs_to :watch, :polymorphic => true, :counter_cache => :watchers_count
 
 
+  attr_accessible :watch_id, :watch_type
+
   private
   
 #  define_index do

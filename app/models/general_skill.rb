@@ -3,6 +3,8 @@ class GeneralSkill < ActiveRecord::Base
   validates_uniqueness_of   :name
 
   has_many :polymorphic_general_skills
+  
+  attr_accessible # nothing should be modifiable here
 
   def self.update_general_skills( args )
   # THIS ENTIRE THING IS REALLY A HACK

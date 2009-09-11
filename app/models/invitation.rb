@@ -18,7 +18,8 @@ class Invitation < ActiveRecord::Base
   belongs_to :user # person who sent invitation
   belongs_to :registered, :class_name => "User" # registered person, assuming the person registered and activated profile
     
-  attr_accessible :email, :message, :registered_id, :updated_at
+  attr_accessible :email, :message #, :registered_id, :updated_at
+
 
   def invitation_limit_check
     errors.add :invitations, "currently not available because you sent the maximum, more will be available later." unless

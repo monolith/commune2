@@ -47,7 +47,7 @@ class InterestsController < ApplicationController
     if interest.save
       # also add to wathlist
       unless interest.interest.watchers.include? current_user
-        watchlist = Watchlist.new :watch => interest.interest, :user => current_user
+        watchlist = current_user.watchlists.new :watch_id => interest.interest_id, :watch_type => interest.interest_type
         watchlist.save
       end
       flash[:notice] = "Thank you for showing interest, this has also been added to your watchlist"

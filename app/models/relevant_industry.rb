@@ -5,6 +5,7 @@ class RelevantIndustry < ActiveRecord::Base
   after_create :touch
   after_destroy :touch_destroy
 
+  attr_accessible # nothing
   
   def touch 
     industrial.update_attribute(:updated_at, self.updated_at)

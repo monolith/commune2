@@ -6,7 +6,8 @@ class UserLocation < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
   
-  
+  attr_accessible # nothing
+    
   define_index do
     indexes [user.first_name, user.last_name, user.company, user.login], :as => :person
     indexes user.headline, :as => :headline    

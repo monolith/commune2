@@ -5,6 +5,7 @@ class PolymorphicGeneralSkill < ActiveRecord::Base
   after_create :touch
   after_destroy :touch_destroy
 
+  attr_accessible # nothing
   
   def touch 
     object.update_attribute(:updated_at, self.updated_at)

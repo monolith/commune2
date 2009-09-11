@@ -2,6 +2,7 @@ class Interest < ActiveRecord::Base
   belongs_to :user
   belongs_to :interest, :polymorphic => true, :counter_cache => :interested_count
 
+  attr_accessible :interest_id, :interest_type
 
   private
   
