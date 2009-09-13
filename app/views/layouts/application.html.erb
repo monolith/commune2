@@ -8,82 +8,54 @@
   </head>
   <body>
 
-   <% disclaimer = '<div id="disclaimer"><center>&copy; 2009 Commune2.com. A social networking enterprise. Not affiliated with any political or religious views.</center></div>' %>
+    <table border="0" cellspacing="0" cellpadding="0" width="1000" align="center"><tr><td>
+    
+    
+    <div id="disclaimer">&copy; 2009 Commune2.com. A social networking enterprise. Owned by <a href=http://www.bisonpeak.com>Bison Peak Corporation</a>.  All rights reserved.</div>
 
-    <table id="wrapper" height="100%">
-
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
       <tr>
-        <td height="50">
-          <%= disclaimer %><hr>
-
-     <% if logged_in? %>
-
-      <div id="menu">
-        <table border="0" cellspacing="0" cellpadding="10">
-          <tr>
-            <td width="100"><%= link_to "Home", root_path %></td>
-            <td width="100"><%= link_to "Ideas", ideas_path %></td>
-            <td width="100"><%= link_to "Projects", projects_path %></td>
-            <td width="100"><%= link_to "Jobs", jobs_path %></td>
-            <td width="100"><%= link_to "Profiles", users_path %></td>
-            <td width="300" align="right">Logged in as: <%= link_to current_user.login, edit_user_path(current_user) %> (<%= link_to "logout", logout_path %>)</td>
-          </tr>
-        </table>
-      <hr />
-        <table border="0" cellspacing="0" cellpadding="10">
-          <tr>        
-            <td width="100"><%= link_to "Watching", watchlists_path %></td>
-            <td width="100"><%= link_to "Interested", interests_path %></td>
-            <td width="100"><%= link_to "Invitations", new_invitation_path %></td>
-
-            <td>
-              <% form_tag searches_path, :method => :get do %>
-                <%= text_field_tag :search, params[:search] %>
-            </td>    
-            <td>
-                <%= submit_tag "Search All", :name => nil %></td>
-              <% end %>
-            </td>
-
-          </tr>
-        </table>
-     </div>
-          <% end %>
-
-           <% unless flash[:error].blank? %>
-             <div id="error"><b>Error:</b> <%=h flash[:error] %></div>
-           <% end %>
-           <% unless flash[:notice].blank? %>
-              <div id="notice"><b>Note:</b> <%=h flash[:notice] %></div>
-           <% end %>
-
-       </td></tr>
-
-   <tr><td valign="top">
-
-
-   <% unless request.request_uri == '/' %>
-     <table>
-       <tr>
-          <td valign="top"  align="center" width="250">
-            <%= link_to image_tag('logo.jpg', :border =>0), root_path %>
-          </td>
-          <td valign="top">
-
-          <%= yield %>
-
+        <td width="200">
+          <%= link_to image_tag("commune2.jpg", :border => 0), root_path %>
         </td>
-      </tr>
-    </table>
+        
+        <td width="100">
+          <%= link_to "help", help_path %>
+        </td>
 
-   <% else %>
-          <%= yield %>
+        <td>
+          <% if logged_in? %>
+            logged in as: <%= link_to current_user.login, edit_user_path(current_user) %> (<%= link_to "logout", logout_path %>)
+          <% end %>
+        </td>
+
+        <td align="right">
+          <% form_tag searches_path, :method => :get do %>
+          <%= text_field_tag :search, params[:search] %>
+        </td>
+        <td width="80" align="right">
+          <%= submit_tag "Search", :name => nil %></td>
+          <% end %>       
+        </td>
+        
+    </tr>
+    </table>
+    
+    <hr />
+
+   <% unless flash[:error].blank? %>
+     <div id="error"><%=h flash[:error] %></div>
+   <% end %>
+   <% unless flash[:notice].blank? %>
+      <div id="notice"><%=h flash[:notice] %></div>
    <% end %>
 
+  
+  <%= yield %>
 
-   </td></tr>
-   </table>
 
+
+    </td></tr></table>
   </body>
 </html>
 

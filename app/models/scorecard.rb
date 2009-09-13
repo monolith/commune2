@@ -31,7 +31,24 @@ class Scorecard < ActiveRecord::Base
     # scorecard is considered blank if there are no scores yet
     scores > 0 ? false : true
   end
+
+
+  def self.recent(how_many = 3) # default is 3
+    # this is a class method
+    # usage => Scorecard.recent(5)
     
+    # find 3 most recent ideas and or proects
+    # (also ensures how_many is an integer)
+    scores = find :all, :limit => how_many.to_i, :order => "created_at DESC", :conditions => { :scorable_type => ["Idea", "Project"] }
+    
+    # return the objects, not scorecard
+    items =[]
+    scores.each do |s|
+      items << s.scorable
+    end
+    
+    return items
+  end    
 
   define_index do
     indexes scorable_type

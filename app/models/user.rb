@@ -79,16 +79,42 @@ class User < ActiveRecord::Base
 
   # WATCHLISTS
   has_many :watchlists, :dependent => :destroy
-
+  
+  
   # figure out who is watching this user
   has_many :wlists, :as => :watch, :dependent => :destroy, :class_name => "Watchlist"
   has_many :watchers, :through => :wlists, :source => :user
+
+  # figure out who is interested
 
   has_many :sent_messages, :foreign_key => :from_id, :class_name => "Message"
   has_many :received_messages, :foreign_key => :to_id, :class_name => "Message"
   
   has_one :logon, :dependent => :destroy
-  
+
+
+  # USER'S DASHBOARD STATS
+  # stats on ideas  
+  has_many :comments_on_ideas, :through => :active_ideas, :source => :comments
+  has_many :watchlists_for_ideas, :through => :active_ideas, :source => :wlists
+  has_many :interests_in_ideas, :through => :active_ideas, :source => :interests
+  has_many :projects_from_ideas, :through => :active_ideas, :source => :projects
+  # stats on projects  
+  has_many :comments_on_projects, :through => :active_projects, :source => :comments
+  has_many :watchlists_for_projects, :through => :active_projects, :source => :wlists
+  has_many :interests_in_projects, :through => :active_projects, :source => :interests
+  has_many :jobs_for_projects, :through => :active_projects, :source => :jobs
+  # stats on jobs
+  has_many :applications_for_jobs, :through => :active_projects, :source => :job_applications
+
+  # stats on WATCHED ideas  
+#  has_many :comments_on_watched_ideas, :through => :watchlist_ideas, :source => :comments
+#  has_many :watchlists_for_watched_ideas, :through => :watchlist_ideas, :source => :wlists
+#  has_many :interests_in_watched_ideas, :through => :watchlist_ideas, :source => :interests
+#  has_many :projects_from_watched_ideas, :through => :watchlist_ideas, :source => :projects
+
+
+
   before_create :make_activation_code
   after_create :create_some_objects
   before_update :custom_counter_cache_before_update
@@ -290,6 +316,64 @@ class User < ActiveRecord::Base
   def admin?
     admin
   end
+
+
+  # stuff for user's dashboard
+  def recent_comments_on_ideas_count
+     self.comments_on_ideas.count :conditions => ["comments.created_at > ?", self.logon.previous]
+  end
+
+  def recent_watchlists_for_ideas_count
+     self.watchlists_for_ideas.count :conditions => ["watchlists.created_at > ?", self.logon.previous]
+  end
+
+  def recent_interests_in_ideas_count
+     self.interests_in_ideas.count :conditions => ["interests.created_at > ?", self.logon.previous]
+  end
+
+  def recent_projects_from_ideas_count
+     self.projects_from_ideas.count :conditions => ["projects.created_at > ?", self.logon.previous]
+  end
+
+
+  def recent_comments_on_projects_count
+     self.comments_on_ideas.count :conditions => ["comments.created_at > ?", self.logon.previous]
+  end
+
+  def recent_watchlists_for_projects_count
+     self.watchlists_for_projects.count :conditions => ["watchlists.created_at > ?", self.logon.previous]
+  end
+
+  def recent_interests_in_projects_count
+     self.interests_in_projects.count :conditions => ["interests.created_at > ?", self.logon.previous]
+  end
+
+  def recent_jobs_for_projects_count
+     self.jobs_for_projects.count :conditions => ["jobs.created_at > ?", self.logon.previous]
+  end
+  
+  def recent_applications_for_jobs_count
+     self.applications_for_jobs.count :conditions => ["job_applications.created_at > ?", self.logon.previous]
+  end
+ 
+  # WATCHED item's -dashboard
+  
+#  def recent_comments_on_watched_ideas_count
+#     self.comments_on_watched_ideas.count :conditions => ["comments.created_at > ?", self.logon.previous]
+#  end
+
+#  def recent_watchlists_for_watched_ideas_count
+#     self.watchlists_for_watched_ideas.count :conditions => ["watchlists.created_at > ?", self.logon.previous]
+#  end
+
+#  def recent_interests_in_watched_ideas_count
+#     self.interests_in_watched_ideas.count :conditions => ["interests.created_at > ?", self.logon.previous]
+#  end
+
+#  def recent_projects_from_watched_ideas_count
+#     self.projects_from_watched_ideas.count :conditions => ["projects.created_at > ?", self.logon.previous]
+#  end
+
  
   protected
 
@@ -325,7 +409,7 @@ class User < ActiveRecord::Base
   end
 
 
-
+  
   private
   
   def log

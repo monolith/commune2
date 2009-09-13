@@ -16,6 +16,10 @@ ActionController::Routing::Routes.draw do |map|
   map.change_password '/account/change_password', :controller => 'users', :action => 'change_password'
   map.resend_activation_link '/resend_activation_link/', :controller => 'users', :action => 'resend_activation_link'
 
+  map.help '/help/', :controller => 'static', :action => 'help'
+
+
+
   # try adding as nested resource to user 
   map.my_ideas '/my/ideas/', :controller => 'ideas', :action => 'my_ideas'
   map.post_idea_comment '/post/idea/comment/', :controller => 'ideas', :action => 'add_comment'
@@ -41,8 +45,9 @@ ActionController::Routing::Routes.draw do |map|
   map.interest_ideas '/interests/ideas', :controller => 'interests', :action => 'ideas'
   map.interest_projects '/interests/projects', :controller => 'interests', :action => 'projects'
 
-  map.resources :users,
-                :jobs,
+  map.resources :users, :as => :people
+
+  map.resources :jobs,
                 :job_applications,
                 :watchlists,
                 :interests,
