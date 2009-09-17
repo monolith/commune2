@@ -20,22 +20,22 @@ Feature: Various mailer functionalities
     Then I should see "monolith@commune2.com has sent you a message." in the email
       And I should see "http://www.commune2.com" in the email
 
-
   Scenario: Invitation email should be sent when resent by invitee to inactive user
     Given the following invitation records
       | email                | invitee  |
       | hellhorse@gmail.com  | monolith |
 
-    Given I am logged in as "monolith"
+    Given no emails have been sent
+      And I am logged in as "monolith"
     When I am on invitations page
     Then I should see "hellhorse@gmail.com"
       And I should see "Resend invitation to hellhorse@gmail.com" button
-
+    When I press "Resend invitation to hellhorse@gmail.com"
     Then "hellhorse@gmail.com" should receive 1 email
     When "hellhorse@gmail.com" opens the email with subject "Invitation to join Commune2"
     Then I should see "monolith@commune2.com has sent you a message." in the email
       And I should see "http://www.commune2.com" in the email
-
+      And invitation for "hellhorse@gmail.com" should have resend_requested equal to false
 
   Scenario: Activation email should be sent after registration, with activation link 
     Given the following invitation records
@@ -52,6 +52,10 @@ Feature: Various mailer functionalities
       And I press "Register"
     Then I should see "Thank you for registering."
       And I should receive an email with "Please activate your new account" in subject
+      # there was a bug at one point that resent the invitation email with the activation
+      # this checks that this no longer happens
+      # there should be only 1 invitation email (sent during the set up/ given in this scenario)
+      And I should have 1 email with "Invitation" in subject
 
     # Activation
     When I open this email

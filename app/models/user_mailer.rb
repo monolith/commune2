@@ -26,8 +26,6 @@ class UserMailer < ActionMailer::Base
 
   def general(options = {})
 
-      # should really always send from postmaster@mailer.commune2.com
-
       @recipients  = options[:recipients]
       @from        = options[:from] || postman
       @reply_to    = options[:reply_to] if options[:reply_to]

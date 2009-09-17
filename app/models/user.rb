@@ -1,3 +1,4 @@
+
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
@@ -77,21 +78,33 @@ class User < ActiveRecord::Base
   has_many :locations, :as => :located, :dependent => :destroy
   has_many :user_locations, :dependent => :destroy
 
+  has_many :sent_messages, :foreign_key => :from_id, :class_name => "Message"
+  has_many :received_messages, :foreign_key => :to_id, :class_name => "Message"
+  
+  has_one :logon, :dependent => :destroy # keep track of last logon
+
   # WATCHLISTS
   has_many :watchlists, :dependent => :destroy
-  
-  
   # figure out who is watching this user
   has_many :wlists, :as => :watch, :dependent => :destroy, :class_name => "Watchlist"
   has_many :watchers, :through => :wlists, :source => :user
 
-  # figure out who is interested
+  # for dashboard - watched ideas
+  has_many :watched_ideas, :through => :watchlists, :source => :watch, :source_type => "Idea", :conditions => "ideas.active"
+  has_many :watched_ideas_comments, :through => :watched_ideas, :source => :comments
+  has_many :watched_ideas_projects, :through => :watched_ideas, :source => :projects
+  has_many :watched_ideas_interests, :through => :watched_ideas, :source => :interests
 
-  has_many :sent_messages, :foreign_key => :from_id, :class_name => "Message"
-  has_many :received_messages, :foreign_key => :to_id, :class_name => "Message"
+  # for dashboard - watched projects
+  has_many :watched_projects, :through => :watchlists, :source => :watch, :source_type => "Project", :conditions => "projects.active"
+  has_many :watched_projects_comments, :through => :watched_projects, :source => :comments
+  has_many :watched_projects_jobs, :through => :watched_projects, :source => :jobs, :conditions => "jobs.active and jobs.open"
   
-  has_one :logon, :dependent => :destroy
-
+  # for dashboard - watched people
+  has_many :watched_people, :through => :watchlists, :source => :watch, :source_type => "User", :conditions => "users.active"
+  has_many :watched_people_ideas, :through => :watched_people, :source => :ideas, :conditions => "ideas.active"
+  has_many :watched_people_projects, :through => :watched_people, :source => :projects, :conditions => "projects.active"
+  has_many :watched_people_jobs, :through => :watched_people, :source => :jobs, :conditions => "jobs.active and jobs.open"
 
   # USER'S DASHBOARD STATS
   # stats on ideas  
@@ -106,13 +119,6 @@ class User < ActiveRecord::Base
   has_many :jobs_for_projects, :through => :active_projects, :source => :jobs
   # stats on jobs
   has_many :applications_for_jobs, :through => :active_projects, :source => :job_applications
-
-  # stats on WATCHED ideas  
-#  has_many :comments_on_watched_ideas, :through => :watchlist_ideas, :source => :comments
-#  has_many :watchlists_for_watched_ideas, :through => :watchlist_ideas, :source => :wlists
-#  has_many :interests_in_watched_ideas, :through => :watchlist_ideas, :source => :interests
-#  has_many :projects_from_watched_ideas, :through => :watchlist_ideas, :source => :projects
-
 
 
   before_create :make_activation_code
@@ -289,7 +295,7 @@ class User < ActiveRecord::Base
       1000 # 1000 will always be display as a constant.. unless some addition logic is added
     else
 
-      x = 4 # starting point
+      x = 2 # starting point
       # minus number of invites in 24 hours (86400 seconds)
       x -= invitations.count :conditions =>  ["created_at > ?", Time.now.utc - 86400 ]
       # return x or 0, which ever is greater
@@ -335,7 +341,6 @@ class User < ActiveRecord::Base
      self.projects_from_ideas.count :conditions => ["projects.created_at > ?", self.logon.previous]
   end
 
-
   def recent_comments_on_projects_count
      self.comments_on_ideas.count :conditions => ["comments.created_at > ?", self.logon.previous]
   end
@@ -356,24 +361,46 @@ class User < ActiveRecord::Base
      self.applications_for_jobs.count :conditions => ["job_applications.created_at > ?", self.logon.previous]
   end
  
-  # WATCHED item's -dashboard
+  # WATCHLIST ITEMS
+
+  # ideas
+  def recent_comments_on_watched_ideas_count
+    self.watched_ideas_comments.count :conditions => ["comments.created_at > ?", self.logon.previous]
+  end
   
-#  def recent_comments_on_watched_ideas_count
-#     self.comments_on_watched_ideas.count :conditions => ["comments.created_at > ?", self.logon.previous]
-#  end
+  def recent_projects_from_watched_ideas_count
+    self.watched_ideas_projects.count :conditions => ["projects.created_at > ?", self.logon.previous]
+  end
+  
+  def recent_interests_in_watched_ideas_count
+    self.watched_ideas_interests.count :conditions => ["interests.created_at > ?", self.logon.previous]
+  end
 
-#  def recent_watchlists_for_watched_ideas_count
-#     self.watchlists_for_watched_ideas.count :conditions => ["watchlists.created_at > ?", self.logon.previous]
-#  end
+  # projects
 
-#  def recent_interests_in_watched_ideas_count
-#     self.interests_in_watched_ideas.count :conditions => ["interests.created_at > ?", self.logon.previous]
-#  end
+  def recent_comments_on_watched_projects_count
+    self.watched_projects_comments.count :conditions => ["comments.created_at > ?", self.logon.previous]
+  end
+  
+  def recent_jobs_from_watched_projects_count
+    self.watched_projects_jobs.count :conditions => ["jobs.created_at > ?", self.logon.previous]
+  end
+  
+  # people
 
-#  def recent_projects_from_watched_ideas_count
-#     self.projects_from_watched_ideas.count :conditions => ["projects.created_at > ?", self.logon.previous]
-#  end
+  def recent_ideas_by_watched_people_count
+    self.watched_people_ideas.count :conditions => ["ideas.created_at > ?", self.logon.previous]
+  end
 
+  def recent_projects_by_watched_people_count
+    self.watched_people_projects.count :conditions => ["projects.created_at > ?", self.logon.previous]
+  end
+  
+  def recent_jobs_posted_by_watched_people_count
+    self.watched_people_jobs.count :conditions => ["jobs.created_at > ?", self.logon.previous]
+  end
+
+  
  
   protected
 
@@ -392,6 +419,7 @@ class User < ActiveRecord::Base
   end
 
 
+  # need to use an association with source_type instead
   def extract_from_watchlist(list)
     stuff = []
     list.each do |item|
@@ -409,9 +437,8 @@ class User < ActiveRecord::Base
   end
 
 
-  
   private
-  
+
   def log
     logger.error "\n\n!!!DELETED\n"
     logger.error self.instance_values.to_yaml

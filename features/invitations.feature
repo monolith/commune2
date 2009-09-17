@@ -32,12 +32,10 @@ Feature: Sending invitations to join commune2
       And I should see "Email already exists on the invite list"
   
   
-  Scenario: A normal user should be able to send 4 emails per 24 hours
+  Scenario: A normal user should be able to send 2 emails per 24 hours
     Given the following invitation records
       | invitee | created_at                   |
       | bob     | Wed Aug 10 03:33:13 UTC 2009 |
-      | bob     |                              |
-      | bob     |                              |
       | bob     |                              |
 
     Given I am logged in as "bob"
@@ -113,6 +111,7 @@ Feature: Sending invitations to join commune2
     When I follow "bobcat"
     Then I should be on "bobcat's" profile
 
+@focus
   Scenario: I should be able to resend invitation if the person has not registered yet
     Given the following invitation records
       | email                  | invitee  |

@@ -5,6 +5,14 @@ class Watchlist < ActiveRecord::Base
 
   attr_accessible :watch_id, :watch_type
 
+
+
+  def self.watched_ideas_stats_for(user)
+    return false unless user.class == "User"
+    
+    return true
+  end
+  
   private
   
 #  define_index do

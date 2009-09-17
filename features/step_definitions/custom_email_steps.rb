@@ -141,4 +141,10 @@ Then /^reply\-to should have "([^\"]*)"$/ do |email_address|
 end
 
   
+Then /^I should have (an|\d+) emails? with "([^\"]*)" in subject$/ do |count, subject|
+  amount = 1 if amount == "an"
+  emails = unread_emails_for(current_email_address).collect { |e| e if e.subject =~ Regexp.new(subject) }.compact!
+  emails.size.should == count.to_i
+
+end
 

@@ -39,8 +39,11 @@ class InvitationsController < ApplicationController
   def resend
     @invitation = Invitation.find params[:id]
     if @invitation.user == current_user
-      @invitation.update_attribute :updated_at, Time.now.utc
-      flash[:notice] = "Invitation resent to " + @invitation.email
+      if @invitation.update_attribute(:resend_requested, true)
+        flash[:notice] = "Invitation resent to " + @invitation.email
+      else
+        flash[:error] = "Could not resend."      
+      end
     else
       flash[:error] = "Cannot resend.  This person either already registered or this is not your invitation."
     end

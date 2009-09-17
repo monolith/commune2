@@ -110,9 +110,11 @@ hr {
   border: 0px
 
 }
-input[type="text"], input[type="password"], input[type="checkbox"] {
+input[type="text"], input[type="password"], input[type="checkbox"], textarea {
 
   border: 1px solid #A0C943;
+  border-color: #A0C943;
+  
   color: #4f391a;
   font-size: medium;
   font-weight: bold;
@@ -124,7 +126,7 @@ input.big_button {
 
 }
 
-input[type="text"]:focus, input[type="password"]:focus, input[type="checkbox"]:focus {
+input[type="text"]:focus, input[type="password"]:focus, input[type="checkbox"]:focus, textarea:focus {
   background-color: #4F391A;
   color: #A0C943;
 }

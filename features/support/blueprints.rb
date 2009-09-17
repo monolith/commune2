@@ -89,6 +89,8 @@ Invitation.blueprint do
   message { Sham.body }
   created_at { Time.now.utc }
   registered_id { nil }
+  resend_requested { nil }
+  resent_at { nil }
 end
 
 Comment.blueprint do

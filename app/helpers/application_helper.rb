@@ -420,7 +420,7 @@ module ApplicationHelper
       
         
       tmp = ideas_text + projects_text + applications_text
-      text = "MY STUFF: " + tmp if tmp.length > 0 
+      text = "MY STUFF: " + tmp + "<hr />" if tmp.length > 0 
       
     end
   end    

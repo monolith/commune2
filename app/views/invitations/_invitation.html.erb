@@ -18,7 +18,12 @@
           <% end %>
           </h2>
           <p><%= simple_format h(invitation.message) %></p>
-          <p><i><%=h invitation.when_sent %></i></p>
+          <p><i>Invited: <%= invitation.created_at.to_s %>
+            
+            <% if invitation.resent_at != nil %>
+              | Resent: <%= invitation.updated_at.to_s %>
+            <% end %>
+          </i></p>
         </td>
       </tr>
     </table>

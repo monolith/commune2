@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090726172828) do
+ActiveRecord::Schema.define(:version => 20090917011143) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
@@ -25,6 +25,11 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
+  create_table "episodes", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "general_skills", :force => true do |t|
     t.string   "name",        :null => false
@@ -38,12 +43,11 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
     t.integer  "user_id",                                           :null => false
     t.string   "title",            :limit => 100,                   :null => false
     t.text     "description",                                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "delta"
     t.integer  "watchers_count",                  :default => 0
     t.integer  "interested_count",                :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-
   end
 
   add_index "ideas", ["active"], :name => "index_ideas_on_active"
@@ -72,13 +76,15 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
   add_index "interests", ["user_id"], :name => "index_interests_on_user_id"
 
   create_table "invitations", :force => true do |t|
-    t.integer  "user_id",                      :null => false
-    t.string   "email",         :limit => 100, :null => false
-    t.string   "message",       :limit => 250
-    t.integer  "registered_id"
+    t.integer  "user_id",                         :null => false
+    t.string   "email",            :limit => 100, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "message",          :limit => 250
+    t.integer  "registered_id"
     t.text     "delta"
+    t.datetime "resent_at"
+    t.boolean  "resend_requested"
   end
 
   add_index "invitations", ["email"], :name => "index_invitations_on_email", :unique => true
@@ -87,14 +93,13 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
   create_table "job_applications", :force => true do |t|
     t.integer  "user_id",                                                     :null => false
     t.integer  "job_id",                                                      :null => false
-    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "message",                  :limit => 1000
     t.boolean  "hired",                                    :default => false
     t.boolean  "nominated_by_team_member",                 :default => false
     t.boolean  "offered",                                  :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-
+    t.integer  "project_id"
   end
 
   add_index "job_applications", ["job_id"], :name => "index_job_applications_on_job_id"
@@ -103,16 +108,15 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
 
   create_table "jobs", :force => true do |t|
     t.boolean  "active",                        :default => true, :null => false
-    t.boolean  "open",                          :default => true
     t.integer  "user_id",                                         :null => false
     t.integer  "project_id"
     t.string   "title",          :limit => 100,                   :null => false
     t.text     "description"
-    t.integer  "watchers_count",                :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "delta"
-
+    t.integer  "watchers_count",                :default => 0
+    t.boolean  "open",                          :default => true
   end
 
   add_index "jobs", ["active"], :name => "index_jobs_on_active"
@@ -142,8 +146,8 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
 
   create_table "logons", :force => true do |t|
     t.integer  "user_id",                                       :null => false
-    t.datetime "last",       :default => '2009-09-01 02:55:01', :null => false
-    t.datetime "previous",   :default => '2009-09-01 02:55:01', :null => false
+    t.datetime "last",       :default => '2009-07-19 18:29:59', :null => false
+    t.datetime "previous",   :default => '2009-07-19 18:29:59', :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -151,10 +155,10 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
   add_index "logons", ["user_id"], :name => "index_logons_on_user_id", :unique => true
 
   create_table "messages", :force => true do |t|
-    t.integer  "from_id",                  :null => false
-    t.integer  "to_id",                    :null => false
+    t.integer  "from_id",                   :null => false
+    t.integer  "to_id",                     :null => false
     t.string   "subject",    :limit => 50
-    t.text     "body"
+    t.text     "body",       :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -162,7 +166,6 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
   add_index "messages", ["created_at"], :name => "index_messages_on_created_at"
   add_index "messages", ["from_id"], :name => "index_messages_on_from_id"
   add_index "messages", ["to_id"], :name => "index_messages_on_to_id"
-
 
   create_table "polymorphic_general_skills", :force => true do |t|
     t.integer  "object_id",        :null => false
@@ -182,13 +185,12 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
     t.integer  "idea_id"
     t.string   "title",            :limit => 100,                   :null => false
     t.text     "description"
-    t.text     "wiki"
-    t.integer  "watchers_count",                  :default => 0
-    t.integer  "interested_count",                :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "delta"
-
+    t.text     "wiki"
+    t.integer  "watchers_count",                  :default => 0
+    t.integer  "interested_count",                :default => 0
   end
 
   add_index "projects", ["active"], :name => "index_projects_on_active"
@@ -224,70 +226,61 @@ ActiveRecord::Schema.define(:version => 20090726172828) do
     t.integer  "scorable_id",                            :null => false
     t.string   "scorable_type",                          :null => false
     t.float    "average",               :default => 0.0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "ratings_count",         :default => 0
+    t.text     "delta"
     t.integer  "adjusted_rating",       :default => 0,   :null => false
     t.integer  "total_comments_count",  :default => 0
     t.integer  "active_ideas_count",    :default => 0
     t.integer  "active_projects_count", :default => 0
     t.integer  "active_jobs_count",     :default => 0
     t.integer  "active_members_count",  :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "delta"
-
   end
 
   add_index "scorecards", ["scorable_id"], :name => "index_scorecards_on_scorable_id"
   add_index "scorecards", ["scorable_type"], :name => "index_scorecards_on_scorable_type"
 
-  create_table "user_general_skills", :force => true do |t|
-    t.integer  "user_id",          :null => false
-    t.integer  "general_skill_id", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "user_locations", :force => true do |t|
     t.integer  "user_id"
     t.integer  "location_id"
+    t.text     "delta"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "delta"
   end
 
   add_index "user_locations", ["location_id"], :name => "index_user_locations_on_location_id"
   add_index "user_locations", ["user_id"], :name => "index_user_locations_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.boolean  "active",                                   :default => false, :null => false
-    t.boolean  "admin",                                    :default => false, :null => false
     t.string   "login",                     :limit => 40
     t.string   "email",                     :limit => 100
-    t.string   "secondary_email",           :limit => 100
+    t.string   "crypted_password",          :limit => 40
+    t.string   "salt",                      :limit => 40
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_token",            :limit => 40
+    t.datetime "remember_token_expires_at"
+    t.string   "activation_code",           :limit => 40
+    t.datetime "activated_at"
     t.integer  "invited_by_id",                                               :null => false
+    t.string   "password_reset_code"
     t.string   "first_name",                :limit => 30
     t.string   "last_name",                 :limit => 30
     t.string   "company",                   :limit => 50
+    t.string   "secondary_email",           :limit => 100
     t.string   "headline",                  :limit => 100
+    t.text     "delta"
     t.string   "skills",                    :limit => 250
     t.string   "purpose",                   :limit => 500
     t.text     "experience"
     t.text     "education"
     t.boolean  "no_cash_ok",                               :default => true,  :null => false
     t.boolean  "currently_available",                      :default => true,  :null => false
+    t.boolean  "active",                                   :default => false, :null => false
     t.integer  "watchers_count",                           :default => 0
     t.boolean  "individual",                               :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
-    t.string   "remember_token",            :limit => 40
-    t.datetime "remember_token_expires_at"
-    t.string   "activation_code",           :limit => 40
-    t.datetime "activated_at"
-    t.string   "password_reset_code"
-    t.text     "delta"
-
+    t.boolean  "admin",                                    :default => false, :null => false
   end
 
   add_index "users", ["active"], :name => "index_users_on_active"
