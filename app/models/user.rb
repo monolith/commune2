@@ -91,20 +91,28 @@ class User < ActiveRecord::Base
 
   # for dashboard - watched ideas
   has_many :watched_ideas, :through => :watchlists, :source => :watch, :source_type => "Idea", :conditions => "ideas.active"
-  has_many :watched_ideas_comments, :through => :watched_ideas, :source => :comments
-  has_many :watched_ideas_projects, :through => :watched_ideas, :source => :projects
-  has_many :watched_ideas_interests, :through => :watched_ideas, :source => :interests
+
+  # THESE SQL STATEMENTS ARE NEEDED BECAUSE THE HAS_MANY THROUGH DOES NOT WORK FOR THESE CORRECTLY (too many JOINS needed)
+
+  has_many :watched_ideas_recent_projects, :class_name => 'Project', :finder_sql =>  'select distinct `projects`.* from `projects` JOIN `ideas` ON `ideas`.id = `projects`.idea_id JOIN `watchlists` ON `watchlists`.watch_id = `ideas`.id and `watchlists`.watch_type = \'Idea\' JOIN `users` ON `users`.id = `watchlists`.user_id WHERE `users`.id = #{id} and `projects`.active and `projects`.created_at > \'#{logon.previous.to_time}\' ORDER BY `projects`.created_at DESC'
+
 
   # for dashboard - watched projects
   has_many :watched_projects, :through => :watchlists, :source => :watch, :source_type => "Project", :conditions => "projects.active"
-  has_many :watched_projects_comments, :through => :watched_projects, :source => :comments
-  has_many :watched_projects_jobs, :through => :watched_projects, :source => :jobs, :conditions => "jobs.active and jobs.open"
+
+  has_many :watched_projects_recent_jobs, :class_name => 'Job', :finder_sql =>  'select distinct `jobs`.* from `jobs` JOIN `watchlists` ON `watchlists`.watch_id = `jobs`.project_id and `watchlists`.watch_type = \'Project\' JOIN `users` ON `users`.id = `watchlists`.user_id WHERE `users`.id = #{id} and `jobs`.open and `jobs`.active AND `jobs`.created_at > \'#{logon.previous.to_time}\' ORDER BY `jobs`.created_at DESC'
   
   # for dashboard - watched people
   has_many :watched_people, :through => :watchlists, :source => :watch, :source_type => "User", :conditions => "users.active"
-  has_many :watched_people_ideas, :through => :watched_people, :source => :ideas, :conditions => "ideas.active"
-  has_many :watched_people_projects, :through => :watched_people, :source => :projects, :conditions => "projects.active"
-  has_many :watched_people_jobs, :through => :watched_people, :source => :jobs, :conditions => "jobs.active and jobs.open"
+  
+  has_many :watched_people_ideas, :class_name => 'Idea', :finder_sql =>  'select distinct `ideas`.* from `ideas` JOIN `watchlists` ON `watchlists`.watch_id = `ideas`.user_id and `watchlists`.watch_type = \'User\' JOIN `users` ON `users`.id = `watchlists`.user_id WHERE `users`.id = #{id} AND `ideas`.created_at > \'#{logon.previous.to_time}\' ORDER BY `ideas`.created_at DESC'
+
+  has_many :watched_people_projects, :class_name => 'Project',
+      :finder_sql =>  'select distinct `projects`.* from `projects` JOIN `job_applications` ON `projects`.id = `job_applications`.project_id JOIN         `watchlists` ON `watchlists`.watch_id = `job_applications`.user_id and `watchlists`.watch_type = \'User\' JOIN `users` ON `users`.id = `watchlists`.user_id JOIN `jobs` ON `jobs`.id = `job_applications`.job_id WHERE `users`.id = #{id} and `job_applications`.hired and `projects`.active and `jobs`.active and `projects`.created_at > \'#{logon.previous.to_time}\' ORDER BY `projects`.created_at DESC',
+      
+      :counter_sql => 'select count(distinct `projects`.id) from `projects` JOIN `job_applications` ON `projects`.id = `job_applications`.project_id JOIN `watchlists` ON `watchlists`.watch_id = `job_applications`.user_id and `watchlists`.watch_type = \'User\' JOIN `users` ON `users`.id = `watchlists`.user_id JOIN `jobs` ON `jobs`.id = `job_applications`.job_id WHERE `users`.id = #{id} and `job_applications`.hired and `projects`.active and `jobs`.active and `projects`.created_at > \'#{logon.previous.to_time}\' ORDER BY `projects`.created_at DESC'
+
+  has_many :watched_people_recent_jobs, :class_name => 'Job', :finder_sql =>  'select distinct `jobs`.* from `jobs` JOIN `watchlists` ON `watchlists`.watch_id = `jobs`.user_id and `watchlists`.watch_type = \'User\' JOIN `users` ON `users`.id = `watchlists`.user_id WHERE `users`.id = #{id} and `jobs`.open and `jobs`.active AND `jobs`.created_at > \'#{logon.previous.to_time}\' ORDER BY `jobs`.created_at DESC'
 
   # USER'S DASHBOARD STATS
   # stats on ideas  
@@ -116,9 +124,8 @@ class User < ActiveRecord::Base
   has_many :comments_on_projects, :through => :active_projects, :source => :comments
   has_many :watchlists_for_projects, :through => :active_projects, :source => :wlists
   has_many :interests_in_projects, :through => :active_projects, :source => :interests
-  has_many :jobs_for_projects, :through => :active_projects, :source => :jobs
   # stats on jobs
-  has_many :applications_for_jobs, :through => :active_projects, :source => :job_applications
+  has_many :applications_for_jobs, :through => :job_openings, :source => :job_applications, :conditions => "job_applications.user_id != #{id}"
 
 
   before_create :make_activation_code
@@ -311,6 +318,7 @@ class User < ActiveRecord::Base
 
   def logged_in_now!
     now = Time.now.utc
+
     if ((now - logon.last) / 3600) > 24 # check if 24 hours past since last update
       logon.previous = logon.last
       logon.last = now
@@ -342,7 +350,7 @@ class User < ActiveRecord::Base
   end
 
   def recent_comments_on_projects_count
-     self.comments_on_ideas.count :conditions => ["comments.created_at > ?", self.logon.previous]
+     self.comments_on_projects.count :conditions => ["comments.created_at > ?", self.logon.previous]
   end
 
   def recent_watchlists_for_projects_count
@@ -353,53 +361,73 @@ class User < ActiveRecord::Base
      self.interests_in_projects.count :conditions => ["interests.created_at > ?", self.logon.previous]
   end
 
-  def recent_jobs_for_projects_count
-     self.jobs_for_projects.count :conditions => ["jobs.created_at > ?", self.logon.previous]
-  end
   
   def recent_applications_for_jobs_count
      self.applications_for_jobs.count :conditions => ["job_applications.created_at > ?", self.logon.previous]
   end
  
-  # WATCHLIST ITEMS
 
-  # ideas
-  def recent_comments_on_watched_ideas_count
-    self.watched_ideas_comments.count :conditions => ["comments.created_at > ?", self.logon.previous]
-  end
-  
-  def recent_projects_from_watched_ideas_count
-    self.watched_ideas_projects.count :conditions => ["projects.created_at > ?", self.logon.previous]
-  end
-  
-  def recent_interests_in_watched_ideas_count
-    self.watched_ideas_interests.count :conditions => ["interests.created_at > ?", self.logon.previous]
-  end
 
-  # projects
 
-  def recent_comments_on_watched_projects_count
-    self.watched_projects_comments.count :conditions => ["comments.created_at > ?", self.logon.previous]
-  end
-  
-  def recent_jobs_from_watched_projects_count
-    self.watched_projects_jobs.count :conditions => ["jobs.created_at > ?", self.logon.previous]
-  end
-  
-  # people
+  def dashboard_stats
 
-  def recent_ideas_by_watched_people_count
-    self.watched_people_ideas.count :conditions => ["ideas.created_at > ?", self.logon.previous]
-  end
+    # really need to optimize this logic to reduce number of queries
+    
+    mystuff ={}
+    watching ={}
 
-  def recent_projects_by_watched_people_count
-    self.watched_people_projects.count :conditions => ["projects.created_at > ?", self.logon.previous]
-  end
-  
-  def recent_jobs_posted_by_watched_people_count
-    self.watched_people_jobs.count :conditions => ["jobs.created_at > ?", self.logon.previous]
-  end
+    # user's own stuff    
+    mystuff[:ideas] = {
+      :recent_comments => recent_comments_on_ideas_count,
+      :recent_watching => recent_watchlists_for_ideas_count,
+      :recent_interested => recent_interests_in_ideas_count,
+      :recent_projects => recent_projects_from_ideas_count }
 
+    mystuff[:projects] = {
+      :recent_comments => recent_comments_on_projects_count,
+      :recent_watching => recent_watchlists_for_projects_count,
+      :recent_interested => recent_interests_in_projects_count }
+
+    mystuff[:jobs] = {
+      :recent_applications => recent_applications_for_jobs_count }
+      
+    mystuff[:totals] = {
+      :recent_comments => mystuff[:ideas][:recent_comments] + mystuff[:projects][:recent_comments],
+      :recent_watching => mystuff[:ideas][:recent_watching] + mystuff[:projects][:recent_watching],
+      :recent_interested => mystuff[:ideas][:recent_interested] + mystuff[:projects][:recent_interested],
+      :recent_projects => mystuff[:ideas][:recent_projects],
+      :recent_applications => mystuff[:jobs][:recent_applications]
+    }
+
+
+    # watchlist stuff (things user is watching)
+    # based on associations
+    w_ideas_projects = watched_ideas_recent_projects
+    w_projects_jobs = watched_projects_recent_jobs
+    w_people_ideas = watched_people_ideas
+    w_people_projects = watched_people_projects
+    w_people_jobs = watched_people_recent_jobs
+
+    watching[:ideas] = {
+      :recent_projects => w_ideas_projects.size }
+
+    watching[:projects] = {
+      :recent_jobs => w_projects_jobs.size }
+
+    watching[:people] = {
+      :recent_ideas => w_people_ideas.size,
+      :recent_projects => w_people_projects.size,
+      :recent_jobs => w_people_jobs.size }
+      
+    watching[:totals] = {
+      :recent_jobs => (w_projects_jobs | w_people_jobs).size,
+      :recent_projects => (w_ideas_projects | w_people_projects).size,
+      :recent_ideas => watching[:people][:recent_ideas]
+    }
+
+        
+    return { :mystuff => mystuff, :watching => watching }  
+  end
   
  
   protected

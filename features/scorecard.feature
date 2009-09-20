@@ -283,4 +283,6 @@
     Then scorecard for user "monolith" should have 1 active project
       And scorecard for project "Monolithic project" should have 1 active member
     
-
+#####
+  Scenario: Scorecard items when on watchlist (recent items)
+    Given pending

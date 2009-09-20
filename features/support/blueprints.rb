@@ -97,6 +97,7 @@ Comment.blueprint do
   # see create_comment! below
   # user and commentable are populated with that method
   comment { Sham.body }
+  created_at { Time.now.utc }
 end
 
 Rating.blueprint do
@@ -123,7 +124,7 @@ PolymorphicGeneralSkill.blueprint do
 end
 
 def create_user_with_associations!(attributes = {})
-    
+     
   user = User.make_unsaved(attributes[:user])
   user.save(false) # false because it will not like no location
 
@@ -136,7 +137,7 @@ def create_user_with_associations!(attributes = {})
 
   # add interests (up to 2)
   (rand(2)+1).times { user.relevant_industries.make(attributes[:interests]) }
-    
+
   return user if user.save! # resaving to make sure the model works
 end
 
@@ -144,6 +145,7 @@ end
 def create_idea_with_industries!(attributes = {})
   # check if the user exists, find or create
   # create uses blueprint
+
   if attributes[:author] && attributes[:author][:login]
     user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )  
   else
@@ -192,7 +194,11 @@ def create_job_with_skills!(attributes = {})
 
   job = user.jobs.make_unsaved(attributes[:job])
 
-  job.project = Project.find_by_title( attributes[:project][:title] ) || create_project_with_industries!( {:project => attributes[:project], :idea => attributes[:idea], :author => attributes[:author] })
+  if attributes[:project]
+    job.project = Project.find_by_title( attributes[:project][:title] ) || create_project_with_industries!( {:project => attributes[:project], :idea => attributes[:idea], :author => attributes[:author] })
+  else
+    job.project = create_project_with_industries!( { :idea => attributes[:idea], :author => attributes[:author] })
+  end
 
   job.save(false) # false because it will not like no skills
 

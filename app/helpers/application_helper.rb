@@ -361,66 +361,53 @@ module ApplicationHelper
   end
 
 
-  def dashboard
+  def display_dashboard
+
     unless current_user
       "Dashboard not available."
     else
 
-      # count various idea stats    
-      ideas_projects_count    = current_user.recent_projects_from_ideas_count
-      ideas_interested_count  = current_user.recent_interests_in_ideas_count
-      ideas_watchers_count    = current_user.recent_watchlists_for_ideas_count
-      ideas_comments_count    = current_user.recent_comments_on_ideas_count
+      counts = current_user.dashboard_stats
 
-      ideas_text = ""
-      if ((ideas_projects_count + ideas_interested_count + ideas_watchers_count + ideas_comments_count) > 0)
-        ideas_text = " <b>IDEAS |</b>"
-        ideas_text << " projects:" + ideas_projects_count.to_s if ideas_projects_count > 0
-        ideas_text << " interested:" + ideas_interested_count.to_s if ideas_interested_count > 0
-        ideas_text << " watchers:" + ideas_watchers_count.to_s if ideas_watchers_count > 0
-        ideas_text << " comments:" + ideas_comments_count.to_s if ideas_comments_count > 0
-      end
-
-      # count various idea stats    
-      projects_jobs_count       = current_user.recent_jobs_for_projects_count
-      projects_interested_count = current_user.recent_interests_in_projects_count
-      projects_watchers_count   = current_user.recent_watchlists_for_projects_count
-      projects_comments_count   = current_user.recent_comments_on_projects_count
-
-      projects_text = ""
-      if ((projects_jobs_count + projects_interested_count + projects_watchers_count + projects_comments_count) > 0)
-        projects_text = " <b>PROJECTS |</b>"
-        projects_text << " interested: " + projects_interested_count.to_s if projects_interested_count > 0
-        projects_text << " watchers: " + projects_watchers_count.to_s if projects_watchers_count > 0
-        projects_text << " comments: " + projects_comments_count.to_s if projects_comments_count > 0
-        projects_text << " jobs: " + projects_jobs_count.to_s  if projects_jobs_count > 0
-      end
-
-      applications_count = current_user.recent_applications_for_jobs_count
+      mystuff = counts[:mystuff]
       
-      applications_text = applications_count > 0 ? " JOB APPLICATIONS: " + applications_count.to_s : ""
       
+      mycount = mystuff[:totals][:recent_comments] + mystuff[:totals][:recent_watching] +
+                mystuff[:totals][:recent_interested] + mystuff[:totals][:recent_projects] + mystuff[:totals][:recent_applications]
 
 
-#      # count WATCHED various idea stats    
-#      watched_ideas_projects_count    = current_user.recent_projects_from_watched_ideas_count
-#      watched_ideas_interested_count  = current_user.recent_interests_in_watched_ideas_count
-#      watched_ideas_watchers_count    = current_user.recent_watchlists_for_watched_ideas_count
-#      watched_ideas_comments_count    = current_user.recent_comments_on_watched_ideas_count
+      my_html =""
+      if mycount > 0
 
-#      watched_ideas_text = ""
-#      if ((watched_ideas_projects_count + watched_ideas_interested_count + watched_ideas_watchers_count + watched_ideas_comments_count) > 0)
-#        watched_ideas_text = " <b>IDEAS |</b>"
-#        watched_ideas_text << " projects:" + ideas_projects_count.to_s if ideas_projects_count > 0
-#        watched_ideas_text << " interested:" + ideas_interested_count.to_s if ideas_interested_count > 0
-#        watched_ideas_text << " watchers:" + ideas_watchers_count.to_s if ideas_watchers_count > 0
-#        watched_ideas_text << " comments:" + ideas_comments_count.to_s if ideas_comments_count > 0
-#      end
-
-      
+        my_html = " MY STUFF || "
         
-      tmp = ideas_text + projects_text + applications_text
-      text = "MY STUFF: " + tmp + "<hr />" if tmp.length > 0 
+        my_html << " Comments: <b>" + mystuff[:totals][:recent_comments].to_s + "</b> |" if mystuff[:totals][:recent_comments] > 0
+        my_html << " Watchers: <b>" + mystuff[:totals][:recent_watching].to_s + "</b> |" if mystuff[:totals][:recent_watching] > 0
+        my_html << " Interested: <b>" + mystuff[:totals][:recent_interested].to_s + "</b> |" if mystuff[:totals][:recent_interested] > 0
+        my_html << " Projects (from my ideas): <b>" + mystuff[:totals][:recent_projects].to_s + "</b> |" if mystuff[:totals][:recent_projects] > 0
+        my_html << " Job Applications: <b>" + mystuff[:totals][:recent_applications].to_s + "</b> |" if mystuff[:totals][:recent_applications] > 0
+        
+        my_html << "<br />"
+      end
+      
+      
+      watching = counts[:watching]
+   
+      
+      watch_html =""
+      if watching[:totals][:recent_ideas] + watching[:totals][:recent_projects] + watching[:totals][:recent_jobs]> 0
+
+        watch_html = " WATCHLIST || "
+        
+        watch_html << " Ideas: <b>" + watching[:totals][:recent_ideas].to_s + "</b> |" if watching[:totals][:recent_ideas] > 0
+        watch_html << " Projects: <b>" + watching[:totals][:recent_projects].to_s + "</b> |" if watching[:totals][:recent_projects] > 0
+        watch_html << " Jobs: <b>" + watching[:totals][:recent_jobs].to_s + "</b> |" if watching[:totals][:recent_jobs] > 0
+      end
+         
+      if my_html.length + watch_html.length > 0
+        "<p><b>Dashboard</b></p>" + my_html + watch_html + "<hr />"
+      end
+      
       
     end
   end    

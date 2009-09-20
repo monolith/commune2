@@ -11,7 +11,14 @@ end
 
 def parse_table_and_add_users(table)
   table.hashes.each do |attributes|
-    user = create_user_with_associations!( :user => attributes )
+
+   # this may or may not be there.. will be used at the bottom
+    last_logon = attributes[:last_logon] # will be used below
+
+    user = attributes.dup
+    user.delete("last_logon") # since this is not part of the model
+
+    user = create_user_with_associations!( :user => user )
     # activate account.... also makes profile active
     visit activate_path(:activation_code => user.activation_code)
     
@@ -24,6 +31,13 @@ def parse_table_and_add_users(table)
       user.active = false # sets this to false as instructed by the table
       user.save(false)
     end
+    
+    if last_logon 
+      user.logon.last = last_logon.to_time
+      user.logon.previous = last_logon.to_time
+      user.logon.save(false)
+    end
+
   end  
 end
 

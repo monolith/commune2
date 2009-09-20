@@ -111,7 +111,6 @@ Feature: Sending invitations to join commune2
     When I follow "bobcat"
     Then I should be on "bobcat's" profile
 
-@focus
   Scenario: I should be able to resend invitation if the person has not registered yet
     Given the following invitation records
       | email                  | invitee  |
