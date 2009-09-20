@@ -4,6 +4,88 @@
 <% if logged_in? %>
   <!-- dashboard -->
   <%= render :partial => '/users/dashboard' %>
+
+
+  <table border="0"  cellpadding="15" align="center">
+    <tr>            
+      <td valign="top">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td>
+              <%= link_to image_tag("new_left.jpg", :border => 0), new_idea_path %><br />
+              <%= link_to image_tag("myideas_left.jpg", :border => 0), my_ideas_path %><br />
+              <%= link_to image_tag("watchlist_left.jpg", :border => 0), watchlist_ideas_path %>
+            
+            </td>
+            <td>
+              <%= link_to image_tag("ideas.jpg", :border => 0), ideas_path %></td>
+            </td>
+          </tr>
+        </table>
+      <td valign="top">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td>
+              <%= link_to image_tag("projects.jpg", :border => 0), projects_path %></td>
+            </td>
+
+            <td>
+              <%= link_to image_tag("new_right.jpg", :border => 0), new_project_path %><br />
+              <%= link_to image_tag("myprojects_right.jpg", :border => 0), my_projects_path %><br />
+              <%= link_to image_tag("watchlist_right.jpg", :border => 0), watchlist_projects_path %>          
+            </td>
+          </tr>
+        </table>            
+      </td>
+
+      <td rowspan="2" valign="top">
+        <div id="recent-activity" >
+
+          <%= image_tag("recent_header.jpg") %>
+
+          <table border="0" cellpadding="5" cellspacing="5"><tr><td>
+            <%= show_recent_ideas_and_projects %>
+          </td></tr></table>
+        </div>
+      </td>
+
+
+    </tr>
+
+
+
+    <tr>
+      <td valign="top">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td>
+              <%= link_to image_tag("myjobs_left.jpg", :border => 0), jobs_path %><br />
+              <%= link_to image_tag("watchlist_left.jpg", :border => 0), watchlist_jobs_path %>          
+            </td>
+            <td>
+              <%= link_to image_tag("jobs.jpg", :border => 0), jobs_path %></td>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+      <td valign="top">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td>
+              <%= link_to image_tag("people.jpg", :border => 0), users_path %></td>
+            </td>
+            <td>
+              <%= link_to image_tag("invite_right.jpg", :border => 0), new_invitation_path %><br />
+              <%= link_to image_tag("watchlist_right.jpg", :border => 0), watchlist_profiles_path %>
+            </td>
+          </tr>
+        </table>
+      
+      </td>
+    </tr>
+  </table>
+
   
 <% else %>
 
@@ -56,84 +138,3 @@
   
   </div>
 <% end %>
-
-<table border="0"  cellpadding="15" align="center">
-  <tr>            
-    <td valign="top">
-      <table border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td>
-            <%= link_to image_tag("new_left.jpg", :border => 0), new_idea_path %><br />
-            <%= link_to image_tag("myideas_left.jpg", :border => 0), my_ideas_path %><br />
-            <%= link_to image_tag("watchlist_left.jpg", :border => 0), watchlist_ideas_path %>
-          
-          </td>
-          <td>
-            <%= link_to image_tag("ideas.jpg", :border => 0), ideas_path %></td>
-          </td>
-        </tr>
-      </table>
-    <td valign="top">
-      <table border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td>
-            <%= link_to image_tag("projects.jpg", :border => 0), projects_path %></td>
-          </td>
-
-          <td>
-            <%= link_to image_tag("new_right.jpg", :border => 0), new_project_path %><br />
-            <%= link_to image_tag("myprojects_right.jpg", :border => 0), my_projects_path %><br />
-            <%= link_to image_tag("watchlist_right.jpg", :border => 0), watchlist_projects_path %>          
-          </td>
-        </tr>
-      </table>            
-    </td>
-
-    <td rowspan="2" valign="top">
-      <div id="recent-activity" >
-
-        <%= image_tag("recent_header.jpg") %>
-
-        <table border="0" cellpadding="5" cellspacing="5"><tr><td>
-          <%= show_recent_ideas_and_projects %>
-        </td></tr></table>
-      </div>
-    </td>
-
-
-  </tr>
-
-
-
-  <tr>
-    <td valign="top">
-      <table border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td>
-            <%= link_to image_tag("myjobs_left.jpg", :border => 0), jobs_path %><br />
-            <%= link_to image_tag("watchlist_left.jpg", :border => 0), watchlist_jobs_path %>          
-          </td>
-          <td>
-            <%= link_to image_tag("jobs.jpg", :border => 0), jobs_path %></td>
-          </td>
-        </tr>
-      </table>
-
-    </td>
-    <td valign="top">
-      <table border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td>
-            <%= link_to image_tag("people.jpg", :border => 0), users_path %></td>
-          </td>
-          <td>
-            <%= link_to image_tag("invite_right.jpg", :border => 0), new_invitation_path %><br />
-            <%= link_to image_tag("watchlist_right.jpg", :border => 0), watchlist_profiles_path %>
-          </td>
-        </tr>
-      </table>
-    
-    </td>
-  </tr>
-</table>
-
