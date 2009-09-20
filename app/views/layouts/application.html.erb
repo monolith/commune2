@@ -8,11 +8,9 @@
   </head>
   <body>
 
-    <table border="0" cellspacing="0" cellpadding="0" width="1000" align="center"><tr><td>
+    <table border="0" cellspacing="0" cellpadding="0" align="center" height="100%"><tr><td valign="top">
     
-    
-    <div id="disclaimer">&copy; 2009 Commune2.com. A social networking enterprise. Owned by <a href=http://www.bisonpeak.com>Bison Peak Corporation</a>.  All rights reserved.</div>
-
+  
     <table border="0" cellspacing="0" cellpadding="0" width="100%">
       <tr>
         <td width="200">
@@ -26,16 +24,17 @@
         <td>
           <% if logged_in? %>
             logged in as: <%= link_to current_user.login, edit_user_path(current_user) %> (<%= link_to "logout", logout_path %>)
-          <% end %>
         </td>
 
-        <td align="right">
-          <% form_tag searches_path, :method => :get do %>
-          <%= text_field_tag :search, params[:search] %>
-        </td>
-        <td width="80" align="right">
-          <%= submit_tag "Search", :name => nil %></td>
-          <% end %>       
+          <td align="right">
+            <% form_tag searches_path, :method => :get do %>
+            <%= text_field_tag :search, params[:search] %>
+          </td>
+          <td width="80" align="right">
+            <%= submit_tag "Search", :name => nil %></td>
+            <% end %>       
+          <% end %>
+
         </td>
         
     </tr>
@@ -53,9 +52,16 @@
   
   <%= yield %>
 
+</td></tr>
+
+<tr><td valign="bottom">
+    <div id="disclaimer">&copy; 2009 Commune2.com. A social networking enterprise. Owned by <a href=http://www.bisonpeak.com>Bison Peak Corporation</a>.  All rights reserved.</div>
+
+    </td></tr>
+    
+    </table>
 
 
-    </td></tr></table>
   </body>
 </html>
 
