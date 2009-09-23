@@ -1,28 +1,23 @@
-<%= div_tag_for(project) %> 
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top">
+      <div id="snippet-stat" name="snippet-stat">
+        <%= stats_for(project) %>
+      </div>
+    </td>
+    <td valign="top">
 
-  <table width ="100%">
-      <tr>
-        <td>
-          <h2>
-            <%= link_to h(project.title), project_path(project) %>
-            <%= render :partial => '/shared/stars', :locals => { :scorable => project} %>
-          </h2>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= show_description(project) %>
-          <hr />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= stats_for(project) %>
-        </td>
-      </tr>
-  </table>
+      <%= div_tag_for(project) %> 
 
-  <%= dashboard_for(project) %> 
+      <h2><%= link_to h(project.title), project_path(project) %></h2>
+      <%= render :partial => '/shared/stars', :locals => { :scorable => project} %>
 
-</div>
+        | Posted <%= time_ago_in_words(project.created_at) %>
 
+        <p><%= show_description(project) %></p>
+        <p><%= dashboard_for(project) %></p>
+
+      </div>
+    </td>
+  </tr>
+</table>

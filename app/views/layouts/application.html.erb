@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -8,60 +8,112 @@
   </head>
   <body>
 
-    <table border="0" cellspacing="0" cellpadding="0" align="center" height="100%"><tr><td valign="top">
-    
-  
-    <table border="0" cellspacing="0" cellpadding="0" width="100%">
-      <tr>
-        <td width="200">
-          <%= link_to image_tag("commune2.jpg", :border => 0), root_path %>
-        </td>
+    <div id="banner-background" > &nbsp; </div>
+
+    <div id="site-container">
+
+      <div id="banner">    
+
+        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+          <tr>
+            <td valign="top">
+             
+              <div id="banner-logo">
+                <%= link_to image_tag("c2_banner_logo_brown.png", :border => 0), root_path %>
+              
+                <p class="banner"><%= link_to "home", root_path, :class => "banner-no-block" %></p>
+                <p class="banner"><%= link_to "help", help_path, :class => "banner-no-block" %></p>
+              </div>
+            </td>
+
         
-        <td width="100">
-          <%= link_to "help", help_path %>
-        </td>
+        <% if logged_in? %>
 
-        <td>
-          <% if logged_in? %>
-            logged in as: <%= link_to current_user.login, edit_user_path(current_user) %> (<%= link_to "logout", logout_path %>)
-        </td>
+            <td valign="top">
+          
+              <div id="banner-menu-category">
+                <%= link_to "#{image_tag("/images/menu_icons/ideas_menu_icon_brown.png", :border => 0)} ideas", ideas_path, :class => "banner" %>
+                <%= link_to "#{image_tag("/images/submenu_icons/new_submenu_icon.png", :border => 0)} post new", new_idea_path, :class => "banner" %>
+                <%= link_to "#{image_tag("/images/submenu_icons/my_submenu_icon.png", :border => 0)} my ideas", my_ideas_path, :class => "banner" %>
+                <%= link_to "#{image_tag("/images/submenu_icons/watchlist_submenu_icon.png", :border => 0)} watchlist", watchlist_ideas_path, :class => "banner" %>
+              </div>
+          
+            </td>
+            <td valign="top">
 
-          <td align="right">
-            <% form_tag searches_path, :method => :get do %>
-            <%= text_field_tag :search, params[:search] %>
-          </td>
-          <td width="80" align="right">
-            <%= submit_tag "Search", :name => nil %></td>
-            <% end %>       
+              <div id="banner-menu-category">
+                <%= link_to "#{image_tag("/images/menu_icons/projects_menu_icon_brown.png", :border => 0)} projects", projects_path, :class => "banner" %>
+                <%= link_to "#{image_tag("/images/submenu_icons/new_submenu_icon.png", :border => 0)} post new", new_project_path, :class => "banner" %></p>
+                <%= link_to "#{image_tag("/images/submenu_icons/my_submenu_icon.png", :border => 0)} my projects", my_projects_path, :class => "banner" %>
+                <%= link_to "#{image_tag("/images/submenu_icons/watchlist_submenu_icon.png", :border => 0)} watchlist", watchlist_projects_path, :class => "banner" %>
+              </div>
+
+            </td>
+            <td valign="top">
+
+              <div id="banner-menu-category">
+                <%= link_to "#{image_tag("/images/menu_icons/jobs_menu_icon_brown.png", :border => 0)} jobs", jobs_path, :class => "banner" %>
+                <%= link_to "#{image_tag("/images/submenu_icons/my_submenu_icon.png", :border => 0)} my jobs", my_jobs_path, :class => "banner" %>
+                <%= link_to "#{image_tag("/images/submenu_icons/watchlist_submenu_icon.png", :border => 0)} watchlist", watchlist_jobs_path, :class => "banner" %>
+              </div>
+
+            </td>
+            <td valign="top">
+
+              <div id="banner-menu-category-right-border">
+                <%= link_to "#{image_tag("/images/menu_icons/people_menu_icon_brown.png", :border => 0)} people", users_path, :class => "banner" %></p>
+                <%= link_to "#{image_tag("/images/submenu_icons/new_submenu_icon.png", :border => 0)} my jobs", new_invitation_path, :class => "banner" %>
+                <%= link_to "#{image_tag("/images/submenu_icons/watchlist_submenu_icon.png", :border => 0)} wachlist", watchlist_profiles_path, :class => "banner" %>
+              </div>
+              
+              
+            </td>
+            <td valign="top">
+
+              <div id="banner-search">
+
+                    <% form_tag searches_path, :method => :get do %>
+                    <%= text_field_tag :search, params[:search] %>
+                    <%= submit_tag "Search", :name => nil %>
+                    <% end %>
+
+                <p class="banner"> &nbsp; </p>
+                <p class="banner">logged in as: <%= link_to current_user.login, edit_user_path(current_user), :class=> "banner-no-block" %> (<%= link_to "logout", logout_path, :class => "banner-no-block" %>)</p>
+
+              </div>
           <% end %>
 
-        </td>
-        
-    </tr>
-    </table>
-    
-    <hr />
+            </td>
+          </tr>
+        </table>
 
-   <% unless flash[:error].blank? %>
-     <div id="error"><%=h flash[:error] %></div>
-   <% end %>
-   <% unless flash[:notice].blank? %>
-      <div id="notice"><%=h flash[:notice] %></div>
-   <% end %>
-
-  
-  <%= yield %>
-
-</td></tr>
-
-<tr><td valign="bottom">
-    <div id="disclaimer">&copy; 2009 Commune2.com. A social networking enterprise. Owned by <a href=http://www.bisonpeak.com>Bison Peak Corporation</a>.  All rights reserved.</div>
-
-    </td></tr>
-    
-    </table>
+      </div>
 
 
+
+        <div id="content">
+
+           <% unless flash[:error].blank? %>
+             <div id="error"><%=h flash[:error] %></div>
+           <% end %>
+           <% unless flash[:notice].blank? %>
+              <div id="notice"><%=h flash[:notice] %></div>
+           <% end %>
+
+                  
+          <%= yield %>
+
+      </div>
+
+
+      <div id="disclaimer">
+        &copy; 2009 Commune2.com. A social networking enterprise.
+        Owned by <a href=http://www.bisonpeak.com>Bison Peak Corporation</a>.  All rights reserved.
+      </div>
+
+
+
+    </div>
   </body>
 </html>
 

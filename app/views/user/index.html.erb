@@ -12,13 +12,13 @@
         <table border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td>
-              <%= link_to image_tag("new_left.jpg", :border => 0), new_idea_path %><br />
-              <%= link_to image_tag("myideas_left.jpg", :border => 0), my_ideas_path %><br />
-              <%= link_to image_tag("watchlist_left.jpg", :border => 0), watchlist_ideas_path %>
+              <%= link_to image_tag("/images/home_main_icons/post_new_main_left.png", :border => 0), new_idea_path %><br />
+              <%= link_to image_tag("/images/home_main_icons/my_ideas_main_left.png", :border => 0), my_ideas_path %><br />
+              <%= link_to image_tag("/images/home_main_icons/watchlist_main_left.png", :border => 0), watchlist_ideas_path %>
             
             </td>
             <td>
-              <%= link_to image_tag("ideas.jpg", :border => 0), ideas_path %></td>
+              <%= link_to image_tag("/images/home_main_icons/ideas_main_icon.png", :border => 0), ideas_path %></td>
             </td>
           </tr>
         </table>
@@ -26,13 +26,13 @@
         <table border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td>
-              <%= link_to image_tag("projects.jpg", :border => 0), projects_path %></td>
+              <%= link_to image_tag("/images/home_main_icons/projects_main_icon.png", :border => 0), projects_path %></td>
             </td>
 
             <td>
-              <%= link_to image_tag("new_right.jpg", :border => 0), new_project_path %><br />
-              <%= link_to image_tag("myprojects_right.jpg", :border => 0), my_projects_path %><br />
-              <%= link_to image_tag("watchlist_right.jpg", :border => 0), watchlist_projects_path %>          
+              <%= link_to image_tag("/images/home_main_icons/post_new_main_right.png", :border => 0), new_project_path %><br />
+              <%= link_to image_tag("/images/home_main_icons/my_projects_main_right.png", :border => 0), my_projects_path %><br />
+              <%= link_to image_tag("/images/home_main_icons/watchlist_main_right.png", :border => 0), watchlist_projects_path %>          
             </td>
           </tr>
         </table>            
@@ -41,8 +41,7 @@
       <td rowspan="2" valign="top">
         <div id="recent-activity" >
 
-          <%= image_tag("recent_header.jpg") %>
-
+<h2>Recent Activity</h2>
           <table border="0" cellpadding="5" cellspacing="5"><tr><td>
             <%= show_recent_ideas_and_projects %>
           </td></tr></table>
@@ -52,18 +51,16 @@
 
     </tr>
 
-
-
     <tr>
       <td valign="top">
         <table border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td>
-              <%= link_to image_tag("myjobs_left.jpg", :border => 0), jobs_path %><br />
-              <%= link_to image_tag("watchlist_left.jpg", :border => 0), watchlist_jobs_path %>          
+              <%= link_to image_tag("/images/home_main_icons/my_jobs_main_left.png", :border => 0), jobs_path %><br />
+              <%= link_to image_tag("/images/home_main_icons/watchlist_main_left.png", :border => 0), watchlist_jobs_path %>          
             </td>
             <td>
-              <%= link_to image_tag("jobs.jpg", :border => 0), jobs_path %></td>
+              <%= link_to image_tag("/images/home_main_icons/jobs_main_icon.png", :border => 0), jobs_path %></td>
             </td>
           </tr>
         </table>
@@ -73,11 +70,11 @@
         <table border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td>
-              <%= link_to image_tag("people.jpg", :border => 0), users_path %></td>
+              <%= link_to image_tag("/images/home_main_icons/people_main_icon.png", :border => 0), users_path %></td>
             </td>
             <td>
-              <%= link_to image_tag("invite_right.jpg", :border => 0), new_invitation_path %><br />
-              <%= link_to image_tag("watchlist_right.jpg", :border => 0), watchlist_profiles_path %>
+              <%= link_to image_tag("/images/home_main_icons/invite_main_right.png", :border => 0), new_invitation_path %><br />
+              <%= link_to image_tag("/images/home_main_icons/watchlist_main_right.png", :border => 0), watchlist_profiles_path %>
             </td>
           </tr>
         </table>
@@ -89,52 +86,7 @@
   
 <% else %>
 
-<!-- logon -->
-  <div id="login-splash">
-        <% form_tag session_path do -%>
+  <!-- logon -->
+  <%= render :partial => '/sessions/logon' %>
 
-      <table border="0">
-        <tr>
-          <td colspan="4">
-            <h1>If you have been invited to to join, please <%= link_to "register", signup_path %>.  
-                If your registration has been activated, you can log in.</h1>
-            </td>
-        </tr>
-
-        <tr>
-
-          <td valign="top">
-              <b>Login or email</b><br /><br />
-              <%= text_field_tag 'login', @login, :class => 'brown_border' %>
-          </td>
-
-          <td valign="top"> 
-              <b>Password (CaSe SeNsAtIvE)</b><br /><br />
-              <%= password_field_tag 'password', nil, :class => 'brown_border' %>
-          </td>
-
-          <td valign="top">
-            <b>What does the below text say?</b><br /><br />
-            <%= text_field_tag 'recaptcha_response_field', nil, :class => 'brown_border' %>
-          </td>
-
-          <td valign="top">
-          <%= check_box_tag 'remember_me', '1', @remember_me, :class => 'brown_border' %>
-          Remember me  
-              <p><%= submit_tag 'Log in', :class => 'big_button' %></p>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">&nbsp;</td>
-          <td colspan="2">
-            <div id="recaptcha_image" name="recaptcha_image"></div>
-            <%= recaptcha_tags(:display => {:theme => 'custom'}) %>
-          </td>
-        </tr>
-        
-      </table>
-        <% end -%>
-
-  
-  </div>
 <% end %>

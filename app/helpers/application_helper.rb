@@ -189,28 +189,25 @@ module ApplicationHelper
     case object.class.to_s
       
       when "Idea"
-          stats = "Posted " + time_ago_in_words(object.created_at) + " ago" + tag("br")
 
-          stats << show_comments_count(total_comments(object)) << " | "
-          stats << show_watchers_count(total_watchers(object)) << " | "
-          stats << show_interested_count(total_interested(object)) + " | "
+          stats << show_comments_count(total_comments(object)) << tag("br")
+          stats << show_watchers_count(total_watchers(object)) << tag("br")
+          stats << show_interested_count(total_interested(object)) + tag("br")
           stats << show_projects_count(active_projects(object))
 
       when "Project"
-          stats = "Posted " + time_ago_in_words(object.created_at) + " ago" + tag("br")
 
-          stats << show_comments_count(total_comments(object)) << " | "
-          stats << show_watchers_count(total_watchers(object)) << " | "
-          stats << show_interested_count(total_interested(object)) << " | "
-          stats << show_jobs_count(active_jobs(object)) << " | "
+          stats << show_comments_count(total_comments(object)) << tag("br")
+          stats << show_watchers_count(total_watchers(object)) << tag("br")
+          stats << show_interested_count(total_interested(object)) << tag("br")
+          stats << show_jobs_count(active_jobs(object)) << tag("br")
           stats << show_members_count(active_members(object))
 
       when "User"
-          stats << pluralize(total_watchers(object), "Watcher") << " | "
 
-          stats << show_comments_count(total_comments(object)) << " | "
-          stats << show_ideas_count(active_ideas(object)) << " | "
-          stats << show_projects_count(active_projects(object)) << " | "
+          stats << show_comments_count(total_comments(object)) << tag("br")
+          stats << show_ideas_count(active_ideas(object)) << tag("br")
+          stats << show_projects_count(active_projects(object)) << tag("br")
           stats << show_jobs_count(active_jobs(object))
 
     end
@@ -352,8 +349,8 @@ module ApplicationHelper
     html =[]
     items.each do |thing| 
       html << "<h3>" + link_to(h(thing.title), thing) + "</h3>"     
-      html << h(thing.description[0..200])
-      html << "..." if thing.description.size > 200
+      html << h(thing.description[0..150])
+      html << "..." if thing.description.size > 150
 
     end
     
@@ -405,7 +402,7 @@ module ApplicationHelper
       end
          
       if my_html.length + watch_html.length > 0
-        "<p><b>Dashboard</b></p>" + my_html + watch_html + "<hr />"
+        "<div id=\"dashboard\"><h2>Dashboard</h2>" + my_html + watch_html + "</div>"
       end
       
       

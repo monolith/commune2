@@ -27,6 +27,7 @@ ActionController::Routing::Routes.draw do |map|
   map.my_projects '/my/projects/', :controller => 'projects', :action => 'my_projects'
   map.post_project_comment '/post/project/comment/', :controller => 'projects', :action => 'add_comment'
  
+  map.my_jobs '/my/posted_jobs/', :controller => 'jobs', :action => 'my_posted_jobs'
   map.my_posted_jobs '/my/posted_jobs/', :controller => 'jobs', :action => 'my_posted_jobs'
   map.my_job_applications '/my/job_applications/', :controller => 'jobs', :action => 'my_job_applications'
  

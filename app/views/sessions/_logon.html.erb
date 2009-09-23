@@ -1,0 +1,43 @@
+<div id="login-splash">
+  <% form_tag session_path do -%>
+
+  <table border="0" width="100%">
+    <tr>
+      <td valign="top" colspan="2">
+        <h1>If you have been invited to to join, please <%= link_to "register", signup_path %>.  
+            If your registration has been activated, you can log in.</h1>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" width="50%">
+
+        <h2>Login or email</h2>
+        <%= text_field_tag 'login', @login, :class => 'brown_border' %>
+
+        <h2>Password (CaSe SeNsAtIvE)</h2>
+        <%= password_field_tag 'password', nil, :class => 'brown_border' %>
+
+        <h2>What does the below text say?</h2>
+        <%= text_field_tag 'recaptcha_response_field', nil, :class => 'brown_border' %>
+
+        <div id="recaptcha_image" name="recaptcha_image"></div>
+        <%= recaptcha_tags(:display => {:theme => 'custom'}) %>
+
+        <%= check_box_tag 'remember_me', '1', @remember_me, :class => 'brown_border' %>
+        Remember me  
+        <p><%= submit_tag 'Log in', :class => 'big_button' %></p>
+
+      </td>
+      <td valign="top">
+        <h2>Recent Activity</h2>
+        <div id="recent-activity" >
+            <%= show_recent_ideas_and_projects %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  
+  <% end -%>
+
+
+</div>

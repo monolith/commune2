@@ -3,8 +3,6 @@
       <tr>
         <td><h2><%= link_to URI.encode(user.login), user_path(:id => user) %>
         <br /><%= render :partial => '/shared/stars', :locals => { :scorable => user} %>
-
-        </h2><hr /></td>
       </tr>
       <tr>
         <td>

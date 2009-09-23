@@ -1,27 +1,23 @@
-<%= div_tag_for(idea) %> 
-
-  <table width="100%">
-    <tr>
-      <td>
-        <h2>
-          <%= link_to h(idea.title), idea_path(:id => idea) %>
-          <%= render :partial => '/shared/stars', :locals => { :scorable => idea} %>
-        </h2>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= show_description(idea) %>
-        <hr />
-      </td>
-    </tr>
-    <tr>
-      <td>
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top">
+      <div id="snippet-stat" name="snippet-stat">
         <%= stats_for(idea) %>
-      </td>
-    </tr>
-  </table>
+      </div>
+    </td>
+    <td valign="top">
 
-  <%= dashboard_for(idea) %> 
+      <%= div_tag_for(idea) %> 
 
-</div>
+        <h2><%= link_to h(idea.title), idea_path(:id => idea) %></h2>
+        <%= render :partial => '/shared/stars', :locals => { :scorable => idea} %>
+
+        | Posted <%= time_ago_in_words(idea.created_at) %>
+
+        <p><%= show_description(idea) %></p>
+        <p><%= dashboard_for(idea) %></p>
+
+      </div>
+    </td>
+  </tr>
+</table>
