@@ -1,7 +1,5 @@
 <% content_for :title do %>Projects<% end %>
 
-<%= render :partial => 'menu' %>
-
   <% if @idea %>
     <h1><%= pluralize @projects.total_entries, "Project" %> for <%= @idea.title %> ideas</h1>
     <h2>Idea</h2>

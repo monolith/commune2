@@ -1,8 +1,5 @@
 <% content_for :title do %>Ideas<% end %>
 
-<%= render :partial => 'menu' %>
-
-
 <h1><%= pluralize @ideas.total_entries, "Idea" %></h1>
 
 <% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>

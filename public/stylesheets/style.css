@@ -5,81 +5,96 @@ html, body{
   padding: 0;
   border: none;
   font-family: Helvetica, Arial, sans-serif;
+  font-size: small;
   vertical-align: top;
+
+	background-image:url('/images/green-banner.jpg');
+
+  background-repeat:repeat-x;
 
 }
 #site-container {
-    max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 10px;
     padding-right: 10px;
     height: 100%;
+    width: 90%;
+    max-width: 1250px;
+    min-width: 1000px;
+
 }
 
 
 /*    BANNER AND TOP MENU STUFF */
 /* note that the green background color is actually a background color */
 
-#banner-background {
-  position: fixed;
-  z-index:1;
-  height: 155px;
-  left: 0px;
-  top: 0px;
-  border: none;
-  width: 10000px;
-  overflow:hidden;
-  background-color: #A0C943;
-}
 
 #banner {
   position: relative;
-  z-index:2;
-	width: 100%
+	width: 100%;
+  padding-top: 15px;
 
-  height: 155px;
+  height: 148px;
   border: none;  
+
+  font: menu;  
 
  }
 
 
-#banner-menu-category, #banner-menu-category-right-border {
+#banner-menu-ideas, #banner-menu-projects, #banner-menu-jobs, #banner-menu-people {
   position:relative;
   float: left;
-  padding-top: 15px;
-  margin-left: 10px;
 
-  min-width: 140px;
   width: 100%;
-  height: 140px;
+  height: 100%;
   
-  border-left: 3px solid #FFFFFF;
-  letter-spacing:0.5px;
+  border-left: 5px solid #FFFFFF;
+  letter-spacing:0px;
   color: #FFFFFF;
-
+  
 
 }
 
-#banner-menu-category-right-border{
-  border-right: 3px solid #FFFFFF;
+#menu-filler {
+    background-color: #A0C943;
 }
+#banner-menu-ideas {
+  background: #4f391a; 
+  background:url(/images/menu_icons/ideas_icon_lg.png) center center no-repeat; 
+}
+#banner-menu-projects {
+  background: #4f391a; 
+  background:url(/images/menu_icons/projects_icon_lg.png) center center no-repeat; 
+}
+#banner-menu-jobs {
+  background: #4f391a; 
+  background:url(/images/menu_icons/jobs_icon_lg.png) center center no-repeat; 
+}
+
+#banner-menu-people {
+  border-right: 5px solid #FFFFFF;
+  background: #4f391a; 
+  background:url(/images/menu_icons/people_icon_lg.png) center center no-repeat; 
+}
+
 #banner-logo {
   padding-top: 15px;
-  margin-right: 50px;
   text-align: right;
   float:left;
-  height: 140px;
+  height: 100%;
+  padding-right: 15px;
 
 }
 
 #banner-search {
   position:relative;
-  height: 140px;
+  height: 100%;
+  width: 100%;
 
   padding-top: 15px;
-  padding-left: 10px;
-  margin-left: 10px;
+  padding-left: 15px;
 
   float: right;
   overflow: hidden;
@@ -87,26 +102,141 @@ html, body{
 
   letter-spacing:0.5px;
   color: #FFFFFF;
-  min-width: 250px;
 
   text-align: right;
+
 }
 
 
 p.banner {
   margin: 7px;
 }
-a.banner { 
+a.menu-ideas, a.menu-projects, a.menu-jobs, a.menu-people, a.menu-new, a.menu-my, a.menu-watchlist, a.menu-invite, #menu-filler { 
   display:block;
 	color: #FFFFFF;
 	text-decoration: none;
-  padding: 5px;
-  padding-left: 15px;
+  vertical-align: middle;
+  padding-top: 7px;
+  padding-left: 45px;
+  height: 30px;
+
+  /* for IE */
+  filter:alpha(opacity=90);
+  /* CSS3 standard */
+  opacity:0.90;
 
 }
 
-a.banner:hover { 
+
+a.banner:hover, a.menu-new:hover, a.menu-my:hover, a.menu-watchlist:hover, a.menu-invite:hover { 
+  font-weight: bold;
   background-color: #4f391a;
+  letter-spacing:0.0px;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+
+
+}
+
+a.menu-ideas {
+  background:url(/images/menu_icons/ideas_menu_icon_brown.png) 0 0 no-repeat; 
+  background-position: 10px center;
+  background-color: #A0C943;
+
+}
+a.menu-ideas:hover {
+  background:url(/images/menu_icons/ideas_menu_icon_green.png) 0 0 no-repeat; 
+  background-color: #4f391a;
+  background-position: 10px center;
+  font-color: #FFFFFF;
+  font-weight: bold;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+
+}
+
+a.menu-projects {
+  background:url(/images/menu_icons/projects_menu_icon_brown.png) 0 0 no-repeat; 
+  background-position: 11px center;
+  background-color: #A0C943;
+
+}
+a.menu-projects:hover {
+  background:url(/images/menu_icons/projects_menu_icon_green.png) 0 0 no-repeat; 
+  background-color: #4f391a;
+  background-position: 11px center;
+  font-color: #FFFFFF;
+  font-weight: bold;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+
+}
+
+
+a.menu-jobs {
+  background:url(/images/menu_icons/jobs_menu_icon_brown.png) 0 0 no-repeat; 
+  background-position: 14px center;
+  background-color: #A0C943;
+
+}
+a.menu-jobs:hover {
+  background:url(/images/menu_icons/jobs_menu_icon_green.png) 0 0 no-repeat; 
+  background-color: #4f391a;
+  background-position: 14px center;
+  font-color: #FFFFFF;
+  font-weight: bold;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+}
+
+
+a.menu-people {
+  background:url(/images/menu_icons/people_menu_icon_brown.png) 0 0 no-repeat; 
+  background-position: 16px center;
+  background-color: #A0C943;
+
+}
+a.menu-people:hover {
+  background:url(/images/menu_icons/people_menu_icon_green.png) 0 0 no-repeat; 
+  background-color: #4f391a;
+  background-position: 16px center;
+  font-color: #FFFFFF;
+  font-weight: bold;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+}
+
+a.menu-new {
+  background:url(/images/submenu_icons/new_submenu_icon.png) 0 0 no-repeat; 
+  background-position: 16px center;
+  background-color: #A0C943;
+
+}
+a.menu-my {
+  background:url(/images/submenu_icons/my_submenu_icon.png) 0 0 no-repeat; 
+  background-position: 16px center;
+  background-color: #A0C943;
+
+}
+a.menu-watchlist {
+  background:url(/images/submenu_icons/watchlist_submenu_icon.png) 0 0 no-repeat; 
+  background-position: 11px center;
+  background-color: #A0C943;
 
 }
 
@@ -125,6 +255,8 @@ a.banner-no-block:hover {
 
 
 #content {
+  width: 100%;
+
 }
 
 

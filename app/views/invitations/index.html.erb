@@ -1,7 +1,5 @@
 <% content_for :title do %>Invitations<% end %>
 
-<%= render :partial => 'menu' %>
-
 <h1><%= pluralize @invitations.total_entries, "Invitation" %></h1>
 <% unless @invitations %>
   You have not invited anyone yet,  <%= link_to "invite", new_invitation_path %> someone!

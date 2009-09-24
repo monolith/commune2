@@ -4,11 +4,15 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>Commune2 | <%= yield :title %></title>
     <%= stylesheet_link_tag 'style' %>
+    <%= javascript_include_tag :defaults %>
+
+<!-- if IE6 or less, this is needed to get PNG's to work -->
+<!--[if lt IE 7]>
+        <script type="text/javascript" src="unitpngfix.js"></script>
+<![endif]--> 
 
   </head>
   <body>
-
-    <div id="banner-background" > &nbsp; </div>
 
     <div id="site-container">
 
@@ -18,69 +22,74 @@
           <tr>
             <td valign="top">
              
-              <div id="banner-logo">
+              <span id="banner-logo">
                 <%= link_to image_tag("c2_banner_logo_brown.png", :border => 0), root_path %>
               
                 <p class="banner"><%= link_to "home", root_path, :class => "banner-no-block" %></p>
                 <p class="banner"><%= link_to "help", help_path, :class => "banner-no-block" %></p>
-              </div>
+              </span>
             </td>
 
         
+        
         <% if logged_in? %>
 
-            <td valign="top">
+            <td valign="top" width="140">
           
-              <div id="banner-menu-category">
-                <%= link_to "#{image_tag("/images/menu_icons/ideas_menu_icon_brown.png", :border => 0)} ideas", ideas_path, :class => "banner" %>
-                <%= link_to "#{image_tag("/images/submenu_icons/new_submenu_icon.png", :border => 0)} post new", new_idea_path, :class => "banner" %>
-                <%= link_to "#{image_tag("/images/submenu_icons/my_submenu_icon.png", :border => 0)} my ideas", my_ideas_path, :class => "banner" %>
-                <%= link_to "#{image_tag("/images/submenu_icons/watchlist_submenu_icon.png", :border => 0)} watchlist", watchlist_ideas_path, :class => "banner" %>
-              </div>
-          
+              <span id="banner-menu-ideas">
+                <%= link_to "ideas", ideas_path, :class => "menu-ideas" %>
+                
+                <%= link_to "watchlist", watchlist_ideas_path, :class => "menu-watchlist" %>
+                
+                <%= link_to "my ideas", my_ideas_path, :class => "menu-my" %>
+                
+                <%= link_to "post new", new_idea_path, :class => "menu-new"%>
+              </span>
+          <!-- , :onmouseover => "new Effect.Highlight(this.parentNode, { startcolor: '#4f391a', restorecolor: '#a0c943' }); return false;"  -->
             </td>
-            <td valign="top">
+            <td valign="top" width="155">
 
-              <div id="banner-menu-category">
-                <%= link_to "#{image_tag("/images/menu_icons/projects_menu_icon_brown.png", :border => 0)} projects", projects_path, :class => "banner" %>
-                <%= link_to "#{image_tag("/images/submenu_icons/new_submenu_icon.png", :border => 0)} post new", new_project_path, :class => "banner" %></p>
-                <%= link_to "#{image_tag("/images/submenu_icons/my_submenu_icon.png", :border => 0)} my projects", my_projects_path, :class => "banner" %>
-                <%= link_to "#{image_tag("/images/submenu_icons/watchlist_submenu_icon.png", :border => 0)} watchlist", watchlist_projects_path, :class => "banner" %>
-              </div>
-
-            </td>
-            <td valign="top">
-
-              <div id="banner-menu-category">
-                <%= link_to "#{image_tag("/images/menu_icons/jobs_menu_icon_brown.png", :border => 0)} jobs", jobs_path, :class => "banner" %>
-                <%= link_to "#{image_tag("/images/submenu_icons/my_submenu_icon.png", :border => 0)} my jobs", my_jobs_path, :class => "banner" %>
-                <%= link_to "#{image_tag("/images/submenu_icons/watchlist_submenu_icon.png", :border => 0)} watchlist", watchlist_jobs_path, :class => "banner" %>
-              </div>
+              <span id="banner-menu-projects">
+                <%= link_to "projects", projects_path, :class => "menu-projects" %>
+                <%= link_to "watchlist", watchlist_projects_path, :class => "menu-watchlist" %>
+                <%= link_to "my projects", my_projects_path, :class => "menu-my" %>
+                <%= link_to "post new", new_project_path, :class => "menu-new"  %>
+              </span>
 
             </td>
-            <td valign="top">
+            <td valign="top" width="135">
 
-              <div id="banner-menu-category-right-border">
-                <%= link_to "#{image_tag("/images/menu_icons/people_menu_icon_brown.png", :border => 0)} people", users_path, :class => "banner" %></p>
-                <%= link_to "#{image_tag("/images/submenu_icons/new_submenu_icon.png", :border => 0)} my jobs", new_invitation_path, :class => "banner" %>
-                <%= link_to "#{image_tag("/images/submenu_icons/watchlist_submenu_icon.png", :border => 0)} wachlist", watchlist_profiles_path, :class => "banner" %>
-              </div>
+              <span id="banner-menu-jobs">
+                <%= link_to "jobs", jobs_path, :class => "menu-jobs" %>
+                <%= link_to "watchlist", watchlist_jobs_path, :class => "menu-watchlist" %>
+                <%= link_to "my jobs", my_jobs_path, :class => "menu-my" %>
+                <span id="menu-filler"> </div>
+              </span>
+
+            </td>
+            <td valign="top" width="135">
+
+              <span id="banner-menu-people">
+                <%= link_to "people", users_path, :class => "menu-people" %></p>
+                <%= link_to "watchlist", watchlist_profiles_path, :class => "menu-watchlist" %>
+                <%= link_to "invite", new_invitation_path, :class => "menu-new" %>
+                <span id="menu-filler"> </div>
+              </span>
               
               
             </td>
             <td valign="top">
 
-              <div id="banner-search">
-
+              <span id="banner-search">
                     <% form_tag searches_path, :method => :get do %>
                     <%= text_field_tag :search, params[:search] %>
                     <%= submit_tag "Search", :name => nil %>
                     <% end %>
-
+    
                 <p class="banner"> &nbsp; </p>
                 <p class="banner">logged in as: <%= link_to current_user.login, edit_user_path(current_user), :class=> "banner-no-block" %> (<%= link_to "logout", logout_path, :class => "banner-no-block" %>)</p>
 
-              </div>
+              </span>
           <% end %>
 
             </td>
@@ -89,6 +98,14 @@
 
       </div>
 
+
+
+<!-- IE6 BAD, GET NEW BROWSER -->
+
+  <!--[if lt IE 7]>
+  <div style='border: 1px solid #F7941D; background: #FEEFDA; text-align: center; clear: both; height: 75px; position: relative;'>    <div style='position: absolute; right: 3px; top: 3px; font-family: courier new; font-weight: bold;'><a href='#' onclick='javascript:this.parentNode.parentNode.style.display="none"; return false;'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-cornerx.jpg' style='border: none;' alt='Close this notice'/></a></div>    <div style='width: 640px; margin: 0 auto; text-align: left; padding: 0; overflow: hidden; color: black;'>      <div style='width: 75px; float: left;'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-warning.jpg' alt='Warning!'/></div>      <div style='width: 275px; float: left; font-family: Arial, sans-serif;'>        <div style='font-size: 14px; font-weight: bold; margin-top: 12px;'>You are using an outdated browser</div>        <div style='font-size: 12px; margin-top: 6px; line-height: 12px;'>For a better experience using this site, please upgrade to a modern web browser.</div>      </div>      <div style='width: 75px; float: left;'><a href='http://www.firefox.com' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-firefox.jpg' style='border: none;' alt='Get Firefox 3.5'/></a></div>      <div style='width: 75px; float: left;'><a href='http://www.browserforthebetter.com/download.html' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-ie8.jpg' style='border: none;' alt='Get Internet Explorer 8'/></a></div>      <div style='width: 73px; float: left;'><a href='http://www.apple.com/safari/download/' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-safari.jpg' style='border: none;' alt='Get Safari 4'/></a></div>      <div style='float: left;'><a href='http://www.google.com/chrome' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-chrome.jpg' style='border: none;' alt='Get Google Chrome'/></a></div>    </div>  </div>
+  
+  <![endif]-->
 
 
         <div id="content">
