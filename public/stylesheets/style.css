@@ -256,6 +256,7 @@ a.banner-no-block:hover {
 
 #content {
   width: 100%;
+  padding-top: 25px;
 
 }
 
@@ -288,6 +289,18 @@ color: #B1B1B1;
   padding: 5px;
   margin: 10px 0;
 }
+
+
+#login-splash {
+
+  border: 5px solid #4f391a;
+  padding: 10px;
+  width: 900px;
+
+
+}
+
+
 
 
 
