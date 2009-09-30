@@ -17,11 +17,11 @@ module ApplicationHelper
 
               when "Idea"
                 if object.active == false
-                  "ideasnippet-inactive"
+                  "idea-snippet-inactive"
                 elsif current_user.watching_ideas.include?(object)  
-                  "watchlist_ideasnippet"
+                  "idea-snippet-watching"
                 else
-                  "ideasnippet"
+                  "idea-snippet"
                 end
 
               when "Project"
@@ -338,7 +338,7 @@ module ApplicationHelper
                :confirm => "Cannot undo! Delete this " <<
                   object.class.to_s.downcase + "?"
 
-      "<p>" << button << "</p>"
+      "<hr>" << button
     end
   end
   
@@ -408,5 +408,6 @@ module ApplicationHelper
       
     end
   end    
+  
   
 end

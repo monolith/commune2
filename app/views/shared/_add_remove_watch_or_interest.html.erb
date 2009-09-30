@@ -1,52 +1,7 @@
-  <p><b>Watching:</b> <%= object.watchers_count %></p>
-
-  
-  <% if object.watchers.include? current_user %>
-      <p>You are watching this <%= object.class.to_s.downcase %>.</p> 
-    
-    <% watchlist = object.wlists.find_by_user_id current_user.id %>
-
-    <%= button_to "Stop Watching", watchlist_path(watchlist), :confirm => "Are you sure you want to stop watching this " + object.class.to_s.downcase + "?", :method => :delete %>
-
-  <% else %>
-    <% unless object == current_user or object.author? current_user %>
-      <% watchlist = object.wlists.new %>
-      <% form_for watchlist do |f| %>
-        <%= f.hidden_field :watch_type %>
-        <%= f.hidden_field :watch_id %>
-        <%= submit_tag 'Add to Watchlist' %>      
-      <% end %>
+  <p><b>Watching:</b> <%= object.watchers_count %></p>  
+  <p><b>Interested:</b> <%= object.interested_count %>
+    <% object.interested.each do |profile| %>
+      <%= link_to profile.login, user_path(profile) %><br />
     <% end %>
-  <% end %>
+  </p>
 
-  
-  <% unless object.class == User or object.class == Job %>
-  
-      <p><b>Interested:</b> <%= object.interested_count %>
-        <% object.interested.each do |profile| %>
-          <br /><%= link_to profile.login, user_path(profile) %>
-        <% end %>
-      </p>
-
-      <% if object.interested.include? current_user %>
-
-        <p>You have expressed interest in this <%= object.class.to_s.downcase %>.</p> 
-      <% interest = object.interests.find_by_user_id current_user.id %>
-
-      <%= button_to "Stop Showing Interest", interest_path(interest), :confirm => "Are you sure you want to stop showing interest in this " + object.class.to_s.downcase + "?", :method => :delete %>
-
-  
-      <% else %>
-          <% unless object.author? current_user %>
-            <% interest = object.interests.new %>
-            <% form_for interest do |f| %>
-              <%= f.hidden_field :interest_type %>
-              <%= f.hidden_field :interest_id %>
-              <%= submit_tag 'Show Interest' %>      
-            <% end %>
-          <% end %>
-      <% end %>
-
-
-  <% end %>
-  

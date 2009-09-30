@@ -1,8 +1,8 @@
   <div id="comment">
     <p><%= simple_format(strip_tags(comment.comment)) %></p>
     <p><i>Posted by: <%=h  comment.user ? comment.user[:login] : "# Anonymous Coward #" %> <%= comment.created_at %></i></p>
-    
+        
     <%= button_to_delete_if_allowed comment %>
-
+    <hr class="dashed">
   </div>
 

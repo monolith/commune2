@@ -1,23 +1,24 @@
-<table border="0" cellpadding="0" cellspacing="0">
-  <tr>
-    <td valign="top">
-      <div id="snippet-stat" name="snippet-stat">
-        <%= stats_for(idea) %>
-      </div>
-    </td>
-    <td valign="top">
+<%= div_tag_for(idea) %> 
 
-      <%= div_tag_for(idea) %> 
-
-        <h2><%= link_to h(idea.title), idea_path(:id => idea) %></h2>
-        <%= render :partial => '/shared/stars', :locals => { :scorable => idea} %>
-
-        | Posted <%= time_ago_in_words(idea.created_at) %>
-
-        <p><%= show_description(idea) %></p>
-        <p><%= dashboard_for(idea) %></p>
-
-      </div>
-    </td>
-  </tr>
-</table>
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td valign="top">
+        <div id="snippet-stat">
+          <%= stats_for(idea) %>
+        </div>
+      </td>
+      <td valign="top">
+        <div id="snippet-body">
+          <h2>
+            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watching_ideas.include?(idea) %> 
+            <%= link_to h(idea.title), idea_path(:id => idea) %>
+          </h2>
+          <%= render :partial => '/shared/stars', :locals => { :scorable => idea} %>
+          <p>| Posted <%= time_ago_in_words(idea.created_at) %></p>
+          <p><%= show_description(idea) %></p>
+          <p><%= dashboard_for(idea) %></p>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

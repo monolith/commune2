@@ -3,14 +3,13 @@ html, body{
   background-color: #fff;
   margin: 0;
   padding: 0;
-  border: none;
   font-family: Helvetica, Arial, sans-serif;
   font-size: small;
-  vertical-align: top;
 
 	background-image:url('/images/green-banner.jpg');
 
   background-repeat:repeat-x;
+  height: 100%;  
 
 }
 #site-container {
@@ -22,7 +21,6 @@ html, body{
     width: 90%;
     max-width: 1250px;
     min-width: 1000px;
-
 }
 
 
@@ -38,8 +36,7 @@ html, body{
   height: 148px;
   border: none;  
 
-  font: menu;  
-
+  font: menu;
  }
 
 
@@ -52,9 +49,7 @@ html, body{
   
   border-left: 5px solid #FFFFFF;
   letter-spacing:0px;
-  color: #FFFFFF;
   
-
 }
 
 #menu-filler {
@@ -142,6 +137,7 @@ a.banner:hover, a.menu-new:hover, a.menu-my:hover, a.menu-watchlist:hover, a.men
 }
 
 a.menu-ideas {
+
   background:url(/images/menu_icons/ideas_menu_icon_brown.png) 0 0 no-repeat; 
   background-position: 10px center;
   background-color: #A0C943;
@@ -291,6 +287,30 @@ color: #B1B1B1;
 }
 
 
+#disclaimer {
+font-size: x-small;
+color: #B1B1B1;
+background-color: #ffffff;
+}
+
+#splash {
+ font-size: small;
+ color: #696969;
+ vertical-align: middle;
+ height: 100%;
+
+}
+
+
+#notice {
+  border: 5px solid #F4C430;
+  background-color: #FFFFFF;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+
+
 #login-splash {
 
   border: 5px solid #4f391a;
@@ -303,8 +323,123 @@ color: #B1B1B1;
 
 
 
+/*** SNIPPETS ************************************/
 
-#ideasnippet, #ideasnippet-inactive, #watchlist_ideasnippet, #comment, #projectsnippet, #watchlist_projectsnippet, #jobsnippet, #profilesnippet, #profilesnippet-inactive, #watchlist_profilesnippet, #projectsnippet-inactive, #invitationsnippet, #invitationsnippet-inactive, #map_canvas, #application, #project_roles, #resend_activation, #watchlist_jobsnippet, #jobsnippet-inactive {
+/*** idea */
+
+#idea-snippet-inactive, #idea-snippet-watching, #idea-snippet {
+  position:relative;
+  float: left;
+  border-bottom: 1px solid #A0C943;
+  margin-bottom: 10px;
+
+  background-image:url('/images/snippet_stat_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top left;
+}
+
+
+#snippet-stat {
+  position:relative;
+  float: left;
+  padding-top: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  width: 100px;
+}
+
+
+#snippet-body {
+  position:relative;
+  float: left;
+
+  background-color: #FFFFFF;
+  padding: 10px;
+  width: 626px;
+  background-image:url('/images/snippet_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top right;
+  border-left: 1px dotted #B1B1B1;
+}
+
+
+
+
+
+
+
+/*** SHARED ************************************************************/
+
+
+#show-container{
+  width: 100%;
+}
+
+#show-main-container{
+  position: relative;
+  float: left;
+  width: 626px;
+  background-image:url('/images/snippet_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top right;
+
+  padding-left: 10px;
+
+}
+
+#show-action-menu {
+  position: relative;
+  float: left;
+  width: 125px;
+
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  background-image:url('/images/snippet_stat_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top left;
+  
+  text-align: right;
+  font-size: small;
+}
+
+
+#show-stat {
+  position:relative;
+  float: left;
+  
+  margin-left: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  width: 100px;
+  clear:right;
+
+  background-image:url('/images/snippet_stat_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top left;
+
+}
+
+
+#comment {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+
+
+
+
+
+/********************************** */
+
+
+#ideasnippet, #ideasnippet-inactive, #watchlist_ideasnippet, #projectsnippet, #watchlist_projectsnippet, #jobsnippet, #profilesnippet, #profilesnippet-inactive, #watchlist_profilesnippet, #projectsnippet-inactive, #invitationsnippet, #invitationsnippet-inactive, #map_canvas, #application, #project_roles, #resend_activation, #watchlist_jobsnippet, #jobsnippet-inactive {
   background-color: #FFFFFF;
   padding-left: 10px;
   padding-right: 10px;
@@ -317,16 +452,6 @@ color: #B1B1B1;
   border-left: 1px dotted #B1B1B1;
 }
 
-#snippet-stat {
-  background-color: #FFFFFF;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px;
-  width: 100px;
-  background-image:url('/images/snippet_stat_bg.jpg');
-  background-repeat: repeat-y;
-  background-position: top left;
-  border-bottom: 1px solid #A0C943;}
 
 
 #invitationsnippet, #invitationsnippet-inactive {
@@ -343,18 +468,6 @@ color: #B1B1B1;
 }
 
 
-#menu {
-  border: 5px solid #d0d0d0;
-  background-color: #FFFFFF;
-  padding: 5px;
-  margin: 10px 0;
-}
-#menu2 {
-  border: 5px solid #a0a0a0;
-  background-color: #FFFFFF;
-  padding: 5px;
-  margin: 10px 0;
-}
 
 #application, #project_roles {
   width: 800px;
@@ -396,10 +509,11 @@ b {
 }
 
 hr {
-  color: #A0C943;
-  background-color: #A0C943;
-  height: 5px;
-  border: 0px
+border-top: 1px dashed #C0C0C0;
+border-bottom: 0px;
+border-left: 0px;
+border-right: 0px;
+margin-top: 5px;
 
 }
 input[type="text"], input[type="password"], input[type="checkbox"], textarea {
@@ -436,11 +550,9 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="checkbox"]:f
   width: 400px;
 }
 #dashboard {
+  border: 2px solid #F4C430;
   background-color: #FFFFFF;
-  margin: 3px;
-  padding: 3px;
-  border-style:solid;
-  border-color: #D3D3D3;
+  padding: 5px;
   font-family: Helvetica, Arial, sans-serif;
   font-size: small;
   vertical-align: top;
@@ -450,6 +562,24 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="checkbox"]:f
   background-image: url(/images/background.jpg);
   background-repeat: repeat-y;
   padding: 10px;
+
+}
+
+
+#error {
+  border: 5px solid #CF4326;
+  background-color: #FFFFFF;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+
+#login-splash {
+
+  border: 5px solid #4f391a;
+  padding: 10px;
+  width: 900px;
+
 
 }
 
