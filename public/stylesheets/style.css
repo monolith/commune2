@@ -1,4 +1,8 @@
 
+html {
+  overflow-y: scroll;
+}
+
 html, body{
   background-color: #fff;
   margin: 0;
@@ -9,7 +13,7 @@ html, body{
 	background-image:url('/images/green-banner.jpg');
 
   background-repeat:repeat-x;
-  height: 100%;  
+  height: 100%; 
 
 }
 #site-container {
@@ -21,7 +25,10 @@ html, body{
     width: 90%;
     max-width: 1250px;
     min-width: 1000px;
-}
+
+    border: none;  
+
+  }
 
 
 /*    BANNER AND TOP MENU STUFF */
@@ -30,13 +37,13 @@ html, body{
 
 #banner {
   position: relative;
-	width: 100%;
   padding-top: 15px;
-
+  
   height: 148px;
-  border: none;  
+  width: 100%;
 
   font: menu;
+  clear: right;
  }
 
 
@@ -55,6 +62,10 @@ html, body{
 #menu-filler {
     background-color: #A0C943;
 }
+#menu-filler-highlight {
+    background-color: #4f391a;
+}
+
 #banner-menu-ideas {
   background: #4f391a; 
   background:url(/images/menu_icons/ideas_icon_lg.png) center center no-repeat; 
@@ -122,6 +133,22 @@ a.menu-ideas, a.menu-projects, a.menu-jobs, a.menu-people, a.menu-new, a.menu-my
 
 }
 
+a.menu-ideas-highlight, a.menu-projects-highlight, a.menu-jobs-highlight, a.menu-people-highlight, a.menu-new-highlight, a.menu-my-highlight, a.menu-watchlist-highlight, a.menu-invite-highlight, #menu-filler-highlight { 
+  display:block;
+	color: #FFFFFF;
+	text-decoration: none;
+  vertical-align: middle;
+  padding-top: 7px;
+  padding-left: 45px;
+  height: 30px;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.90;
+
+}
+
 
 a.banner:hover, a.menu-new:hover, a.menu-my:hover, a.menu-watchlist:hover, a.menu-invite:hover { 
   font-weight: bold;
@@ -136,16 +163,48 @@ a.banner:hover, a.menu-new:hover, a.menu-my:hover, a.menu-watchlist:hover, a.men
 
 }
 
-a.menu-ideas {
+a.banner-highlight:hover, a.menu-new-highlight:hover, a.menu-my-highlight:hover, a.menu-watchlist-highlight:hover, a.menu-invite-highlight:hover { 
+  font-weight: bold;
+  background-color: #F4C430;
+  color: #4f391a;
+  letter-spacing:0.0px;
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
 
+}
+
+a.menu-ideas {
   background:url(/images/menu_icons/ideas_menu_icon_brown.png) 0 0 no-repeat; 
   background-position: 10px center;
   background-color: #A0C943;
-
 }
+
 a.menu-ideas:hover {
   background:url(/images/menu_icons/ideas_menu_icon_green.png) 0 0 no-repeat; 
   background-color: #4f391a;
+  background-position: 10px center;
+  font-color: #FFFFFF;
+  font-weight: bold;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+
+}
+
+a.menu-ideas-highlight {
+  background:url(/images/menu_icons/ideas_menu_icon_green.png) 0 0 no-repeat; 
+  background-position: 10px center;
+  background-color: #4f391a;
+}
+
+a.menu-ideas-highlight:hover {
+  background:url(/images/menu_icons/ideas_menu_icon_brown.png) 0 0 no-repeat; 
+  background-color: #F4C430;
+  color: #4f391a;
   background-position: 10px center;
   font-color: #FFFFFF;
   font-weight: bold;
@@ -177,6 +236,26 @@ a.menu-projects:hover {
 
 }
 
+a.menu-projects-highlight {
+  background:url(/images/menu_icons/projects_menu_icon_green.png) 0 0 no-repeat; 
+  background-position: 11px center;
+  background-color: #4f391a;
+
+}
+a.menu-projects-highlight:hover {
+  background:url(/images/menu_icons/projects_menu_icon_brown.png) 0 0 no-repeat; 
+  background-color: #F4C430;
+  color: #4f391a;
+  background-position: 11px center;
+  font-color: #FFFFFF;
+  font-weight: bold;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+
+}
 
 a.menu-jobs {
   background:url(/images/menu_icons/jobs_menu_icon_brown.png) 0 0 no-repeat; 
@@ -187,6 +266,27 @@ a.menu-jobs {
 a.menu-jobs:hover {
   background:url(/images/menu_icons/jobs_menu_icon_green.png) 0 0 no-repeat; 
   background-color: #4f391a;
+  background-position: 14px center;
+  font-color: #FFFFFF;
+  font-weight: bold;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+}
+
+
+a.menu-jobs-highlight {
+  background:url(/images/menu_icons/jobs_menu_icon_green.png) 0 0 no-repeat; 
+  background-position: 14px center;
+  background-color: #4f391a;
+
+}
+a.menu-jobs-highlight:hover {
+  background:url(/images/menu_icons/jobs_menu_icon_brown.png) 0 0 no-repeat; 
+  background-color: #F4C430;
+  color: #4f391a;
   background-position: 14px center;
   font-color: #FFFFFF;
   font-weight: bold;
@@ -217,18 +317,54 @@ a.menu-people:hover {
   opacity:0.80;
 }
 
+a.menu-people-highlight {
+  background:url(/images/menu_icons/people_menu_icon_green.png) 0 0 no-repeat; 
+  background-position: 16px center;
+  background-color: #4f391a;
+
+}
+a.menu-people-highlight:hover {
+  background:url(/images/menu_icons/people_menu_icon_brown.png) 0 0 no-repeat; 
+  background-color: #F4C430;
+  color: #4f391a;
+  background-position: 16px center;
+  font-color: #FFFFFF;
+  font-weight: bold;
+
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+}
+
 a.menu-new {
   background:url(/images/submenu_icons/new_submenu_icon.png) 0 0 no-repeat; 
   background-position: 16px center;
   background-color: #A0C943;
 
 }
+
+a.menu-new-highlight {
+  background:url(/images/submenu_icons/new_submenu_icon.png) 0 0 no-repeat; 
+  background-position: 16px center;
+  background-color: #4f391a;
+
+}
+
 a.menu-my {
   background:url(/images/submenu_icons/my_submenu_icon.png) 0 0 no-repeat; 
   background-position: 16px center;
   background-color: #A0C943;
 
 }
+
+a.menu-my-highlight {
+  background:url(/images/submenu_icons/my_submenu_icon.png) 0 0 no-repeat; 
+  background-position: 16px center;
+  background-color: #4f391a;
+
+}
+
 a.menu-watchlist {
   background:url(/images/submenu_icons/watchlist_submenu_icon.png) 0 0 no-repeat; 
   background-position: 11px center;
@@ -236,6 +372,12 @@ a.menu-watchlist {
 
 }
 
+a.menu-watchlist-highlight {
+  background:url(/images/submenu_icons/watchlist_submenu_icon.png) 0 0 no-repeat; 
+  background-position: 11px center;
+  background-color: #4f391a;
+
+}
 
 a.banner-no-block { 
 	color: #FFFFFF;
@@ -253,6 +395,9 @@ a.banner-no-block:hover {
 #content {
   width: 100%;
   padding-top: 25px;
+  border: none;
+  left: auto;
+  right: auto;
 
 }
 
@@ -317,7 +462,6 @@ background-color: #ffffff;
   padding: 10px;
   width: 900px;
 
-
 }
 
 
@@ -332,10 +476,6 @@ background-color: #ffffff;
   float: left;
   border-bottom: 1px solid #A0C943;
   margin-bottom: 10px;
-
-  background-image:url('/images/snippet_stat_bg.jpg');
-  background-repeat: repeat-y;
-  background-position: top left;
 }
 
 
@@ -346,27 +486,29 @@ background-color: #ffffff;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
-  width: 100px;
+  width: 110px;
 }
 
 
 #snippet-body {
   position:relative;
   float: left;
-
-  background-color: #FFFFFF;
   padding: 10px;
   width: 626px;
+}
+
+TD.snippet-body{
   background-image:url('/images/snippet_bg.jpg');
   background-repeat: repeat-y;
   background-position: top right;
   border-left: 1px dotted #B1B1B1;
 }
 
-
-
-
-
+TD.snippet-stat{
+  background-image:url('/images/snippet_stat_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top left;
+}
 
 
 /*** SHARED ************************************************************/
@@ -519,27 +661,25 @@ margin-top: 5px;
 input[type="text"], input[type="password"], input[type="checkbox"], textarea {
 
   border: 1px solid #A0C943;
-  border-color: #A0C943;
-  
-  color: #4f391a;
-  font-size: medium;
+  background-color: #ffffff;
+  font-color: #4f391a;
   font-weight: bold;
-
-}
-input.big_button {
-   height: 50px;
-   width: 150px;
 
 }
 
 input[type="text"]:focus, input[type="password"]:focus, input[type="checkbox"]:focus, textarea:focus {
   background-color: #4F391A;
   color: #A0C943;
+
 }
 
-#newcomment, #ideadashboard, #projectdashboard, #jobdashboard, #profiledashboard, #special_message {
-  border: 5px solid #FFD700;
-  background-color: #FFFFFF;
+input.big_button {
+   height: 50px;
+   width: 150px;
+
+}
+
+#ideadashboard, #projectdashboard, #jobdashboard, #profiledashboard, #special_message {
   padding: 5px;
   margin: 10px 0;
   width: 200px;
@@ -571,15 +711,5 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="checkbox"]:f
   background-color: #FFFFFF;
   padding: 5px;
   margin: 10px 0;
-}
-
-
-#login-splash {
-
-  border: 5px solid #4f391a;
-  padding: 10px;
-  width: 900px;
-
-
 }
 

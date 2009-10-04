@@ -4,7 +4,7 @@
 
 <div id="post">
 
-     <% form_for @idea do |f| -%>
+  <% form_for @idea do |f| -%>
      <%= f.error_messages %>
 
      <p>Is this idea active or inactive?
@@ -20,11 +20,11 @@
       <p><%= label_tag 'Description' %><br/>
       <%= f.text_area :description, :rows => 10, :cols => 38 %></p>
 
-<p>Select relevant industries (no more than 5 please)</p> 
+      <p>Select relevant industries (no more than 5 please)</p> 
 
       <%= render :partial => '/shared/industries', :locals => { :industry_ids => @industry_ids } %>
 
 
       <p><%= submit_tag "Post Idea" %></p>
-      <% end %>
+  <% end %>
 </div>

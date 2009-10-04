@@ -2,19 +2,18 @@
 
   <table border="0" cellspacing="0" cellpadding="0">
     <tr>
-      <td valign="top">
+      <td valign="top"class="snippet-stat">
         <div id="snippet-stat">
           <%= stats_for(idea) %>
         </div>
       </td>
-      <td valign="top">
+      <td valign="top" class="snippet-body">
         <div id="snippet-body">
           <h2>
             <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watching_ideas.include?(idea) %> 
             <%= link_to h(idea.title), idea_path(:id => idea) %>
           </h2>
           <%= render :partial => '/shared/stars', :locals => { :scorable => idea} %>
-          <p>| Posted <%= time_ago_in_words(idea.created_at) %></p>
           <p><%= show_description(idea) %></p>
           <p><%= dashboard_for(idea) %></p>
         </div>

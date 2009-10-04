@@ -1,7 +1,9 @@
   <p><b>Watching:</b> <%= object.watchers_count %></p>  
-  <p><b>Interested:</b> <%= object.interested_count %>
-    <% object.interested.each do |profile| %>
-      <%= link_to profile.login, user_path(profile) %><br />
-    <% end %>
-  </p>
-
+  
+  <% unless object.class == User %>
+    <p><b>Interested:</b> <%= object.interested_count %>
+      <% object.interested.each do |profile| %>
+        <%= link_to profile.login, user_path(profile) %><br />
+      <% end %>
+    </p>
+  <% end %>

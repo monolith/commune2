@@ -12,70 +12,84 @@
 
   </head>
   <body>
+
+
         <div id="site-container">
 
-        <table height="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr><td valign="top">
+        <!-- content table container -->
+        <table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr><td valign="top" height="155">
 
 
 
           <div id="banner">    
 
+            <!-- banner table container -->
             <table border="0" cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td valign="top">
                  
                   <span id="banner-logo">
                     <%= link_to image_tag("c2_banner_logo_brown.png", :border => 0), root_path %>
-                  
-                    <p class="banner"><%= link_to "home", root_path, :class => "banner-no-block" %></p>
-                    <p class="banner"><%= link_to "help", help_path, :class => "banner-no-block" %></p>
+
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                      <tr>
+                        <td valign="bottom" height="90">                 
+                          <%= section_icon %>
+                        </td>
+                        <td valign="top">
+                          <p class="banner"><%= link_to "home", root_path, :class => "banner-no-block" %></p>
+                          <p class="banner"><%= link_to "help", help_path, :class => "banner-no-block" %></p>
+                        </td>
+                      </tr>
+                    </table>
+
                   </span>
                 </td>
 
             
             
-            <% if logged_in? %>
+            <% if logged_in? and request.path_parameters[:controller] != "user" %>
 
                 <td valign="top" width="140">
               
                   <span id="banner-menu-ideas">
-                    <%= link_to "ideas", ideas_path, :class => "menu-ideas" %>
+                    <%= link_to "ideas", ideas_path, :class => menu_link_class("ideas", "ideas") %>
                     
-                    <%= link_to "watchlist", watchlist_ideas_path, :class => "menu-watchlist" %>
+                    <%= link_to "watchlist", watchlist_ideas_path, :class => menu_link_class("ideas", "watchlist") %>
                     
-                    <%= link_to "my ideas", my_ideas_path, :class => "menu-my" %>
+                    <%= link_to "my ideas", my_ideas_path, :class => menu_link_class("ideas", "my") %>
                     
-                    <%= link_to "post new", new_idea_path, :class => "menu-new"%>
+                    <%= link_to "post new", new_idea_path, :class => menu_link_class("ideas", "new") %>
                   </span>
                 </td>
                 <td valign="top" width="155">
 
                   <span id="banner-menu-projects">
-                    <%= link_to "projects", projects_path, :class => "menu-projects" %>
-                    <%= link_to "watchlist", watchlist_projects_path, :class => "menu-watchlist" %>
-                    <%= link_to "my projects", my_projects_path, :class => "menu-my" %>
-                    <%= link_to "post new", new_project_path, :class => "menu-new"  %>
+                    <%= link_to "projects", projects_path, :class => menu_link_class("projects", "projects") %>
+                    <%= link_to "watchlist", watchlist_projects_path, :class => menu_link_class("projects", "watchlist") %>
+                    <%= link_to "my projects", my_projects_path, :class => menu_link_class("projects", "my") %>
+                    <%= link_to "post new", new_project_path, :class => menu_link_class("projects", "new")  %>
                   </span>
 
                 </td>
                 <td valign="top" width="135">
 
                   <span id="banner-menu-jobs">
-                    <%= link_to "jobs", jobs_path, :class => "menu-jobs" %>
-                    <%= link_to "watchlist", watchlist_jobs_path, :class => "menu-watchlist" %>
-                    <%= link_to "my jobs", my_jobs_path, :class => "menu-my" %>
-                    <span id="menu-filler"> </span>
+                    <%= link_to "jobs", jobs_path, :class => menu_link_class("jobs", "jobs") %>
+                    <%= link_to "watchlist", watchlist_jobs_path, :class => menu_link_class("jobs", "watchlist") %>
+                    <%= link_to "my jobs", my_jobs_path, :class => menu_link_class("jobs", "my") %>
+                    <span id="<%= menu_filler_class('jobs') %>"> </span>
                   </span>
 
                 </td>
                 <td valign="top" width="135">
 
                   <span id="banner-menu-people">
-                    <%= link_to "people", users_path, :class => "menu-people" %></p>
-                    <%= link_to "watchlist", watchlist_profiles_path, :class => "menu-watchlist" %>
-                    <%= link_to "invite", new_invitation_path, :class => "menu-new" %>
-                    <span id="menu-filler"> </span>
+                    <%= link_to "people", users_path, :class => menu_link_class("users", "people") %></p>
+                    <%= link_to "watchlist", watchlist_profiles_path, :class => menu_link_class("users", "watchlist") %>
+                    <%= link_to "invite", new_invitation_path, :class => menu_link_class("users", "new") %>
+                    <span id="<%= menu_filler_class('users') %>"> </span>
                   </span>
                   
                   
@@ -92,14 +106,17 @@
                     <p class="banner">logged in as: <%= link_to current_user.login, edit_user_path(current_user), :class=> "banner-no-block" %> (<%= link_to "logout", logout_path, :class => "banner-no-block" %>)</p>
 
                   </span>
+
+                  </td>
               <% end %>
 
-                </td>
               </tr>
-            </table>
+            </table>  <!-- banner table container -->
 
           </div>
 
+          </td></tr>
+          <tr><td valign="top"> <!-- content table container -->
 
 
     <!-- IE6 BAD, GET NEW BROWSER -->
@@ -113,21 +130,21 @@
             <div id="content">
 
                <% unless flash[:error].blank? %>
-                 <div id="error"><%=h flash[:error] %></div>
+                 <div id="error"><%=h flash[:error] %> </div>
                <% end %>
                <% unless flash[:notice].blank? %>
-                  <div id="notice"><%=h flash[:notice] %></div>
+                  <div id="notice"><%=h flash[:notice] %> </div>
                <% end %>
 
                       
               <%= yield %>
 
-          </div>
+            </div>
 
 
-        <td>
+        </td>
       </tr>
-      <tr>
+      <tr> <!-- content table container -->
         <td valign="bottom">
         
           <div id="disclaimer">
@@ -138,7 +155,7 @@
 
           </td>
         </tr>
-      </table>
+      </table> <!-- content table container -->
 
         </div>
   </body>

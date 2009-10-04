@@ -136,8 +136,8 @@ class Idea < ActiveRecord::Base
   end
 
   def log
-    logger.error "\n\n!!!DELETED\n"
-    logger.error self.instance_values.to_yaml
+    logger.error "\n\n!!!DELETED IDEA\n"
+    logger.error self.attributes.to_yaml
     logger.error "DELETED!!!\n\n"
   end
 
