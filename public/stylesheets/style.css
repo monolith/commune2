@@ -145,7 +145,7 @@ a.menu-ideas-highlight, a.menu-projects-highlight, a.menu-jobs-highlight, a.menu
   /* for IE */
   filter:alpha(opacity=80);
   /* CSS3 standard */
-  opacity:0.90;
+  opacity:0.80;
 
 }
 
@@ -471,13 +471,22 @@ background-color: #ffffff;
 
 /*** idea */
 
-#idea-snippet-inactive, #idea-snippet-watching, #idea-snippet {
+#snippet-inactive, #snippet-watching, #snippet {
   position:relative;
   float: left;
   border-bottom: 1px solid #A0C943;
   margin-bottom: 10px;
 }
 
+#snippet-inactive{
+  /* for IE */
+  filter:alpha(opacity=35);
+  /* CSS3 standard */
+  opacity:0.35;
+  
+  border-bottom: 1px solid gray;
+ 
+}
 
 #snippet-stat {
   position:relative;
@@ -690,7 +699,7 @@ input.big_button {
   width: 400px;
 }
 #dashboard {
-  border: 2px solid #F4C430;
+  border: 1px solid #F4C430;
   background-color: #FFFFFF;
   padding: 5px;
   font-family: Helvetica, Arial, sans-serif;

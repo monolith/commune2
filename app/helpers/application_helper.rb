@@ -62,23 +62,14 @@ module ApplicationHelper
     
       id =  case object.class.to_s
 
-              when "Idea"
+              when "Idea", "Project"
                 if object.active == false
-                  "idea-snippet-inactive"
+                  "snippet-inactive"
                 elsif current_user.watching_ideas.include?(object)  
-                  "idea-snippet-watching"
+                  "snippet-watching"
                 else
-                  "idea-snippet"
+                  "snippet"
                 end
-
-              when "Project"
-                if object.active == false
-                  "projectsnippet-inactive"
-                elsif current_user.watching_projects.include?(object)  
-                  "watchlist_projectsnippet"
-                else
-                  "projectsnippet"
-                end              
 
               when "Job"
                 if object.active == false

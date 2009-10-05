@@ -1,6 +1,6 @@
   <p><b>Watching:</b> <%= object.watchers_count %></p>  
   
-  <% unless object.class == User %>
+  <% unless object.class == User || object.class == Job %>
     <p><b>Interested:</b> <%= object.interested_count %>
       <% object.interested.each do |profile| %>
         <%= link_to profile.login, user_path(profile) %><br />

@@ -95,8 +95,10 @@
                   </span>             
                   
                 </td>
+                
+          <% end %>
+          <% if logged_in? %>      
                 <td valign="top">
-
                   <span id="banner-search">
                         <% form_tag searches_path, :method => :get do %>
                         <%= text_field_tag :search, params[:search] %>

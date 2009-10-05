@@ -1,23 +1,24 @@
-<table border="0" cellpadding="0" cellspacing="0">
-  <tr>
-    <td valign="top">
-      <div id="snippet-stat" name="snippet-stat">
-        <%= stats_for(project) %>
-      </div>
-    </td>
-    <td valign="top">
+<%= div_tag_for(project) %> 
 
-      <%= div_tag_for(project) %> 
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td valign="top"class="snippet-stat">
+        <div id="snippet-stat">
+          <%= stats_for(project) %>
+        </div>
+      </td>
+      <td valign="top" class="snippet-body">
+        <div id="snippet-body">
+          <h2>
+            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watching_projects.include?(project) %> 
+            <%= link_to h(project.title), project_path(project) %>
+          </h2>
+          <%= render :partial => '/shared/stars', :locals => { :scorable => project} %>
 
-      <h2><%= link_to h(project.title), project_path(project) %></h2>
-      <%= render :partial => '/shared/stars', :locals => { :scorable => project} %>
-
-        | Posted <%= time_ago_in_words(project.created_at) %>
-
-        <p><%= show_description(project) %></p>
-        <p><%= dashboard_for(project) %></p>
-
-      </div>
-    </td>
-  </tr>
-</table>
+          <p><%= show_description(project) %></p>
+          <p><%= dashboard_for(project) %></p>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
