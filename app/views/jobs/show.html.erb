@@ -1,110 +1,53 @@
-<% content_for :title do %>Job<% end %>
-
+<% content_for :title do %>Job <% end %>
 
 <% if @job.blank? %>
-  Sorry, no job to see here.
+  <p>Sorry, no job to see here.</p>
+
 <% else %>
 
-  <table border="0" width="100%">
-    <tr>
-      <td valign="top" width="400">
 
-          <h1>Job Title: <%=h @job.title %></h1>
+  <div id="show-container">
 
-          <% if @job.project and (@job.project.active? || @job.user == current_user) %>
-            <h2>Project</h2>
-            <%= render :partial => @job.project %>
+  <h1>JOB</h1>
 
-          <% end %>
-
-          <h2>Job Status: <%=h @job.status %></h2>
-          <% if @job.hired_user %>
-            <p>Currently at this position:</p>
-            <%= render :partial => "users/user", :object => @job.hired_user %>
-          <% end %>
-        
-          <h2>Job Description</h2>  
-          <p><%= simple_format(strip_tags(@job.description)) %></p>
-
-      </td>
-      <td valign="top" align="center">
-        <div id="jobdashboard">
-          <% if @job.user == current_user %>
-            <p><%= link_to "Edit job", edit_job_path(:id =>@job) %></p>
-
-            <p><b>Status:</b>
-              <% if @job.active %>
-                 Active
-              <% else %>
-                 <i>INACTIVE</i><br />(only you can see it)
-              <% end %>
-            </p>
-            
-            <p><b>Applications:</b> <%= @job.job_applications.count %></p>
-
-          <% end %>
+    <div id="show-action-menu">
 
 
-            <%= render :partial => '/shared/add_remove_watch_or_interest', :locals => { :object => @job}  %>
+      <% if @job.project.members.include? current_user %>
+        <p>edit this job</p>
+        <%= link_to image_tag("other_icons/edit_post_icon_grey.jpg", :border => 0), edit_job_path(@job) %>
+      <% end %>
+      
+      <p><%= render :partial => '/shared/watchlist_menu', :locals => { :object => @job}  %></p>
 
-            <% if @job.applicants.include?(current_user) %>
+      <%= button_to_delete_if_allowed @job %>
 
-              <% if @job.hired_user == current_user %>
-                <p>You are currently hired for this job.</p>
-                  <% form_for @job.job_applications.find_by_user_id(current_user.id) do |f| -%>
-                      <%= f.hidden_field :hired, :value => "false" %>
-                      <p><%= submit_tag "Leave Job", :confirm => "Are you sure you want to leave this job?" %></p>
-                  <% end %>
+    </div>
 
-              <% elsif @job.users_with_offers.include? current_user %>
-                <p>This job has been offered to you.</p>
+    <div id="show-main-container">
+    
+      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_jobs.include?(@job) %>
+        <%=h @job.title %></h1>
 
-                  <% form_for @job.job_applications.find_by_user_id(current_user.id) do |f| -%>
-                      <%= f.hidden_field :hired, :value => "true" %>
-                      <p><%= submit_tag "Accept Job" %></p>
-                  <% end %>
+        <% if @job.project and (@job.project.active? || @job.user == current_user) %>
+          <div id="snippet_header"><h3>&nbsp;Project</h3></div>
+          <%= render :partial => @job.project %>
+        <% end %>
 
-                
-              <% else %>
-
-                  <p><b>You applied for this job on <%= @application.created_at %>.</b></p>
-
-                  <% form_for @application do |f| -%>
-                    <%= f.text_area :message, :rows => 25, :cols => 25 %>
-                    <p><%= submit_tag 'Update Job Application' %></p>
-                  <% end %>
-                  
-                  <%= button_to "Delete Application", job_application_path(@application), :confirm => "Are you sure you want to delete your application?", :method => :delete %>
+        <h2>Job Status: <%=h @job.status %></h2>
+        <% if @job.hired_user %>
+          <p>Currently at this position:</p>
+          <%= render :partial => "users/user", :object => @job.hired_user %>
+        <% end %>
 
 
-              <% end %>
+      <h2>General skills</h2>
+      <p><%= @job.general_skills_string %></p>
 
-            <% else %>
-
-              <% if current_user.active == true %>
-
-                 <h3>Want to apply?</h2>
-                 <p>Write a message and hit apply (1000 character limit)
-                 <% form_for @application do |f| -%>
-                   <%= f.hidden_field :job_id %>
-                   <%= f.text_area :message, :rows => 25, :cols => 25 %>
-                   <p><%= submit_tag 'Apply' %></p>
-                 <% end %>
-
-              <% end %>
-
-            <% end %>
+      <h2>Description</h2>
+      <p><%= simple_format(strip_tags(@job.description)) %></p>
 
 
-        </div>
-      </td>
-    </tr>
-  </table>
-
-
-  <p><i>Posted by <%=h @job.user.login %><br />
-  Original post: <%= @job.created_at %><br />
-  Last updated: <%= @job.updated_at %></i></p>
 
   <% if @job.project.user == current_user or (@job.project.members.include?(current_user) and not @job.job_applications.find_by_user_id(current_user.id)) %>
     <h2><%= pluralize @job.applicants.count, "Job Applicant" %></h2>
@@ -146,4 +89,83 @@
 
   <% end %>
 
+
+
+
+
+      <% if @job.applicants.include?(current_user) %>
+
+        <% if @job.hired_user == current_user %>
+          <p>You are currently hired for this job.</p>
+            <% form_for @job.job_applications.find_by_user_id(current_user.id) do |f| -%>
+                <%= f.hidden_field :hired, :value => "false" %>
+                <p><%= submit_tag "Leave Job", :confirm => "Are you sure you want to leave this job?" %></p>
+            <% end %>
+
+        <% elsif @job.users_with_offers.include? current_user %>
+          <p>This job has been offered to you.</p>
+
+            <% form_for @job.job_applications.find_by_user_id(current_user.id) do |f| -%>
+                <%= f.hidden_field :hired, :value => "true" %>
+                <p><%= submit_tag "Accept Job" %></p>
+            <% end %>
+
+          
+        <% else %>
+
+            <p><b>You applied for this job on <%= @application.created_at %>.</b></p>
+
+            <% form_for @application do |f| -%>
+             <%= f.text_area :message, :rows => 10, :cols => 60 %>
+              <p><%= submit_tag 'Update Job Application' %></p>
+            <% end %>
+            
+            <%= button_to "Delete Application", job_application_path(@application), :confirm => "Are you sure you want to delete your application?", :method => :delete %>
+
+
+        <% end %>
+      <% else %>
+
+        <% if current_user.active == true %>
+
+           <h2>Want to apply?</h2>
+           <p>Write a message and hit apply (1000 character limit)
+           <% form_for @application do |f| -%>
+             <%= f.hidden_field :job_id %>
+             <%= f.text_area :message, :rows => 10, :cols => 60 %>
+             <p><%= submit_tag 'Apply' %></p>
+           <% end %>
+
+        <% end %>
+
+      <% end %>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <div id="show-stat">
+      <% if @job.project.members.include? current_user %>
+        <p>status: <%= @job.active ? "active" : "<b>INACTIVE</b>" %></p>
+        <hr>
+      <% end %>
+      
+      <%= stats_for @job %>
+        
+    </div>            
+
+  </div>
+
+
 <% end %>
+

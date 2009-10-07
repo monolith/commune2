@@ -1,20 +1,26 @@
-  <%= div_tag_for(user) %> 
-    <table width="100%">
-      <tr>
-        <td><h2><%= link_to URI.encode(user.login), user_path(:id => user) %>
-        <br /><%= render :partial => '/shared/stars', :locals => { :scorable => user} %>
-      </tr>
-      <tr>
-        <td>
+<%= div_tag_for(user) %> 
+
+  <table border="0" cellspacing="0" cellpadding="0" width=100%>
+    <tr>
+      <td valign="top"class="snippet-stat" width="110">
+        <div id="snippet-stat">
           <%= stats_for(user) %>
-        </td>
-      </tr>
-      <tr>
-        <td><i>Joined: <%= time_ago_in_words(user.created_at) %> ago | Last logon: <%= time_ago_in_words(user.logon.last) %> ago</i></td>
-      </tr>
-      
-    </table>
+        </div>
+      </td>
+      <td valign="top" class="snippet-body">
+        <div id="snippet-body">
+          <h2>
+            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_people.include?(user) %> 
+            <%= link_to URI.encode(user.login), user_path(:id => user) %>
+          </h2>
+          <%= render :partial => '/shared/stars', :locals => { :scorable => user} %>
+          <p><i>Joined: <%= time_ago_in_words(user.created_at) %> ago | Last logon: <%= time_ago_in_words(user.logon.last) %> ago.</i></p>
 
-  <%= dashboard_for(user) %> 
+          <%= dashboard_for(user) %> 
 
-  </div>
+        </div>
+
+      </td>
+    </tr>
+  </table>
+</div>

@@ -476,6 +476,7 @@ background-color: #ffffff;
   float: left;
   border-bottom: 1px solid #A0C943;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 #snippet-inactive{
@@ -503,7 +504,7 @@ background-color: #ffffff;
   position:relative;
   float: left;
   padding: 10px;
-  width: 626px;
+  width: 100%;
 }
 
 TD.snippet-body{
@@ -524,12 +525,15 @@ TD.snippet-stat{
 
 
 #show-container{
+  position:relative;
+  float: left;
   width: 100%;
 }
 
 #show-main-container{
   position: relative;
   float: left;
+  
   width: 626px;
   background-image:url('/images/snippet_bg.jpg');
   background-repeat: repeat-y;
@@ -584,10 +588,32 @@ TD.snippet-stat{
 
 
 
-
-
-
 /********************************** */
+
+
+#project_member{
+  position: relative;
+  float: left;
+  clear: right;
+  margin: none;
+  padding: none;
+  border: none;
+  width:100%;
+
+}
+
+#snippet_header{
+  position: relative;
+  float: left;
+  clear: right;
+  background-color: #A0C943;
+  margin: 0px;
+  width: 100%;
+
+}
+#snippet_header h3{
+  color: #ffffff;  
+}
 
 
 #ideasnippet, #ideasnippet-inactive, #watchlist_ideasnippet, #projectsnippet, #watchlist_projectsnippet, #jobsnippet, #profilesnippet, #profilesnippet-inactive, #watchlist_profilesnippet, #projectsnippet-inactive, #invitationsnippet, #invitationsnippet-inactive, #map_canvas, #application, #project_roles, #resend_activation, #watchlist_jobsnippet, #jobsnippet-inactive {
@@ -699,13 +725,16 @@ input.big_button {
   width: 400px;
 }
 #dashboard {
+
+  position: relative;
+  float: left;
+  width: 94%;
+
   border: 1px solid #F4C430;
   background-color: #FFFFFF;
   padding: 5px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: small;
-  vertical-align: top;
 
+  
 }
 #recent-activity {
   background-image: url(/images/background.jpg);

@@ -23,13 +23,15 @@
       <p>launch project</p>
       <%= link_to image_tag("other_icons/projects_icon_sm.png", :border => 0), new_idea_project_path(@idea) %>
 
-      <p><%= render :partial => '/shared/action_menu', :locals => { :object => @idea}  %></p>
+      <p><%= render :partial => '/shared/watchlist_menu', :locals => { :object => @idea}  %></p>
+
+      <%= button_to_delete_if_allowed @idea %>
 
     </div>
 
     <div id="show-main-container">
     
-      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watching_ideas.include?(@idea) %>
+      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_ideas.include?(@idea) %>
         <%=h @idea.title %></h1>
 
       <%= render :partial => '/shared/stars', :locals => { :scorable => @idea}  %>

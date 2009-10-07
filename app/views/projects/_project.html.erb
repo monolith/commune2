@@ -1,8 +1,8 @@
 <%= div_tag_for(project) %> 
 
-  <table border="0" cellspacing="0" cellpadding="0">
+  <table border="0" cellspacing="0" cellpadding="0" width="100%">
     <tr>
-      <td valign="top"class="snippet-stat">
+      <td valign="top"class="snippet-stat" width="110">
         <div id="snippet-stat">
           <%= stats_for(project) %>
         </div>
@@ -10,7 +10,7 @@
       <td valign="top" class="snippet-body">
         <div id="snippet-body">
           <h2>
-            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watching_projects.include?(project) %> 
+            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_projects.include?(project) %> 
             <%= link_to h(project.title), project_path(project) %>
           </h2>
           <%= render :partial => '/shared/stars', :locals => { :scorable => project} %>

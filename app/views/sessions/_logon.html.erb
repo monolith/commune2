@@ -17,11 +17,9 @@
       </td>
       
       <td valign="top">
-        <h2>What does the below text say?</h2>
-        <%= text_field_tag 'recaptcha_response_field', nil, :class => 'brown_border' %>
+        <h2>Are you human?</h2>
+        <%= recaptcha_tags(:display => {:theme => 'red', :tabindex => 3}) %>
 
-        <div id="recaptcha_image" name="recaptcha_image"></div>
-        <%= recaptcha_tags(:display => {:theme => 'custom', :tabindex => 3}) %>
 
       </td>
     </tr>

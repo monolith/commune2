@@ -101,6 +101,9 @@ class User < ActiveRecord::Base
   has_many :watched_projects, :through => :watchlists, :source => :watch, :source_type => "Project", :conditions => "projects.active"
 
   has_many :watched_projects_recent_jobs, :class_name => 'Job', :finder_sql =>  'select distinct `jobs`.* from `jobs` JOIN `watchlists` ON `watchlists`.watch_id = `jobs`.project_id and `watchlists`.watch_type = \'Project\' JOIN `users` ON `users`.id = `watchlists`.user_id WHERE `users`.id = #{id} and `jobs`.open and `jobs`.active AND `jobs`.created_at > \'#{logon.previous.to_time}\' ORDER BY `jobs`.created_at DESC'
+
+
+  has_many :watched_jobs, :through => :watchlists, :source => :watch, :source_type => "Job"
   
   # for dashboard - watched people
   has_many :watched_people, :through => :watchlists, :source => :watch, :source_type => "User", :conditions => "users.active"
@@ -251,21 +254,22 @@ class User < ActiveRecord::Base
     f + " " + l
   end
 
-  def watching_ideas
-    extract_from_watchlist( self.watchlists.find_all_by_watch_type('Idea'))
-  end
 
-  def watching_projects
-    extract_from_watchlist( self.watchlists.find_all_by_watch_type('Project') )
-  end
-  
-  def watching_users
-    extract_from_watchlist( self.watchlists.find_all_by_watch_type('User') )
-  end
+#  def watching_ideas
+#    extract_from_watchlist( self.watchlists.find_all_by_watch_type('Idea'))
+#  end
 
-  def watching_jobs
-    extract_from_watchlist( self.watchlists.find_all_by_watch_type('Job') )
-  end
+#  def watching_projects
+#    extract_from_watchlist( self.watchlists.find_all_by_watch_type('Project') )
+#  end
+#  
+#  def watching_users
+#    extract_from_watchlist( self.watchlists.find_all_by_watch_type('User') )
+#  end
+
+#  def watching_jobs
+#    extract_from_watchlist( self.watchlists.find_all_by_watch_type('Job') )
+#  end
 
   def interested_ideas
     extract_from_interests( self.interests.find_all_by_interest_type('Idea') )

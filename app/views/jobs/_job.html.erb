@@ -1,19 +1,24 @@
-
 <%= div_tag_for(job) %> 
-    <table width="100%">
-      <tr>
-        <td><h2><%= link_to h(job.title), job_path(:id => job) %></h2></td>
-      </tr>
-      <tr>
-        <td><%=h job.description[0..250] %><% if job.description.length > 250 %>...<% end %>
-        </td>
-      </tr>
-      <tr>
-        <td><i>Posted by <%=h job.user.login %> <%= job.created_at %></i></td>
-      </tr>
-    </table>
 
-  <%= dashboard_for(job) %> 
+  <table border="0" cellspacing="0" cellpadding="0" width=100%>
+    <tr>
+      <td valign="top"class="snippet-stat" width="110">
+        <div id="snippet-stat">
+          <%= stats_for(job) %>
+        </div>
+      </td>
+      <td valign="top" class="snippet-body">
+        <div id="snippet-body">
+          <h2>
+            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_jobs.include?(job) %> 
+            <%= link_to h(job.title), job_path(job) %>
+          </h2>
+          <%=h job.description[0..250] %><% if job.description.length > 250 %>...<% end %>
+          <%= dashboard_for(job) %> 
 
-    </div>
+        </div>
 
+      </td>
+    </tr>
+  </table>
+</div>

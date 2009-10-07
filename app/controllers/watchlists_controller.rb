@@ -80,7 +80,7 @@ class WatchlistsController < ApplicationController
   def ideas
     @title = "Ideas you are watching"
     @header = "Ideas Watchlist"
-    @ideas = current_user.watching_ideas
+    @ideas = current_user.watched_ideas
     @count = @ideas_count = @ideas.size
       
     render :action => :index
@@ -89,7 +89,7 @@ class WatchlistsController < ApplicationController
   def projects
     @title = "Projects you are watching"
     @header = "Projects Watchlist"
-    @projects = current_user.watching_projects
+    @projects = current_user.watched_projects
     @count = @projects_count = @projects.size
 
     render :action => :index
@@ -99,7 +99,7 @@ class WatchlistsController < ApplicationController
   def jobs
     @title = "Jobs you are watching"
     @header = "Jobs Watchlist"
-    @jobs = current_user.watching_jobs
+    @jobs = current_user.watched_jobs
     @count = @jobs_count = @jobs.size
   
     render :action => :index    
@@ -108,7 +108,7 @@ class WatchlistsController < ApplicationController
   def profiles
     @title = "Profiles you are watching"
     @header = "Profiles Watchlist"
-    @profiles = current_user.watching_users
+    @profiles = current_user.watched_people
     @count = @profiles_count = @profiles.size
 
     render :action => :index    

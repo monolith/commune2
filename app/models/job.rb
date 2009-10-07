@@ -69,6 +69,13 @@ class Job < ActiveRecord::Base
     user == author ? true : false
   end
 
+  def general_skills_string
+      ind = String.new
+      self.general_skills.each do |skill| 
+        ind << " " << skill.name << " |"
+      end            
+      ind.chop.strip
+  end
 
   private
 

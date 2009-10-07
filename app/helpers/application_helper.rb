@@ -62,38 +62,18 @@ module ApplicationHelper
     
       id =  case object.class.to_s
 
-              when "Idea", "Project"
-                if object.active == false
-                  "snippet-inactive"
-                elsif current_user.watching_ideas.include?(object)  
-                  "snippet-watching"
-                else
-                  "snippet"
-                end
+      when "Idea", "Project", "User", "Job"
+        if object.active == false
+          "snippet-inactive"
+        elsif current_user.watched_ideas.include?(object)  
+          "snippet-watching"
+        else
+          "snippet"
+        end
+      else
+        "not_mapped"      
+      end
 
-              when "Job"
-                if object.active == false
-                  "jobsnippet-inactive"
-                elsif current_user.watching_jobs.include?(object)  
-                  "watchlist_jobsnippet"
-                else
-                  "jobsnippet"
-                end              
-
-              when "User"
-                if object.active == false
-                  "profilesnippet-inactive"
-                elsif current_user.watching_users.include?(object)  
-                  "watchlist_profilesnippet"
-                else
-                  "profilesnippet"
-                end              
-
-
-              else
-                "not_mapped"      
-            end
-    
     end
     
     tag("div", :id => id)
@@ -108,7 +88,7 @@ module ApplicationHelper
     case object.class.to_s
       
       when "Idea"
-        if current_user.watching_ideas.include?(object)
+        if current_user.watched_ideas.include?(object)
           watching = true
 
           count = recent_comments_count(object)
@@ -131,7 +111,7 @@ module ApplicationHelper
         end
 
       when "Project"
-        if current_user.watching_projects.include?(object)
+        if current_user.watched_projects.include?(object)
           watching = true
           
           count = recent_comments_count(object)
@@ -158,7 +138,7 @@ module ApplicationHelper
 
 
       when "Job"
-        if current_user.watching_jobs.include?(object)
+        if current_user.watched_jobs.include?(object)
 
           watching = true
           dashboard = tag("strong") << "Status: " << tag("/strong")
@@ -177,7 +157,7 @@ module ApplicationHelper
         end      
 
       when "User"
-        if current_user.watching_users.include?(object)
+        if current_user.watched_people.include?(object)
           watching = true
 
           count = recent_comments_count(object)
@@ -236,13 +216,14 @@ module ApplicationHelper
           stats << show_projects_count(active_projects(object))
       
       when "Project"
+          stats << "posted " << time_ago_in_words(object.created_at) << " by "
+          stats << link_to(object.user.login, user_path(object.user)) << tag("br") << tag("br")
 
           stats << show_comments_count(total_comments(object)) << tag("br")
           stats << show_watchers_count(total_watchers(object)) << tag("br")
           stats << show_interested_count(total_interested(object)) << tag("br")
           stats << show_jobs_count(active_jobs(object)) << tag("br")
           stats << show_members_count(active_members(object)) << tag("br")
-          stats << "posted " << time_ago_in_words(object.created_at)
 
       when "User"
 
@@ -250,6 +231,14 @@ module ApplicationHelper
           stats << show_ideas_count(active_ideas(object)) << tag("br")
           stats << show_projects_count(active_projects(object)) << tag("br")
           stats << show_jobs_count(active_jobs(object))
+
+
+      when "Job"
+          stats << "posted " << time_ago_in_words(object.created_at) << " by "
+          stats << link_to(object.user.login, user_path(object.user)) << tag("br") << tag("br")
+
+          stats << show_watchers_count(total_watchers(object)) << tag("br")
+          stats << show_applicants_count(object.applicants.count) << tag("br")
 
     end
     
@@ -343,16 +332,21 @@ module ApplicationHelper
   end
   
   def show_members_count(count)
-    pluralize count, "Member"
+    pluralize count, "member"
   end
 
   def show_jobs_count(count)
-    pluralize count, "Job"
+    pluralize count, "job"
   end
 
   def show_ideas_count(count)
-    pluralize count, "Idea"
+    pluralize count, "idea"
   end
+  
+  def show_applicants_count(count)
+    pluralize count, "applicants"
+  end
+  
   
   
   def show_description(object)
