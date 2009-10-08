@@ -106,23 +106,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @profile = User.find_by_login params[:id],
+    @user = User.find_by_login params[:id],
                 :include => [:active_ideas, :active_projects, :active_positions, :job_openings, 
                   :scorecard, :interests, :general_skills, :industries, :locations ],
                 :conditions => "active"
                             
-    if @profile
-      if @profile == current_user
-        @ideas = @profile.ideas
-      else
-        @ideas = @profile.ideas :conditions => "active"
-      end
-      @jobs = @profile.job_openings
-      @general_skills = @profile.general_skills 
-      @positions = @profile.active_positions
-
-    else
-      @profile = nil
+    unless @user
       flash[:error] = "Profile for #{ h(params[:id]) } is currently inactive or doesn't exist."
     end
 

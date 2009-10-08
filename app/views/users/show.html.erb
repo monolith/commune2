@@ -1,99 +1,142 @@
+<% content_for :title do %>Person <% end %>
 
-<% if @profile.blank? %>
-  Sorry, no profile to see here.
+<% if @user.blank? %>
+  <p>Sorry, no idea to see here.</p>
+
 <% else %>
 
-<% content_for :title do %>User Profile<% end %>
+
+  <div id="show-container">
+
+  <h1>PERSON</h1>
+
+    <div id="show-action-menu">
 
 
-  <table border="0" width="100%">
-    <tr>
-      <td valign="top" width="400">
+      <% if @user == current_user %>
+        <p>edit profile</p>
+        <%= link_to image_tag("other_icons/edit_post_icon_grey.jpg", :border => 0), edit_user_path(@user) %>
+        <hr>
+      <% end %>
+      
+      <p><%= render :partial => '/shared/watchlist_menu', :locals => { :object => @user}  %></p>
 
-          <h1><%=h @profile.login %></h1>
-          <%= render :partial => '/shared/stars', :locals => { :scorable => @profile} %>
-          
-          
-         <p><b><%= pluralize @profile.locations.count, "location" %></b>
-        <% geocodes = "" %>
-        <% @profile.locations.each do |location| %>
-          <br /><%= location.location %>
-          <% geocodes += location.longitude.to_s + "," + location.latitude.to_s + ",smallred|" %>
+      <%= button_to_delete_if_allowed @user %>
+
+      <hr>
+      <%= button_to "Send Message", new_user_message_path(@user), { :method => :get }%>
+
+    </div>
+
+    <div id="show-main-container">
+    
+      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_people.include?(@user) %>
+        <%=h @user.login %></h1>
+        
+        <% if current_user.watched_people.include? @user %>
+          <%= dashboard_for(@user) %> 
+          <br /><br />
         <% end %>
-        <% if @profile.locations.count > 0 %>
+
+        <%= render :partial => '/shared/stars', :locals => { :scorable => @user}  %>
+
+        <table border="0" cellspacing="0" cellpading="0" width="100%">
+          <tr><td valign="top" width="50%">
+            <h2><%= pluralize @user.locations.count, "Location" %></h2>
+            <% geocodes = "" %>
+
+            <p>
+              <% @user.locations.each do |location| %>
+                <%= location.location %><br />
+                <% geocodes += location.longitude.to_s + "," + location.latitude.to_s + ",smallred|" %>
+              <% end %>
+            </p>
+            </td><td valign="top">
+        <% if @user.locations.count > 0 %>
           <div id="map_canvas" style="width: 255px; height: 100px"><img src="http://maps.google.com/staticmap?markers=<%= geocodes %>&zoom=0&size=255x100&key=<%= GoogleAPIKey %>&sensor=false&format=png8&" border="0"></div>
           <% end %>
-      </p>
-                
-          
-          
-          
-           <% if @profile.name and @profile.name != ""  %><p><b>Name:</b> <%=h @profile.name %></p><% end %>
-           <% if @profile.company and @profile.company != "" %><p><b>Company:</b> <%=h @profile.company %></p><% end %>
-           <% if @profile.headline and @profile.headline != "" %><p><b>Headline:</b> <%=h @profile.headline %></p><% end %>
-           <% if @profile.purpose and @profile.purpose != "" %><p><b>Purpose and specific interests:</b> <%= simple_format(strip_tags(@profile.purpose)) %></p><% end %>
-
-           <% if @profile.industries.size > 0 %>
-              <p><b>General interests:</b>
-              <% @profile.industries.each do |industry| %>
-                <br /><%= industry.name %>
-              <% end %>
-              </p>
-           <% end %>
-
-           <% if @profile.general_skills.size > 0 %>
-              <p><b>General skills:</b>
-              <% @profile.general_skills.each do |skill| %>
-                <br /><%= skill.name %>
-              <% end %>
-              </p>
-           <% end %>
-
-           <% if @profile.skills and @profile.skills != "" %><p><b>Specific skills:</b><br /><%= simple_format(strip_tags(@profile.skills)) %></p><% end %>
-
-           <% if @profile.experience and @profile.experience != "" %><p><b>Experience:</b><br /><%= simple_format(strip_tags(@profile.experience)) %></p><% end %>
-
-           <% if @profile.education and @profile.education != "" %><p><b>Education:</b><br /><%= simple_format(strip_tags(@profile.education)) %></p><% end %>
-
-           <p>Member since: <%= @profile.created_at %></p>
+        </td></tr>
+      </table>
 
 
-          <% if @ideas.size > 0 %>
-            <h2><%= pluralize @ideas.size, 'Idea' %></h2>
-            <%= render :partial => @ideas %>
-          <% end %>
+      <h2>Profile</h2>
+    
+      <% if @user.name and @user.name != ""  %><p><b>Name:</b> <%=h @user.name %></p><% end %>
+      <% if @user.company and @user.company != "" %><p><b>Company:</b> <%=h @user.company %></p><% end %>
+      <% if @user.headline and @user.headline != "" %><p><b>Headline:</b> <%=h @user.headline %></p><% end %>
+      <% if @user.purpose and @user.purpose != "" %><p><b>Purpose and specific interests:</b> <%= simple_format(strip_tags(@user.purpose)) %></p><% end %>
 
-            <% if @positions.size > 0 %>
-              <h2><%= pluralize @profile.positions.size, 'Project' %></h2>
-              <%= render :partial => @profile.positions %>
-            <% end %>
+      <% if @user.industries.size > 0 %>
+        <p><b>General interests:</b>
+        <% @user.industries.each do |industry| %>
+          <br /><%= industry.name %>
+        <% end %>
+        </p>
+      <% end %>
 
-          <% if @jobs.size > 0 %>
-            <h2><%= pluralize @jobs.size, 'Job' %></h2>
-            <%= render :partial => @jobs %>
-          <% end %>
+      <% if @user.general_skills.size > 0 %>
+        <p><b>General skills:</b>
+        <% @user.general_skills.each do |skill| %>
+          <br /><%= skill.name %>
+        <% end %>
+        </p>
+      <% end %>
 
-</td>
+      <% if @user.skills and @user.skills != "" %><p><b>Specific skills:</b><br /><%= simple_format(strip_tags(@user.skills)) %></p><% end %>
+
+      <% if @user.experience and @user.experience != "" %><p><b>Experience:</b><br /><%= simple_format(strip_tags(@user.experience)) %></p><% end %>
+
+      <% if @user.education and @user.education != "" %><p><b>Education:</b><br /><%= simple_format(strip_tags(@user.education)) %></p><% end %>
+
+      <p>Member since: <%= @user.created_at %></p>
 
 
 
-      <td valign="top" align="center">
-        <div id="profiledashboard">
-          <%= link_to 'Edit Profile', edit_user_path(current_user) if @profile == current_user %>
-          
-          <p>
-            <%= render :partial => '/shared/add_remove_watch_or_interest', :locals => { :object => @profile}  %>
-          </p>
-          <p>
-            <%= button_to "Send Message", new_user_message_path(@profile), { :method => :get }%>
-          </p>
 
-          <%= button_to_delete_if_allowed @profile %>
+      <% ideas_count = @user.active_ideas.count %>
+      <% if ideas_count > 0 %>
+        <div id="section_header"><h2>&nbsp;<%= pluralize ideas_count, 'Active Idea' %></h2></div>
+        <%= render :partial => @user.active_ideas %>
+      <% end %>
 
+      <% positions_count = @user.active_positions.count %>
+      <% if positions_count > 0 %>
+        <div id="section_header"><h2>&nbsp;<%= pluralize positions_count, 'Active Project' %></h2></div>
 
-        </div>
+        <% @user.active_positions.each do |position| %>
+              <div id="project_member">
+                  <div id="snippet_header"><h3>&nbsp;<%=h position.job.title %></h3></div>
+                  <%= render :partial => position.project %>
+              </div>
+        <% end %>
 
-        </td>
-</tr></table>
+      <% end %>
+
+      <% job_count = @user.job_openings.count %>
+      <% if job_count > 0 %>
+        <div id="section_header"><h2>&nbsp;<%= pluralize job_count, 'Open Job' %></h2></div>
+        <%= render :partial => @user.job_openings %>
+      <% end %>
+
+    </div>
+
+    <div id="show-stat">
+      <% if @user == current_user %>
+        <p>profile status: <%= @user.active ? "active" : "<b>INACTIVE</b>" %></p>
+        <hr>
+      <% end %>
+
+      <%= stats_for(@user) %> 
+
+    </div>            
+
+  </div>
+
 
 <% end %>
+
+
+
+
+
+

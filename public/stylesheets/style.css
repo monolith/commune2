@@ -402,6 +402,11 @@ a.banner-no-block:hover {
 }
 
 
+
+#map_canvas{
+  border: 1px solid #ffffff;
+}
+
 #disclaimer {
 font-size: x-small;
 color: #B1B1B1;
@@ -457,7 +462,6 @@ background-color: #ffffff;
 
 
 #login-splash {
-
   border: 5px solid #4f391a;
   padding: 10px;
   width: 900px;
@@ -612,11 +616,22 @@ TD.snippet-stat{
 
 }
 #snippet_header h3{
-  color: #ffffff;  
+  color: #4f391a;  
 }
 
 
-#ideasnippet, #ideasnippet-inactive, #watchlist_ideasnippet, #projectsnippet, #watchlist_projectsnippet, #jobsnippet, #profilesnippet, #profilesnippet-inactive, #watchlist_profilesnippet, #projectsnippet-inactive, #invitationsnippet, #invitationsnippet-inactive, #map_canvas, #application, #project_roles, #resend_activation, #watchlist_jobsnippet, #jobsnippet-inactive {
+#section_header{
+  position: relative;
+  float: left;
+  clear: right;
+  background-color: #4f391a;
+  margin: 0px;
+  width: 100%;
+
+}
+
+
+#ideasnippet, #ideasnippet-inactive, #watchlist_ideasnippet, #projectsnippet, #watchlist_projectsnippet, #jobsnippet, #profilesnippet, #profilesnippet-inactive, #watchlist_profilesnippet, #projectsnippet-inactive, #invitationsnippet, #invitationsnippet-inactive, #application, #project_roles, #resend_activation, #watchlist_jobsnippet, #jobsnippet-inactive {
   background-color: #FFFFFF;
   padding-left: 10px;
   padding-right: 10px;
