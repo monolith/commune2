@@ -252,6 +252,7 @@ class User < ActiveRecord::Base
     f = self.first_name || ""
     l = self.last_name || ""
     f + " " + l
+    f.strip
   end
 
 
