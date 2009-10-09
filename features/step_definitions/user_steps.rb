@@ -95,7 +95,7 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |login, passw
     fill_in "login", :with => login
     fill_in "password", :with => password
     click_button "Log in"
-    response.should contain("Logged in")
+    response.should contain("logged in")
   end
 end
 
@@ -107,7 +107,7 @@ Given /^I am logged in as "([^\"]*)"$/ do |login|
     fill_in "login", :with => login
     fill_in "password", :with => "secret"
     click_button "Log in"
-    response.should contain("Logged in")
+    response.should contain("logged in")
   end
 end
 

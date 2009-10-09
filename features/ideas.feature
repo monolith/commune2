@@ -60,7 +60,6 @@
     When I go to view "Bobs great idea" idea
     Then I should see "Bobs great idea"
     
-    
   Scenario: I should be able to update my idea
     Given the following idea records
       | author    | title         |
@@ -68,7 +67,7 @@
     
     Given I am logged in as "monolith" with password "secret"
     When I go to view "My great idea" idea
-      And I follow "Edit Idea"
+      And I follow "Edit_post_icon_grey"
     Then I should see "Edit Idea"
     When I fill in "idea_title" with "Updated title"
       And I press "Update"
