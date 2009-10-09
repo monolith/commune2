@@ -70,6 +70,7 @@ module ApplicationHelper
         else
           "snippet"
         end
+        
       else
         "not_mapped"      
       end

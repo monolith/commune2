@@ -12,7 +12,7 @@ class WatchlistsController < ApplicationController
       @ideas = Array.new
       @projects = Array.new
       @jobs = Array.new
-      @profiles = Array.new
+      @people = Array.new
       
       watchlist.each do |item|
       
@@ -25,28 +25,33 @@ class WatchlistsController < ApplicationController
             when "Job"
               @jobs << item.watch
             when "User"
-              @profiles << item.watch
+              @people << item.watch
           end
         end
       end
 
     else
 
-      @ideas = current_user.watching_ideas.compact
-      @projects = current_user.watching_projects.compact
-      @profiles = current_user.watching_users.compact
-      @jobs = current_user.watching_jobs.compact
+      @ideas = current_user.watched_ideas.compact
+      @projects = current_user.watched_projects.compact
+      @people = current_user.watched_people.compact
+      @jobs = current_user.watched_jobs.compact
+
+      @ideas = nil if @ideas.size == 0
+      @projects = nil if @projects.size == 0
+      @people  = nil if @people.size == 0
+      @jobs  = nil if @jobs.size == 0
             
     end
 
-    @title = "What you are watching"
+    @title = "My Watchlist"
     @header = "Watchlist"
 
-    @ideas_count = @ideas.size
-    @projects_count = @projects.size
-    @jobs_count = @jobs.size
-    @profiles_count = @profiles.size
-    @count = @ideas_count + @projects_count + @jobs_count + @profiles_count
+    @ideas_count = @ideas ? @ideas.size : 0
+    @projects_count = @projects ? @projects.size : 0
+    @jobs_count = @jobs ? @jobs.size : 0
+    @people_count = @people ? @people.size : 0
+    @count = @ideas_count + @projects_count + @jobs_count + @people_count
     
   end
 
@@ -78,7 +83,7 @@ class WatchlistsController < ApplicationController
   end
 
   def ideas
-    @title = "Ideas you are watching"
+    @title = "Ideas I am watching"
     @header = "Ideas Watchlist"
     @ideas = current_user.watched_ideas
     @count = @ideas_count = @ideas.size
@@ -87,7 +92,7 @@ class WatchlistsController < ApplicationController
   end
 
   def projects
-    @title = "Projects you are watching"
+    @title = "Projects I am watching"
     @header = "Projects Watchlist"
     @projects = current_user.watched_projects
     @count = @projects_count = @projects.size
@@ -97,7 +102,7 @@ class WatchlistsController < ApplicationController
   end
 
   def jobs
-    @title = "Jobs you are watching"
+    @title = "Jobs I am watching"
     @header = "Jobs Watchlist"
     @jobs = current_user.watched_jobs
     @count = @jobs_count = @jobs.size
@@ -105,11 +110,11 @@ class WatchlistsController < ApplicationController
     render :action => :index    
   end
   
-  def profiles
-    @title = "Profiles you are watching"
-    @header = "Profiles Watchlist"
-    @profiles = current_user.watched_people
-    @count = @profiles_count = @profiles.size
+  def people
+    @title = "People I am watching"
+    @header = "People Watchlist"
+    @people = current_user.watched_people
+    @count = @people_count = @people.size
 
     render :action => :index    
   end

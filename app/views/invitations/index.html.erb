@@ -1,6 +1,6 @@
 <% content_for :title do %>Invitations<% end %>
 
-<h1><%= pluralize @invitations.total_entries, "Invitation" %></h1>
+<h1><%= pluralize @invitations.total_entries, "Invitation" %> | <%= link_to "Invite Another Person", new_invitation_path %></h1>
 <% unless @invitations %>
   You have not invited anyone yet,  <%= link_to "invite", new_invitation_path %> someone!
 <% end %>

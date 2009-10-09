@@ -16,7 +16,7 @@ class Invitation < ActiveRecord::Base
 
   
   belongs_to :user # person who sent invitation
-  belongs_to :registered, :class_name => "User" # registered person, assuming the person registered and activated profile
+  belongs_to :registered, :class_name => "User", :conditions => "users.active" # registered person, assuming the person registered and activated profile
     
   attr_accessible :email,
                   :message, 

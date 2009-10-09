@@ -630,6 +630,9 @@ TD.snippet-stat{
 
 }
 
+#section_header a{
+  color: #ffffff;
+}
 
 #ideasnippet, #ideasnippet-inactive, #watchlist_ideasnippet, #projectsnippet, #watchlist_projectsnippet, #jobsnippet, #profilesnippet, #profilesnippet-inactive, #watchlist_profilesnippet, #projectsnippet-inactive, #invitationsnippet, #invitationsnippet-inactive, #application, #project_roles, #resend_activation, #watchlist_jobsnippet, #jobsnippet-inactive {
   background-color: #FFFFFF;
@@ -688,6 +691,7 @@ h2 {
 
 }
 h3 {
+
  color: #F4C430;
  font-family: "Lucida Sans Unicode","Lucida Grande",Garuda,sans-serif;
  letter-spacing: 1px;

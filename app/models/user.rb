@@ -61,9 +61,11 @@ class User < ActiveRecord::Base
   has_many :job_openings, :class_name => "Job", :conditions => "jobs.active and jobs.open"
 
   has_many :positions, :class_name => "JobApplication", :conditions => "job_applications.hired"
-  has_many :all_projects, :through => :active_positions, :source => :project, :uniq => true
+  has_many :all_projects, :through => :positions, :source => :project, :uniq => true
+
   has_many :active_positions, :class_name => "JobApplication", :include => :project, :conditions => "job_applications.hired and projects.active"
   has_many :active_projects, :through => :active_positions, :source => :project, :uniq => true
+
  
   has_many :ratings
   has_one  :scorecard, :as => :scorable, :dependent => :destroy

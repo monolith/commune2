@@ -1,30 +1,28 @@
 <% content_for :title do %><%= @header %><% end %>
 
 
-<h1><%= @title %></h1>
+<h1>My Watchlist: <%= link_to "Ideas", watchlist_ideas_path %> | <%= link_to "Projects", watchlist_projects_path %> | <%= link_to "Jobs", watchlist_jobs_path %> | <%= link_to "People", watchlist_people_path %> | <%= link_to "All", watchlists_path %></h1>
 
 <% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
-
-<p><i>You have <%= pluralize @count, "thing" %> on this list.</i></p>
   
-<% if @ideas and @ideas_count > 0 %>
-  <h2><%= pluralize @ideas_count, 'Idea' %></h2>
+<% if @ideas %>
+  <div id="section_header"><h2>&nbsp;<%= pluralize @ideas_count, 'Idea' %></h2></div>
   <%= render :partial => @ideas %>
 <% end %>
 
-<% if @projects and @projects_count > 0 %>
-  <h2><%= pluralize @projects_count, 'Project' %></h2>
+<% if @projects %>
+  <div id="section_header"><h2>&nbsp;<%= pluralize @projects_count, 'Project' %></h2></div>
   <%= render :partial => @projects %>
 <% end %>
 
-<% if @jobs and @jobs_count > 0 %>
-  <h2><%= pluralize @jobs_count, 'Job' %></h2>
+<% if @jobs %>
+  <div id="section_header"><h2>&nbsp;<%= pluralize @jobs_count, 'Job' %></h2></div>
   <%= render :partial => @jobs %>
 <% end %>
 
-<% if @profiles and @profiles_count > 0 %>
-  <h2><%= pluralize @profiles_count, 'User' %></h2>
-  <%= render :partial => @profiles %>
+<% if @people %>
+  <div id="section_header"><h2>&nbsp;<%= pluralize @people_count, 'Person' %></h2></div>
+  <%= render :partial => @people %>
 <% end %>
 
 

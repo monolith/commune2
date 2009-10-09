@@ -1,31 +1,57 @@
 
   <% status = invitation.status %>
-  <% if status == "Activated" %>
-    <div id="invitationsnippet">
-  <% else %>
-    <div id="invitationsnippet-inactive">  
-  <% end %>
   
-    <table width="100%">
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
       <tr>
         <td>
-          <h2><%=h invitation.email %>
-          <% if status == "Activated" %>
-            | Registered as <%= link_to invitation.registered.login, user_path(invitation.registered) %>
+
+          <div id="section_header">
+          <table border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tr>
+       
+              <td>&nbsp;</td>
+              <td>
+                <h2><%=h invitation.email %> | Status:
+                  <% if status == "Activated" %>
+                    Registered as <%= link_to invitation.registered.login, user_path(invitation.registered) %>
+                  <% else %>
+                    <%= status %>
+                  <% end %>
+                </h2>
+              </td>
+
+              <% unless status == "Activated" %>  
+                <td align="right">
+                  <%= button_to "Resend invitation to " + invitation.email, { :controller => :invitations, :action => :resend, :id => invitation.id} %>
+                </td>
+                <td>&nbsp;</td>
+              <% end %>
+
+              
+            </tr>
+           </table>
+          </div>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="snippet-body">
+
+          <% if invitation.registered %>
+            <%= render :partial => invitation.registered %>
           <% else %>
-            | <%= status %>
-            <%= button_to "Resend invitation to " + invitation.email, { :controller => :invitations, :action => :resend, :id => invitation.id} %>
-          <% end %>
-          </h2>
-          <p><%= simple_format h(invitation.message) %></p>
-          <p><i>Invited: <%= invitation.created_at.to_s %>
-            
-            <% if invitation.resent_at != nil %>
-              | Resent: <%= invitation.updated_at.to_s %>
-            <% end %>
-          </i></p>
+    
+            <div id="snippet-body">
+
+              <p><%= simple_format h(invitation.message) %></p>
+              <p><i>Invited: <%= invitation.created_at.to_s %>
+                
+                <% if invitation.resent_at != nil %>
+                  | Resent: <%= invitation.updated_at.to_s %>
+                <% end %>
+              </i></p>
+            </div>
+          <% end %>          
         </td>
       </tr>
     </table>
-  </div>
-

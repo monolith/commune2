@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
   end
 
   def my_projects
-    @projects = current_user.active_projects.paginate :per_page => 10, :page => params[:page], :order => 'id DESC'
+    @projects = current_user.all_projects.paginate :per_page => 10, :page => params[:page], :order => 'id DESC'
     @projects.compact! # removes any nil objects  
 
   end
