@@ -55,21 +55,18 @@
               
                   <span id="banner-menu-ideas">
                     <%= link_to "ideas", ideas_path, :class => menu_link_class("ideas", "ideas") %>
-                    
+                    <%= link_to "post new", new_idea_path, :class => menu_link_class("ideas", "new") %>                    
                     <%= link_to "watchlist", watchlist_ideas_path, :class => menu_link_class("ideas", "watchlist") %>
-                    
-                    <%= link_to "my ideas", my_ideas_path, :class => menu_link_class("ideas", "my") %>
-                    
-                    <%= link_to "post new", new_idea_path, :class => menu_link_class("ideas", "new") %>
+                    <%= link_to "my ideas", my_ideas_path, :class => menu_link_class("ideas", "my") %>                    
                   </span>
                 </td>
                 <td valign="top" width="155">
 
                   <span id="banner-menu-projects">
                     <%= link_to "projects", projects_path, :class => menu_link_class("projects", "projects") %>
+                    <%= link_to "post new", new_project_path, :class => menu_link_class("projects", "new")  %>
                     <%= link_to "watchlist", watchlist_projects_path, :class => menu_link_class("projects", "watchlist") %>
                     <%= link_to "my projects", my_projects_path, :class => menu_link_class("projects", "my") %>
-                    <%= link_to "post new", new_project_path, :class => menu_link_class("projects", "new")  %>
                   </span>
 
                 </td>
@@ -77,9 +74,9 @@
 
                   <span id="banner-menu-jobs">
                     <%= link_to "jobs", jobs_path, :class => menu_link_class("jobs", "jobs") %>
+                    <%= link_to "post new", new_job_path, :class => menu_link_class("jobs", "new")  %>
                     <%= link_to "watchlist", watchlist_jobs_path, :class => menu_link_class("jobs", "watchlist") %>
                     <%= link_to "my jobs", my_jobs_path, :class => menu_link_class("jobs", "my") %>
-                    <span id="<%= menu_filler_class('jobs') %>"> &nbsp;</span>
                   </span>
 
                 </td>
@@ -88,10 +85,10 @@
  
                   <span id="banner-menu-people">
                     <%= link_to "people", users_path, :class => menu_link_class("users", "people") %>
-                    <%= link_to "watchlist", watchlist_people_path, :class => menu_link_class("users", "watchlist") %>
                     <%= link_to "invite", new_invitation_path, :class => menu_link_class("users", "new") %>
+                    <%= link_to "watchlist", watchlist_people_path, :class => menu_link_class("users", "watchlist") %>
+                    <%= link_to "my profile", edit_user_path(current_user), :class => menu_link_class("users", "my") %>
 
-                    <span id="<%= menu_filler_class('users') %>">  &nbsp;</span>
                   </span>             
                   
                 </td>

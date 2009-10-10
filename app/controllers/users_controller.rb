@@ -106,8 +106,9 @@ class UsersController < ApplicationController
   end
 
   def show
+
     @user = User.find_by_login params[:id],
-                :include => [:active_ideas, :active_projects, :active_positions, :job_openings, 
+                :include => [:active_ideas, :active_projects, :active_positions, :open_job_postings, 
                   :scorecard, :interests, :general_skills, :industries, :locations ],
                 :conditions => "active"
                             

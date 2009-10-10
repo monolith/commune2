@@ -58,7 +58,7 @@
       And I should see "Offer job to bob" button
     When I press "Offer job to bob"
     Then I should see "Offer made to bob"
-      And I should see "Job Status: Offer made"
+      And I should see "status: offer made"
       And I should see "Withdraw Offer" button
     Given I am logged in as "bob"
     When I go to view "<job title>" job
@@ -66,33 +66,33 @@
       And I should see "This job has been offered to you"
     When I press "Accept Job"
     Then I should see "You are now hired for this position."
-      And I should see "Job Status: Filled"
+      And I should see "Status: Filled"
       And I should see "Leave Job" button
     When I press "Leave Job"
     Then I should see "You have left this position"
-      And I should see "Job Status: Offer made"
+      And I should see "Status: Offer made"
     When I press "Accept Job"
-    Then I should see "Job Status: Filled"
+    Then I should see "Status: Filled"
     When I am logged in as "joe"
       And I go to view "<job title>" job
     Then I should see "bob"
-      And I should see "Job Status: Filled"
+      And I should see "Status: Filled"
     When I am logged in as "<user>"
       And I go to view "<job title>" job
-    Then I should see "Job Status: Filled"
+    Then I should see "Status: Filled"
       And I should see "Applicant"
       And I should see "Remove From Position" button
     When I press "Remove From Position"
-    Then I should see "Job Status: Offer made"
+    Then I should see "Status: Offer made"
     When I am logged in as "joe"
       And I go to view "<job title>" job
     Then I should not see "Applicant"
-      And I should see "Job Status: Offer made"
+      And I should see "Status: Offer made"
     When I am logged in as "<user>"
       And I go to view "<job title>" job
       And I press "Withdraw Offer"
     Then I should see "Offer withdrawn."
-      And I should see "Job Status: Open"    
+      And I should see "Status: Open"    
 
     Examples:
       | user      | job title           |
@@ -115,23 +115,23 @@
       And I should see "Offer job to joe" button
     When I press "Offer job to joe"
     Then I should see "Offer made to joe"
-      And I should see "Job Status: Offer made"
+      And I should see "Status: Offer made"
       And I should see "Withdraw Offer" button
       And I should not see "Offer job to bob" button
     When I am logged in as "bob"
       And I go to view "Director of testing" job
-    Then I should see "Job Status: Offer made"
+    Then I should see "Status: Offer made"
       And I should not see "joe"
       And I should not see "This job has been offered to you"
     When I am logged in as "joe"
       And I go to view "Director of testing" job
     Then I should see "This job has been offered to you"
     When I press "Accept Job"
-    Then I should see "Job Status: Filled"
+    Then I should see "Status: Filled"
       And I should see "Leave Job" button
     When I am logged in as "bob"
       And I go to view "Director of testing" job
-    Then I should see "Job Status: Filled"
+    Then I should see "Status: Filled"
       And I should see "joe"
     When I am logged in as "monolith"
       And I go to view "Director of testing" job
@@ -142,9 +142,9 @@
     Then I should see "You have removed joe from this position"
       And I should see "Withdraw Offer" button
       And I should not see "Offer job to bob" button
-      And I should see "Job Status: Offer made"
+      And I should see "Status: Offer made"
     When I press "Withdraw Offer"
-    Then I should see "Job Status: Open"
+    Then I should see "Status: Open"
       And I should see "Offer job to bob" button
       And I should see "Offer job to joe" button
     When I am logged in as "bob"

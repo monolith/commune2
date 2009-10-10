@@ -186,7 +186,6 @@
       And I should see "Interested: 2"
       And I should not see "WATCHLIST ||"
 
-@focus
 
   Scenario: Recent projects launched from my ideas should be reflected in the count
     Given the following user records
@@ -217,7 +216,7 @@
       And I should see "Projects (from my ideas): 2"
       And I should not see "WATCHLIST ||"
 
-
+@focus
   Scenario: Recent job application should be reflected in the count
     Given the following user records
       | login     | last_logon                    |

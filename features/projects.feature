@@ -36,8 +36,7 @@ Feature: Basic project management (note: these are not project management tools)
   Scenario Outline: Posting a project from an idea
     Given I am logged in as "<user>"
     When I go to view "<idea title>" idea
-    Then I should see "Launch Project" button
-    When I press "Launch Project"
+      And I follow "Launch Project"
     Then I should see "New Project"
     When I fill in "project_title" with "<project name>"
       And I fill in "project_description" with "stuff"

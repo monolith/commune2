@@ -1,5 +1,20 @@
 <% content_for :title do %>Jobs<% end %>
 
+<% unless request.path_parameters[:action] == 'index' %>
+
+  <h1><%= @title.upcase %></h1>
+
+  <div id="section_header">
+    <h2>&nbsp; <%= link_to "Open Job Postings", open_job_postings_path %> | 
+             <%= link_to "Posting History", job_posting_history_path %> | 
+             <%= link_to "Open Applied for Jobs", open_applied_for_jobs_path %> |
+             <%= link_to "Applied for History", applied_for_job_history_path %> | 
+             <%= link_to "Current Positions", current_positions_path %>
+    </h2>
+  </div>
+<% end %>
+
+
   <% if @project %>
     <h1><%= pluralize @jobs.total_entries, "Job" %> for <%= @project.title %> project</h1>
     <h2>Project</h2>

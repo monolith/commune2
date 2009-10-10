@@ -1,3 +1,13 @@
 <% content_for :title do %>Log On<% end %>
 
+<% if @show_resend_activation_button %>
+  <p>Did you activate your account?  Check your email for an activation link.</p>
+  
+  <% form_tag resend_activation_link_path do -%>
+    <%= hidden_field_tag 'login', @login %>
+    <p><%= submit_tag 'Resend Activation Link' %></p>
+  <% end %>
+
+<% end %>
+
 <%= render :partial => 'logon' %> 

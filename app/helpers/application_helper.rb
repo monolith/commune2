@@ -231,10 +231,17 @@ module ApplicationHelper
           stats << show_comments_count(total_comments(object)) << tag("br")
           stats << show_ideas_count(active_ideas(object)) << tag("br")
           stats << show_projects_count(active_projects(object)) << tag("br")
-          stats << show_jobs_count(active_jobs(object))
-
+          stats << show_jobs_count(active_jobs(object))  << tag("br")
+          stats << show_watchers_count(total_watchers(object))
+      
 
       when "Job"
+          if object.status == "Open"
+            stats << "status: <b>" << object.status.upcase << "</b>"  << tag("br")
+          else
+            stats << "status: " << object.status.downcase << tag("br")          
+          end
+
           stats << "posted " << time_ago_in_words(object.created_at) << " by "
           stats << link_to(object.user.login, user_path(object.user)) << tag("br") << tag("br")
 
@@ -378,14 +385,15 @@ module ApplicationHelper
 #      "<hr>" << button
       
       
-      link = link_to(  image_tag("other_icons/delete_icon.png", :border => 0),
+      
+      link = link_to(  image_tag("other_icons/delete_icon.png", :border => 0, :alt => "Delete " + object.class.to_s),
                 polymorphic_path(object),
                 :id => "delete",
                 :method => :delete,
                 :confirm => "Cannot undo! Delete this " << object.class.to_s.downcase + "?"
               )
 
-      "<hr>" << link
+      "<hr>" << link << "<br />delete " << object.class.to_s.downcase
     end
   end
   

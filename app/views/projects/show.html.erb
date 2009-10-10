@@ -15,7 +15,7 @@
 
       <% if @project.members.include? current_user %>
         <p>edit this project</p>
-        <%= link_to image_tag("other_icons/edit_post_icon_grey.jpg", :border => 0), edit_project_path(:id => @project) %>
+        <%= link_to image_tag("other_icons/edit_post_icon_grey.jpg", :border => 0, :alt => "Edit Project"), edit_project_path(:id => @project) %>
       <% end %>
 
       <% if @project.members.include? current_user %>

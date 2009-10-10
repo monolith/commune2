@@ -59,7 +59,7 @@
     When I fill in "login" with "not_activated"
       And I fill in "password" with "secret"
       And I press "Log in"
-    Then I should see "Logged in"
+    Then I should see "logged in"
     
   Scenario Outline: Show or hide edit profile link
     Given the following user records
@@ -75,12 +75,12 @@
     Then I should be on <page>
   
     Examples:
-      | login | profile | edit_action             | delete_action                | page                     |
-      | admin | bob     | not see "Edit Profile"  | see "Delete User" button     | "bob's" profile          |
-      | bob   | bob     | see "Edit Profile"      | not see "Delete User" button | "bob's" edit page        |
-      |       | bob     | see "Log On"            | not see "Delete User" button | redirected to login page |
-      | bob   | admin   | not see "Edit Profile"  | not see "Delete User" button | "admin's" profile        |
-      | admin | admin   | see "Edit Profile"      | see "Delete User" button     | "admin's" edit page      |
+      | login | profile | edit_action             | delete_action         | page                     |
+      | admin | bob     | not see "edit profile"  | see "delete user"     | "bob's" profile          |
+      | bob   | bob     | see "edit profile"      | not see "delete user" | "bob's" edit page        |
+      |       | bob     | see "Log On"            | not see "delete user" | redirected to login page |
+      | bob   | admin   | not see "edit profile"  | not see "delete user" | "admin's" profile        |
+      | admin | admin   | see "edit profile"      | see "delete user"     | "admin's" edit page      |
 
 
   Scenario: I should be able to edit my profile

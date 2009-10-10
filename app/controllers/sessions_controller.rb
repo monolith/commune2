@@ -48,11 +48,12 @@ protected
   def note_failed_signin
     user = User.find_by_login params[:login]
     message = ""
-    if user and !user.active?
+    if user and user.authenticated?(params[:password]) and !user.active?
       @show_resend_activation_button = true
       message = "- user not activated"
     end
     flash[:error] = "Log in failed, please try again."
+  
     message = ["Failed login for ? from ? at ? ?", params[:login], request.remote_ip, Time.now.utc, message]
     logger.warn  
     

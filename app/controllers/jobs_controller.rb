@@ -22,6 +22,8 @@ class JobsController < ApplicationController
         @jobs = Job.get('active and open', 'id DESC', params[:page])
       end
     end
+
+    @title = "JOBS"
   end
 
 
@@ -53,8 +55,8 @@ class JobsController < ApplicationController
           redirect_back_or_default('/')
        end
     else
-      flash[:error] = "A job must be attached to a project.  Please go to the project page and post a job from there."
-      redirect_back_or_default('/')
+      flash[:notice] = "A job must be attached to a project.  Please select a project."
+      redirect_to my_projects_path
     end    
   end
 
@@ -127,19 +129,58 @@ class JobsController < ApplicationController
 
   end
 
-  def my_posted_jobs
-    @jobs = current_user.jobs.paginate :per_page => 10, :page => params[:page], :order => "id DESC",
+
+
+  def my_jobs
+    if current_user.scorecard.active_jobs_count > 0
+      open_job_postings
+    else
+      open_applied_for_jobs
+    end
+  
+  end
+
+  def open_job_postings
+    @jobs = current_user.open_job_postings.paginate :per_page => 10, :page => params[:page], :order => "jobs.id DESC",
                                        :include => [:user, :project]
 
-    @title = "My Posted Jobs"
+    @title = "My Open Job Postings"
+    render :action => 'index'
   end
 
-  def my_job_applications
-    @jobs = current_user.jobs_applied.paginate :per_page => 10, :page => params[:page], :order => "job_applications.id DESC",
-          :include => [:user, :project]
-
-    @title = "My Job Applications"
-    render :action => 'my_posted_jobs'
+  def job_posting_history
+    @jobs = current_user.job_posting_history.paginate :per_page => 10, :page => params[:page], :order => "jobs.id DESC",
+                                       :include => [:user, :project, :hired_user]
+    @title = "My Job Post History"
+    render :action => 'index'
   end
+
+
+  def open_applied_for_jobs
+    @jobs = current_user.open_applied_for_jobs.paginate :per_page => 10, :page => params[:page], :order => "jobs.id DESC",
+                                       :include => [:user, :project]
+
+    @title = "My Applied for Open Jobs"
+    render :action => 'index'
+  end
+  
+  
+  def applied_for_job_history
+    @jobs = current_user.applied_for_job_history.paginate :per_page => 10, :page => params[:page], :order => "jobs.id DESC",
+                                       :include => [:user, :project]
+
+    @title = "My Applied for Job History"
+    render :action => 'index'
+  end
+  
+  
+  def current_positions
+    @jobs = current_user.current_jobs.paginate :per_page => 10, :page => params[:page], :order => "job_applications.id DESC",
+          :include => [:user, :project, :hired_user]
+
+    @title = "My Current Positions"
+    render :action => 'index'
+  end
+  
 
 end

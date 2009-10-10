@@ -15,7 +15,7 @@
 
       <% if @user == current_user %>
         <p>edit profile</p>
-        <%= link_to image_tag("other_icons/edit_post_icon_grey.jpg", :border => 0), edit_user_path(@user) %>
+        <%= link_to image_tag("other_icons/edit_post_icon_grey.jpg", :border => 0, :alt => "Edit Profile"), edit_user_path(@user) %>
         <hr>
       <% end %>
       
@@ -24,7 +24,7 @@
       <%= button_to_delete_if_allowed @user %>
 
       <hr>
-      <%= button_to "Send Message", new_user_message_path(@user), { :method => :get }%>
+      <%= button_to "Send Message", new_user_message_path(@user), { :method => :get } %>
 
     </div>
 
@@ -112,11 +112,12 @@
 
       <% end %>
 
-      <% job_count = @user.job_openings.count %>
+      <% job_count = @user.open_job_postings.count %>
       <% if job_count > 0 %>
         <div id="section_header"><h2>&nbsp;<%= pluralize job_count, 'Open Job' %></h2></div>
-        <%= render :partial => @user.job_openings %>
+        <%= render :partial => @user.open_job_postings %>
       <% end %>
+
 
     </div>
 
@@ -134,9 +135,5 @@
 
 
 <% end %>
-
-
-
-
 
 

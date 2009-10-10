@@ -15,13 +15,13 @@
 
       <% if @idea.user_id == current_user.id %>
         <p>edit this idea</p>
-        <%= link_to image_tag("other_icons/edit_post_icon_grey.jpg", :border => 0), edit_idea_path(:id => @idea) %>
+        <%= link_to image_tag("other_icons/edit_post_icon_grey.jpg", :border => 0, :alt => "Edit Idea"), edit_idea_path(:id => @idea) %>
         <hr>
       <% end %>
       
       
       <p>launch project</p>
-      <%= link_to image_tag("other_icons/projects_icon_sm.png", :border => 0), new_idea_project_path(@idea) %>
+      <%= link_to image_tag("other_icons/projects_icon_sm.png", :border => 0, :alt => "Launch Project"), new_idea_project_path(@idea) %>
 
       <p><%= render :partial => '/shared/watchlist_menu', :locals => { :object => @idea}  %></p>
 

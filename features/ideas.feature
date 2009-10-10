@@ -30,8 +30,7 @@
     
   Scenario: Inactive ideas should not be visible to other users
     Given I am logged in as "monolith" with password "secret"
-    When I follow "Ideas"
-      And I follow "Post Idea"
+    When I go to new idea page
       And I choose "idea_active_false"
       And I fill in "idea_title" with "Inactive Idea"
       And I fill in "idea_description" with "My Description"
@@ -67,7 +66,7 @@
     
     Given I am logged in as "monolith" with password "secret"
     When I go to view "My great idea" idea
-      And I follow "Edit_post_icon_grey"
+      And I follow "Edit Idea"
     Then I should see "Edit Idea"
     When I fill in "idea_title" with "Updated title"
       And I press "Update"

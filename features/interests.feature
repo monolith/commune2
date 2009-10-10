@@ -35,21 +35,21 @@ Feature: Interest (showing interest in things)
 
   Scenario Outline: I should be able to show (and stop showing) interest in idea or project
     When I go to <page>
-    Then I should see "Show Interest" button
-    When I press "Show Interest"
+    Then I should see "show interest"
+    When I press "show interest"
     Then I should see "Thank you for showing interest"
-      And I should see "Watching: 1"
-      And I should see "Interested: 1"
+      And I should see "1 watching"
+      And I should see "1 interested"
     When I go to my watchlist
     Then I should see <words>
     When I go to my interested list
     Then I should see <words>    
     When I go to <page>
-    Then I should see "Stop Showing Interest" button
-    When I press "Stop Showing Interest"
+    Then I should see "you are showing interest"
+    When I follow "stop showing interest"
     Then I should see "You are no longer showing interest."
-      And I should see "Watching: 1"
-      And I should see "Interested: 0"
+      And I should see "1 watching"
+      And I should see "0 interested"
     When I go to my interested list
     Then I should not see <words>
     

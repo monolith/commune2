@@ -8,7 +8,7 @@
 
     <% watchlist = object.wlists.find_by_user_id current_user.id %>
 
-    <%= link_to image_tag("other_icons/remove_from_watchlist_icon.png", :border => 0), watchlist_path(watchlist), :confirm => "Are you sure you want to stop watching this " + object.class.to_s.downcase + "?", :method => :delete %>
+    <%= link_to image_tag("other_icons/remove_from_watchlist_icon.png", :border => 0, :alt => "stop watching"), watchlist_path(watchlist), :confirm => "Are you sure you want to stop watching this " + object.class.to_s.downcase + "?", :method => :delete %>
 
   <% else %>
       <p>
@@ -16,7 +16,7 @@
       <% form_for watchlist do |f| %>
         <%= f.hidden_field :watch_type %>
         <%= f.hidden_field :watch_id %>
-        <%= image_submit_tag 'other_icons/watching_icon_sm.png' %>      
+        <%= image_submit_tag 'other_icons/watching_icon_sm.png', :alt => "add to watchlist" %>      
       <% end %>
       
       add to watchlist</p>
@@ -31,7 +31,7 @@
         <p>you are showing interest in this <%= object.class.to_s.downcase %>, click to stop</p>
         
         <% interest = object.interests.find_by_user_id current_user.id %>
-        <%= link_to image_tag("other_icons/remove_from_interest_icon.png", :border => 0), interest_path(interest), :confirm => "Are you sure you want to stop showing interest in this " + object.class.to_s.downcase + "?", :method => :delete %>
+        <%= link_to image_tag("other_icons/remove_from_interest_icon.png", :border => 0, :alt => "stop showing interest" ), interest_path(interest), :confirm => "Are you sure you want to stop showing interest in this " + object.class.to_s.downcase + "?", :method => :delete %>
 
   
       <% else %>
@@ -41,7 +41,7 @@
         <% form_for interest do |f| %>
           <%= f.hidden_field :interest_type %>
           <%= f.hidden_field :interest_id %>
-          <%= image_submit_tag 'other_icons/interest_icon_sm.png' %>      
+          <%= image_submit_tag 'other_icons/interest_icon_sm.png', :alt => "show interest" %>      
         <% end %>
 
       <% end %>

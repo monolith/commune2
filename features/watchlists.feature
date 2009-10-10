@@ -30,17 +30,17 @@ Feature: Watchlist
 
   Scenario Outline: I should be able to add/remove a person, idea, or project to my watchlist
     When I go to <page>
-    Then I should see "Add to Watchlist" button
-    When I press "Add to Watchlist"
+    Then I should see "add to watchlist"
+    When I press "add to watchlist"
     Then I should see "Added to watchlist"
-      And I should see "Watching: 1"
+      And I should see "1 watching"
     When I go to my watchlist
     Then I should see <words>
     When I go to <page>
-    Then I should see "Stop Watching" button
-    When I press "Stop Watching"
+    Then I should see "you are watching"
+    When I follow "stop watching"
     Then I should see "Removed from watchlist"
-      And I should see "Watching: 0"
+      And I should see "0 watching"
     When I go to my watchlist
     Then I should not see <words>
     
@@ -66,7 +66,7 @@ Feature: Watchlist
     Scenario: Other users should not see my watchlist
       # Given in background logs me in as monolith
       When I go to "joe's" profile
-        And I press "Add to watchlist"
+        And I press "add to watchlist"
       Then I should see "Added to watchlist"
       When I go to my watchlist
       Then I should see "joe"
@@ -74,5 +74,5 @@ Feature: Watchlist
       When I go to my watchlist  # this is now bob's watchlist, not monolith
       Then I should not see "joe"
       When I go to "joe's" profile
-      Then I should see "Watching: 1"
+      Then I should see "1 watching"
         But I should not see "monolith" 
