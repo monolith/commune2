@@ -601,17 +601,28 @@ color: #B1B1B1;
 
 
 #notice {
-  border: 5px solid #F4C430;
+  border-left: 5px solid #F4C430;
   background-color: #FFFFFF;
   padding: 5px;
-  margin: 10px 0;
+  line-height: 30px;
+  margin-bottom: 10px;
+
+  background-image:url('/images/stat_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top left;
+
 }
 
 #error {
-  border: 5px solid #CF4326;
+  border-left: 5px solid #CF4326;
   background-color: #FFFFFF;
   padding: 5px;
-  margin: 10px 0;
+  line-height: 30px;
+  margin-bottom: 10px;
+
+  background-image:url('/images/stat_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top left;
 }
 
 #disclaimer {
