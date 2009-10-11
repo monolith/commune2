@@ -207,6 +207,7 @@ module ApplicationHelper
   def stats_for(object, icon_side = "right")
     stats = ""
     @icon_side = icon_side
+    @no_icon = false
     
     case object.class.to_s
       
