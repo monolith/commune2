@@ -23,28 +23,36 @@
 
     <div id="show-main-container">
     
-      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_jobs.include?(@job) %>
-        <%=h @job.title %></h1>
+      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0, :title => "On Watchlist") if current_user.watched_jobs.include?(@job) %> <%=h @job.title %></h1>
 
-        <% if @job.project and (@job.project.active? || @job.user == current_user) %>
-          <div id="section_header"><h2>&nbsp;Project</h2></div>
-          <%= render :partial => @job.project %>
-        <% end %>
+      <p>
+        Posted: <%= time_ago_in_words(@job.created_at) %> ago
+        <% if @job.created_at < @job.updated_at %>
+          | Updated: <%= time_ago_in_words(@job.updated_at) %> ago
+        <% end %>  
+      </p>
 
-      <div id="section_header"><h2>&nbsp;Job: <%=h @job.title %></h2></div>
-        <h2>Status: <%=h @job.status %></h2>
-        <% if @job.hired_user %>
-          <p>Currently at this position:</p>
-          <%= render :partial => "users/user", :object => @job.hired_user %>
-        <% end %>
+      <% if @job.hired_user %>
+        <p>Currently at this position:</p>
+        <%= render :partial => "users/user", :object => @job.hired_user %>
+      <% end %>
 
 
-      <div id="snippet_header"><h3>&nbsp;General skills</h3></div>
-      <p><%=h @job.general_skills_string %></p>
+      <p><b>General skills</b><br />
+      <%=h @job.general_skills_string %></p>
 
-      <div id="snippet_header"><h3>&nbsp;Description</h3></div>
-      <%= simple_format(h(strip_tags(@job.description))) %>
+      <p><b>Details</b><br />
+      <%= simple_format(h(strip_tags(@job.description))) %></p>
 
+      <div id="white-divider">&nbsp;</div>
+      <% if @job.project and (@job.project.active? || @job.user == current_user) %>
+        <div id="section_header"><h2>&nbsp;Project</h2></div>
+        <%= render :partial => @job.project %>
+      <% end %>
+
+      <div id="section_header"><h2>&nbsp;Who's hiring?</h2></div>
+
+      <%= @job.user ? render(:partial => @job.user) : "Anonymous" %>
 
 
   <% if @job.project.user == current_user or (@job.project.members.include?(current_user) and not @job.job_applications.find_by_user_id(current_user.id)) %>
@@ -81,9 +89,6 @@
   <% end %>
 
 
-
-
-
       <% if @job.applicants.include?(current_user) %>
 
         <% if @job.hired_user == current_user %>
@@ -104,7 +109,7 @@
           
         <% else %>
 
-            <p><b>You applied for this job on <%= @application.created_at %>.</b></p>
+            <p><b>You applied for this job on <%= time_ago_in_words(@application.created_at) %> ago.</b></p>
 
             <% form_for @application do |f| -%>
              <%= f.text_area :message, :rows => 10, :cols => 60 %>
@@ -138,11 +143,9 @@
 
     <div id="show-stat">
        <%= stats_for @job, {:icons_side => "left", :breakout => true} %>
-        
-    </div>            
 
-  </div>
-
+    </div>
+</div>
 
 <% end %>
 

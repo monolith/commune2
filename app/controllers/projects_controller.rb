@@ -104,7 +104,7 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find params[:id]
-    unless @project && @project.user == current_user
+    unless @project && @project.members.include?(current_user)
       @idea = nil
       flash[:error] = "That project does not exist or you are not allowed to edit it."
       redirect_back_or_default('/')
@@ -120,7 +120,7 @@ class ProjectsController < ApplicationController
     @project = Project.find params[:id]
     @industry_ids = (params[:industry_ids] || {}).keys.collect{|s| s.to_i}
 
-    if @project and @project.user == current_user
+    if @project and @project.members.include?(current_user)
 
       @project.attributes = params[:project]
       if Industry.update_industries(:object=> @project, :industry_ids => @industry_ids) && @project.save

@@ -29,7 +29,7 @@
 
     <div id="show-main-container">
     
-      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_projects.include?(@project) %>
+      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0, :title => "On Watchlist") if current_user.watched_projects.include?(@project) %>
         <%=h @project.title %></h1>
 
       <%= render :partial => '/shared/stars', :locals => { :scorable => @project}  %>
@@ -38,24 +38,30 @@
         <p><b>This project was spawned from the "<%= link_to h(@project.idea.title), idea_path(:id => @project.idea) %>" idea.</b></p>
       <% end %>
 
-
       <p>Relevant industries: <%= @project.industries_string %></p>
+      
+      <p>
+        Originally posted: <%= time_ago_in_words(@project.created_at) %> ago by <%= @project.user ? link_to(h(@project.user.login), user_path(@project.user)) : "Anonymous" %> 
+        <% if @project.created_at < @project.updated_at %>
+          | Updated: <%= time_ago_in_words(@project.updated_at) %> ago
+        <% end %>  
+        <br />
+      </p>
 
-      <p>Posted by <%=h @project.user ? @project.user.login : "Anonymous" %><br />
-        Poster location: <%= @project.location_string %></p> 
+      <hr />
 
-      <p>Original post: <%= @project.created_at %><br />
-        Last updated: <%= @project.updated_at %></p>
+      <p><b>Details</b><br /><%= simple_format(strip_tags(@project.description)) %></p>
 
-      <h2>Description</h2>
-
-      <p><%= simple_format(strip_tags(@project.description)) %></p>
-
+      <% if @project.wiki and @project.wiki != "" %>
+        <h2>Mini Wiki</h2>
+        <p><%= sanitize(strip_tags(@wiki)).to_html %></p>
+      <% end %>
 
       <% if @project.scorecard.active_members_count > 0 %>
 
-          <h2>Project Members</h2>
-
+          <div id="white-divider">&nbsp;</div>
+          <div id="section_header"><h2>&nbsp;Project Members</h2></div>
+      
             <% @project.filled_positions.each do |member| %>
               <div id="project_member">
                   <div id="snippet_header"><h3>&nbsp;
@@ -71,18 +77,23 @@
 
       <% end %>
 
+      <div id="section_header"><h2>&nbsp;Comments</h2></div>
+ 
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="center">
+            <%= image_tag("other_icons/comment_icon_sm.png", :border =>"0") %>
+          </td>
+          <td valign="center">
+            <%= pluralize @project.scorecard.total_comments_count, "Comment" %>
+          </td>
+        </tr>
+      </table>
 
-      <% if @project.wiki and @project.wiki != "" %>
-        <h2>Mini Wiki</h2>
-        <p><%= sanitize(strip_tags(@wiki)).to_html %></p>
-      <% end %>
-
-
-      <h2><%= pluralize @project.scorecard.total_comments_count, "Comment" %></h2>
       <%= render :partial => @project.comments %>
 
       <div id="postcomment">
-        <h2>Post a comment</h2>
+        <h2>New Comment</h2>
       
         <% form_tag post_project_comment_path do -%>
               <%= text_area_tag 'newcomment', @comment, :rows => 10, :cols => 38 %>
@@ -94,14 +105,12 @@
 
     </div>
 
-    <div id="show-stat">
-       <%= stats_for @project, {:icons_side => "left", :breakout => true} %>
+    <div id="show-stat">      
+        <%= stats_for @project, {:icons_side => "left", :breakout => true} %>
     </div>            
 
   </div>
 
 
 <% end %>
-
-
 

@@ -10,7 +10,7 @@
       <td valign="top" class="snippet-body">
         <div id="snippet-body">
           <h2>
-            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_ideas.include?(idea) %> 
+            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0, :title => "On Watchlist") if current_user.watched_ideas.include?(idea) %> 
             <%= link_to h(idea.title), idea_path(:id => idea) %>
           </h2>
           <%= render :partial => '/shared/stars', :locals => { :scorable => idea} %>
@@ -23,3 +23,6 @@
     </tr>
   </table>
 </div>
+
+<div id="white-divider">&nbsp;</div>
+

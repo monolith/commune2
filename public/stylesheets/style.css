@@ -635,11 +635,10 @@ background-color: #ffffff;
 /*** idea */
 
 #snippet-inactive, #snippet-watching, #snippet {
-  position:relative;
-  float: left;
   border-bottom: 1px solid #A0C943;
-  margin-bottom: 10px;
+  margin: 0px;
   width: 100%;
+  background-color: #ffffff;
 }
 
 #snippet-inactive{
@@ -662,6 +661,7 @@ background-color: #ffffff;
   width: 110px;
   line-height: 26px;
   vertical-align: middle;
+  background-color: none;
 }
 
 #snippet-stat-align-right {
@@ -745,9 +745,9 @@ TD.snippet-stat{
 
 
 #comment {
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 10px;
+  padding-left: 25px;
+  padding-right: 10px;
+
 }
 
 
@@ -763,16 +763,12 @@ TD.snippet-stat{
   padding: none;
   border: none;
   width:100%;
+  background-color: #ffffff;
 
 }
 
 #snippet_header{
-  position: relative;
-  float: left;
-  clear: right;
   background-color: #A0C943;
-  margin: 0px;
-  width: 100%;
 
 }
 #snippet_header h3{
@@ -781,17 +777,17 @@ TD.snippet-stat{
 
 
 #section_header{
-  position: relative;
-  float: left;
-  clear: right;
   background-color: #4f391a;
-  margin: 0px;
-  width: 100%;
-
+  clear: right;
 }
 
 #section_header a{
   color: #ffffff;
+}
+
+#white-divider{
+  background-color: #FFFFFF;
+  height: 10px;
 }
 
 #ideasnippet, #ideasnippet-inactive, #watchlist_ideasnippet, #projectsnippet, #watchlist_projectsnippet, #jobsnippet, #profilesnippet, #profilesnippet-inactive, #watchlist_profilesnippet, #projectsnippet-inactive, #invitationsnippet, #invitationsnippet-inactive, #application, #project_roles, #resend_activation, #watchlist_jobsnippet, #jobsnippet-inactive {

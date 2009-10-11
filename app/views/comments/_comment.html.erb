@@ -1,8 +1,16 @@
   <div id="comment">
+    <hr class="dashed">
+
+    <% if comment.user %>
+      <%= link_to URI.encode(comment.user[:login]), user_path(:id => comment.user[:login]) %>
+    <% else %>
+      # Anonymous Coward #
+    <% end %>
+    
+    (<%= time_ago_in_words(comment.created_at) %> ago)
+
     <p><%= simple_format(strip_tags(comment.comment)) %></p>
-    <p><i>Posted by: <%=h  comment.user ? comment.user[:login] : "# Anonymous Coward #" %> <%= comment.created_at %></i></p>
         
     <%= button_to_delete_if_allowed comment %>
-    <hr class="dashed">
   </div>
 

@@ -26,28 +26,41 @@
 
     <div id="show-main-container">
     
-      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_ideas.include?(@idea) %>
+      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0, :title => "On Watchlist") if current_user.watched_ideas.include?(@idea) %>
         <%=h @idea.title %></h1>
 
       <%= render :partial => '/shared/stars', :locals => { :scorable => @idea}  %>
 
       <p>Relevant industries: <%= @idea.industries_string %></p>
+      
+      <%= @idea.user ? render(:partial => @idea.user) : "Anonymous" %>
 
-      <p>Posted by <%=h @idea.user ? @idea.user.login : "Anonymous" %><br />
-        Poster location: <%= @idea.location_string %></p> 
+      <p>
+        Posted: <%= time_ago_in_words(@idea.created_at) %> ago
+        <% if @idea.created_at < @idea.updated_at %>
+          | Updated: <%= time_ago_in_words(@idea.updated_at) %> ago
+        <% end %>  
+      </p>
 
-      <p>Original post: <%= @idea.created_at %><br />
-        Last updated: <%= @idea.updated_at %></p>
+      <hr />
 
-      <h2>Description</h2>
+      <p><b>Details</b><br /><%= simple_format(strip_tags(@idea.description)) %></p>
 
-      <p><%= simple_format(strip_tags(@idea.description)) %></p>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="center">
+            <%= image_tag("other_icons/comment_icon_sm.png", :border =>"0") %>
+          </td>
+          <td valign="center">
+            <%= pluralize @idea.scorecard.total_comments_count, "Comment" %>
+          </td>
+        </tr>
+      </table>
 
-      <h2><%= pluralize @idea.scorecard.total_comments_count, "Comment" %></h2>
       <%= render :partial => @idea.comments %>
 
       <div id="postcomment">
-        <h2>Post a comment</h2>
+        <h2>New Comment</h2>
       
         <% form_tag post_idea_comment_path do -%>
               <%= text_area_tag 'newcomment', @comment, :rows => 10, :cols => 38 %>

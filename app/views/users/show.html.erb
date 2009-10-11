@@ -27,7 +27,7 @@
 
     <div id="show-main-container">
     
-      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_people.include?(@user) %>
+      <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0, :title => "On Watchlist") if current_user.watched_people.include?(@user) %>
         <%=h @user.login %></h1>
         
         <% if current_user.watched_people.include? @user %>
@@ -88,6 +88,7 @@
       <p>Member since: <%= @user.created_at %></p>
 
 
+      <div id="white-divider">&nbsp;</div>
 
 
       <% ideas_count = @user.active_ideas.count %>

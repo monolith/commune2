@@ -10,7 +10,7 @@
       <td valign="top" class="snippet-body">
         <div id="snippet-body">
           <h2>
-            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0) if current_user.watched_jobs.include?(job) %> 
+            <%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0, :title => "On Watchlist") if current_user.watched_jobs.include?(job) %> 
             <%= link_to h(job.title), job_path(job) %>
           </h2>
           <%=h job.description[0..250] %><% if job.description.length > 250 %>...<% end %>
@@ -25,3 +25,6 @@
     </tr>
   </table>
 </div>
+
+<div id="white-divider">&nbsp;</div>
+
