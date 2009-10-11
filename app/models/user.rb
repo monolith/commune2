@@ -59,6 +59,7 @@ class User < ActiveRecord::Base
   has_many :job_applications, :dependent => :destroy
 
   has_many :open_job_postings, :class_name => "Job", :conditions => "jobs.open"
+  has_many :open_job_applications, :class_name => "JobApplication", :through => :open_job_postings, :source => :job_applications
   has_many :job_posting_history, :class_name => "Job", :include => :project, :conditions => "jobs.created_at != projects.created_at"
 
   has_many :open_applied_for_jobs, :through => :job_applications, :source => :job, :conditions => "job_applications.hired = false and jobs.open"
@@ -375,7 +376,7 @@ class User < ActiveRecord::Base
 
   
   def recent_applications_for_jobs_count
-     self.open_applied_for_jobs.count :conditions => ["job_applications.created_at > ?", self.logon.previous]
+     self.open_job_applications.count :conditions => ["job_applications.created_at > ?", self.logon.previous]
   end
  
 

@@ -208,8 +208,6 @@ module ApplicationHelper
     case object.class.to_s
       
       when "Idea"
-          stats << "posted " << time_ago_in_words(object.created_at) << " by "
-          stats << link_to(object.user.login, user_path(object.user)) << tag("br") << tag("br")
 
           stats << show_comments_count(total_comments(object)) << tag("br")
           stats << show_watchers_count(total_watchers(object)) << tag("br")
@@ -217,8 +215,6 @@ module ApplicationHelper
           stats << show_projects_count(active_projects(object))
       
       when "Project"
-          stats << "posted " << time_ago_in_words(object.created_at) << " by "
-          stats << link_to(object.user.login, user_path(object.user)) << tag("br") << tag("br")
 
           stats << show_comments_count(total_comments(object)) << tag("br")
           stats << show_watchers_count(total_watchers(object)) << tag("br")
@@ -241,9 +237,6 @@ module ApplicationHelper
           else
             stats << "status: " << object.status.downcase << tag("br")          
           end
-
-          stats << "posted " << time_ago_in_words(object.created_at) << " by "
-          stats << link_to(object.user.login, user_path(object.user)) << tag("br") << tag("br")
 
           stats << show_watchers_count(total_watchers(object)) << tag("br")
           stats << show_applicants_count(object.applicants.count) << tag("br")
@@ -322,37 +315,41 @@ module ApplicationHelper
   
     
   # START DISPLAY (show)
+  def table_this(left, right)
+      "<table border='0' cellspacing='0' cellpadding='0' align='right' width='100%'><tr><td valign='center' align='right'>" << left << "</td><td valign='center' align='right' width='30'>" << right << "</td></tr></table>"
+
+  end
   
   def show_comments_count(count)
-    image_tag("other_icons/comment_icon_sm.png", :border => 0) << " " << pluralize(count, "comment")
+    table_this(pluralize(count, "comment"), image_tag("other_icons/comment_icon_sm.png", :border => 0))
   end
 
   def show_watchers_count(count)
-    image_tag("other_icons/watching_icon_sm.png", :border => 0) << " " << count.to_s << " watching"
+    table_this(count.to_s + " watching", image_tag("other_icons/watching_icon_sm.png", :border => 0))
   end
 
   def show_interested_count(count)
-    image_tag("other_icons/interest_icon_sm.png", :border => 0) << " " << count.to_s << " interested"
+    table_this(count.to_s + " interested", image_tag("other_icons/interest_icon_sm.png", :border => 0))
   end
 
   def show_projects_count(count)
-    image_tag("other_icons/projects_icon_sm.png", :border => 0) << " " << pluralize(count, "project")
+    table_this(pluralize(count, "project"), image_tag("other_icons/projects_icon_sm.png", :border => 0))
   end
   
   def show_members_count(count)
-    pluralize count, "member"
+    table_this(pluralize(count, "member"), image_tag("other_icons/member_icon_sm.png", :border => 0))
   end
 
   def show_jobs_count(count)
-    pluralize count, "job"
+    table_this(pluralize(count, "job"), image_tag("other_icons/jobs_icon_sm.png", :border => 0))
   end
 
   def show_ideas_count(count)
-    pluralize count, "idea"
+   table_this(pluralize(count, "idea"), image_tag("other_icons/ideas_icon_sm.png", :border => 0))
   end
   
   def show_applicants_count(count)
-    pluralize count, "applicants"
+    table_this(pluralize(count, "applicants"), image_tag("other_icons/applicants_icon_sm.png", :border => 0))
   end
   
   

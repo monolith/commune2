@@ -3,7 +3,7 @@
   <table border="0" cellspacing="0" cellpadding="0" width="100%">
     <tr>
       <td valign="top"class="snippet-stat" width="110">
-        <div id="snippet-stat">
+        <div id="snippet-stat-align-right">
           <%= stats_for(project) %>
         </div>
       </td>
@@ -16,6 +16,8 @@
           <%= render :partial => '/shared/stars', :locals => { :scorable => project} %>
 
           <p><%= show_description(project) %></p>
+          <p>posted <%= time_ago_in_words(project.created_at) %> ago by <%= link_to(project.user.login, user_path(project.user)) %></p>
+
           <p><%= dashboard_for(project) %></p>
         </div>
       </td>

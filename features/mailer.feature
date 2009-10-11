@@ -95,7 +95,7 @@ Feature: Various mailer functionalities
 
     # check that this actual changed the password
     Given I am logged in as "monolith" with password "helloworld"
-    Then I should see "Logged in successfully"
+    Then I should see "logged"
     
 
     Scenario: I should be able to email other people

@@ -70,16 +70,12 @@
         <hr>
       <% end %>
       
-       <p><%= image_tag("other_icons/watching_icon_sm.png", :border => 0) %> <%= @idea.watchers_count %> watching</p>  
-        <hr>
-       <p><%= image_tag("other_icons/interest_icon_sm.png", :border => 0) %> <%= @idea.interested_count %> interested</p>
-        
+        <%= stats_for @idea %>
+                
         <% @idea.interested.each do |profile| %>
           <p><%= link_to profile.login, user_path(profile) %></p>
         <% end %>
 
-          <hr>
-        <p><%= image_tag("other_icons/projects_icon_sm.png", :border => 0) %> <%= pluralize @idea.scorecard.active_projects_count, "project" %></p>
         <% for project in @idea.projects %>
           <% if project.active? %>
             <p><%= link_to h(project.title), project_path(:id => project) %></p>

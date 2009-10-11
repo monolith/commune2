@@ -218,14 +218,14 @@ a.menu-ideas-highlight:hover {
 
 a.menu-projects {
   background:url(/images/menu_icons/projects_menu_icon_brown.png) 0 0 no-repeat; 
-  background-position: 11px center;
+  background-position: 10px center;
   background-color: #A0C943;
 
 }
 a.menu-projects:hover {
   background:url(/images/menu_icons/projects_menu_icon_green.png) 0 0 no-repeat; 
   background-color: #4f391a;
-  background-position: 11px center;
+  background-position: 10px center;
   font-color: #FFFFFF;
   font-weight: bold;
 
@@ -238,7 +238,7 @@ a.menu-projects:hover {
 
 a.menu-projects-highlight {
   background:url(/images/menu_icons/projects_menu_icon_green.png) 0 0 no-repeat; 
-  background-position: 11px center;
+  background-position: 10px center;
   background-color: #4f391a;
 
 }
@@ -246,7 +246,7 @@ a.menu-projects-highlight:hover {
   background:url(/images/menu_icons/projects_menu_icon_brown.png) 0 0 no-repeat; 
   background-color: #F4C430;
   color: #4f391a;
-  background-position: 11px center;
+  background-position: 10px center;
   font-color: #FFFFFF;
   font-weight: bold;
 
@@ -259,14 +259,14 @@ a.menu-projects-highlight:hover {
 
 a.menu-jobs {
   background:url(/images/menu_icons/jobs_menu_icon_brown.png) 0 0 no-repeat; 
-  background-position: 14px center;
+  background-position: 10px center;
   background-color: #A0C943;
 
 }
 a.menu-jobs:hover {
   background:url(/images/menu_icons/jobs_menu_icon_green.png) 0 0 no-repeat; 
   background-color: #4f391a;
-  background-position: 14px center;
+  background-position: 10px center;
   font-color: #FFFFFF;
   font-weight: bold;
 
@@ -279,7 +279,7 @@ a.menu-jobs:hover {
 
 a.menu-jobs-highlight {
   background:url(/images/menu_icons/jobs_menu_icon_green.png) 0 0 no-repeat; 
-  background-position: 14px center;
+  background-position: 10px center;
   background-color: #4f391a;
 
 }
@@ -287,7 +287,7 @@ a.menu-jobs-highlight:hover {
   background:url(/images/menu_icons/jobs_menu_icon_brown.png) 0 0 no-repeat; 
   background-color: #F4C430;
   color: #4f391a;
-  background-position: 14px center;
+  background-position: 10px center;
   font-color: #FFFFFF;
   font-weight: bold;
 
@@ -300,14 +300,14 @@ a.menu-jobs-highlight:hover {
 
 a.menu-people {
   background:url(/images/menu_icons/people_menu_icon_brown.png) 0 0 no-repeat; 
-  background-position: 16px center;
+  background-position: 10px center;
   background-color: #A0C943;
 
 }
 a.menu-people:hover {
   background:url(/images/menu_icons/people_menu_icon_green.png) 0 0 no-repeat; 
   background-color: #4f391a;
-  background-position: 16px center;
+  background-position: 10px center;
   font-color: #FFFFFF;
   font-weight: bold;
 
@@ -319,7 +319,7 @@ a.menu-people:hover {
 
 a.menu-people-highlight {
   background:url(/images/menu_icons/people_menu_icon_green.png) 0 0 no-repeat; 
-  background-position: 16px center;
+  background-position: 10px center;
   background-color: #4f391a;
 
 }
@@ -327,7 +327,7 @@ a.menu-people-highlight:hover {
   background:url(/images/menu_icons/people_menu_icon_brown.png) 0 0 no-repeat; 
   background-color: #F4C430;
   color: #4f391a;
-  background-position: 16px center;
+  background-position: 10px center;
   font-color: #FFFFFF;
   font-weight: bold;
 
@@ -339,42 +339,42 @@ a.menu-people-highlight:hover {
 
 a.menu-new {
   background:url(/images/submenu_icons/new_submenu_icon.png) 0 0 no-repeat; 
-  background-position: 16px center;
+  background-position: 10px center;
   background-color: #A0C943;
 
 }
 
 a.menu-new-highlight {
   background:url(/images/submenu_icons/new_submenu_icon.png) 0 0 no-repeat; 
-  background-position: 16px center;
+  background-position: 10px center;
   background-color: #4f391a;
 
 }
 
 a.menu-my {
   background:url(/images/submenu_icons/my_submenu_icon.png) 0 0 no-repeat; 
-  background-position: 16px center;
+  background-position: 10px center;
   background-color: #A0C943;
 
 }
 
 a.menu-my-highlight {
   background:url(/images/submenu_icons/my_submenu_icon.png) 0 0 no-repeat; 
-  background-position: 16px center;
+  background-position: 10px center;
   background-color: #4f391a;
 
 }
 
 a.menu-watchlist {
   background:url(/images/submenu_icons/watchlist_submenu_icon.png) 0 0 no-repeat; 
-  background-position: 11px center;
+  background-position: 10px center;
   background-color: #A0C943;
 
 }
 
 a.menu-watchlist-highlight {
   background:url(/images/submenu_icons/watchlist_submenu_icon.png) 0 0 no-repeat; 
-  background-position: 11px center;
+  background-position: 10px center;
   background-color: #4f391a;
 
 }
@@ -493,16 +493,21 @@ background-color: #ffffff;
  
 }
 
-#snippet-stat {
+#snippet-stat, #snippet-stat-align-right, #show-stat {
   position:relative;
   float: left;
-  padding-top: 25px;
+  padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
   width: 110px;
+  line-height: 26px;
+  vertical-align: middle;
 }
 
+#snippet-stat-align-right {
+  text-align: right;
+}
 
 #snippet-body {
   position:relative;
@@ -519,7 +524,7 @@ TD.snippet-body{
 }
 
 TD.snippet-stat{
-  background-image:url('/images/snippet_stat_bg.jpg');
+  background-image:url('/images/stat_bg.jpg');
   background-repeat: repeat-y;
   background-position: top left;
 }
@@ -556,7 +561,7 @@ TD.snippet-stat{
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
-  background-image:url('/images/snippet_stat_bg.jpg');
+  background-image:url('/images/stat_bg.jpg');
   background-repeat: repeat-y;
   background-position: top left;
   
@@ -577,7 +582,7 @@ TD.snippet-stat{
   width: 100px;
   clear:right;
 
-  background-image:url('/images/snippet_stat_bg.jpg');
+  background-image:url('/images/stat_bg.jpg');
   background-repeat: repeat-y;
   background-position: top left;
 

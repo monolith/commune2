@@ -14,6 +14,9 @@
             <%= link_to h(job.title), job_path(job) %>
           </h2>
           <%=h job.description[0..250] %><% if job.description.length > 250 %>...<% end %>
+
+          <p>posted <%= time_ago_in_words(job.created_at) %> ago by <%= link_to(job.user.login, user_path(job.user)) %></p>
+
           <%= dashboard_for(job) %> 
 
         </div>
