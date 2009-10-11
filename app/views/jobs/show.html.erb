@@ -137,12 +137,7 @@
     </div>
 
     <div id="show-stat">
-      <% if @job.project.members.include? current_user %>
-        <p>status: <%= @job.active ? "active" : "<b>INACTIVE</b>" %></p>
-        <hr>
-      <% end %>
-      
-      <%= stats_for @job, "left" %>
+       <%= stats_for @job, {:icons_side => "left", :breakout => true} %>
         
     </div>            
 

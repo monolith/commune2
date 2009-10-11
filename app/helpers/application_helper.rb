@@ -86,7 +86,7 @@ module ApplicationHelper
     return unless current_user # no dashboard unless logged in
     dashboard = ""
     
-    @no_icon = true
+    @icons_show = false
 
     case object.class.to_s
       
@@ -204,10 +204,13 @@ module ApplicationHelper
   end
   
   
-  def stats_for(object, icon_side = "right")
-    stats = ""
-    @icon_side = icon_side
-    @no_icon = false
+  def stats_for(object, options={})
+
+    @icons_show = options[:icons_show] || true
+    @icons_side = options[:icons_side] || "right"
+    breakout = options[:breakout] || false
+
+    stats = object.active ? "" : "<b>INACTIVE</b><hr />"
     
     case object.class.to_s
       
@@ -216,15 +219,40 @@ module ApplicationHelper
           stats << show_comments_count(total_comments(object)) << tag("br")
           stats << show_watchers_count(total_watchers(object)) << tag("br")
           stats << show_interested_count(total_interested(object)) << tag("br")
+
+          if breakout
+            object.interested.each do |profile|
+              stats << "&nbsp;&nbsp;&nbsp;&nbsp;" << link_to(h(profile.login), user_path(profile)) << tag("br")
+            end       
+          end
+
           stats << show_projects_count(active_projects(object))
+
+          if breakout
+            object.active_projects.each do |project|
+              stats << "&nbsp;&nbsp;&nbsp;&nbsp;" << link_to(h(project.title), project_path(project)) << tag("br")
+            end
+          end
       
       when "Project"
 
+          stats << show_members_count(active_members(object)) << tag("br")
           stats << show_comments_count(total_comments(object)) << tag("br")
           stats << show_watchers_count(total_watchers(object)) << tag("br")
+
           stats << show_interested_count(total_interested(object)) << tag("br")
+          if breakout
+            object.interested.each do |profile|
+              stats << "&nbsp;&nbsp;&nbsp;&nbsp;" << link_to(h(profile.login), user_path(profile)) << tag("br")
+            end       
+          end
+
           stats << show_jobs_count(active_jobs(object)) << tag("br")
-          stats << show_members_count(active_members(object)) << tag("br")
+          if breakout
+            object.open_jobs.each do |job|
+              stats << "&nbsp;&nbsp;&nbsp;&nbsp;" << link_to(h(job.title), job_path(job)) << tag("br")
+            end       
+          end
 
       when "User"
 
@@ -322,7 +350,7 @@ module ApplicationHelper
   def table_this(left, right)
    width_left=''
    width_right=''
-    if @icon_side == "left"
+    if @icons_side == "left"
       tmp = left
       left = right
       right = tmp
@@ -333,71 +361,71 @@ module ApplicationHelper
     
     end
 
-      "<table border='0' cellspacing='0' cellpadding='0' align='right' width='100%'><tr><td valign='center' align='#{@icon_side}' #{ width_left}>" << left << "</td><td valign='center' align='#{@icon_side}' #{ width_right}>" << right << "</td></tr></table>"
+      "<table border='0' cellspacing='0' cellpadding='0' align='right' width='100%'><tr><td valign='center' align='#{@icons_side}' #{ width_left}>" << left << "</td><td valign='center' align='#{@icons_side}' #{ width_right}>" << right << "</td></tr></table>"
 
   end
   
   def show_comments_count(count)
-    if @no_icon
-      pluralize(count, "comment")
-    else
+    if @icons_show
       table_this(pluralize(count, "comment"), image_tag("other_icons/comment_icon_sm.png", :border => 0))
+    else
+      pluralize(count, "comment")
     end
   end
 
   def show_watchers_count(count)
-    if @no_icon
-      count.to_s + " watching"
-    else
+    if @icons_show
       table_this(count.to_s + " watching", image_tag("other_icons/watching_icon_sm.png", :border => 0))
+    else
+      count.to_s + " watching"
     end
   end
 
   def show_interested_count(count)
-    if @no_icon
-      count.to_s + " interested"
-    else
+    if @icons_show
       table_this(count.to_s + " interested", image_tag("other_icons/interest_icon_sm.png", :border => 0))
+    else      
+      count.to_s + " interested"
     end
   end
 
   def show_projects_count(count)
-    if @no_icon
-      pluralize(count, "project")
-    else
+    if @icons_show
       table_this(pluralize(count, "project"), image_tag("other_icons/projects_icon_sm.png", :border => 0))
+    else
+      pluralize(count, "project")
     end
   end
   
   def show_members_count(count)
-    if @no_icon
-      pluralize(count, "member")
-    else
+    if @icons_show
       table_this(pluralize(count, "member"), image_tag("other_icons/member_icon_sm.png", :border => 0))
+    else
+      pluralize(count, "member")
     end
   end
 
   def show_jobs_count(count)
-    if @no_icon
-      pluralize(count, "job")
-    else
+    if @icons_show
       table_this(pluralize(count, "job"), image_tag("other_icons/jobs_icon_sm.png", :border => 0))
+    else
+      pluralize(count, "job")
     end
   end
 
   def show_ideas_count(count)
-    if @no_icon
-      pluralize(count, "idea")
-    else
+    if @icons_show
      table_this(pluralize(count, "idea"), image_tag("other_icons/ideas_icon_sm.png", :border => 0))
+    else
+      pluralize(count, "idea")
     end
   end
   
   def show_applicants_count(count)
-    if @no_icon
-      pluralize(count, "applicants")
-    else
+    if @icons_show
       table_this(pluralize(count, "applicants"), image_tag("other_icons/applicants_icon_sm.png", :border => 0))
+    else
+      pluralize(count, "applicants")
     end
   end
   

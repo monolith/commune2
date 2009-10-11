@@ -119,12 +119,7 @@
     </div>
 
     <div id="show-stat">
-      <% if @user == current_user %>
-        <p>profile status: <%= @user.active ? "active" : "<b>INACTIVE</b>" %></p>
-        <hr>
-      <% end %>
-
-        <%= stats_for @user, "left" %>
+       <%= stats_for @user, {:icons_side => "left", :breakout => true} %>
 
     </div>            
 

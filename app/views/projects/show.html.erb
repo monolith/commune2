@@ -95,23 +95,7 @@
     </div>
 
     <div id="show-stat">
-      <% if @project.author?(current_user) %>
-        <p>status: <%= @project.active ? "active" : "<b>INACTIVE</b>" %></p>
-        <hr>
-      <% end %>
-      
-        <%= stats_for @project, "left" %>
-
-        <% @project.interested.each do |profile| %>
-          <p><%= link_to profile.login, user_path(profile) %></p>
-        <% end %>
-
-      <% for job in @project.open_jobs %>
-       <p><%= link_to h(job.title), job_path(:id => job) %></p>
-
-      <% end %>
-
-
+       <%= stats_for @project, {:icons_side => "left", :breakout => true} %>
     </div>            
 
   </div>

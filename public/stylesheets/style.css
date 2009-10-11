@@ -399,22 +399,20 @@ a.action_menu_edit, a.action_menu_launch_project, a.action_menu_delete, a.action
 	color: #000000;
 	text-decoration: none;
   vertical-align: middle;
-  padding-right: 30px;
+  padding-right: 35px;
   line-height: 30px;
   text-align: right;
-  right: 0px;
-  top: auto;
-  bottom: auto;
+
 }
 
 a.action_menu_edit{
   background:url(/images/other_icons/edit_icon_sm.png) 0 0 no-repeat; 
-  background-position: center right;
+  background-position: 98% center;
 
 }
 a.action_menu_edit:hover{ 
   background:url(/images/other_icons/edit_icon_sm_brown.png) 0 0 no-repeat;
-  background-position: center right;
+  background-position: 98% center;
 
   background-color: #F4C430;
   /* for IE */
@@ -426,12 +424,12 @@ a.action_menu_edit:hover{
 
 a.action_menu_launch_project{
   background:url(/images/other_icons/projects_icon_sm.png) 0 0 no-repeat; 
-  background-position: center right;
+  background-position: 98% center;
 
 }
 a.action_menu_launch_project:hover{ 
   background:url(/images/other_icons/projects_icon_sm_brown.png) 0 0 no-repeat;
-  background-position: center right;
+  background-position: 98% center;
 
   background-color: #F4C430;
   /* for IE */
@@ -442,7 +440,7 @@ a.action_menu_launch_project:hover{
 
 a.action_menu_delete{
   background:url(/images/other_icons/delete_icon.png) 0 0 no-repeat; 
-  background-position: center right;
+  background-position: 98% center;
 
 }
 a.action_menu_delete:hover{ 
@@ -456,12 +454,12 @@ a.action_menu_delete:hover{
 
 a.action_menu_start_watching{
   background:url(/images/other_icons/watching_icon_sm.png) 0 0 no-repeat; 
-  background-position: center right;
+  background-position: 98% center;
 
 }
 a.action_menu_start_watching:hover{ 
   background:url(/images/other_icons/watching_icon_sm_brown.png) 0 0 no-repeat;
-  background-position: center right;
+  background-position: 98% center;
 
   background-color: #F4C430;
   /* for IE */
@@ -472,12 +470,12 @@ a.action_menu_start_watching:hover{
 
 a.action_menu_stop_watching{
   background:url(/images/other_icons/remove_from_watchlist_icon.png) 0 0 no-repeat; 
-  background-position: center right;
+  background-position: 98% center;
 
 }
 a.action_menu_stop_watching:hover{ 
   background:url(/images/other_icons/remove_from_watchlist_icon_brown.png) 0 0 no-repeat;
-  background-position: center right;
+  background-position: 98% center;
 
   background-color: #F4C430;
   /* for IE */
@@ -489,12 +487,12 @@ a.action_menu_stop_watching:hover{
 
 a.action_menu_show_interest{
   background:url(/images/other_icons/interest_icon_sm.png) 0 0 no-repeat; 
-  background-position: center right;
+  background-position: 98% center;
 
 }
 a.action_menu_show_interest:hover{ 
   background:url(/images/other_icons/interest_icon_sm_brown.png) 0 0 no-repeat;
-  background-position: center right;
+  background-position: 98% center;
 
   background-color: #F4C430;
   /* for IE */
@@ -505,12 +503,12 @@ a.action_menu_show_interest:hover{
 
 a.action_menu_end_interest{
   background:url(/images/other_icons/remove_interest_icon.png) 0 0 no-repeat; 
-  background-position: center right;
+  background-position: 98% center;
 
 }
 a.action_menu_end_interest:hover{ 
   background:url(/images/other_icons/remove_interest_icon_brown.png) 0 0 no-repeat;
-  background-position: center right;
+  background-position: 98% center;
 
   background-color: #F4C430;
   /* for IE */
@@ -521,12 +519,12 @@ a.action_menu_end_interest:hover{
 
 a.action_menu_new_job{
   background:url(/images/other_icons/jobs_icon_sm.png) 0 0 no-repeat; 
-  background-position: center right;
+  background-position: 98% center;
 
 }
 a.action_menu_new_job:hover{ 
   background:url(/images/other_icons/jobs_icon_sm_brown.png) 0 0 no-repeat;
-  background-position: center right;
+  background-position: 98% center;
 
   background-color: #F4C430;
   /* for IE */
@@ -537,12 +535,12 @@ a.action_menu_new_job:hover{
 
 a.action_menu_send_message{
   background:url(/images/other_icons/send_message_icon_sm.png) 0 0 no-repeat; 
-  background-position: center right;
+  background-position: 98% center;
 
 }
 a.action_menu_send_message:hover{ 
   background:url(/images/other_icons/send_message_icon_sm_brown.png) 0 0 no-repeat;
-  background-position: center right;
+  background-position: 98% center;
 
   background-color: #F4C430;
   /* for IE */
@@ -723,8 +721,7 @@ TD.snippet-stat{
   background-repeat: repeat-y;
   background-position: top left;
   
-  text-align: right;
-  font-size: small;
+  font-size: menu;
 }
 
 
@@ -737,7 +734,7 @@ TD.snippet-stat{
   padding-top: 0px;
   width: 110px;
   clear:right;
-  line-height: 26px;
+  line-height: 30px;
   vertical-align: middle;
 
   background-image:url('/images/stat_bg.jpg');

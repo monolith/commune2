@@ -59,24 +59,8 @@
 
     </div>
 
-    <div id="show-stat">
-      <% if @idea.author?(current_user) %>
-        <p>status: <%= @idea.active ? "active" : "<b>INACTIVE</b>" %></p>
-        <hr>
-      <% end %>
-      
-        <%= stats_for @idea, "left" %>
-                
-        <% @idea.interested.each do |profile| %>
-          <p><%= link_to profile.login, user_path(profile) %></p>
-        <% end %>
-
-        <% for project in @idea.projects %>
-          <% if project.active? %>
-            <p><%= link_to h(project.title), project_path(:id => project) %></p>
-          <% end %>
-        <% end %>
-
+    <div id="show-stat">      
+        <%= stats_for @idea, {:icons_side => "left", :breakout => true} %>
     </div>            
 
   </div>
