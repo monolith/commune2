@@ -133,9 +133,9 @@ class JobsController < ApplicationController
 
   def my_jobs
     if current_user.scorecard.active_jobs_count > 0
-      open_job_postings
+      redirect_to open_job_postings_path
     else
-      open_applied_for_jobs
+      redirect_to open_applied_for_jobs_path
     end
   
   end
@@ -166,7 +166,7 @@ class JobsController < ApplicationController
   
   
   def applied_for_job_history
-    @jobs = current_user.applied_for_job_history.paginate :per_page => 10, :page => params[:page], :order => "jobs.id DESC",
+    @jobs = current_user.applied_for_history.paginate :per_page => 10, :page => params[:page], :order => "jobs.id DESC",
                                        :include => [:user, :project]
 
     @title = "My Applied for Job History"
@@ -175,12 +175,17 @@ class JobsController < ApplicationController
   
   
   def current_positions
-    @jobs = current_user.current_jobs.paginate :per_page => 10, :page => params[:page], :order => "job_applications.id DESC",
-          :include => [:user, :project, :hired_user]
+    @jobs = current_user.current_jobs.paginate :per_page => 10, :page => params[:page], :order => "job_applications.id DESC"
 
-    @title = "My Current Positions"
+    @title = "My Hired Positions (includes inactive)"
+    render :action => 'index'
+  end
+
+  def active_current_positions
+    @jobs = current_user.active_current_jobs.paginate :per_page => 10, :page => params[:page], :order => "job_applications.id DESC"
+
+    @title = "My Active Positions"
     render :action => 'index'
   end
   
-
 end

@@ -4,24 +4,66 @@
 
   <h1><%= @title.upcase %></h1>
 
-  <div id="section_header">
-    <h2>&nbsp; <%= link_to "Open Job Postings", open_job_postings_path %> | 
-             <%= link_to "Posting History", job_posting_history_path %> | 
-             <%= link_to "Open Applied for Jobs", open_applied_for_jobs_path %> |
-             <%= link_to "Applied for History", applied_for_job_history_path %> | 
-             <%= link_to "Current Positions", current_positions_path %>
-    </h2>
-  </div>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>        
+          <% if request.path_parameters[:action] == "job_posting_history" or request.path_parameters[:action] == "open_job_postings" %>
+            <td valign="top"><%= link_to "JOBS POSTED", open_job_postings_path, :class => "job-menu-highlighted" %>
+
+              <table border="0" cellspacing="0" cellpadding="10">
+                <tr>
+                  <td><%= image_tag("other_icons/arrow_icon.png", :border=>"0") %></td>
+                  <td>&nbsp;<%= link_to "all", job_posting_history_path %></td>
+                </tr>
+              </table>
+                
+            </td> 
+            <td valign="top"><%= link_to "JOBS APPLIED FOR", open_applied_for_jobs_path, :class => "job-menu" %></td> 
+            <td valign="top"><%= link_to "CURRENT POSITIONS", active_current_positions_path, :class => "job-menu" %></td> 
+
+          <% elsif request.path_parameters[:action] == "applied_for_job_history" or request.path_parameters[:action] == "open_applied_for_jobs" %>
+            <td valign="top"><%= link_to "JOBS POSTED", open_job_postings_path, :class => "job-menu" %></td> 
+            <td valign="top"><%= link_to "JOBS APPLIED FOR", open_applied_for_jobs_path, :class => "job-menu-highlighted" %>
+
+              <table border="0" cellspacing="0" cellpadding="10">
+                <tr>
+                  <td><%= image_tag("other_icons/arrow_icon.png", :border=>"0") %></td>
+                  <td>&nbsp;<%= link_to "all", applied_for_job_history_path %></td>
+                </tr>
+              </table>
+
+            </td> 
+            <td valign="top"><%= link_to "CURRENT POSITIONS", active_current_positions_path, :class => "job-menu" %></td> 
+
+          <% elsif request.path_parameters[:action] == "active_current_positions" or request.path_parameters[:action] == "current_positions" %>
+            <td valign="top"><%= link_to "JOBS POSTED", open_job_postings_path, :class => "job-menu" %></td> 
+            <td valign="top"><%= link_to "JOBS APPLIED FOR", open_applied_for_jobs_path, :class => "job-menu" %></td> 
+            <td valign="top"><%= link_to "CURRENT POSITIONS", active_current_positions_path, :class => "job-menu-highlighted" %>
+ 
+               <table border="0" cellspacing="0" cellpadding="10">
+                <tr>
+                  <td><%= image_tag("other_icons/arrow_icon.png", :border=>"0") %></td>
+                  <td>&nbsp;<%= link_to "all", current_positions_path %></td>
+                </tr>
+              </table>
+
+           
+            </td> 
+                
+        <% end %>
+      </tr>
+    </table>
+
 <% end %>
 
 
   <% if @project %>
-    <h1><%= pluralize @jobs.total_entries, "Job" %> for <%= @project.title %> project</h1>
+    <h1><%= pluralize(@jobs.total_entries, "Job").upcase %> for <%= @project.title.upcase %> PROJECT</h1>
     <h2>Project</h2>
     <%= render :partial => @project %>
     <h2><%= pluralize @jobs.total_entries, "Job" %></h2>
   <% else %>
-    <h1><%= pluralize @jobs.total_entries, "Job" %></h1>
+    <h1><%= pluralize(@jobs.total_entries, "Job").upcase %></h1>
   <% end %>
 
 <% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>

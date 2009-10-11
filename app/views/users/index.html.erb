@@ -1,8 +1,8 @@
 
-<% content_for :title do %>User Profiles<% end %>
+<% content_for :title do %>People<% end %>
 
 
-<h1><%= pluralize @profiles.total_entries, "Profile" %></h1>
+<h1><%= pluralize(@profiles.total_entries, "Person").upcase %></h1>
 <% if @profiles.total_entries == 0 %>
   No profiles found.  Sorry!
 <% end %>

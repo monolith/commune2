@@ -28,11 +28,12 @@ ActionController::Routing::Routes.draw do |map|
   map.post_project_comment '/post/project/comment/', :controller => 'projects', :action => 'add_comment'
  
   map.my_jobs '/my/jobs/', :controller => 'jobs', :action => 'my_jobs'
-  map.open_job_postings '/jobs/open_postings/', :controller => 'jobs', :action => 'open_job_postings'
-  map.job_posting_history '/jobs/posting_history/', :controller => 'jobs', :action => 'job_posting_history'
-  map.open_applied_for_jobs '/jobs/open_applied_for/', :controller => 'jobs', :action => 'open_applied_for_jobs'
-  map.applied_for_job_history '/jobs/open_applied_for/', :controller => 'jobs', :action => 'applied_for_history'
+  map.open_job_postings '/jobs/open_job_postings/', :controller => 'jobs', :action => 'open_job_postings'
+  map.job_posting_history '/jobs/job_posting_history/', :controller => 'jobs', :action => 'job_posting_history'
+  map.open_applied_for_jobs '/jobs/open_applied_for_jobs/', :controller => 'jobs', :action => 'open_applied_for_jobs'
+  map.applied_for_job_history '/jobs/applied_for_job_history/', :controller => 'jobs', :action => 'applied_for_job_history'
   map.current_positions '/jobs/current_positions/', :controller => 'jobs', :action => 'current_positions'
+  map.active_current_positions '/jobs/active_current_positions/', :controller => 'jobs', :action => 'active_current_positions'
 
  
   # need to RESTify these

@@ -1,6 +1,6 @@
 <% content_for :title do %>Ideas<% end %>
 
-<h1><%= pluralize @ideas.total_entries, "Idea" %></h1>
+<h1><%= pluralize(@ideas.total_entries, "Idea").upcase %></h1>
 
 <% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
 <%= render :partial => @ideas %>

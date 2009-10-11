@@ -1,7 +1,17 @@
 <% content_for :title do %><%= @header %><% end %>
 
 
-<h1>My Watchlist: <%= link_to "Ideas", watchlist_ideas_path %> | <%= link_to "Projects", watchlist_projects_path %> | <%= link_to "Jobs", watchlist_jobs_path %> | <%= link_to "People", watchlist_people_path %> | <%= link_to "All", watchlists_path %></h1>
+<h1><%= @title.upcase %></h1>
+
+<% unless request.path_parameters[:action] == 'index' %>
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><%= image_tag("other_icons/arrow_icon.png", :border=>"0") %></td>
+      <td>&nbsp;<%= link_to "full watchlist", watchlists_path %></td>
+    </tr>
+  </table>
+  <br />
+<% end %>
 
 <% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
   

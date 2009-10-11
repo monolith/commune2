@@ -63,13 +63,19 @@ class User < ActiveRecord::Base
   has_many :job_posting_history, :class_name => "Job", :include => :project, :conditions => "jobs.created_at != projects.created_at"
 
   has_many :open_applied_for_jobs, :through => :job_applications, :source => :job, :conditions => "job_applications.hired = false and jobs.open"
+  has_many :applied_for_history, :source => :job, :through => :job_applications, :include => :project, :conditions => "jobs.created_at != projects.created_at"
 
   has_many :positions, :class_name => "JobApplication", :conditions => "job_applications.hired"
+  
+  has_many :active_positions, :class_name => "JobApplication", :include => :project, :conditions => "job_applications.hired and projects.active"
+
   has_many :current_jobs, :through => :positions, :source => :job
+  has_many :active_current_jobs, :through => :positions, :source => :job, :include => :project, :conditions => "jobs.active and projects.active"
+
+
 
   has_many :all_projects, :through => :positions, :source => :project, :uniq => true
 
-  has_many :active_positions, :class_name => "JobApplication", :include => :project, :conditions => "job_applications.hired and projects.active"
   has_many :active_projects, :through => :active_positions, :source => :project, :uniq => true
 
  

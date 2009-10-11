@@ -1,12 +1,12 @@
 <% content_for :title do %>Projects<% end %>
 
   <% if @idea %>
-    <h1><%= pluralize @projects.total_entries, "Project" %> for <%= @idea.title %> ideas</h1>
+    <h1><%= pluralize(@projects.total_entries, "Project").upcase %> for <%= @idea.title.upcase %> IDEA</h1>
     <h2>Idea</h2>
     <%= render :partial => @idea %>
     <h2><%= pluralize @projects.total_entries, "Project" %></h2>
   <% else %>
-    <h1><%= pluralize @projects.total_entries, "Project" %></h1>
+    <h1><%= pluralize(@projects.total_entries, "Project").upcase %></h1>
   <% end %>
 
 

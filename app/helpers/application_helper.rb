@@ -62,7 +62,7 @@ module ApplicationHelper
     
       id =  case object.class.to_s
 
-      when "Idea", "Project", "User", "Job"
+      when "Idea", "Project", "User"
         if object.active == false
           "snippet-inactive"
         elsif current_user.watched_ideas.include?(object)  
@@ -70,7 +70,17 @@ module ApplicationHelper
         else
           "snippet"
         end
-        
+      
+      when "Job"
+        if object.active == false
+          "snippet-inactive"
+        elsif current_user.watched_ideas.include?(object)  
+          "snippet-watching"
+        elsif object.status.upcase == "FILLED"
+          "job-filled"  
+        else
+          "snippet"
+        end        
       else
         "not_mapped"      
       end
@@ -210,7 +220,7 @@ module ApplicationHelper
     @icons_side = options[:icons_side] || "right"
     breakout = options[:breakout] || false
 
-    stats = object.active ? "" : "<b>INACTIVE</b><hr />"
+    stats = object.active ? "" : "<b style='color:#CF4326'>INACTIVE</b><hr />"
     
     case object.class.to_s
       
@@ -264,10 +274,12 @@ module ApplicationHelper
       
 
       when "Job"
-          if object.status == "Open"
-            stats << "status: <b>" << object.status.upcase << "</b>"  << tag("br")
+          if object.status.upcase == "OPEN"
+            stats << "<b>" << object.status.upcase << "</b>"  << tag("br")
+          elsif object.status.upcase == "FILLED"
+            stats << "<b>" << object.status.downcase << "</b>"  << tag("br")
           else
-            stats << "status: " << object.status.downcase << tag("br")          
+            stats << object.status.downcase << tag("br")          
           end
 
           stats << show_watchers_count(total_watchers(object)) << tag("br")

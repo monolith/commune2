@@ -92,8 +92,7 @@ class WatchlistsController < ApplicationController
   end
 
   def ideas
-    @title = "Ideas I am watching"
-    @header = "Ideas Watchlist"
+    @header = @title = "Ideas Watchlist"
     @ideas = current_user.watched_ideas
     @count = @ideas_count = @ideas.size
       
@@ -101,8 +100,7 @@ class WatchlistsController < ApplicationController
   end
 
   def projects
-    @title = "Projects I am watching"
-    @header = "Projects Watchlist"
+    @header = @title = "Projects Watchlist"
     @projects = current_user.watched_projects
     @count = @projects_count = @projects.size
 
@@ -111,8 +109,7 @@ class WatchlistsController < ApplicationController
   end
 
   def jobs
-    @title = "Jobs I am watching"
-    @header = "Jobs Watchlist"
+    @header = @title = "Jobs Watchlist"
     @jobs = current_user.watched_jobs
     @count = @jobs_count = @jobs.size
   
@@ -120,8 +117,7 @@ class WatchlistsController < ApplicationController
   end
   
   def people
-    @title = "People I am watching"
-    @header = "People Watchlist"
+    @header = @title = "People Watchlist"
     @people = current_user.watched_people
     @count = @people_count = @people.size
 
