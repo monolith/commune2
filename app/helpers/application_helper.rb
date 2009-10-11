@@ -118,7 +118,7 @@ module ApplicationHelper
 
           unless dashboard.blank?
             dashboard = dashboard[3..dashboard.size] # removes the first " | "
-            dashboard = tag("strong") << "New:" << tag("/strong") << " " << dashboard
+            dashboard = "<b style='color:#F4C430'>NEW:</b> " << dashboard
           end
 
         end
@@ -144,7 +144,7 @@ module ApplicationHelper
 
           unless dashboard.blank?
             dashboard = dashboard[3..dashboard.size] # removes the first " | "
-            dashboard = tag("strong") << "New:" << tag("/strong") << " " << dashboard
+            dashboard = "<b style='color:#F4C430'>NEW:</b> " << dashboard
           end
 
         end
@@ -188,7 +188,7 @@ module ApplicationHelper
 
           unless dashboard.blank?
             dashboard = dashboard[3..dashboard.size] # removes the first " | "
-            dashboard = tag("strong") << "New:" << tag("/strong") << " " << dashboard
+            dashboard = "<b style='color:#F4C430'>NEW:</b> " << dashboard
           end
 
         end
@@ -516,15 +516,15 @@ module ApplicationHelper
       my_html =""
       if mycount > 0
 
-        my_html = " MY STUFF || "
-        
+        my_html = "<div id='dashboard-my'>"        
+        my_html << "<table border='0' cellspacing='0' cellpadding='0' width='100%' height='100%'><tr><td width='30' valign='center' align='center' bgcolor='#A0C943'>"
+        my_html << image_tag("submenu_icons/my_submenu_icon.png", :border=> 0, :title => "My Stuff") + "</td><td valign='center' align='left'>&nbsp;" 
         my_html << " Comments: <b>" + mystuff[:totals][:recent_comments].to_s + "</b> |" if mystuff[:totals][:recent_comments] > 0
         my_html << " Watchers: <b>" + mystuff[:totals][:recent_watching].to_s + "</b> |" if mystuff[:totals][:recent_watching] > 0
         my_html << " Interested: <b>" + mystuff[:totals][:recent_interested].to_s + "</b> |" if mystuff[:totals][:recent_interested] > 0
         my_html << " Projects (from my ideas): <b>" + mystuff[:totals][:recent_projects].to_s + "</b> |" if mystuff[:totals][:recent_projects] > 0
         my_html << " Job Applications: <b>" + mystuff[:totals][:recent_applications].to_s + "</b> |" if mystuff[:totals][:recent_applications] > 0
-        
-        my_html << "<br />"
+        my_html << "</td></tr></table></div>"
       end
       
       
@@ -534,15 +534,19 @@ module ApplicationHelper
       watch_html =""
       if watching[:totals][:recent_ideas] + watching[:totals][:recent_projects] + watching[:totals][:recent_jobs]> 0
 
-        watch_html = " WATCHLIST || "
-        
+        watch_html = "<div id='dashboard-watchlist'>"
+        watch_html << "<table border='0' cellspacing='0' cellpadding='0' width='100%' height='100%'><tr><td width='30' valign='center' align='center' bgcolor='#A0C943'>"
+        watch_html << image_tag("submenu_icons/watchlist_submenu_icon.png", :border=> 0, :title => "Watchlist") + "</td><td valign='center' align='left'>&nbsp;" 
+              
         watch_html << " Ideas: <b>" + watching[:totals][:recent_ideas].to_s + "</b> |" if watching[:totals][:recent_ideas] > 0
         watch_html << " Projects: <b>" + watching[:totals][:recent_projects].to_s + "</b> |" if watching[:totals][:recent_projects] > 0
         watch_html << " Jobs: <b>" + watching[:totals][:recent_jobs].to_s + "</b> |" if watching[:totals][:recent_jobs] > 0
+
+        watch_html << "</td></tr></table></div>"
       end
          
       if my_html.length + watch_html.length > 0
-        "<div id=\"dashboard\"><h2>Dashboard</h2>" + my_html + watch_html + "</div>"
+        "<div id=\"dashboard-container\">" + my_html + watch_html + "</div>"
       end
       
       

@@ -614,7 +614,6 @@ color: #B1B1B1;
   margin: 10px 0;
 }
 
-
 #disclaimer {
 font-size: x-small;
 color: #B1B1B1;
@@ -628,15 +627,7 @@ background-color: #ffffff;
  height: 100%;
 
 }
-
-
-#notice {
-  border: 5px solid #F4C430;
-  background-color: #FFFFFF;
-  padding: 5px;
-  margin: 10px 0;
-}
-
+
 
 
 #login-splash {
@@ -928,30 +919,24 @@ input.big_button {
 #newcomment {
   width: 400px;
 }
-#dashboard {
 
-  position: relative;
-  float: left;
-  width: 94%;
+#dashboard-container{
+  width: 80%;
+  margin: 0px;
+  padding: 0px;
 
-  border: 1px solid #F4C430;
-  background-color: #FFFFFF;
-  padding: 5px;
-
-  
 }
+#dashboard-my, #dashboard-watchlist{
+  width: 98%;
+  margin-bottom: 5px;
+  background-color: #E8E8E8;
+ 
+}
+
 #recent-activity {
   background-image: url(/images/background.jpg);
   background-repeat: repeat-y;
   padding: 10px;
 
-}
-
-
-#error {
-  border: 5px solid #CF4326;
-  background-color: #FFFFFF;
-  padding: 5px;
-  margin: 10px 0;
 }
 

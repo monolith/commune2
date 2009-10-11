@@ -2,9 +2,6 @@
 
 
 <% if logged_in? %>
-  <!-- dashboard -->
-  <%= render :partial => '/users/dashboard' %>
-
 
   <table border="0"  cellpadding="15" align="center">
     <tr>            
@@ -84,6 +81,9 @@
   </table>
 
   
+    <!-- dashboard -->
+  <%= render :partial => '/users/dashboard' %>
+
 <% else %>
 
   <!-- logon -->
