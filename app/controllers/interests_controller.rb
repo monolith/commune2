@@ -41,7 +41,18 @@ class InterestsController < ApplicationController
   end
 
   def create
-    interest = Interest.new(params[:interest])
+    
+
+    if params[:interest]
+      interest = Interest.new(params[:interest])
+    else
+      # this is for doing this via link
+      interest = Interest.new
+      interest.interest_type = params[:interest_type]
+      interest.interest_id = params[:interest_id]
+    end
+
+
     interest.user = current_user
 
     if interest.save

@@ -432,14 +432,13 @@ module ApplicationHelper
       
       
       
-      link = link_to(  image_tag("other_icons/delete_icon.png", :border => 0, :alt => "Delete " + object.class.to_s),
+      link_to("delete " + object.class.to_s.downcase,
                 polymorphic_path(object),
                 :id => "delete",
                 :method => :delete,
-                :confirm => "Cannot undo! Delete this " << object.class.to_s.downcase + "?"
+                :confirm => "Cannot undo! Delete this " << object.class.to_s.downcase + "?",
+                :class => "action_menu_delete"
               )
-
-      "<hr>" << link << "<br />delete " << object.class.to_s.downcase
     end
   end
   

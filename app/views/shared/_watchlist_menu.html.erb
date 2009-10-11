@@ -1,49 +1,22 @@
 
 <% unless object == current_user or object.author? current_user %>
-
-<hr>
-  
   <% if object.watchers.include? current_user %>
-    <p>you are watching this <%= object.class.to_s.downcase %>, click to stop</p>
-
-    <% watchlist = object.wlists.find_by_user_id current_user.id %>
-
-    <%= link_to image_tag("other_icons/remove_from_watchlist_icon.png", :border => 0, :alt => "stop watching"), watchlist_path(watchlist), :confirm => "Are you sure you want to stop watching this " + object.class.to_s.downcase + "?", :method => :delete %>
+      <% watchlist = object.wlists.find_by_user_id current_user.id %>
+      <%= link_to "stop watching", watchlist_path(watchlist), :confirm => "Are you sure you want to stop watching this " + object.class.to_s.downcase + "?", :method => :delete, :class => "action_menu_stop_watching" %>
 
   <% else %>
-      <p>
-      <% watchlist = object.wlists.new %>
-      <% form_for watchlist do |f| %>
-        <%= f.hidden_field :watch_type %>
-        <%= f.hidden_field :watch_id %>
-        <%= image_submit_tag 'other_icons/watching_icon_sm.png', :alt => "add to watchlist" %>      
-      <% end %>
-      
-      add to watchlist</p>
- 
+      <%= link_to "start watching", watchlists_path(:watch_type => object.class, :watch_id => object.id), :method => :create, :class => "action_menu_start_watching" %>
   <% end %>
 
   <% unless object.class == User or object.class == Job %>
-
-    <hr>  
       <% if object.interested.include? current_user %>
-
-        <p>you are showing interest in this <%= object.class.to_s.downcase %>, click to stop</p>
-        
         <% interest = object.interests.find_by_user_id current_user.id %>
-        <%= link_to image_tag("other_icons/remove_from_interest_icon.png", :border => 0, :alt => "stop showing interest" ), interest_path(interest), :confirm => "Are you sure you want to stop showing interest in this " + object.class.to_s.downcase + "?", :method => :delete %>
+        <%= link_to "end interest", interest_path(interest), :confirm => "Are you sure you want to stop showing interest in this " + object.class.to_s.downcase + "?", :method => :delete, :class => "action_menu_end_interest" %>
 
   
       <% else %>
-        <p>show interest</p>
 
-        <% interest = object.interests.new %>
-        <% form_for interest do |f| %>
-          <%= f.hidden_field :interest_type %>
-          <%= f.hidden_field :interest_id %>
-          <%= image_submit_tag 'other_icons/interest_icon_sm.png', :alt => "show interest" %>      
-        <% end %>
-
+      <%= link_to "show interest", interests_path(:interest_type => object.class, :interest_id => object.id), :method => :create, :class => "action_menu_show_interest" %>
       <% end %>
 
   <% end %>

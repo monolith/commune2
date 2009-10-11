@@ -56,7 +56,16 @@ class WatchlistsController < ApplicationController
   end
 
   def create
-    watchlist = Watchlist.new(params[:watchlist])
+    
+    if params[:watchlist]
+      watchlist = Watchlist.new(params[:watchlist])
+    else
+      # this is for doing this via link
+      watchlist = Watchlist.new
+      watchlist.watch_type = params[:watch_type]
+      watchlist.watch_id = params[:watch_id]
+    end
+    
     watchlist.user = current_user
 
     if watchlist.save

@@ -392,6 +392,136 @@ a.banner-no-block:hover {
 /* END OF BANNER */
 
 
+/* left menu links */
+
+a.action_menu_edit, a.action_menu_launch_project, a.action_menu_delete, a.action_menu_stop_watching, a.action_menu_start_watching, a.action_menu_show_interest, a.action_menu_end_interest { 
+  display:block;
+	color: #000000;
+	text-decoration: none;
+  vertical-align: middle;
+  padding-top: 7px;
+  padding-right: 30px;
+  height: 30px;
+  text-align: right;
+  right: 0px;
+
+}
+
+a.action_menu_edit{
+  background:url(/images/other_icons/edit_icon_sm.png) 0 0 no-repeat; 
+  background-position: center right;
+
+}
+a.action_menu_edit:hover{ 
+  background:url(/images/other_icons/edit_icon_sm_brown.png) 0 0 no-repeat;
+  background-position: center right;
+
+  background-color: #F4C430;
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+
+}
+
+a.action_menu_launch_project{
+  background:url(/images/other_icons/projects_icon_sm.png) 0 0 no-repeat; 
+  background-position: center right;
+
+}
+a.action_menu_launch_project:hover{ 
+  background:url(/images/other_icons/projects_icon_sm_brown.png) 0 0 no-repeat;
+  background-position: center right;
+
+  background-color: #F4C430;
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+}
+
+a.action_menu_delete{
+  background:url(/images/other_icons/delete_icon.png) 0 0 no-repeat; 
+  background-position: center right;
+
+}
+a.action_menu_delete:hover{ 
+  background-color: #F4C430;
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+
+}
+
+
+a.action_menu_start_watching{
+  background:url(/images/other_icons/watching_icon_sm.png) 0 0 no-repeat; 
+  background-position: center right;
+
+}
+a.action_menu_start_watching:hover{ 
+  background:url(/images/other_icons/watching_icon_sm_brown.png) 0 0 no-repeat;
+  background-position: center right;
+
+  background-color: #F4C430;
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+}
+
+a.action_menu_stop_watching{
+  background:url(/images/other_icons/remove_from_watchlist_icon.png) 0 0 no-repeat; 
+  background-position: center right;
+
+}
+a.action_menu_stop_watching:hover{ 
+  background:url(/images/other_icons/remove_from_watchlist_icon_brown.png) 0 0 no-repeat;
+  background-position: center right;
+
+  background-color: #F4C430;
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+}
+
+
+a.action_menu_show_interest{
+  background:url(/images/other_icons/interest_icon_sm.png) 0 0 no-repeat; 
+  background-position: center right;
+
+}
+a.action_menu_show_interest:hover{ 
+  background:url(/images/other_icons/interest_icon_sm_brown.png) 0 0 no-repeat;
+  background-position: center right;
+
+  background-color: #F4C430;
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+}
+
+a.action_menu_end_interest{
+  background:url(/images/other_icons/remove_interest_icon.png) 0 0 no-repeat; 
+  background-position: center right;
+
+}
+a.action_menu_end_interest:hover{ 
+  background:url(/images/other_icons/remove_interest_icon_brown.png) 0 0 no-repeat;
+  background-position: center right;
+
+  background-color: #F4C430;
+  /* for IE */
+  filter:alpha(opacity=80);
+  /* CSS3 standard */
+  opacity:0.80;
+}
+
+
+
 #content {
   width: 100%;
   padding-top: 25px;
@@ -557,10 +687,7 @@ TD.snippet-stat{
   float: left;
   width: 125px;
 
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  padding: 0px;
   background-image:url('/images/stat_bg.jpg');
   background-repeat: repeat-y;
   background-position: top left;
