@@ -546,7 +546,7 @@ module ApplicationHelper
       end
          
       if my_html.length + watch_html.length > 0
-        "<div id=\"dashboard-container\">" + my_html + watch_html + "</div>"
+        "<h1>DASHBOARD</h1><div id=\"dashboard-container\">" + my_html + watch_html + "</div>"
       end
       
       
