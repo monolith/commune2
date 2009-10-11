@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   has_many :jobs, :dependent => :destroy
   has_many :job_applications, :dependent => :destroy
 
-  has_many :open_job_postings, :class_name => "Job", :conditions => "jobs.open"
+  has_many :open_job_postings, :class_name => "Job", :conditions => "jobs.open and jobs.active"
   has_many :open_job_applications, :class_name => "JobApplication", :through => :open_job_postings, :source => :job_applications
   has_many :job_posting_history, :class_name => "Job", :include => :project, :conditions => "jobs.created_at != projects.created_at"
 

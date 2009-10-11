@@ -29,7 +29,13 @@ class IdeasController < ApplicationController
 
   def new
     @idea = Idea.new
-    @industry_ids = @idea.industry_ids
+    if current_user.industry_ids.size > 0
+      @industry_ids =  current_user.industry_ids # defaultbased on profile
+      @message =  "defaulted based on your profile."
+    else
+      @industry_ids = {} # no default in this situation
+      @message = ""
+    end
 
   end
   

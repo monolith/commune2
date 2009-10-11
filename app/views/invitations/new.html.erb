@@ -2,7 +2,7 @@
 
   <h1>New Invitation | <%= link_to "View Past Invitations", invitations_path %></h1>
   <p><i>Commune2 is a closed network.  Without this invitation, the person will not be able to register.</i></p>
-  <p><b>NOTE:</b> You can invite only one person at a time, and only 4 people per 24 hours.</p>
+  <p><b>NOTE:</b> You can invite only one person at a time, and only 2 people per 24 hours.</p>
   <p><h2>You currently have <%= pluralize current_user.available_invitations, "available invitation" %>.</h2> 
 
   <% if current_user.available_invitations > 0 %>
