@@ -12,18 +12,18 @@
     </tr>
     <tr>
       <td valign="top"><h2>Subject</h2></td>
-      <td><p><%= f.text_field :subject, :size => 49 %></p></td>
+      <td><p><%= f.text_field :subject, :style => "width: 100%" %></p></td>
     </tr>
     <tr>
       <td valign="top"><h2>Message</h2></td>
-      <td><p><%= f.text_area :body, :rows => 9, :cols => 57 %></p>
+      <td><p><%= f.text_area :body, :rows => 6, :style => "width: 100%" %></p>
       
         <p><%= render :partial => '/shared/reCAPTCHA' %><p>
 
       </td>
     </tr>
     <tr>
-      <td colspan="2" align="right"><%= f.submit "Send Message", :confirm => "Sending this message will reveal your email address to this person.  Send?" %></td>
+      <td colspan="2" align="right"><%= f.submit "Send Message", :confirm => "Sending this message will reveal your email address to this person.  Send?", :class => "big_button" %></td>
     </tr>
   </table>
 

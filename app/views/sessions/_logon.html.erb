@@ -7,13 +7,13 @@
   <table border="0" cellpading="0" cellpadding="0" width="100%">
     <tr>
       <td valign="top"><h2>Login or email</h2>
-          <%= text_field_tag 'login', @login, :class => 'brown_border', :tabindex => 1 %>
+          <%= text_field_tag 'login', @login, :class => 'brown_border', :tabindex => 1, :style => "width:90%" %>
         <p><%= check_box_tag 'remember_me', '1', @remember_me, :class => 'brown_border', :tabindex => 4 %>
         Remember me  </p>
       </td>
       <td valign="top">
         <h2>Password (CaSe SeNsAtIvE)</h2>
-        <%= password_field_tag 'password', nil, :class => 'brown_border', :tabindex => 2  %>
+        <%= password_field_tag 'password', nil, :class => 'brown_border', :tabindex => 2, :style => "width:90%"  %>
       </td>
       
       <td valign="top">

@@ -81,6 +81,8 @@
                         <% end %>
                       <% end %>  
 
+                <%= button_to "Send Message", new_user_message_path(application.user), :method => :get %>
+
                 <br />
                 <%= render :partial => application.user %>
 
