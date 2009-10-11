@@ -70,7 +70,7 @@
         <hr>
       <% end %>
       
-        <%= stats_for @idea %>
+        <%= stats_for @idea, "left" %>
                 
         <% @idea.interested.each do |profile| %>
           <p><%= link_to profile.login, user_path(profile) %></p>

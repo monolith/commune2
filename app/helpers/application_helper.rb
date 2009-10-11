@@ -85,6 +85,8 @@ module ApplicationHelper
   def dashboard_for(object)
     return unless current_user # no dashboard unless logged in
     dashboard = ""
+    
+    @no_icon = true
 
     case object.class.to_s
       
@@ -202,9 +204,10 @@ module ApplicationHelper
   end
   
   
-  def stats_for(object)
+  def stats_for(object, icon_side = "right")
     stats = ""
-
+    @icon_side = icon_side
+    
     case object.class.to_s
       
       when "Idea"
@@ -316,40 +319,85 @@ module ApplicationHelper
     
   # START DISPLAY (show)
   def table_this(left, right)
-      "<table border='0' cellspacing='0' cellpadding='0' align='right' width='100%'><tr><td valign='center' align='right'>" << left << "</td><td valign='center' align='right' width='30'>" << right << "</td></tr></table>"
+   width_left=''
+   width_right=''
+    if @icon_side == "left"
+      tmp = left
+      left = right
+      right = tmp
+      width_left="width='30'"
+      
+    else
+      width_right="width='30'"
+    
+    end
+
+      "<table border='0' cellspacing='0' cellpadding='0' align='right' width='100%'><tr><td valign='center' align='#{@icon_side}' #{ width_left}>" << left << "</td><td valign='center' align='#{@icon_side}' #{ width_right}>" << right << "</td></tr></table>"
 
   end
   
   def show_comments_count(count)
-    table_this(pluralize(count, "comment"), image_tag("other_icons/comment_icon_sm.png", :border => 0))
+    if @no_icon
+      pluralize(count, "comment")
+    else
+      table_this(pluralize(count, "comment"), image_tag("other_icons/comment_icon_sm.png", :border => 0))
+    end
   end
 
   def show_watchers_count(count)
-    table_this(count.to_s + " watching", image_tag("other_icons/watching_icon_sm.png", :border => 0))
+    if @no_icon
+      count.to_s + " watching"
+    else
+      table_this(count.to_s + " watching", image_tag("other_icons/watching_icon_sm.png", :border => 0))
+    end
   end
 
   def show_interested_count(count)
-    table_this(count.to_s + " interested", image_tag("other_icons/interest_icon_sm.png", :border => 0))
+    if @no_icon
+      count.to_s + " interested"
+    else
+      table_this(count.to_s + " interested", image_tag("other_icons/interest_icon_sm.png", :border => 0))
+    end
   end
 
   def show_projects_count(count)
-    table_this(pluralize(count, "project"), image_tag("other_icons/projects_icon_sm.png", :border => 0))
+    if @no_icon
+      pluralize(count, "project")
+    else
+      table_this(pluralize(count, "project"), image_tag("other_icons/projects_icon_sm.png", :border => 0))
+    end
   end
   
   def show_members_count(count)
-    table_this(pluralize(count, "member"), image_tag("other_icons/member_icon_sm.png", :border => 0))
+    if @no_icon
+      pluralize(count, "member")
+    else
+      table_this(pluralize(count, "member"), image_tag("other_icons/member_icon_sm.png", :border => 0))
+    end
   end
 
   def show_jobs_count(count)
-    table_this(pluralize(count, "job"), image_tag("other_icons/jobs_icon_sm.png", :border => 0))
+    if @no_icon
+      pluralize(count, "job")
+    else
+      table_this(pluralize(count, "job"), image_tag("other_icons/jobs_icon_sm.png", :border => 0))
+    end
   end
 
   def show_ideas_count(count)
-   table_this(pluralize(count, "idea"), image_tag("other_icons/ideas_icon_sm.png", :border => 0))
+    if @no_icon
+      pluralize(count, "idea")
+    else
+     table_this(pluralize(count, "idea"), image_tag("other_icons/ideas_icon_sm.png", :border => 0))
+    end
   end
   
   def show_applicants_count(count)
-    table_this(pluralize(count, "applicants"), image_tag("other_icons/applicants_icon_sm.png", :border => 0))
+    if @no_icon
+      pluralize(count, "applicants")
+    else
+      table_this(pluralize(count, "applicants"), image_tag("other_icons/applicants_icon_sm.png", :border => 0))
+    end
   end
   
   

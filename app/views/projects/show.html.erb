@@ -102,16 +102,10 @@
         <hr>
       <% end %>
       
-       <p><%= image_tag("other_icons/watching_icon_sm.png", :border => 0) %> <%= @project.watchers_count %> watching</p>  
-        <hr>
-       <p><%= image_tag("other_icons/interest_icon_sm.png", :border => 0) %> <%= @project.interested_count %> interested</p>
-        
+        <%= stats_for(@project, "left") %> 
         <% @project.interested.each do |profile| %>
           <p><%= link_to profile.login, user_path(profile) %></p>
         <% end %>
-
-        <hr>
-      <p><%= pluralize @project.scorecard.active_jobs_count, "job" %></p>
 
       <% for job in @project.open_jobs %>
        <p><%= link_to h(job.title), job_path(:id => job) %></p>

@@ -493,7 +493,7 @@ background-color: #ffffff;
  
 }
 
-#snippet-stat, #snippet-stat-align-right, #show-stat {
+#snippet-stat, #snippet-stat-align-right {
   position:relative;
   float: left;
   padding-top: 10px;
@@ -575,12 +575,11 @@ TD.snippet-stat{
   float: left;
   
   margin-left: 10px;
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  width: 100px;
+  padding: 10px;
+  width: 110px;
   clear:right;
+  line-height: 26px;
+  vertical-align: middle;
 
   background-image:url('/images/stat_bg.jpg');
   background-repeat: repeat-y;
