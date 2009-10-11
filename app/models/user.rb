@@ -259,8 +259,7 @@ class User < ActiveRecord::Base
   def name
     f = self.first_name || ""
     l = self.last_name || ""
-    f + " " + l
-    f.strip
+    (f + " " + l).strip
   end
 
 
@@ -522,7 +521,7 @@ class User < ActiveRecord::Base
     indexes [active_projects.title, active_projects.description, active_projects.wiki], :as => :projects
     indexes [active_ideas.title, active_ideas.description], :as => :ideas
     indexes [active_positions.job.title, active_positions.job.description], :as => :positions
-    indexes [job_openings.title, job_openings.description], :as => :jobs
+    indexes [open_job_postings.title, open_job_postings.description], :as => :jobs
     indexes scorecard.scorable_type
 
     has logon.last, :as => :last_logon

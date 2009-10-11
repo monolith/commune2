@@ -14,12 +14,9 @@
 
 
       <% if @job.project.members.include? current_user %>
-        <p>edit this job</p>
-        <%= link_to image_tag("other_icons/edit_post_icon_grey.jpg", :border => 0), edit_job_path(@job) %>
+        <%= link_to "edit", edit_job_path(@job), :class => "action_menu_edit" %>
       <% end %>
-      
-      <p><%= render :partial => '/shared/watchlist_menu', :locals => { :object => @job}  %></p>
-
+      <%= render :partial => '/shared/watchlist_menu', :locals => { :object => @job}  %>
       <%= button_to_delete_if_allowed @job %>
 
     </div>
