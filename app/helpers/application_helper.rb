@@ -487,7 +487,7 @@ module ApplicationHelper
     items = Scorecard.recent(3)
     
     html =[]
-    if items
+    if items.size > 0
       items.each do |thing| 
         html << "<h3>" + link_to(h(thing.title), thing) + "</h3>"     
         html << h(thing.description[0..150])

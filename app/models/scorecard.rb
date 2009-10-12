@@ -43,10 +43,12 @@ class Scorecard < ActiveRecord::Base
     
     # return the objects, not scorecard
     items =[]
-    scores.each do |s|
-      items << s.scorable
+    if scores
+      scores.each do |s|
+        items << s.scorable
+      end
     end
-    
+        
     return items
   end    
 
