@@ -40,15 +40,14 @@ class Scorecard < ActiveRecord::Base
     # find 3 most recent ideas and or proects
     # (also ensures how_many is an integer)
     scores = find :all, :limit => how_many.to_i, :order => "created_at DESC", :conditions => { :scorable_type => ["Idea", "Project"] }
-    
     # return the objects, not scorecard
     items =[]
     if scores
       scores.each do |s|
-        items << s.scorable
+        items << s.scorable unless s.scorable == nil
       end
     end
-        
+         
     return items
   end    
 

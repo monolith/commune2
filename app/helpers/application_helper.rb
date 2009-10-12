@@ -484,7 +484,8 @@ module ApplicationHelper
   
   
   def show_recent_ideas_and_projects
-    items = Scorecard.recent(3)
+    items = Scorecard.recent(3) || []
+    debugger
     
     html =[]
     if items.size > 0
