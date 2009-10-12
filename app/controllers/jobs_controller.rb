@@ -188,4 +188,21 @@ class JobsController < ApplicationController
     render :action => 'index'
   end
   
+  
+    def destroy
+    @job = Job.find params[:id]    
+    if @job and current_user.admin?
+      if @job.destroy
+        flash[:notice] = "The job was deleted."
+        redirect_to jobs_path
+      else
+        flash[:error] = "Something happened, could not destroy"
+        render :action => :show
+      end
+    else
+      flash[:error] = "This job does not exist, or you are not allowed to destroy it."
+      redirect_to :back
+    end    
+  end
+
 end
