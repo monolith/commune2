@@ -1,8 +1,21 @@
 <% content_for :title do %>Ideas<% end %>
 
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td width="70%">  
 <h1><%= pluralize(@ideas.total_entries, "Idea").upcase %></h1>
 
 <% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
 <%= render :partial => @ideas %>
 
 <%= will_paginate @ideas %>
+
+</td>
+<td valign="top" align="center">
+  <table border="0" width="90%" cellspacing="0" cellpadding="0" align="center">
+    <tr><td>
+      <h1>See something interesting?</h2>
+  <h2>Click on an idea, see more, give some feedback, and maybe start a project.</h2><br />
+  <h2>Looking for something specific?  Try searching.  Still can't find it... then <%= link_to "post", new_idea_path %> the idea yourself.</h2>
+  </td></tr></table>
+</td></tr></table>

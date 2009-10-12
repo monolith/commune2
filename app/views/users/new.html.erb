@@ -11,28 +11,28 @@
 <%= f.error_messages %>
 
 <p><%= label_tag 'login (username)' %><br/>
-<%= f.text_field :login %></p>
+<%= f.text_field :login, :style=>"width:300px;" %></p>
 
 <p><%= label_tag 'email' %><br/>
-<%= f.text_field :email %></p>
+<%= f.text_field :email, :style=>"width:300px;" %></p>
 
 
 <%= render :partial => '/shared/add_location' %>
 
 <p><%= label_tag 'password' %> (CaSe SeNsitIvE)<br/>
-<%= f.password_field :password %></p>
+<%= f.password_field :password, :style=>"width:300px;" %></p>
 
 <p><%= label_tag 'password_confirmation', 'Confirm Password' %> (CaSe SeNsitIvE)<br/>
-<%= f.password_field :password_confirmation %></p>
+<%= f.password_field :password_confirmation, :style=>"width:300px;" %></p>
 
 
 
 <%= render :partial => '/shared/reCAPTCHA' %>
 
-<p><%= submit_tag 'Register' %></p>
+<p><%= submit_tag 'Register', :class=>"big_button" %></p>
 <% end -%>
 
 
-<p>NOTE: If you are registered and just need to log in, please go <%= link_to "here", login_path %>.</p>
+<p><b>NOTE:</b> If you are registered and just need to log in, please go <%= link_to "here", login_path %>.</p>
 
 
