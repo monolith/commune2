@@ -83,9 +83,16 @@
 <td valign="top" align="center">
   <table border="0" width="90%" cellspacing="0" cellpadding="0" align="center">
     <tr><td align="left">
-      <h1>Want to help or learn?</h2>
-  <h2>This is where you can see what help is needed across all projects.  Compensation?  That is between you and the hiring manager.</h2><br />
-  <h2>Remember: if you help others, others will help you.</h2><br />
-  <h2>Looking for something specific?  Try searching.</h2>
-  </td></tr></table>
+ 
+     <% if request.path_parameters[:action] == 'index' %>
+
+          <h1>Want to help or learn?</h2>
+      <h2>This is where you can see what help is needed across all projects.  Compensation?  That is between you and the hiring manager.</h2><br />
+      <h2>Remember: if you help others, others will help you.</h2><br />
+      <h2>Looking for something specific?  Try searching.</h2>
+      </td></tr></table>
+
+    <% else %>
+       &nbsp;
+    <% end %>
 </td></tr></table>
