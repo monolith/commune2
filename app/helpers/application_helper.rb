@@ -485,7 +485,6 @@ module ApplicationHelper
   
   def show_recent_ideas_and_projects
     items = Scorecard.recent(3) || []
-    debugger
     
     html =[]
     if items.size > 0
@@ -493,8 +492,9 @@ module ApplicationHelper
         html << "<h3>" + link_to(h(thing.title), thing) + "</h3>"     
         html << h(thing.description[0..150])
         html << "..." if thing.description.size > 150
-
       end
+    else
+      html = "There is no recent activity"
     end
         
     html
