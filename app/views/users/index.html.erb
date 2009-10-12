@@ -1,14 +1,27 @@
 
 <% content_for :title do %>People<% end %>
 
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td width="70%" valign="top">  
 
-<h1><%= pluralize(@profiles.total_entries, "Person").upcase %></h1>
-<% if @profiles.total_entries == 0 %>
-  No profiles found.  Sorry!
-<% end %>
+    <h1><%= pluralize(@profiles.total_entries, "Person").upcase %></h1>
+    <% if @profiles.total_entries == 0 %>
+      No profiles found.  Sorry!
+    <% end %>
 
-<% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
+    <% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
 
-<%= render :partial => @profiles %>
+    <%= render :partial => @profiles %>
 
-<%= will_paginate @profiles %>
+    <%= will_paginate @profiles %>
+    
+</td>
+<td valign="top" align="center">
+  <table border="0" width="90%" cellspacing="0" cellpadding="0" align="center">
+    <tr><td align="left">
+      <h1>Want to network?</h2>
+  <h2>The best way to network is to find or post a job, and actually work with someone on a project.  However, feel free to check out people's profiles and see what they are working on.</h2><br />
+  <h2>Looking for something specific?  Try searching.</h2>
+  </td></tr></table>
+</td></tr></table>

@@ -85,7 +85,7 @@
 
       <% if @user.education and @user.education != "" %><p><b>Education:</b><br /><%= simple_format(strip_tags(@user.education)) %></p><% end %>
 
-      <p>Member since: <%= @user.created_at %></p>
+      <p>Joined <%= time_ago_in_words(@user.created_at) %> ago</p>
 
 
       <div id="white-divider">&nbsp;</div>

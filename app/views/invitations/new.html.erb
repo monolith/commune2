@@ -1,19 +1,38 @@
   <% content_for :title do %>Invitation<% end %>
 
-  <h1>New Invitation | <%= link_to "View Past Invitations", invitations_path %></h1>
-  <p><i>Commune2 is a closed network.  Without this invitation, the person will not be able to register.</i></p>
-  <p><b>NOTE:</b> You can invite only one person at a time, and only 2 people per 24 hours.</p>
-  <p><h2>You currently have <%= pluralize current_user.available_invitations, "available invitation" %>.</h2> 
 
-  <% if current_user.available_invitations > 0 %>
-    <% form_for @invitation do |f| -%>
-      <%= f.error_messages %>
-      <p><%= label_tag 'Enter email address (who do you want to invite?)' %></p>
-      <p><%= f.text_field :email, :size => 40 %></p>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td width="70%" valign="top">  
 
-      <p><%= label_tag 'Personalized message (250 characters max)' %></p>
-      <p><%= f.text_area :message, :cols => "50", :rows => "7" %></p>
+      <h1>New Invitation | <%= link_to "View Past Invitations", invitations_path %></h1>
+      <p><i>Commune2 is a closed network.  Without this invitation, the person will not be able to register.</i></p>
+      <p><b>NOTE:</b> You can invite only one person at a time, and only 2 people per 24 hours.</p>
+      <p><h2>You currently have <%= pluralize current_user.available_invitations, "available invitation" %>.</h2> 
 
-      <p><%= submit_tag 'Invite' %></p>
-    <% end -%>
-  <% end %>
+      <% if current_user.available_invitations > 0 %>
+        <% form_for @invitation do |f| -%>
+          <%= f.error_messages %>
+          <p><%= label_tag 'Enter email address (who do you want to invite?)' %></p>
+          <p><%= f.text_field :email, :style=>"width:600px;" %></p>
+
+          <p><%= label_tag 'Personalized message (250 characters max)' %></p>
+          <p><%= f.text_area :message, :rows => "7", :style=>"width:600px;" %></p>
+
+          <p><%= submit_tag 'Invite' %></p>
+        <% end -%>
+      <% end %>
+      
+  </td>
+  <td valign="top" align="center">
+    <table border="0" width="90%" cellspacing="0" cellpadding="0" align="center">
+      <tr><td align="left">
+        <h1>Like the community?</h2>
+    <h2>Help us grow by inviting quality people.</h2><br />
+
+    <h2>The invitation process helps us control how fast this community grows and keep spammers out.</h2><br />
+
+    <h2>If you have invitations left, spend them wisely.</h2>
+
+  </td></tr></table>
+</td></tr></table>
