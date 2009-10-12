@@ -1,38 +1,56 @@
 <% content_for :title do %>New Job<% end %>
 
 
-<h1>New Job</h1>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td width="70%" valign="top">  
 
-<div id="post">
-<% form_for @job do |f| -%>
+    <h1>New Job</h1>
 
-  <%= f.error_messages %>
+    <div id="post">
+    <% form_for @job do |f| -%>
 
-
-<% if @project %>
-  <p>This job is for the <%= link_to h(@project.title), project_path(:id => @project) %> project.</p>
-  <p>The job post will have a link to the project if the project is active.</p>
-  <%= f.hidden_field :project_id, :value => @project.id %>
-<% end %>
+      <%= f.error_messages %>
 
 
- <p>Is this job post active or inactive?
-   <%= f.radio_button :active, "true", :checked => true %>Active
-   <%= f.radio_button :active, "false" %>Inactive <br />
-   <i>Only active job posts can be viewed by others.</i></p>
-
-      <p><%= label_tag 'Job title' %><br/>
-      <%= f.text_field :title, :size => 50 %></p>
-
-      <%= label_tag 'General skills' %><br />
-      <i>Please select no more than 5:</i>
-
-       <%= render :partial => '/shared/general_skills', :locals => { :skill_ids => @skill_ids } %>
-
-      <p><%= label_tag 'Description' %><br/>
-      <%= f.text_area :description, :rows => 10, :cols => 50 %></p>
+    <% if @project %>
+      <p>This job is for the <%= link_to h(@project.title), project_path(:id => @project) %> project.</p>
+      <p>The job post will have a link to the project if the project is active.</p>
+      <%= f.hidden_field :project_id, :value => @project.id %>
+    <% end %>
 
 
-      <p><%= submit_tag "Create Job" %></p>
-      <% end %>
-</div>
+     <p>Is this job post active or inactive?
+       <%= f.radio_button :active, "true", :checked => true %>Active
+       <%= f.radio_button :active, "false" %>Inactive <br />
+       <i>Only active job posts can be viewed by others.</i></p>
+
+          <p><%= label_tag 'Job title' %><br/>
+          <%= f.text_field :title, :style=>"width:600px;" %></p>
+
+          <%= label_tag 'General skills' %><br />
+          <i>Please select no more than 5:</i>
+
+           <%= render :partial => '/shared/general_skills', :locals => { :skill_ids => @skill_ids } %>
+
+          <p><%= label_tag 'Description' %><br/>
+          <%= f.text_area :description, :rows => 10, :style=>"width:600px;"  %></p>
+
+
+          <p><%= submit_tag "Create Job" %></p>
+          <% end %>
+    </div>
+
+  </td>
+  <td valign="top" align="center">
+    <table border="0" width="90%" cellspacing="0" cellpadding="0" align="center">
+      <tr><td align="left">
+        <h1>Need help for your project?</h2>
+    <h2>Tell everyone about it.  Remember to use good key words for better search results (to help people find your job).</h2><br />
+
+    <h2>Compensation is for you to work out.  But if you get help for free, be kind and return the favor.  The more you contribute to this community, the more help you will get in return.</h2><br />
+
+    <h2>Like networking?  Think of this as a networking opportunity... because it is.</h2>
+
+  </td></tr></table>
+</td></tr></table>
