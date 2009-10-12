@@ -1,34 +1,54 @@
 <% content_for :title do %>New Project<% end %>
 
- <h1>New Project</h1>
-  <%= error_messages_for :project %>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td width="70%" valign="top">  
 
-  <div id="post">
+     <h1>New Project</h1>
+      <%= error_messages_for :project %>
 
-  <% form_for :project, :url => projects_path do |f| -%>
+      <div id="post">
 
-  <% if @idea %>
-    This project is being spawned off of the "<%= link_to @idea.title, idea_path(:id => @idea) %>" idea.
-    <%= f.hidden_field :idea_id, :value => @idea.id %>
-  <% end %>
+      <% form_for :project, :url => projects_path do |f| -%>
 
-     <p>Is this project active or inactive?
-       <%= f.radio_button :active, "true", :checked => true %>Active
-       <%= f.radio_button :active, "false" %>Inactive <br />
-       <i>Only active projects can be viewed by others, including from any jobs posts.</i></p>
-
-
-      <p><%= label_tag 'Project title' %><br/>
-      <%= f.text_field :title, :size => 50 %></p>
-
-      <p><%= label_tag 'Description' %><br/>
-      <%= f.text_area :description, :rows => 10, :cols => 55 %></p>
-
-
-      <p>Select relevant industries (no more than 5 please)<%= ", <i>" + pluralize(@industry_ids.size, "industry") + " " + @message + "</i>" unless @message.blank? %></p>
-
-      <%= render :partial => '/shared/industries', :locals => { :industry_ids => @industry_ids } %>
-
-      <p><%= submit_tag "Create Project" %></p>
+      <% if @idea %>
+        This project is being spawned off of the "<%= link_to @idea.title, idea_path(:id => @idea) %>" idea.
+        <%= f.hidden_field :idea_id, :value => @idea.id %>
       <% end %>
-  </div>
+
+         <p>Is this project active or inactive?
+           <%= f.radio_button :active, "true", :checked => true %>Active
+           <%= f.radio_button :active, "false" %>Inactive <br />
+           <i>Only active projects can be viewed by others, including from any jobs posts.</i></p>
+
+
+          <p><%= label_tag 'Project title' %><br/>
+          <%= f.text_field :title, :style=>"width:600px;" %></p>
+
+          <p><%= label_tag 'Description' %><br/>
+          <%= f.text_area :description, :rows => 10, :style=>"width:600px;" %></p>
+
+
+          <p>Select relevant industries (no more than 5 please)<%= ", <i>" + pluralize(@industry_ids.size, "industry") + " " + @message + "</i>" unless @message.blank? %></p>
+
+          <%= render :partial => '/shared/industries', :locals => { :industry_ids => @industry_ids } %>
+
+          <p><%= submit_tag "Create Project" %></p>
+          <% end %>
+      </div>
+  </td>
+  <td valign="top" align="center">
+    <table border="0" width="90%" cellspacing="0" cellpadding="0" align="center">
+      <tr><td align="left">
+        <h1>What's a project?</h2>
+    <h2>A project is something that you are either actively working on, or looking to start soon.  A project will have more tools than an idea, for example, you will be able to create a mini wiki.</h2><br />
+
+    <h2>From a project, you will be able to post jobs and find people to help you.</h2>
+
+    <% unless @idea %>
+    <h1>You may want to <%= link_to "post", new_idea_path %> this as an idea first and then launch a project from it.  That way, others will also be able to launch projects from the idea as well.</h1>
+
+    <% end %>
+    
+  </td></tr></table>
+</td></tr></table>

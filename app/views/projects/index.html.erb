@@ -1,17 +1,32 @@
 <% content_for :title do %>Projects<% end %>
 
-  <% if @idea %>
-    <h1><%= pluralize(@projects.total_entries, "Project").upcase %> for <%= @idea.title.upcase %> IDEA</h1>
-    <h2>Idea</h2>
-    <%= render :partial => @idea %>
-    <h2><%= pluralize @projects.total_entries, "Project" %></h2>
-  <% else %>
-    <h1><%= pluralize(@projects.total_entries, "Project").upcase %></h1>
-  <% end %>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td width="70%" valign="top">  
+
+    <% if @idea %>
+      <h1><%= pluralize(@projects.total_entries, "Project").upcase %> for <%= @idea.title.upcase %> IDEA</h1>
+      <h2>Idea</h2>
+      <%= render :partial => @idea %>
+      <h2><%= pluralize @projects.total_entries, "Project" %></h2>
+    <% else %>
+      <h1><%= pluralize(@projects.total_entries, "Project").upcase %></h1>
+    <% end %>
 
 
-<% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
+    <% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
 
-<%= render :partial => @projects %>
+    <%= render :partial => @projects %>
 
-<%= will_paginate @projects %>
+    <%= will_paginate @projects %>
+    
+    
+</td>
+<td valign="top" align="center">
+  <table border="0" width="90%" cellspacing="0" cellpadding="0" align="center">
+    <tr><td align="left">
+      <h1>Want to do something?</h2>
+  <h2>These are projects people are working on.  Check them out, give some feedback.  You can show interest and or find a way to get involved.</h2><br />
+  <h2>Looking for something specific?  Try searching.  Still can't find it... then <%= link_to "start", new_project_path %> the project yourself.</h2>
+  </td></tr></table>
+</td></tr></table>
