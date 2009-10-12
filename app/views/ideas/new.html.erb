@@ -1,30 +1,47 @@
 <% content_for :title do %>New Idea<% end %>
 
-<h1>New Idea</h1>
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td width="70%" valign="top">  
 
-<div id="post">
+    <h1>New Idea</h1>
 
-  <% form_for @idea do |f| -%>
-     <%= f.error_messages %>
+    <div id="post">
 
-     <p>Is this idea active or inactive?
-       <%= f.radio_button :active, "true", :checked => true %>Active
-       <%= f.radio_button :active, "false" %>Inactive <br />
-       <i>Only active ideas can be viewed by others.</i></p>
+      <% form_for @idea do |f| -%>
+         <%= f.error_messages %>
 
-
-      <p><%= label_tag 'Title' %><br/>
-      <%= f.text_field :title, :style=>"width:600px;" %></p>
-
-
-      <p><%= label_tag 'Description' %><br/>
-      <%= f.text_area :description, :rows => 10, :style=>"width:600px;" %></p>
-
-      <p>Select relevant categories (no more than 5 please)<%= ", <i>" + pluralize(@industry_ids.size, "category") + " " + @message + "</i>" unless @message.blank? %></p>
-
-      <%= render :partial => '/shared/industries', :locals => { :industry_ids => @industry_ids } %>
+         <p>Is this idea active or inactive?
+           <%= f.radio_button :active, "true", :checked => true %>Active
+           <%= f.radio_button :active, "false" %>Inactive <br />
+           <i>Only active ideas can be viewed by others.</i></p>
 
 
-      <p><%= submit_tag "Post Idea" %></p>
-  <% end %>
-</div>
+          <p><%= label_tag 'Title' %><br/>
+          <%= f.text_field :title, :style=>"width:600px;" %></p>
+
+
+          <p><%= label_tag 'Description' %><br/>
+          <%= f.text_area :description, :rows => 10, :style=>"width:600px;" %></p>
+
+          <p>Select relevant categories (no more than 5 please)<%= ", <i>" + pluralize(@industry_ids.size, "category") + " " + @message + "</i>" unless @message.blank? %></p>
+
+          <%= render :partial => '/shared/industries', :locals => { :industry_ids => @industry_ids } %>
+
+
+          <p><%= submit_tag "Post Idea" %></p>
+      <% end %>
+    </div>
+  </td>
+  <td valign="top" align="center">
+    <table border="0" width="90%" cellspacing="0" cellpadding="0" align="center">
+      <tr><td>
+        <h1>What's an idea?</h2>
+    <h2>An idea is more like a thought.  It is not something you are currently working on.</h2><br />
+
+    <h2>Wish there was something out there that doesn't exist?  Want someone to do something about it?  Thinking about it yourself?  Write about it here and let others know.</h2><br />
+
+    <h2>If you this this is more than just an idea, and you want to start working on making it happen, then you may want to post a project instead.  However, if you post it as an idea first, others will also be able to launch a project from it.  We recommend posting the idea first.</h2>
+
+  </td></tr></table>
+</td></tr></table>
