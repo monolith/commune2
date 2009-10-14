@@ -1,14 +1,16 @@
 <% content_for :title do %>Editing Profile<% end %>
 
+  <% form_for @user do |f| -%>
+  <%= f.error_messages %>
+
   <h1>My Profile and Account</h1>
   <p><%= link_to 'Click here', user_path(current_user) %> to see how other people see your profile.</p>
   <p>Your rating: <%= render :partial => '/shared/stars', :locals => { :scorable => @user} %></p>
+
     
 
   <div id="section_header"><h2>&nbsp;Profile (public information)</h2></div>
   
-  <% form_for @user do |f| -%>
-  <%= f.error_messages %>
     
     <table border="0" cellspacing="10" cellpadding="0">
 

@@ -216,7 +216,6 @@
       And I should see "Projects (from my ideas): 2"
       And I should not see "WATCHLIST ||"
 
-@focus
   Scenario: Recent job application should be reflected in the count
     Given the following user records
       | login     | last_logon                    |
@@ -359,6 +358,4 @@
       And I am on the homepage
     Then I should see "WATCHLIST ||"
       And I should see "Jobs: 3"
-      And I should not see "MY STUFF ||"
-      
-
+      And I should not see "MY 

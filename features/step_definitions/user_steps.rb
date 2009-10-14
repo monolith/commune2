@@ -128,3 +128,9 @@ end
 def current_user
   User.find session[:user_id].to_i
 end
+
+
+Then /^my login should be "([^\"]*)"$/ do |login|
+  current_user.login.should == login
+end
+

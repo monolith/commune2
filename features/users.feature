@@ -75,12 +75,12 @@
     Then I should be on <page>
   
     Examples:
-      | login | profile | edit_action             | delete_action         | page                     |
-      | admin | bob     | not see "edit profile"  | see "delete user"     | "bob's" profile          |
-      | bob   | bob     | see "edit profile"      | not see "delete user" | "bob's" edit page        |
-      |       | bob     | see "Log On"            | not see "delete user" | redirected to login page |
-      | bob   | admin   | not see "edit profile"  | not see "delete user" | "admin's" profile        |
-      | admin | admin   | see "edit profile"      | see "delete user"     | "admin's" edit page      |
+      | login | profile | edit_action     | delete_action         | page                     |
+      | admin | bob     | not see "edit"  | see "delete user"     | "bob's" profile          |
+      | bob   | bob     | see "edit"      | not see "delete user" | "bob's" edit page        |
+      |       | bob     | see "Log On"    | not see "delete user" | redirected to login page |
+      | bob   | admin   | not see "edit"  | not see "delete user" | "admin's" profile        |
+      | admin | admin   | see "edit"      | see "delete user"     | "admin's" edit page      |
 
 
   Scenario: I should be able to edit my profile
@@ -133,4 +133,34 @@
     Then I should see "Profile updated"
     When I am on "monolith's" profile
     Then I should see "Springfield, IL, USA"
+
+
+@focus
+
+  Scenario: I should be able to change my user name, if another does not exist
+    Given the following user records
+      | login    | password |
+      | monolith | secret   |
+      | bob      | secret   |
+
+    Given I am logged in as "monolith"
+    When I click on "monolith"
+    Then I should see "My Profile and Account"
+    When I fill in "user_login" with "flapjack"
+      And I fill in "password" with "secret"
+      And I press "Save Changes & Update Profile"
+    Then I should see "Profile updated"
+      And my login should be "flapjack"
+    When I fill in "user_login" with "bob"
+      And I fill in "password" with "secret"
+      And I press "Save Changes & Update Profile"
+    Then I should see "Could not save changes"
+      And I should see "Login has already been taken"
+      And I should see "My Profile and Account"
+      And my login should be "flapjack"
+    When I fill in "user_login" with "monolith"
+      And I fill in "password" with "secret"
+      And I press "Save Changes & Update Profile"
+    Then I should see "Profile updated"
+      And my login should be "monolith"
 

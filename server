@@ -22677,4 +22677,542 @@ total size is 3  speedup is 0.01
  ** [out :: commune2.com] collected 0 attr values
  ** [out :: commune2.com] sorted 0.0 Mvalues, nan% done
  ** [out :: commune2.com] total 0 docs, 0 bytes
- ** [ou
+ ** [out :: commune2.com] total 0.010 sec, 0.00 bytes/sec, 0.00 docs/sec
+ ** [out :: commune2.com] indexing index 'job_delta'...
+ ** [out :: commune2.com] collected 0 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, nan% done
+ ** [out :: commune2.com] total 0 docs, 0 bytes
+ ** [out :: commune2.com] total 0.010 sec, 0.00 bytes/sec, 0.00 docs/sec
+ ** [out :: commune2.com] distributed index 'job' can not be directly indexed; skipping.
+ ** [out :: commune2.com] (in /var/www/apps/commune2/releases/20091012043840)
+ ** [out :: commune2.com] /usr/local/bin/searchd --pidfile --config /var/www/apps/commune2/releases/20091012043840/config/production.sphinx.conf
+ ** [out :: commune2.com] [Mon Oct 12 00:39:02.520 2009] [30568] using config file '/var/www/apps/commune2/releases/20091012043840/config/production.sphinx.conf'...
+ ** [out :: commune2.com] [Mon Oct 12 00:39:02.523 2009] [30568] creating server socket on 127.0.0.1:3312
+ ** [out :: commune2.com] Started successfully (pid 30569).
+    command finished
+ ** transaction: commit
+  * executing `deploy:restart'
+  * executing "touch /var/www/apps/commune2/shared/tmp/restart.txt"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+    command finished
+]0;anatoly@ubuntu: ~/rails_apps/commune2anatoly@ubuntu commune2 (master)]$ cap deploygit push origin master[1Pcommit -a -m "ui"
+Created commit 9492485: ui
+ 2 files changed, 826 insertions(+), 1 deletions(-)
+]0;anatoly@ubuntu: ~/rails_apps/commune2anatoly@ubuntu commune2 (master)]$ git commit -a -m "ui"[11Pcap deploygit push origin master
+Counting objects: 11, done.
+Compressing objects:  16% (1/6)   Compressing objects:  33% (2/6)   Compressing objects:  50% (3/6)   Compressing objects:  66% (4/6)   Compressing objects:  83% (5/6)   Compressing objects: 100% (6/6)   Compressing objects: 100% (6/6), done.
+Writing objects:  16% (1/6)   Writing objects:  33% (2/6)   Writing objects:  50% (3/6)   Writing objects:  66% (4/6)   Writing objects:  83% (5/6)   Writing objects: 100% (6/6)   Writing objects: 100% (6/6), 1.85 KiB, done.
+Total 6 (delta 5), reused 0 (delta 0)
+To git@github.com:monolith/commune2.git
+   5962831..9492485  master -> master
+]0;anatoly@ubuntu: ~/rails_apps/commune2anatoly@ubuntu commune2 (master)]$ git push origin master[1Pcommit -a -m "ui"[11Pcap deploy
+  * executing `deploy'
+  * executing `deploy:update'
+ ** transaction: start
+  * executing `deploy:update_code'
+    updating the cached checkout on all servers
+    executing locally: "/usr/bin/git ls-remote git@github.com:monolith/commune2.git master"
+  * executing "if [ -d /var/www/apps/commune2/shared/cached-copy ]; then cd /var/www/apps/commune2/shared/cached-copy && /usr/bin/git fetch -q origin && /usr/bin/git reset -q --hard 949248518ce7d1fdafc043e0649cbec2256699e4 && /usr/bin/git clean -q -d -x -f; else /usr/bin/git clone -q git@github.com:monolith/commune2.git /var/www/apps/commune2/shared/cached-copy && cd /var/www/apps/commune2/shared/cached-copy && /usr/bin/git checkout -q -b deploy 949248518ce7d1fdafc043e0649cbec2256699e4; fi"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+ ** [commune2.com :: err] remote: Counting objects: 11, done.
+ ** [commune2.com :: err] remote: Compressing objects:  16% (1/6)           remote: Compressing objects:  33% (2/6)
+ ** [commune2.com :: err] remote: Compressing objects:  50% (3/6)           remote: Compressing objects:  66% (4/6)           remote: Compressing objects:  83% (5/6)
+ ** [commune2.com :: err] remote: Compressing objects: 100% (6/6)
+ ** [commune2.com :: err] remote: Compressing objects: 100% (6/6), done.
+ ** [commune2.com :: err] remote: Total 6 (delta 5), reused 0 (delta 0)
+ ** [commune2.com :: err] From git@github.com:monolith/commune2
+ ** 5962831..9492485  master     -> origin/master
+    command finished
+    copying the cached version to /var/www/apps/commune2/releases/20091012051536
+  * executing "cp -RPp /var/www/apps/commune2/shared/cached-copy /var/www/apps/commune2/releases/20091012051536 && (echo 949248518ce7d1fdafc043e0649cbec2256699e4 > /var/www/apps/commune2/releases/20091012051536/REVISION)"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+    command finished
+  * executing `deploy:finalize_update'
+  * executing "chmod -R g+w /var/www/apps/commune2/releases/20091012051536"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+    command finished
+  * executing "rm -rf /var/www/apps/commune2/releases/20091012051536/log /var/www/apps/commune2/releases/20091012051536/public/system /var/www/apps/commune2/releases/20091012051536/tmp/pids &&\\\n      mkdir -p /var/www/apps/commune2/releases/20091012051536/public &&\\\n      mkdir -p /var/www/apps/commune2/releases/20091012051536/tmp &&\\\n      ln -s /var/www/apps/commune2/shared/log /var/www/apps/commune2/releases/20091012051536/log &&\\\n      ln -s /var/www/apps/commune2/shared/system /var/www/apps/commune2/releases/20091012051536/public/system &&\\\n      ln -s /var/www/apps/commune2/shared/pids /var/www/apps/commune2/releases/20091012051536/tmp/pids"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+    command finished
+  * executing "find /var/www/apps/commune2/releases/20091012051536/public/images /var/www/apps/commune2/releases/20091012051536/public/stylesheets /var/www/apps/commune2/releases/20091012051536/public/javascripts -exec touch -t 200910120515.37 {} ';'; true"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+    command finished
+    triggering after callbacks for `deploy:update_code'
+  * executing `deploy:sync_config'
+building file list ... rsync: link_stat "/home/anatoly/rails_apps/commune2/db/schema.sql" failed: No such file or directory (2)
+done
+
+sent 21 bytes  received 20 bytes  27.33 bytes/sec
+total size is 0  speedup is 0.00
+rsync error: some files could not be transferred (code 23) at main.c(1058) [sender=3.0.3]
+building file list ... done
+created directory /var/www/apps/commune2/releases/20091012051536/db/sphinx
+./
+development/
+development/idea_core.spa
+development/idea_core.spd
+development/idea_core.sph
+development/idea_core.spi
+development/idea_core.spl
+development/idea_core.spm
+development/idea_core.spp
+development/idea_delta.spa
+development/idea_delta.spd
+development/idea_delta.sph
+development/idea_delta.spi
+development/idea_delta.spl
+development/idea_delta.spm
+development/idea_delta.spp
+development/interest_core.spa
+development/interest_core.spd
+development/interest_core.sph
+development/interest_core.spi
+development/interest_core.spl
+development/interest_core.spm
+development/interest_core.spp
+development/interest_delta.spa
+development/interest_delta.spd
+development/interest_delta.sph
+development/interest_delta.spi
+development/interest_delta.spl
+development/interest_delta.spm
+development/interest_delta.spp
+development/invitation_core.spa
+development/invitation_core.spd
+development/invitation_core.sph
+development/invitation_core.spi
+development/invitation_core.spl
+development/invitation_core.spm
+development/invitation_core.spp
+development/invitation_delta.spa
+development/invitation_delta.spd
+development/invitation_delta.sph
+development/invitation_delta.spi
+development/invitation_delta.spl
+development/invitation_delta.spm
+development/invitation_delta.spp
+development/job_core.spa
+development/job_core.spd
+development/job_core.sph
+development/job_core.spi
+development/job_core.spl
+development/job_core.spm
+development/job_core.spp
+development/job_delta.spa
+development/job_delta.spd
+development/job_delta.sph
+development/job_delta.spi
+development/job_delta.spl
+development/job_delta.spm
+development/job_delta.spp
+development/location_core.spa
+development/location_core.spd
+development/location_core.sph
+development/location_core.spi
+development/location_core.spl
+development/location_core.spm
+development/location_core.spp
+development/location_delta.spa
+development/location_delta.spd
+development/location_delta.sph
+development/location_delta.spi
+development/location_delta.spl
+development/location_delta.spm
+development/location_delta.spp
+development/project_core.spa
+development/project_core.spd
+development/project_core.sph
+development/project_core.spi
+development/project_core.spl
+development/project_core.spm
+development/project_core.spp
+development/project_delta.spa
+development/project_delta.spd
+development/project_delta.sph
+development/project_delta.spi
+development/project_delta.spl
+development/project_delta.spm
+development/project_delta.spp
+development/scorecard_core.spa
+development/scorecard_core.spd
+development/scorecard_core.sph
+development/scorecard_core.spi
+development/scorecard_core.spl
+development/scorecard_core.spm
+development/scorecard_core.spp
+development/scorecard_delta.spa
+development/scorecard_delta.spd
+development/scorecard_delta.sph
+development/scorecard_delta.spi
+development/scorecard_delta.spl
+development/scorecard_delta.spm
+development/scorecard_delta.spp
+development/user_core.spa
+development/user_core.spd
+development/user_core.sph
+development/user_core.spi
+development/user_core.spl
+development/user_core.spm
+development/user_core.spp
+development/user_delta.spa
+development/user_delta.spd
+development/user_delta.sph
+development/user_delta.spi
+development/user_delta.spl
+development/user_delta.spm
+development/user_delta.spp
+development/user_location_core.spa
+development/user_location_core.spd
+development/user_location_core.sph
+development/user_location_core.spi
+development/user_location_core.spl
+development/user_location_core.spm
+development/user_location_core.spp
+development/user_location_delta.spa
+development/user_location_delta.spd
+development/user_location_delta.sph
+development/user_location_delta.spi
+development/user_location_delta.spl
+development/user_location_delta.spm
+development/user_location_delta.spp
+development/watchlist_core.spa
+development/watchlist_core.spd
+development/watchlist_core.sph
+development/watchlist_core.spi
+development/watchlist_core.spl
+development/watchlist_core.spm
+development/watchlist_core.spp
+development/watchlist_delta.spa
+development/watchlist_delta.spd
+development/watchlist_delta.sph
+development/watchlist_delta.spi
+development/watchlist_delta.spl
+development/watchlist_delta.spm
+development/watchlist_delta.spp
+
+sent 43244 bytes  received 3112 bytes  18542.40 bytes/sec
+total size is 33094  speedup is 0.71
+building file list ... done
+secret.rb
+
+sent 1129 bytes  received 42 bytes  780.67 bytes/sec
+total size is 1039  speedup is 0.89
+building file list ... done
+database.yml
+
+sent 445 bytes  received 42 bytes  324.67 bytes/sec
+total size is 352  speedup is 0.72
+building file list ... done
+site_keys.rb
+
+sent 2303 bytes  received 42 bytes  1563.33 bytes/sec
+total size is 2210  speedup is 0.94
+building file list ... done
+deploy.rb
+
+sent 6441 bytes  received 42 bytes  4322.00 bytes/sec
+total size is 6351  speedup is 0.98
+building file list ... done
+restful_authentication/CHANGELOG
+restful_authentication/README.textile
+restful_authentication/Rakefile
+restful_authentication/TODO
+restful_authentication/init.rb
+restful_authentication/install.rb
+restful_authentication/restful-authentication.gemspec
+restful_authentication/.git/
+restful_authentication/.git/HEAD
+restful_authentication/.git/config
+restful_authentication/.git/description
+restful_authentication/.git/index
+restful_authentication/.git/packed-refs
+restful_authentication/.git/hooks/
+restful_authentication/.git/hooks/applypatch-msg.noexec
+restful_authentication/.git/hooks/applypatch-msg.sample
+restful_authentication/.git/hooks/applypatch-msg.sample.noexec
+restful_authentication/.git/hooks/commit-msg.noexec
+restful_authentication/.git/hooks/commit-msg.sample
+restful_authentication/.git/hooks/commit-msg.sample.noexec
+restful_authentication/.git/hooks/post-commit.noexec
+restful_authentication/.git/hooks/post-commit.sample
+restful_authentication/.git/hooks/post-commit.sample.noexec
+restful_authentication/.git/hooks/post-receive.noexec
+restful_authentication/.git/hooks/post-receive.sample
+restful_authentication/.git/hooks/post-receive.sample.noexec
+restful_authentication/.git/hooks/post-update.noexec
+restful_authentication/.git/hooks/post-update.sample
+restful_authentication/.git/hooks/post-update.sample.noexec
+restful_authentication/.git/hooks/pre-applypatch.noexec
+restful_authentication/.git/hooks/pre-applypatch.sample
+restful_authentication/.git/hooks/pre-applypatch.sample.noexec
+restful_authentication/.git/hooks/pre-commit.noexec
+restful_authentication/.git/hooks/pre-commit.sample
+restful_authentication/.git/hooks/pre-commit.sample.noexec
+restful_authentication/.git/hooks/pre-rebase.noexec
+restful_authentication/.git/hooks/pre-rebase.sample
+restful_authentication/.git/hooks/pre-rebase.sample.noexec
+restful_authentication/.git/hooks/prepare-commit-msg.noexec
+restful_authentication/.git/hooks/prepare-commit-msg.sample
+restful_authentication/.git/hooks/prepare-commit-msg.sample.noexec
+restful_authentication/.git/hooks/update.noexec
+restful_authentication/.git/hooks/update.sample
+restful_authentication/.git/hooks/update.sample.noexec
+restful_authentication/.git/info/
+restful_authentication/.git/info/exclude
+restful_authentication/.git/logs/
+restful_authentication/.git/logs/HEAD
+restful_authentication/.git/logs/refs/
+restful_authentication/.git/logs/refs/heads/
+restful_authentication/.git/logs/refs/heads/master
+restful_authentication/.git/logs/refs/remotes/
+restful_authentication/.git/logs/refs/remotes/origin/
+restful_authentication/.git/logs/refs/remotes/origin/HEAD
+restful_authentication/.git/objects/
+restful_authentication/.git/objects/info/
+restful_authentication/.git/objects/pack/
+restful_authentication/.git/objects/pack/pack-4828133d9a1a1bcdbc319d799f9797577a88d75e.idx
+restful_authentication/.git/objects/pack/pack-4828133d9a1a1bcdbc319d799f9797577a88d75e.pack
+restful_authentication/.git/refs/
+restful_authentication/.git/refs/heads/
+restful_authentication/.git/refs/heads/master
+restful_authentication/.git/refs/remotes/
+restful_authentication/.git/refs/remotes/origin/
+restful_authentication/.git/refs/remotes/origin/HEAD
+restful_authentication/.git/refs/tags/
+restful_authentication/generators/
+restful_authentication/generators/authenticated/
+restful_authentication/generators/authenticated/USAGE
+restful_authentication/generators/authenticated/authenticated_generator.rb
+restful_authentication/generators/authenticated/lib/
+restful_authentication/generators/authenticated/lib/insert_routes.rb
+restful_authentication/generators/authenticated/templates/
+restful_authentication/generators/authenticated/templates/_model_partial.html.erb
+restful_authentication/generators/authenticated/templates/activation.erb
+restful_authentication/generators/authenticated/templates/authenticated_system.rb
+restful_authentication/generators/authenticated/templates/authenticated_test_helper.rb
+restful_authentication/generators/authenticated/templates/controller.rb
+restful_authentication/generators/authenticated/templates/helper.rb
+restful_authentication/generators/authenticated/templates/login.html.erb
+restful_authentication/generators/authenticated/templates/mailer.rb
+restful_authentication/generators/authenticated/templates/migration.rb
+restful_authentication/generators/authenticated/templates/model.rb
+restful_authentication/generators/authenticated/templates/model_controller.rb
+restful_authentication/generators/authenticated/templates/model_helper.rb
+restful_authentication/generators/authenticated/templates/model_helper_spec.rb
+restful_authentication/generators/authenticated/templates/observer.rb
+restful_authentication/generators/authenticated/templates/signup.html.erb
+restful_authentication/generators/authenticated/templates/signup_notification.erb
+restful_authentication/generators/authenticated/templates/site_keys.rb
+restful_authentication/generators/authenticated/templates/spec/
+restful_authentication/generators/authenticated/templates/spec/controllers/
+restful_authentication/generators/authenticated/templates/spec/controllers/access_control_spec.rb
+restful_authentication/generators/authenticated/templates/spec/controllers/authenticated_system_spec.rb
+restful_authentication/generators/authenticated/templates/spec/controllers/sessions_controller_spec.rb
+restful_authentication/generators/authenticated/templates/spec/controllers/users_controller_spec.rb
+restful_authentication/generators/authenticated/templates/spec/fixtures/
+restful_authentication/generators/authenticated/templates/spec/fixtures/users.yml
+restful_authentication/generators/authenticated/templates/spec/helpers/
+restful_authentication/generators/authenticated/templates/spec/helpers/users_helper_spec.rb
+restful_authentication/generators/authenticated/templates/spec/models/
+restful_authentication/generators/authenticated/templates/spec/models/user_spec.rb
+restful_authentication/generators/authenticated/templates/stories/
+restful_authentication/generators/authenticated/templates/stories/rest_auth_stories.rb
+restful_authentication/generators/authenticated/templates/stories/rest_auth_stories_helper.rb
+restful_authentication/generators/authenticated/templates/stories/steps/
+restful_authentication/generators/authenticated/templates/stories/steps/ra_navigation_steps.rb
+restful_authentication/generators/authenticated/templates/stories/steps/ra_resource_steps.rb
+restful_authentication/generators/authenticated/templates/stories/steps/ra_response_steps.rb
+restful_authentication/generators/authenticated/templates/stories/steps/user_steps.rb
+restful_authentication/generators/authenticated/templates/stories/users/
+restful_authentication/generators/authenticated/templates/stories/users/accounts.story
+restful_authentication/generators/authenticated/templates/stories/users/sessions.story
+restful_authentication/generators/authenticated/templates/test/
+restful_authentication/generators/authenticated/templates/test/functional_test.rb
+restful_authentication/generators/authenticated/templates/test/mailer_test.rb
+restful_authentication/generators/authenticated/templates/test/model_functional_test.rb
+restful_authentication/generators/authenticated/templates/test/unit_test.rb
+restful_authentication/lib/
+restful_authentication/lib/authentication.rb
+restful_authentication/lib/authorization.rb
+restful_authentication/lib/trustification.rb
+restful_authentication/lib/authentication/
+restful_authentication/lib/authentication/by_cookie_token.rb
+restful_authentication/lib/authentication/by_password.rb
+restful_authentication/lib/authorization/
+restful_authentication/lib/authorization/aasm_roles.rb
+restful_authentication/lib/authorization/stateful_roles.rb
+restful_authentication/lib/trustification/
+restful_authentication/lib/trustification/email_validation.rb
+restful_authentication/notes/
+restful_authentication/notes/AccessControl.txt
+restful_authentication/notes/Authentication.txt
+restful_authentication/notes/Authorization.txt
+restful_authentication/notes/RailsPlugins.txt
+restful_authentication/notes/SecurityFramework.graffle
+restful_authentication/notes/SecurityFramework.png
+restful_authentication/notes/SecurityPatterns.txt
+restful_authentication/notes/Tradeoffs.txt
+restful_authentication/notes/Trustification.txt
+restful_authentication/rails/
+restful_authentication/rails/init.rb
+restful_authentication/tasks/
+restful_authentication/tasks/auth.rake
+
+sent 1260934 bytes  received 2612 bytes  361013.14 bytes/sec
+total size is 1252054  speedup is 0.99
+building file list ... done
+tmp/restart.txt
+tmp/server.log
+
+sent 245 bytes  received 70 bytes  210.00 bytes/sec
+total size is 3  speedup is 0.01
+  * executing `deploy:symlink_shared'
+  * executing "ln -nfs /var/www/apps/commune2/shared/tmp /var/www/apps/commune2/releases/20091012051536/tmp"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+    command finished
+  * executing `deploy:restart'
+  * executing "touch /var/www/apps/commune2/shared/tmp/restart.txt"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+    command finished
+  * executing `deploy:update_crontab'
+  * executing "cd /var/www/apps/commune2/current && whenever --update-crontab commune2"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+ ** [out :: commune2.com] [write] crontab file updated
+    command finished
+  * executing `deploy:symlink'
+  * executing "rm -f /var/www/apps/commune2/current && ln -s /var/www/apps/commune2/releases/20091012051536 /var/www/apps/commune2/current"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+    command finished
+    triggering after callbacks for `deploy:symlink'
+  * executing `thinking_sphinx:symlink'
+  * executing "ln -nfs /var/www/apps/commune2/shared/db/sphinx /var/www/apps/commune2/releases/20091012051536/db/sphinx"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+    command finished
+  * executing `thinking_sphinx:ready'
+  * executing `thinking_sphinx:stop_gracefully'
+  * executing `thinking_sphinx:stop'
+  * executing `thinking_sphinx:configure'
+  * executing "cd /var/www/apps/commune2/current && rake thinking_sphinx:configure RAILS_ENV=production"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+ ** [out :: commune2.com] (in /var/www/apps/commune2/releases/20091012051536)
+ ** [out :: commune2.com] Generating Configuration to /var/www/apps/commune2/releases/20091012051536/config/production.sphinx.conf
+    command finished
+  * executing "cd /var/www/apps/commune2/current && rake thinking_sphinx:stop RAILS_ENV=production"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+ ** [out :: commune2.com] (in /var/www/apps/commune2/releases/20091012051536)
+ ** [out :: commune2.com] [Mon Oct 12 01:15:54.438 2009] [31266] using config file '/var/www/apps/commune2/releases/20091012051536/config/production.sphinx.conf'...
+ ** [out :: commune2.com] [Mon Oct 12 01:15:54.440 2009] [31266] stop: succesfully sent SIGTERM to pid 30569
+ ** [out :: commune2.com] Sphinx 0.9.8.1-release (r1533)
+ ** [out :: commune2.com] Copyright (c) 2001-2008, Andrew Aksyonoff
+ ** [out :: commune2.com] 
+ ** [out :: commune2.com] Stopped search daemon (pid 30569).
+    command finished
+  * executing "cd /var/www/apps/commune2/current && rake ts:in RAILS_ENV=production && rake ts:start RAILS_ENV=production"
+    servers: ["commune2.com"]
+    [commune2.com] executing command
+ ** [out :: commune2.com] (in /var/www/apps/commune2/releases/20091012051536)
+ ** [out :: commune2.com] Generating Configuration to /var/www/apps/commune2/releases/20091012051536/config/production.sphinx.conf
+ ** [out :: commune2.com] /usr/local/bin/indexer --config /var/www/apps/commune2/releases/20091012051536/config/production.sphinx.conf --all
+ ** [out :: commune2.com] Sphinx 0.9.8.1-release (r1533)
+ ** [out :: commune2.com] Copyright (c) 2001-2008, Andrew Aksyonoff
+ ** [out :: commune2.com] 
+ ** [out :: commune2.com] using config file '/var/www/apps/commune2/releases/20091012051536/config/production.sphinx.conf'...
+ ** [out :: commune2.com] indexing index 'scorecard_core'...
+ ** [out :: commune2.com] collected 11 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, 100.0% done
+ ** [out :: commune2.com] sorted 0.0 Mhits, 100.0% done
+ ** [out :: commune2.com] total 11 docs, 47 bytes
+ ** [out :: commune2.com] total 0.010 sec, 4700.00 bytes/sec, 1100.00 docs/sec
+ ** [out :: commune2.com] indexing index 'scorecard_delta'...
+ ** [out :: commune2.com] collected 0 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, nan% done
+ ** [out :: commune2.com] total 0 docs, 0 bytes
+ ** [out :: commune2.com] total 0.010 sec, 0.00 bytes/sec, 0.00 docs/sec
+ ** [out :: commune2.com] distributed index 'scorecard' can not be directly indexed; skipping.
+ ** [out :: commune2.com] indexing index 'idea_core'...
+ ** [out :: commune2.com] collected 1 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, 100.0% done
+ ** [out :: commune2.com] sorted 0.0 Mhits, 100.0% done
+ ** [out :: commune2.com] total 1 docs, 435 bytes
+ ** [out :: commune2.com] total 0.010 sec, 43500.00 bytes/sec, 100.00 docs/sec
+ ** [out :: commune2.com] indexing index 'idea_delta'...
+ ** [out :: commune2.com] collected 0 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, nan% done
+ ** [out :: commune2.com] total 0 docs, 0 bytes
+ ** [out :: commune2.com] total 0.010 sec, 0.00 bytes/sec, 0.00 docs/sec
+ ** [out :: commune2.com] distributed index 'idea' can not be directly indexed; skipping.
+ ** [out :: commune2.com] indexing index 'project_core'...
+ ** [out :: commune2.com] collected 1 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, 100.0% done
+ ** [out :: commune2.com] sorted 0.0 Mhits, 100.0% done
+ ** [out :: commune2.com] total 1 docs, 845 bytes
+ ** [out :: commune2.com] total 0.010 sec, 84500.00 bytes/sec, 100.00 docs/sec
+ ** [out :: commune2.com] indexing index 'project_delta'...
+ ** [out :: commune2.com] collected 0 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, nan% done
+ ** [out :: commune2.com] total 0 docs, 0 bytes
+ ** [out :: commune2.com] total 0.010 sec, 0.00 bytes/sec, 0.00 docs/sec
+ ** [out :: commune2.com] distributed index 'project' can not be directly indexed; skipping.
+ ** [out :: commune2.com] indexing index 'invitation_core'...
+ ** [out :: commune2.com] collected 10 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, 100.0% done
+ ** [out :: commune2.com] sorted 0.0 Mhits, 100.0% done
+ ** [out :: commune2.com] total 10 docs, 460 bytes
+ ** [out :: commune2.com] total 0.010 sec, 46000.00 bytes/sec, 1000.00 docs/sec
+ ** [out :: commune2.com] indexing index 'invitation_delta'...
+ ** [out :: commune2.com] collected 0 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, nan% done
+ ** [out :: commune2.com] total 0 docs, 0 bytes
+ ** [out :: commune2.com] total 0.010 sec, 0.00 bytes/sec, 0.00 docs/sec
+ ** [out :: commune2.com] distributed index 'invitation' can not be directly indexed; skipping.
+ ** [out :: commune2.com] indexing index 'location_core'...
+ ** [out :: commune2.com] collected 10 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, 100.0% done
+ ** [out :: commune2.com] sorted 0.0 Mhits, 100.0% done
+ ** [out :: commune2.com] total 10 docs, 170 bytes
+ ** [out :: commune2.com] total 0.010 sec, 17000.00 bytes/sec, 1000.00 docs/sec
+ ** [out :: commune2.com] indexing index 'location_delta'...
+ ** [out :: commune2.com] collected 0 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, nan% done
+ ** [out :: commune2.com] total 0 docs, 0 bytes
+ ** [out :: commune2.com] total 0.010 sec, 0.00 bytes/sec, 0.00 docs/sec
+ ** [out :: commune2.com] distributed index 'location' can not be directly indexed; skipping.
+ ** [out :: commune2.com] indexing index 'user_core'...
+ ** [out :: commune2.com] collected 9 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, 100.0% done
+ ** [out :: commune2.com] sorted 0.0 Mhits, 100.0% done
+ ** [out :: commune2.com] total 9 docs, 2815 bytes
+ ** [out :: commune2.com] total 0.010 sec, 281500.01 bytes/sec, 900.00 docs/sec
+ ** [out :: commune2.com] indexing index 'user_delta'...
+ ** [out :: commune2.com] collected 0 docs, 0.0 MB
+ ** [out :: commune2.com] collected 0 attr values
+ ** [out :: commune2.com] sorted 0.0 Mvalues, nan% done
+ ** [out :: commune2.com] total 0 docs, 0 bytes
+ ** [out :: commune2.com] total 0.010 sec, 0.00 bytes/sec, 0.00 docs/sec
+ ** [out :: commune2.com] distributed index 'user' can not be directly indexed; skipping.
+ ** [out :: commune2.com] indexing

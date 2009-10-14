@@ -138,57 +138,51 @@ class UsersController < ApplicationController
   def update
     params[:password] ||= {}
   
-    @user = User.find_by_login params[:id]
+    @user = User.find current_user.id
     @industry_ids = (params[:industry_ids] || {}).keys.collect{|s| s.to_i}
     @skill_ids = (params[:skill_ids] || {}).keys.collect{|s| s.to_i}
     @new_location = params[:new_location].strip
-
     
-    if @user == current_user
 
-      # IMPORTANT
-      # to update correctly, attribute must be in attr_accessible in the user model!
-      @user.attributes = params[:user] # does not save, update_attributes would save, but want to authenticate before saving
-      # reason for this is to make sure all entered values are displayed even if there is a bad password
-                                       
-      if User.authenticate(@user.login, params[:password])
+    # IMPORTANT
+    # to update correctly, attribute must be in attr_accessible in the user model!
+    @user.attributes = params[:user] # does not save, update_attributes would save, but want to authenticate before saving
+    # reason for this is to make sure all entered values are displayed even if there is a bad password
+                                     
+    if User.authenticate(current_user.login, params[:password])
 
-        success = @user.save
-        success = Industry.update_industries(:object=> @user, :industry_ids => @industry_ids) && success
-        success = GeneralSkill.update_general_skills(:object=> @user, :skill_ids => @skill_ids) && success
+      success = @user.save
+      success = Industry.update_industries(:object=> @user, :industry_ids => @industry_ids) && success
+      success = GeneralSkill.update_general_skills(:object=> @user, :skill_ids => @skill_ids) && success
 
 
-        # will need to add javascript support to make the lookups via user browser possible, to reduce number of requests from single IP
-        if params[:location_select] || @new_location and @new_location.length > 0
-          @location = Locate.new params[:location_select] || @new_location
-          add_location = @location.add @user
+      # will need to add javascript support to make the lookups via user browser possible, to reduce number of requests from single IP
+      if params[:location_select] || @new_location and @new_location.length > 0
+        @location = Locate.new params[:location_select] || @new_location
+        add_location = @location.add @user
 
-          if add_location[:status] == true 
-            location_changed = true
-          else
-            location_changed = false
-            @user.errors.add(:location, add_location[:message])
-          end
-        end             
-
-        
-        if success && @user.errors.empty?
-          flash[:notice] = "Profile updated"
-          redirect_to edit_user_path(@user)    
+        if add_location[:status] == true 
+          location_changed = true
         else
-          flash[:error] = "Could not save changes"    
-          render :action => :edit
-        end  
-      else
-        flash[:error] = "Could not save changes"    
-        @user.errors.add(:password, " not valid.")
-        render :action => :edit
-      end
+          location_changed = false
+          @user.errors.add(:location, add_location[:message])
+        end
+      end             
 
+      
+      if success && @user.errors.empty?
+        flash[:notice] = "Profile updated"
+        redirect_to edit_user_path(@user)    
+      else
+      
+        flash[:error] = "Could not save changes"    
+        render :action => :edit
+      end  
     else
-      flash[:error] = "This is not your profile, you cannot edit it"
-      redirect_to user_path(@user)    
+      flash[:error] = "Could not save changes, incorrect password."    
+      render :action => :edit
     end
+
     
   end
 
