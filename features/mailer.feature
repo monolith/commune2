@@ -105,8 +105,8 @@ Feature: Various mailer functionalities
       
       Given I am logged in as "monolith"
         And I am on "bob's" profile
-      Then I should see "Send Message" button
-      When I press "Send Message"
+      Then I should see "send message" within "show-action-menu"
+      When I click on "send message"
       Then I should see "New Message"
       When I fill in "message_subject" with "Hi bob!"
         And I fill in "message_body" with "I am your friend"

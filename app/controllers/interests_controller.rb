@@ -102,4 +102,13 @@ class InterestsController < ApplicationController
     render :template => 'watchlists/index'
   end
 
+   def add
+    if params[:interest_type] and params[:interest_id]
+      create
+    else
+      flash[:error] = "Unable to show interest"
+      redirect_to :back
+    end
+   end
+
 end

@@ -66,7 +66,7 @@
     
     Given I am logged in as "monolith" with password "secret"
     When I go to view "My great idea" idea
-      And I follow "Edit Idea"
+      And I follow "edit"
     Then I should see "Edit Idea"
     When I fill in "idea_title" with "Updated title"
       And I press "Update"

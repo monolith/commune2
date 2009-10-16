@@ -61,6 +61,7 @@
       And I press "Log in"
     Then I should see "logged in"
     
+
   Scenario Outline: Show or hide edit profile link
     Given the following user records
       | login    | password | admin |
@@ -75,12 +76,12 @@
     Then I should be on <page>
   
     Examples:
-      | login | profile | edit_action     | delete_action         | page                     |
-      | admin | bob     | not see "edit"  | see "delete user"     | "bob's" profile          |
-      | bob   | bob     | see "edit"      | not see "delete user" | "bob's" edit page        |
-      |       | bob     | see "Log On"    | not see "delete user" | redirected to login page |
-      | bob   | admin   | not see "edit"  | not see "delete user" | "admin's" profile        |
-      | admin | admin   | see "edit"      | see "delete user"     | "admin's" edit page      |
+      | login | profile | edit_action                              | delete_action         | page                     |
+      | admin | bob     | not see "edit" within "show-action-menu" | see "delete user"     | "bob's" profile          |
+      | bob   | bob     | see "edit" within "show-action-menu"     | not see "delete user" | "bob's" edit page        |
+      |       | bob     | see "Log On"                             | not see "delete user" | redirected to login page |
+      | bob   | admin   | not see "edit" within "show-action-menu" | not see "delete user" | "admin's" profile        |
+      | admin | admin   | see "edit" within "show-action-menu"     | see "delete user"     | "admin's" edit page      |
 
 
   Scenario: I should be able to edit my profile
@@ -134,8 +135,6 @@
     When I am on "monolith's" profile
     Then I should see "Springfield, IL, USA"
 
-
-@focus
 
   Scenario: I should be able to change my user name, if another does not exist
     Given the following user records

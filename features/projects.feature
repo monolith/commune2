@@ -70,7 +70,7 @@ Feature: Basic project management (note: these are not project management tools)
   Scenario Outline: As the creator of a project, I should be able to update it
     Given I am logged in as "monolith"
     When I go to view "<title>" project
-      And I follow "Edit Project"
+      And I follow "edit"
     Then I should see "Edit Project"
     When I fill in "project_wiki" with "thing"
       And I press "Update"

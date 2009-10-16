@@ -1,7 +1,7 @@
 <% content_for :title do %>Editing Profile<% end %>
 
   <% form_for @user do |f| -%>
-  <%= f.error_messages %>
+  <%= f.error_messages :header_tag => "h1 style='color:#CF4326'", :class => "error" %>
 
   <h1>My Profile and Account</h1>
   <p><%= link_to 'Click here', user_path(current_user) %> to see how other people see your profile.</p>

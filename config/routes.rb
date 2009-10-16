@@ -43,11 +43,14 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resend_invitation '/resend_invitation', :controller => 'invitations', :action => 'resend'
 
+  map.add_to_watchlist '/watchlists/add', :controller => 'watchlists', :action => 'add'
+
   map.watchlist_ideas '/watchlists/ideas', :controller => 'watchlists', :action => 'ideas'
   map.watchlist_projects '/watchlists/projects', :controller => 'watchlists', :action => 'projects'
   map.watchlist_jobs '/watchlists/jobs', :controller => 'watchlists', :action => 'jobs'
   map.watchlist_people '/watchlists/people', :controller => 'watchlists', :action => 'people'
 
+  map.add_to_interests '/interests/add', :controller => 'interests', :action => 'add'
   map.interest_ideas '/interests/ideas', :controller => 'interests', :action => 'ideas'
   map.interest_projects '/interests/projects', :controller => 'interests', :action => 'projects'
 

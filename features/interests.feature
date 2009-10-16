@@ -36,7 +36,7 @@ Feature: Interest (showing interest in things)
   Scenario Outline: I should be able to show (and stop showing) interest in idea or project
     When I go to <page>
     Then I should see "show interest"
-    When I press "show interest"
+    When I click on "show interest"
     Then I should see "Thank you for showing interest"
       And I should see "1 watching"
       And I should see "1 interested"
@@ -45,8 +45,8 @@ Feature: Interest (showing interest in things)
     When I go to my interested list
     Then I should see <words>    
     When I go to <page>
-    Then I should see "you are showing interest"
-    When I follow "stop showing interest"
+    Then I should see "end interest"
+    When I click on "end interest"
     Then I should see "You are no longer showing interest."
       And I should see "1 watching"
       And I should see "0 interested"
@@ -73,7 +73,7 @@ Feature: Interest (showing interest in things)
     Scenario: Other users should be able to see what I am interested in
       # Given in background logs me in as monolith
       When I go to view "Movie channel" project
-        And I press "Show Interest"
+        And I click on "show interest"
       Then I should see "Thank you for showing interest"
       Given I am logged in as "bob"
       When I go to my interested list

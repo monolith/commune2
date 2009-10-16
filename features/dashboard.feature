@@ -42,9 +42,9 @@
       
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "MY STUFF ||"
+    Then I should see "Dashboard - My Stuff" image
       And I should see "Comments: 5"
-      And I should not see "WATCHLIST ||"
+      And I should not see "Dashboard - Watchlist" image
       
       
   Scenario: Recent comments on projects should also be reflected in the count
@@ -80,9 +80,9 @@
       
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "MY STUFF ||"
+    Then I should see "Dashboard - My Stuff" image
       And I should see "Comments: 5"
-      And I should not see "WATCHLIST ||"
+      And I should not see "Dashboard - Watchlist" image
 
 
 
@@ -109,9 +109,9 @@
       
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "MY STUFF ||"
+    Then I should see "Dashboard - My Stuff" image
       And I should see "Watchers: 2"
-      And I should not see "WATCHLIST ||"
+      And I should not see "Dashboard - Watchlist" image
 
 
   Scenario: Recent watchlists on projects should also be reflected in the count
@@ -154,9 +154,9 @@
       
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "MY STUFF ||"
+    Then I should see "Dashboard - My Stuff" image
       And I should see "Watchers: 7"
-      And I should not see "WATCHLIST ||"
+      And I should not see "Dashboard - Watchlist" image
 
 
   Scenario: Recent interests in ideas should be reflected in the count
@@ -182,9 +182,9 @@
       
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "MY STUFF ||"
+    Then I should see "Dashboard - My Stuff" image
       And I should see "Interested: 2"
-      And I should not see "WATCHLIST ||"
+      And I should not see "Dashboard - Watchlist" image
 
 
   Scenario: Recent projects launched from my ideas should be reflected in the count
@@ -212,9 +212,9 @@
       
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "MY STUFF ||"
+    Then I should see "Dashboard - My Stuff" image
       And I should see "Projects (from my ideas): 2"
-      And I should not see "WATCHLIST ||"
+      And I should not see "Dashboard - Watchlist" image
 
   Scenario: Recent job application should be reflected in the count
     Given the following user records
@@ -240,10 +240,9 @@
 
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "MY STUFF ||"
+    Then I should see "Dashboard - My Stuff" image
       And I should see "Job Applications: 3"
-      And I should not see "WATCHLIST ||"
-
+      And I should not see "Dashboard - Watchlist" image
 
 
   Scenario: I should see how many ideas have been posted by watched users since last logon
@@ -274,9 +273,9 @@
             
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "WATCHLIST ||"
+    Then I should see "Dashboard - Watchlist" image
       And I should see "Ideas: 3"
-      And I should not see "MY STUFF ||"
+      And I should not see "Dashboard - My Stuff" image
       
 
   Scenario: I should see how many projects have been posted by watched and from watched ideas since last logon
@@ -318,9 +317,9 @@
             
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "WATCHLIST ||"
+    Then I should see "Dashboard - Watchlist" image
       And I should see "Projects: 4"
-      And I should not see "MY STUFF ||"
+      And I should not see "Dashboard - My Stuff" image
       
   Scenario: I should see how many jobs have been posted by watched people and from watched projects since last logon
     Given the following user records
@@ -356,6 +355,7 @@
             
     Given I am logged in as "monolith"
       And I am on the homepage
-    Then I should see "WATCHLIST ||"
+    Then I should see "Dashboard - Watchlist" image
       And I should see "Jobs: 3"
-      And I should not see "MY 
+      And I should not see "Dashboard - My Stuff" image
+      

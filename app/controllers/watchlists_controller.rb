@@ -124,4 +124,14 @@ class WatchlistsController < ApplicationController
     render :action => :index    
   end
   
+  
+   def add
+    if params[:watch_type] and params[:watch_id]
+      create
+    else
+      flash[:error] = "Unable to add to watchlist"
+      redirect_to :back
+    end
+   end
+
 end

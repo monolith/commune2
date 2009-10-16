@@ -178,6 +178,7 @@ class UsersController < ApplicationController
         flash[:error] = "Could not save changes"    
         render :action => :edit
       end  
+
     else
       flash[:error] = "Could not save changes, incorrect password."    
       render :action => :edit

@@ -275,11 +275,11 @@ module ApplicationHelper
 
       when "Job"
           if object.status.upcase == "OPEN"
-            stats << "<b>" << object.status.upcase << "</b>"  << tag("br")
+            stats << "<b>" << object.status.upcase << "</b> <br />"
           elsif object.status.upcase == "FILLED"
-            stats << "<b>" << object.status.downcase << "</b>"  << tag("br")
+            stats << "<b>" << object.status.downcase << "</b> <br />"
           else
-            stats << object.status.downcase << tag("br")          
+            stats << object.status.downcase << " <br />" 
           end
 
           stats << show_watchers_count(total_watchers(object)) << tag("br")
@@ -521,7 +521,7 @@ module ApplicationHelper
 
         my_html = "<div id='dashboard-my'>"        
         my_html << "<table border='0' cellspacing='0' cellpadding='0' width='100%' height='100%'><tr><td width='30' valign='center' align='center' bgcolor='#A0C943'>"
-        my_html << image_tag("submenu_icons/my_submenu_icon.png", :border=> 0, :title => "My Stuff") + "</td><td valign='center' align='left'>&nbsp;" 
+        my_html << image_tag("submenu_icons/my_submenu_icon.png", :border=> 0, :title => "My Stuff", :alt => "Dashboard - My Stuff") + "</td><td valign='center' align='left'>&nbsp;" 
         my_html << " Comments: <b>" + mystuff[:totals][:recent_comments].to_s + "</b> |" if mystuff[:totals][:recent_comments] > 0
         my_html << " Watchers: <b>" + mystuff[:totals][:recent_watching].to_s + "</b> |" if mystuff[:totals][:recent_watching] > 0
         my_html << " Interested: <b>" + mystuff[:totals][:recent_interested].to_s + "</b> |" if mystuff[:totals][:recent_interested] > 0
@@ -539,7 +539,7 @@ module ApplicationHelper
 
         watch_html = "<div id='dashboard-watchlist'>"
         watch_html << "<table border='0' cellspacing='0' cellpadding='0' width='100%' height='100%'><tr><td width='30' valign='center' align='center' bgcolor='#A0C943'>"
-        watch_html << image_tag("submenu_icons/watchlist_submenu_icon.png", :border=> 0, :title => "Watchlist") + "</td><td valign='center' align='left'>&nbsp;" 
+        watch_html << image_tag("submenu_icons/watchlist_submenu_icon.png", :border=> 0, :title => "Watchlist", :alt => "Dashboard - Watchlist") + "</td><td valign='center' align='left'>&nbsp;" 
               
         watch_html << " Ideas: <b>" + watching[:totals][:recent_ideas].to_s + "</b> |" if watching[:totals][:recent_ideas] > 0
         watch_html << " Projects: <b>" + watching[:totals][:recent_projects].to_s + "</b> |" if watching[:totals][:recent_projects] > 0

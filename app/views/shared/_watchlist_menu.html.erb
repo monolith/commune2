@@ -5,7 +5,7 @@
       <%= link_to "stop watching", watchlist_path(watchlist), :confirm => "Are you sure you want to stop watching this " + object.class.to_s.downcase + "?", :method => :delete, :class => "action_menu_stop_watching" %>
 
   <% else %>
-      <%= link_to "start watching", watchlists_path(:watch_type => object.class, :watch_id => object.id), :method => :create, :class => "action_menu_start_watching" %>
+      <%= link_to "start watching", add_to_watchlist_path(:watch_type => object.class, :watch_id => object.id), :class => "action_menu_start_watching" %>
   <% end %>
 
   <% unless object.class == User or object.class == Job %>
@@ -16,7 +16,7 @@
   
       <% else %>
 
-      <%= link_to "show interest", interests_path(:interest_type => object.class, :interest_id => object.id), :method => :create, :class => "action_menu_show_interest" %>
+      <%= link_to "show interest", add_to_interests_path(:interest_type => object.class, :interest_id => object.id), :class => "action_menu_show_interest" %>
       <% end %>
 
   <% end %>

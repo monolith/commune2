@@ -10,6 +10,7 @@ Feature: Basic job management
       | login    |
       | monolith |
       | bob      |
+      | joe      |
 
     Given the following project records
       | author    | title              | active |
@@ -17,26 +18,62 @@ Feature: Basic job management
       | monolith  | Monolithic project | true   |
       | monolith  | Project not active | false  |
 
+  Scenario Outline: Only project members can see post new project link
 
-  Scenario Outline: Only project members can post project jobs
+    Given the following job records
+      | author    | project              | title                    |
+      | bob       | Bobs project         | Santas helper            |
+      | monolith  | Monolithic project   | Director of testing      |
+
+    Given the following job application records
+      | applicant | job                       | hired |
+      | joe       | Director of testing       | true  |
+      | joe       | Santas helper             | true  |
+ 
     Given I am logged in as "<user>"
     When I go to view "<title>" project
-    Then I <action> "Post a Job" button
+    Then I <action> "post job" within "show-action-menu"
     When I go to new job for "<title>" project
     Then I <action> "New Job"
     
     Examples:
     | user     | title              | action          |
-    | monolith | Bobs project       | should not see  |
     | monolith | Monolithic project | should see      |
-    | monolith | Project not active | should see      |
-    |          | Monolithic project | should not see  |
+    | joe      | Monolithic project | should see      |
+    | bob      | Monolithic project | should not see  |
     
+
+
+  Scenario Outline: Project members should be able to post jobs
+
+    Given the following job records
+      | author    | project              | title                    |
+      | monolith  | Monolithic project   | Director of testing      |
+
+    Given the following job application records
+      | applicant | job                       | hired |
+      | joe       | Director of testing       | true  |
+ 
+    Given I am logged in as "<user>"
+    When I go to view "Monolithic project" project
+      And I click on "post job"
+    Then I should see "New Job"
+    When I fill in "job_title" with "cucumber tester"
+      And I fill in "job_description" with "woohoo"
+      And I check one of the general skills
+      And I press "Create Job"
+    Then I should see "This job has been posted"
     
+    Examples:
+    | user     |
+    | monolith |
+    | joe      |
+    
+
   Scenario Outline: Job post for active and inactive project
     Given I am logged in as "monolith"
     When I go to view "<title>" project
-      And I press "Post a Job"
+      And I click on "post job"
     Then I should see "New Job"
     When I fill in "job_title" with "cucumber tester"
       And I fill in "job_description" with "woohoo"

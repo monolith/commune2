@@ -1,4 +1,4 @@
-@watchlist
+@watchlists
 
 Feature: Watchlist
   In order to track things on the website
@@ -27,18 +27,17 @@ Feature: Watchlist
 
     Given I am logged in as "monolith"
 
-
   Scenario Outline: I should be able to add/remove a person, idea, or project to my watchlist
     When I go to <page>
-    Then I should see "add to watchlist"
-    When I press "add to watchlist"
+    Then I should see "start watching"
+    When I follow "start watching"
     Then I should see "Added to watchlist"
       And I should see "1 watching"
     When I go to my watchlist
     Then I should see <words>
     When I go to <page>
-    Then I should see "you are watching"
-    When I follow "stop watching"
+    Then I should see "stop watching"
+    When I click on "stop watching"
     Then I should see "Removed from watchlist"
       And I should see "0 watching"
     When I go to my watchlist
@@ -66,7 +65,7 @@ Feature: Watchlist
     Scenario: Other users should not see my watchlist
       # Given in background logs me in as monolith
       When I go to "joe's" profile
-        And I press "add to watchlist"
+        And I follow "start watching"
       Then I should see "Added to watchlist"
       When I go to my watchlist
       Then I should see "joe"

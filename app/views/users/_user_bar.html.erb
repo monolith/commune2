@@ -1,8 +1,0 @@
-<% if logged_in? -%>
-  Logged in as <%= link_to_current_account :content_method => :login %>
-  (<%= link_to "log out", logout_path %>)
-<% else -%>
-  Not logged in.  Click here to
-  <%= link_to "log in",  login_path %> /
-  <%= link_to "register", signup_path %>
-<% end -%>

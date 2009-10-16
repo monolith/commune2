@@ -18,7 +18,7 @@
       <% end %>
 
       <% if @project.members.include? current_user %>
-        <%= link_to "post job", new_project_job_path(@project), :class => "action_menu_new_job" %>
+        <%= link_to "post job", new_project_job_path(@project), :class => "action_menu_new_job", :title => "post job" %>
       <% end %>
       
       <%= render :partial => '/shared/watchlist_menu', :locals => { :object => @project}  %>
