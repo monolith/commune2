@@ -99,7 +99,7 @@
 
       <% positions_count = @user.active_positions.count %>
       <% if positions_count > 0 %>
-        <div id="section_header"><h2>&nbsp;<%= pluralize positions_count, 'Active Project' %></h2></div>
+        <div id="section_header"><h2>&nbsp;<%= pluralize positions_count, 'Active Position' %></h2></div>
 
         <% @user.active_positions.each do |position| %>
               <div id="project_member">
