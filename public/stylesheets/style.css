@@ -600,6 +600,19 @@ color: #B1B1B1;
 }
 
 
+#system_message {
+  border-left: 5px solid #F4C430;
+  background-color: #FFFFFF;
+  padding: 5px;
+  line-height: 30px;
+  margin-bottom: 10px;
+
+  background-image:url('/images/stat_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top left;
+}
+
+
 #notice {
   border-left: 5px solid #F4C430;
   background-color: #FFFFFF;
