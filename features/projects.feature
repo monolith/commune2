@@ -97,3 +97,11 @@ Feature: Basic project management (note: these are not project management tools)
       | project             | author    |
       | Monolithic project  | monolith  |
       | Project not active  | bob       | 
+      
+
+@focus
+  Scenario: A project must be launched from an idea
+  
+    Given I am logged in as "monolith"
+    When I go to new project page
+    Then I should see "A project must
