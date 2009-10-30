@@ -39,19 +39,20 @@ class ProjectsController < ApplicationController
   def new
     if params[:idea_id] # check if this was launched from an idea
        @idea = Idea.find(params[:idea_id])
-       @project = @idea.projects.new
-       @industry_ids = @idea.industry_ids # default based on idea
-       @message = "defaulted based on the original idea."
 
-    else
-      @project = Project.new
-      if current_user.industry_ids.size > 0
-        @industry_ids =  current_user.industry_ids # defaultbased on profile
-        @message =  "defaulted based on your profile."
+       if @idea and ( @idea.active or @idea.author? current_user )
+         @project = @idea.projects.new
+         @industry_ids = @idea.industry_ids # default based on idea
+         @message = "defaulted based on the original idea."
+
       else
-        @industry_ids = {} # no default in this situation
-        @message = ""
+          flash[:error] = "Cannot launch project because the idea does not exist or is inactive"
+          redirect_back_or_default('/')
       end
+    else
+      flash[:notice] = "Projects are launched from ideas"
+      flash[:new_project] = true
+      redirect_to my_ideas_path
     end
     
   end

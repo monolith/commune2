@@ -23,12 +23,12 @@
     Examples:
       | item        | header                                  |
       | new idea    | New Idea                                |
-      | new project | New Project                             |
-      | new job     | A job must be attached to a project     |
+      | new project | To start a project                      |
+      | new job     | To post a job                           |
       | ideas       | Ideas                                   |
       | projects    | Projects                                |
       | jobs        | Jobs                                    |
-      | profiles    | Profiles                                |
+      | profiles    | People                                  |
       
 
   Scenario: I should not be required to be logged in in order to register

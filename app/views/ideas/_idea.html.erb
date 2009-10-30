@@ -5,7 +5,18 @@
       <td valign="top"class="snippet-stat" width="110">
         <div id="snippet-stat-align-right">
           <%= stats_for(idea) %> 
+        
         </div>
+
+
+        <div id="show-action-menu">
+
+          <hr style="border-top: 1px dashed #F4C430; width:100%"/>          
+          <%= link_to "launch project", new_idea_project_path(idea), :class => "action_menu_launch_project" %>
+          <hr style="border-top: 1px dashed #F4C430; width:100%"/>          
+
+        </div>
+        
       </td>
       <td valign="top" class="snippet-body">
         <div id="snippet-body">

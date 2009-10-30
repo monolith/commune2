@@ -37,7 +37,7 @@ class JobsController < ApplicationController
     end
     
       if @job.active == false && @job.user_id != current_user.id
-        flash[:error] = "This job post is no longer active, you cannot see it."
+        flash[:error] = "This job post is no longer active, you cannot see it"
         @job = nil
       end
   end
@@ -51,11 +51,12 @@ class JobsController < ApplicationController
          @skill_ids = {}
 
        else
-          flash[:error] = "The project either does not exist or you are not on the project team"
+          flash[:error] = "Could not post job because the project does not exist or you are not on the project team"
           redirect_back_or_default('/')
        end
     else
-      flash[:notice] = "A job must be attached to a project.  Please select a project."
+      flash[:notice] = "A job must be posted from a project"
+      flash[:new_job] = true
       redirect_to my_projects_path
     end    
   end

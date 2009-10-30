@@ -1,12 +1,31 @@
 <% content_for :title do %>My Projects<% end %>
 
+<% if flash[:new_job] %>
+  <div id="detailed_notice">
+    <h2>To post a job:</h2>
+    <ul>
+      <% unless @projects.blank? %>
+      <li>Post from one of your projects below, or</li>
+      <% end %>
+      <li>Launch a <%= link_to "new project", new_project_path %> and post a job from it.</li>
+    </ul>
 
-<h1>My Projects</h1>
+  </div>
+<% end %>
+
 
 <% if @projects.blank? %>
-  You have not posted any projects yet.  Click <%= link_to 'here', new_project_path %> if you would like to make your first post.
+
+  <% unless flash[:new_job] %>
+    <h1>Working on something?</h1>
+    <p> You have not posted any projects yet.  Click <%= link_to 'here', new_project_path %> if you would like to post your first.</p>
+  <% end %>
+
 <% else %>
+  <h1>My Projects</h1>
   <%= render :partial => @projects %>
 <% end %>
 
 <%= will_paginate @projects %>
+
+

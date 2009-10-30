@@ -613,7 +613,8 @@ color: #B1B1B1;
 }
 
 
-#notice {
+
+#notice{
   border-left: 5px solid #F4C430;
   background-color: #FFFFFF;
   padding: 5px;
@@ -625,6 +626,22 @@ color: #B1B1B1;
   background-position: top left;
 
 }
+
+
+#detailed_notice {
+  border-left: 5px solid #F4C430;
+  background-color: #FFFFFF;
+  padding: 5px;
+  line-height: 30px;
+  margin-bottom: 10px;
+
+  background-image:url('/images/stat_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top left;
+
+  font-size: large;
+}
+
 
 #error {
   border-left: 5px solid #CF4326;
@@ -882,6 +899,7 @@ h1 {
  letter-spacing: 0.5px;
  margin: 0px;
  line-height: 50px;
+ text-transform: uppercase;
 
 }
 

@@ -1,11 +1,31 @@
 <% content_for :title do %>My Ideas<% end %>
 
+<% if flash[:new_project] %>
+  <div id="detailed_notice">
+    <h2>To start a project:</h2>
+    <ul>
+      <% unless @ideas.blank? %>
+      <li>Launch from one of your ideas below, or</li>
+      <% end %>
+      <li>Create a <%= link_to "new idea", new_idea_path %> and launch a project from it, or</li>
+      <li><%= link_to "Find", ideas_path %> any relevant idea and launch a project from it.</li>
 
-<h1>My Ideas</h1>
+      <p style="font-size: small;"><b>NOTE:</b> You can also search for ideas using the search box on top.</p>
+
+    </ul>
+
+  </div>
+<% end %>
+
 
 <% if @ideas.blank? %>
-  You have not posted any ideas yet.  Click <%= link_to 'here', new_idea_path %> if you would like to make your first post.
+  <% unless flash[:new_project] %>
+    <h1>Got ideas?</h1>
+    <p>You have not posted any ideas yet.  Click <%= link_to 'here', new_idea_path %> if you would like to post your first.</p>
+  <% end %>
 <% else %>
+
+  <h1>My Ideas</h1>
   <%= render :partial => @ideas %>
 <% end %>
 

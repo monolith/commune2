@@ -23,16 +23,27 @@ Feature: Basic project management (note: these are not project management tools)
       | monolith  | Monolithic project | true   |
       | monolith  | Project not active | false  |
 
-  Scenario: Posting a projects without an idea
-    Given I am logged in as "monolith"
-    When I am on new project page
-      And I fill in "project_title" with "Test Project"
-      And I fill in "project_description" with "stuff"
-      And I check one of the industries
-      And I press "Create Project"
-    Then I should see "This project has been posted"
 
-   
+# PROJECTS NO LONGER ALLOWED TO BE LAUNCHED WITHOUT AN IDEA
+#
+#  Scenario: Posting a projects without an idea
+#    Given I am logged in as "monolith"
+#    When I am on new project page
+#      And I fill in "project_title" with "Test Project"
+#      And I fill in "project_description" with "stuff"
+#      And I check one of the industries
+#      And I press "Create Project"
+#    Then I should see "This project has been posted"
+
+
+  Scenario: A project must be launched from an idea
+  
+    Given I am logged in as "monolith"
+    When I go to new project page
+    Then I should see "To start a project:"
+      And I should be on my ideas page
+      
+         
   Scenario Outline: Posting a project from an idea
     Given I am logged in as "<user>"
     When I go to view "<idea title>" idea
@@ -99,9 +110,4 @@ Feature: Basic project management (note: these are not project management tools)
       | Project not active  | bob       | 
       
 
-@focus
-  Scenario: A project must be launched from an idea
-  
-    Given I am logged in as "monolith"
-    When I go to new project page
-    Then I should see "A project must
+
