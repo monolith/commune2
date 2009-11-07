@@ -1,0 +1,22 @@
+development:
+  adapter: mysql
+  database: commune2_development
+  username: root
+  password:
+  host: localhost
+
+test: &TEST
+  adapter: mysql
+  database: commune2_test
+  username: root
+  password:
+  host: localhost
+
+production:
+  adapter: mysql
+  database: commune2_production
+  username: root
+  password: 
+
+cucumber:
+  <<: *TEST
