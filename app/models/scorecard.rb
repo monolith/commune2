@@ -1,10 +1,11 @@
 class Scorecard < ActiveRecord::Base
   include Math
-  belongs_to :scorable, :polymorphic => true
-  has_many :ratings
-  
+
   validates_presence_of     :scorable_id
   validates_presence_of     :scorable_type
+
+  belongs_to :scorable, :polymorphic => true
+  has_many :ratings
 
   attr_accessible # nothing
 
@@ -33,23 +34,25 @@ class Scorecard < ActiveRecord::Base
   end
 
 
-  def self.recent(how_many = 3) # default is 3
-    # this is a class method
-    # usage => Scorecard.recent(5)
-    
-    # find 3 most recent ideas and or proects
-    # (also ensures how_many is an integer)
-    scores = find :all, :limit => how_many.to_i, :order => "created_at DESC", :conditions => { :scorable_type => ["Idea", "Project"] }
-    # return the objects, not scorecard
-    items =[]
-    if scores
-      scores.each do |s|
-        items << s.scorable unless s.scorable == nil
-      end
-    end
-         
-    return items
-  end    
+#  def self.recent(how_many = 3) # default is 3
+#    # this is a class method
+#    # usage => Scorecard.recent(5)
+#    
+#    # find 3 most recent ideas and or proects
+#    # (also ensures how_many is an integer)
+#    scores = find :all, :limit => how_many.to_i, :order => "created_at DESC", :conditions => { :scorable_type => ["Idea", "Project"] }
+#    # return the objects, not scorecard
+
+#    items =[]
+#    if scores
+#      scores.each do |s|
+#        items << s.scorable unless s.scorable == nil
+#      end
+#    end
+
+
+#    return items
+#  end    
 
   define_index do
     indexes scorable_type

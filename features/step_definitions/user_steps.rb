@@ -9,6 +9,14 @@ Given /^the following additional user records?$/ do |table|
   parse_table_and_add_users(table)
 end
 
+
+Then /^a user with "([^\"]*)" login should not exist$/ do |login|
+  User.find_by_login(login).should equal(nil)
+end
+
+
+
+
 def parse_table_and_add_users(table)
   table.hashes.each do |attributes|
 

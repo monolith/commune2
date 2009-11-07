@@ -1,0 +1,21 @@
+<% content_for :title do %>Icebreaker<% end %>
+
+
+<p>
+  <strong>User:</strong>
+  <%=h @icebreaker.user_id %>
+</p>
+<p>
+  <strong>Question:</strong>
+  <%=h @icebreaker.question %>
+</p>
+<p>
+  <strong>Approved:</strong>
+  <%=h @icebreaker.approved %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_icebreaker_path(@icebreaker) %> |
+  <%= link_to "Destroy", @icebreaker, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", icebreakers_path %>
+</p>

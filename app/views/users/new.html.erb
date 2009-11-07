@@ -3,36 +3,74 @@
 <% flash[:notice] = "Registration by invitation only." %>
 
 
+<%= error_messages_for :user, :header_message => "Could not create account" %>
+
 <h1>Registration</h1>
-
-
-
-<% form_for @user do |f| -%>
-<%= f.error_messages %>
-
-<p><%= label_tag 'login (username)' %><br/>
-<%= f.text_field :login, :style=>"width:300px;" %></p>
-
-<p><%= label_tag 'email' %><br/>
-<%= f.text_field :email, :style=>"width:300px;" %></p>
-
-
-<%= render :partial => '/shared/add_location' %>
-
-<p><%= label_tag 'password' %> (CaSe SeNsitIvE)<br/>
-<%= f.password_field :password, :style=>"width:300px;" %></p>
-
-<p><%= label_tag 'password_confirmation', 'Confirm Password' %> (CaSe SeNsitIvE)<br/>
-<%= f.password_field :password_confirmation, :style=>"width:300px;" %></p>
-
-
-
-<%= render :partial => '/shared/reCAPTCHA' %>
-
-<p><%= submit_tag 'Register', :class=>"big_button" %></p>
-<% end -%>
-
-
 <p><b>NOTE:</b> If you are registered and just need to log in, please go <%= link_to "here", login_path %>.</p>
 
+    <div id="show-main-container">
 
+<div id="section_header"><h2>&nbsp;Basic account Information</h2></div>
+
+  <p>You will be able to add a lot more to your profile once you activate your account.</p>
+
+  <% form_for @user do |f| -%>
+
+
+    <p><%= label_tag 'login (username)' %><br/>
+    <%= f.text_field :login, :style=>"width:300px;" %></p>
+
+    <p><%= label_tag 'email' %><br/>
+    <%= f.text_field :email, :style=>"width:300px;" %></p>
+
+
+    <%= render :partial => '/shared/add_location' %>
+
+    <p><%= label_tag 'password' %> (CaSe SeNsitIvE)<br/>
+    <%= f.password_field :password, :style=>"width:300px;" %></p>
+
+    <p><%= label_tag 'password_confirmation', 'Confirm Password' %> (CaSe SeNsitIvE)<br/>
+    <%= f.password_field :password_confirmation, :style=>"width:300px;" %></p>
+
+    <p>&nbsp;</p>
+
+
+<div id="section_header"><h2>&nbsp;An idea!</h2></div>
+
+    <p>Commune2 is all about sharing ideas.  <b>We want you to be proactive, so start now!</b>  If you don't have an idea yet, think of this as a brain teaser exercise.  Or, if you have a specific idea in mind already, great, use it here.</p>
+
+    <p><b>Still not sure?</b>  Here are some teaser questions to get you thinking (<b>but your idea does NOT have to address these</b>):</p>
+
+    <ul>
+    <% Icebreaker.random(3).each do | icebreaker | %>
+      <li><%=h icebreaker.question %></li>
+    <% end %>
+    </ul>
+
+
+
+        <p><%= label_tag 'Title' %><br />
+          <%= text_field_tag 'idea[title]', @idea.title, :style=>"width:600px;" %>
+        </p>
+   
+        <p><%= label_tag 'Description' %><br/>
+          <%= text_area_tag 'idea[description]', @idea.description, :rows => 10 ,:style=>"width:600px;" %>
+        </p>
+
+
+
+    <p>&nbsp;</p>
+   
+
+<div id="section_header"><h2>&nbsp;Almost there...</h2></div>
+
+<p>...just checking to make sure you're not a spambot.</p>
+
+    <%= render :partial => '/shared/reCAPTCHA' %>
+
+    <p>&nbsp;</p>
+    
+    <p><%= submit_tag 'Register', :class=>"big_button" %></p>
+  <% end -%>
+
+</div>

@@ -3,13 +3,13 @@ require 'sham'
 require 'faker'
 
 
-Sham.first_name { Faker::Name.first_name }
-Sham.last_name { Faker::Name.last_name }
+Sham.first_name(:unique => false) { Faker::Name.first_name }
+Sham.last_name(:unique => false) { Faker::Name.last_name }
 Sham.login { Sham.first_name + '_' + Sham.last_name }
-Sham.company { Faker::Company.name }
+Sham.company(:unique => false) { Faker::Company.name }
 Sham.email { Faker::Internet.email }
-Sham.sentence { Faker::Lorem.sentence[0..49] }
-Sham.body { Faker::Lorem.paragraph[0..249] }
+Sham.sentence(:unique => false) { Faker::Lorem.sentence[0..49] }
+Sham.body(:unique => false) { Faker::Lorem.paragraph[0..249] }
 
 Sham.city(:unique => false) { Faker::Address.city }
 Sham.state(:unique => false) { Faker::Address.us_state }
@@ -122,6 +122,14 @@ PolymorphicGeneralSkill.blueprint do
   id = rand(skills.size)
   general_skill { skills[id] }
 end
+
+
+Icebreaker.blueprint do
+  # needs to be called with the create method below
+  question { Sham.sentence }
+  approved { true }
+end
+
 
 def create_user_with_associations!(attributes = {})
      
@@ -272,6 +280,23 @@ def create_rating!(attributes = {})
 end
 
 
+
+def create_icebreaker_with_author!(attributes = {})
+  # check if the user exists, find or create
+  # create uses blueprint
+
+  if attributes[:author] && attributes[:author][:login]
+    user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )  
+  else
+    user = create_user_with_associations!(:user => {:admin => true})
+  end
+  
+  icebreaker = user.icebreakers.make(attributes[:icebreaker])
+
+end
+
+
+
 def create_on_the_fly(class_name, attributes = {})
   class_name.capitalize!
 
@@ -288,4 +313,6 @@ def create_on_the_fly(class_name, attributes = {})
       eval(object).make 
   end
 end
+
+
 

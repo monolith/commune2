@@ -482,23 +482,59 @@ module ApplicationHelper
     end
   end
   
-  
-  def show_recent_ideas_and_projects
-    items = Scorecard.recent(3) || []
+  def show_recent
+    ideas     = Idea.recent(3)      || []
+    projects  = Project.recent(3)   || []
+    jobs      = Job.recent(3)       || []
+    people    = User.recent(3)      || []
     
     html =[]
-    if items.size > 0
-      items.each do |thing| 
-        html << "<h3>" + link_to(h(thing.title), thing) + "</h3>"     
-        html << h(thing.description[0..150])
-        html << "..." if thing.description.size > 150
+    
+    if ideas.size > 0
+      html << "<h2>New Ideas</h2><h3>"
+      ideas.each do |idea|
+        html << link_to(h(idea.title), idea_path(idea))
+        html << " || " unless idea == ideas.last
       end
-    else
+      html << "</h3>"
+    end    
+
+    if projects.size > 0
+      html << "<h2>New Projects</h2><h3>"
+      projects.each do |project|
+        html << link_to(h(project.title), project_path(project))
+        html << " || " unless project == projects.last
+      end
+      html << "</h3>"
+    end    
+
+    if jobs.size > 0
+      html << "<h2>New Jobs</h2><h3>"
+      jobs.each do |job|
+        html << link_to(h(job.title), job_path(job))
+        html << " || " unless job == jobs.last
+      end
+      html << "</h3>"
+    end    
+
+    if people.size > 0
+      html << "<h2>New People</h2><h3>"
+      people.each do |person|
+        html << link_to(h(person.login), user_path(person))
+        html << " || " unless person == people.last
+      end
+      html << "</h3>"
+    end    
+    
+    if html == []
       html = "There is no recent activity"
     end
         
     html
+    
   end
+
+
 
 
   def display_dashboard

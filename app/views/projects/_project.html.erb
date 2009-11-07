@@ -29,7 +29,7 @@
           <%= render :partial => '/shared/stars', :locals => { :scorable => project} %>
 
           <p><%= show_description(project) %></p>
-          <p>posted <%= time_ago_in_words(project.created_at) %> ago by <%= link_to(project.user.login, user_path(project.user)) %></p>
+          <p>posted <%= time_ago_in_words(project.created_at) %> ago by <%= project.user ? link_to(project.user.login, user_path(project.user)) : "Anonymous" %></p>
 
           <p><%= dashboard_for(project) %></p>
         </div>

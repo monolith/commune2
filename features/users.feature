@@ -14,6 +14,8 @@
       And I fill in "user_password" with "password"
       And I fill in "user_password_confirmation" with "password"
       And I fill in "new_location" with "New York"
+      And I fill in "idea_title" with "Idea"
+      And I fill in "idea_description" with "Description"
       And I press "Register"
     Then I should see "Thank you for registering."
     
@@ -27,6 +29,8 @@
       And I fill in "user_password" with "password"
       And I fill in "user_password_confirmation" with "password"
       And I fill in "new_location" with "New York"
+      And I fill in "idea_title" with "Idea"
+      And I fill in "idea_description" with "Description"
       And I press "Register"
     Then I should see "Thank you for registering."
     
@@ -40,6 +44,8 @@
       And I fill in "user_password" with "password"
       And I fill in "user_password_confirmation" with "password"
       And I fill in "new_location" with "New York"
+      And I fill in "idea_title" with "Idea"
+      And I fill in "idea_description" with "Description"
       And I press "Register"
     Then I should see "Could not register"
 
@@ -108,6 +114,8 @@
       And I fill in "user_password" with "password"
       And I fill in "user_password_confirmation" with "password"
       And I fill in "new_location" with "Springfield"
+      And I fill in "idea_title" with "Idea"
+      And I fill in "idea_description" with "Description"
       And I press "Register"
     Then I should not see "Thank you for registering."
       But I should see "Multiple locations found"
@@ -162,4 +170,21 @@
       And I press "Save Changes & Update Profile"
     Then I should see "Profile updated"
       And my login should be "monolith"
+
+  Scenario: Need to post an idea while registering
+    Given I am on the registration page
+      And there are one or more users
+      And there is an invitation for "invited_user@commune2.com"
+    When I fill in "user_login" with "invited_user"
+      And I fill in "user_email" with "invited_user@commune2.com"
+      And I fill in "user_password" with "password"
+      And I fill in "user_password_confirmation" with "password"
+      And I fill in "new_location" with "New York"
+      And I press "Register"
+    Then I should not see "Thank you for registering."
+      And I should see "Idea title can't be blank"
+      And I should see "Idea description can't be blank"
+      And a user with "invited_user" login should not exist
+      
+    
 

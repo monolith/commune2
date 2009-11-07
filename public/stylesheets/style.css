@@ -909,6 +909,7 @@ h2 {
  letter-spacing:0.5px;
  margin: 0px;
  line-height: 40px;
+ text-transform: capitalize;
 
 }
 h3 {
@@ -920,9 +921,10 @@ h3 {
 
 }
 
-b {
+b, label  {
   color: #4f391a;
   font-size: medium;
+  font-weight:bold;
 }
 
 hr {
@@ -985,3 +987,17 @@ input.big_button {
 
 }
 
+
+
+
+#general-main{
+  position: relative;
+  float: left;
+  width: 100%;
+  background-image:url('/images/snippet_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top right;
+  padding: 10px;
+  padding-left: 0px;
+
+}

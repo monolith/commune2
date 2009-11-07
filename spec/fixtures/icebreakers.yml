@@ -1,0 +1,9 @@
+one:
+  user_id: 1
+  question: MyString
+  approved: false
+
+two:
+  user_id: 1
+  question: MyString
+  approved: false

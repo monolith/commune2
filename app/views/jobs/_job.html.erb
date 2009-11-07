@@ -15,7 +15,7 @@
           </h2>
           <%=h job.description[0..250] %><% if job.description.length > 250 %>...<% end %>
 
-          <p>posted <%= time_ago_in_words(job.created_at) %> ago by <%= link_to(job.user.login, user_path(job.user)) %></p>
+          <p>posted <%= time_ago_in_words(job.created_at) %> ago by <%= job.user ? link_to(job.user.login, user_path(job.user)) : "Anonymous" %></p>
 
           <%= dashboard_for(job) %> 
 

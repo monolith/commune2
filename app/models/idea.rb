@@ -1,6 +1,10 @@
 class Idea < ActiveRecord::Base
   validates_presence_of  :title
+  validates_size_of :title, :maximum => 100
+  
   validates_presence_of  :description
+  validates_size_of      :description, :maximum => 1000
+
   validates_presence_of  :industries, :message => "should be selected"
   validates_size_of      :industries, :maximum => 5, :message => "should not be more than 5."
 
@@ -87,7 +91,14 @@ class Idea < ActiveRecord::Base
     updated_at > timestamp # returns true if updated since date, false otherwise
   end
   
-
+  def self.recent(how_many = 3) # default is 3
+    # this is a class method
+    # usage => Idea.recent(5)
+    
+    find :all,  :limit => how_many.to_i, :include => :user,
+                :conditions => 'ideas.active = true and users.activation_code is Null',
+                :order => "ideas.created_at DESC"
+  end    
 
   private
 
@@ -123,7 +134,7 @@ class Idea < ActiveRecord::Base
     if active
       # this was counted in user's idea counter
       # note: inactive projects are not counted
-      decrement_counter
+      decrement_counter if user
     end
   end
 

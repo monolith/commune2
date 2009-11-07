@@ -145,8 +145,10 @@ class User < ActiveRecord::Base
   has_many :applications_for_jobs, :through => :job_openings, :source => :job_applications, :conditions => "job_applications.user_id != #{id}"
 
 
+  has_many :icebreakers
+
   before_create :make_activation_code
-  after_create :create_some_objects
+  after_create  :create_some_objects
   before_update :custom_counter_cache_before_update
   before_destroy :log   # decreaseing active member count on projects not needed
                         # because this will be handled through destroy of job application
@@ -173,7 +175,8 @@ class User < ActiveRecord::Base
                   :password,
                   :password_confirmation,
                   :last_logon,
-                  :previous_logon
+                  :previous_logon,
+                  :idea_attributes # virtual attribute
 
 
   def self.get(conditions, order, page)
@@ -447,6 +450,17 @@ class User < ActiveRecord::Base
     return { :mystuff => mystuff, :watching => watching }  
   end
   
+
+  def self.recent(how_many = 3) # default is 3
+    # this is a class method
+    # usage => User.recent(5)
+    
+    find :all,  :limit => how_many.to_i,
+                :conditions => 'active = true and activation_code is Null',
+                :order => "created_at DESC"
+  end    
+
+
  
   protected
 

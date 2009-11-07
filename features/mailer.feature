@@ -49,6 +49,8 @@ Feature: Various mailer functionalities
       And I fill in "user_password" with "password"
       And I fill in "user_password_confirmation" with "password"
       And I fill in "new_location" with "New York"
+      And I fill in "idea_title" with "Idea"
+      And I fill in "idea_description" with "Description"
       And I press "Register"
     Then I should see "Thank you for registering."
       And I should receive an email with "Please activate your new account" in subject

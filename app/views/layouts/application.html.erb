@@ -38,8 +38,8 @@
                           <%= section_icon %>
                         </td>
                         <td valign="top">
-                          <p class="banner"><%= link_to image_tag("menu_icons/home_menu_icon.png", :border => "0"), root_path %></p>
-                          <p class="banner"><%= link_to image_tag("menu_icons/help_menu_icon.png", :border => "0"), help_path %></p>
+                          <p class="banner"><%= link_to "home", root_path, :class=> "banner-no-block"  %></p>
+                          <p class="banner"><%= link_to "about", help_path, :class=> "banner-no-block"  %></p>
                         </td>
                       </tr>
                     </table>

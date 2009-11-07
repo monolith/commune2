@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090917011143) do
+ActiveRecord::Schema.define(:version => 20091101231404) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(:version => 20090917011143) do
   create_table "general_skills", :force => true do |t|
     t.string   "name",        :null => false
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "icebreakers", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "question"
+    t.boolean  "approved"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -155,10 +163,10 @@ ActiveRecord::Schema.define(:version => 20090917011143) do
   add_index "logons", ["user_id"], :name => "index_logons_on_user_id", :unique => true
 
   create_table "messages", :force => true do |t|
-    t.integer  "from_id",                   :null => false
-    t.integer  "to_id",                     :null => false
+    t.integer  "from_id",                  :null => false
+    t.integer  "to_id",                    :null => false
     t.string   "subject",    :limit => 50
-    t.text     "body",       :limit => 255
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

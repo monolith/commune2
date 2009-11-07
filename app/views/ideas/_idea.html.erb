@@ -26,7 +26,7 @@
           </h2>
           <%= render :partial => '/shared/stars', :locals => { :scorable => idea} %>
           <p><%= show_description(idea) %></p>
-          <p>posted <%= time_ago_in_words(idea.created_at) %> ago by <%= link_to(idea.user.login, user_path(idea.user)) %></p>
+          <p>posted <%= time_ago_in_words(idea.created_at) %> ago by <%= idea.user ? link_to(idea.user.login, user_path(idea.user)) : "Anonymous" %></p>
 
           <p><%= dashboard_for(idea) %></p>
         </div>

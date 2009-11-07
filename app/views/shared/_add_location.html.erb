@@ -1,4 +1,4 @@
-        <%= label_tag 'Add new location (city)' %><br /><%= text_field_tag :new_location, @new_location, :style=>"width:300px;" %>
+        <%= label_tag 'Location' %> (city)<br /><%= text_field_tag :new_location, @new_location, :style=>"width:300px;" %>
         
           <% if @location && @location.count > 1 %>
             <p><%= label_tag 'Multiple locations found, select one below or refine location above if none are right:' %>

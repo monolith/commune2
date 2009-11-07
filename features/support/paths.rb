@@ -53,6 +53,9 @@ module NavigationHelpers
     when /invitations page/
       invitations_path
 
+    when /icebreakers page/
+      icebreakers_path
+
     when /new idea page/
       new_idea_path
   

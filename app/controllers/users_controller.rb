@@ -3,13 +3,15 @@ class UsersController < ApplicationController
   # render new.rhtml
   def new
     @user = User.new
+    @idea = Idea.new
   end
 
   def create
     logout_keeping_session!
     # check passcode to confirm this person was invited.  This is basic hard coded thing, will need to be replaced.
       @user = User.new(params[:user])
-
+      @idea = Idea.new(params[:idea])
+      
     # will need to add javascript support to make the lookups via user browser possible, to reduce number of requests from single IP
       @new_location = params[:location_select] || params[:new_location].strip
 
@@ -41,22 +43,38 @@ class UsersController < ApplicationController
                   return
                 end
               end             
+     
+              # add industry
+              @idea.industries << (Industry.find_by_name("Just for fun") || Industry.find(:first)) # prevents an error if name changes
+              # check if idea is valid
+              unless @idea.valid?
+                if @idea.errors[:title]
+                  @user.errors.add_to_base("Idea title " + @idea.errors[:title])
+                end
+
+                if @idea.errors[:description]
+                  @user.errors.add_to_base("Idea description " + @idea.errors[:description])
+                end
+              end
+
               
-              success = @user && @user.save
-              if success && @user.errors.empty?
+              if @user.errors.empty? and @user.save
                 flash[:notice] = "Thank you for registering.  An activation email will be sent to " + @user.email + " shortly.  You will be able to log in only after you activate your account."
+
+                @user.ideas << @idea
+                @idea.save(false) # validations already done above
                 redirect_to :login
-              else
+              else                
                 flash[:error]  = "Your registration attempt failed.  Try again."
                 render :action => :new
               end
            else
-                flash[:error]  = "ReCaptcha test failed."
+                flash[:error]  = "You failed the ReCaptcha test."
                 render :action => :new
            end
        else
           flash[:error]  = "Could not register.  You must be invited to join this network before you can register."
-          @user.errors.add(:email, " (#{ @user.email }) not found on open the invitation list.")
+          @user.errors.add(:email, " #{ '(' + @user.email + ')' if @user.email.length > 0 } not found on the invitation list.")
           render :action => 'new'
        end
     else
@@ -113,7 +131,7 @@ class UsersController < ApplicationController
                 :conditions => "active"
                             
     unless @user
-      flash[:error] = "Profile for #{ h(params[:id]) } is currently inactive or doesn't exist."
+      flash[:error] = "Profile for #{params[:id] } is currently inactive or doesn't exist."
     end
 
   end

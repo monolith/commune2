@@ -14,7 +14,8 @@ class IdeasController < ApplicationController
       :order         => "@relevance DESC, adjusted_rating DESC, active_projects_count DESC, watchers_count DESC, created_at DESC" 
   
     else
-      @ideas = Idea.get('active', 'id DESC', params[:page])
+      # activation code ensures only only ideas from activated (activation after registeration) users are shown
+      @ideas = Idea.get('ideas.active and users.activation_code is Null', 'ideas.id DESC', params[:page])
     end
 
     @ideas.compact! # removes any nil objects  

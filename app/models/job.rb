@@ -77,6 +77,17 @@ class Job < ActiveRecord::Base
       ind.chop.strip
   end
 
+
+  def self.recent(how_many = 3) # default is 3
+    # this is a class method
+    # usage => Idea.recent(5)
+    
+    find :all,  :limit => how_many.to_i, :include => :user,
+                :conditions => 'jobs.active = true and jobs.open = true and users.activation_code is Null and users.active = true',
+                :order => "jobs.created_at DESC"
+  end    
+
+
   private
 
   # THE BELOW COUNTERS ARE MEANT TO TRACK OPEN JOBS POSTED BY USER

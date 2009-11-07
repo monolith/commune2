@@ -1,6 +1,10 @@
 class Project < ActiveRecord::Base
   validates_presence_of  :title
+  validates_size_of :title, :maximum => 100
+  
   validates_presence_of  :description
+  validates_size_of      :description, :maximum => 1000
+
   validates_presence_of  :industries, :message => "error: you must select at least one relevant industry"
   validates_size_of      :industries, :maximum => 5, :message => "error: you cannot select more than 5 industries"
 
@@ -104,6 +108,14 @@ class Project < ActiveRecord::Base
 
 
 
+  def self.recent(how_many = 3) # default is 3
+    # this is a class method
+    # usage => Project.recent(5)
+    
+    find :all,  :limit => how_many.to_i, :include => :user,
+                :conditions => 'projects.active = true and users.activation_code is Null',
+                :order => "projects.created_at DESC"
+  end    
 
 protected
 

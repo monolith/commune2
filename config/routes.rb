@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :icebreakers
+
   
   map.root :controller => 'user', :action => 'index' # should change this
   map.resources :episodes # should remove this

@@ -1,0 +1,29 @@
+<% content_for :title do %>Icebreakers<% end %>
+
+<h1>Icebreakers</h1>
+
+<p><b><%= link_to "New Icebreaker", new_icebreaker_path %></b></p>
+
+<div id="general-main">
+
+  <table cellspacing="10" cellpading="10" border="0" width="100%">
+    <tr>
+      <th align="right">User</th>
+      <th align="left">Question</th>
+      <th>Approved?</th>
+      <th colspan="2">&nbsp;</th>
+    </tr>
+    <% @icebreakers.each do |icebreaker| %>
+      <tr>
+
+        <td width="150" align="right"><%= icebreaker.user ? "<p>" + link_to(h(icebreaker.user.login), user_path(icebreaker.user)) + "</p>" : "<p style='color:#B1B1B1;'>Anonymous</p>" %></td>
+
+        <td><%=h icebreaker.question %></td>
+        <td width="50"><%=h icebreaker.approved %></td>
+        <td width="50"><%= link_to "Edit", edit_icebreaker_path(icebreaker) %></td>
+        <td width="50"><%= link_to "Destroy", icebreaker, :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>
