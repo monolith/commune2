@@ -1,5 +1,5 @@
 class Logon < ActiveRecord::Base
   belongs_to  :user
-  attr_accessible # nothing
+  attr_accessible :previous
 
 end

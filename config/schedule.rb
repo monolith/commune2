@@ -22,14 +22,27 @@
 
 
 every 2.hours do
+  # idea behind doing these every two hours, instead of less frequent
+  # because this way there will be less things to do at one time
 
   # reindex with thinking sphinx every 2 hours
   command "cd /var/www/apps/commune2/current && rake ts:index RAILS_ENV=production"
+  
+  # also send out reminders
+  # this is a background task
+  runner "MailingsWorker.async_reminders"
 end
 
 every :reboot do
   # start up thinking sphinx after reboot
   command "cd /var/www/apps/commune2/current && rake ts:start RAILS_ENV=production"
+  
+  # for background stuff
+  # start up starling...
+  command "starling -d -P tmp/pids/starling.pid -q log/"
+  # and we need workling...
+  command "script/workling_client start"
+
 end
 
 every :sunday, :at => "5:00am" do

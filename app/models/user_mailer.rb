@@ -1,5 +1,9 @@
 class UserMailer < ActionMailer::Base
-
+  def dashboard_alert(user)
+    setup_email(user)
+    @subject    += 'Dashboard reminder'
+    
+  end
     
   def signup_notification(user)
     setup_email(user)

@@ -4,7 +4,23 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_ROOT)
 require 'spec/autorun'
 require 'spec/rails'
-require File.dirname(__FILE__) + "/factories"
+require "features/support/blueprints"
+
+
+## this module needed to test workling
+## http://blog.zerosum.org/2008/10/4/testing-workling-with-rspec
+#module Workling
+#  class Base
+#    class RailsBase
+#      def self.register; end
+#    end
+#  end
+#end
+#worker_path = File.dirname(FILE) + "/../app/workers" 
+#spec_files = Dir.entries(worker_path).select {|x| /\.rb\z/ =~ x}
+#spec_files -= [ File.basename(FILE) ]
+#spec_files.each { |path| require(File.join(worker_path, path)) }
+## end of workling set up
 
 
 Spec::Runner.configure do |config|

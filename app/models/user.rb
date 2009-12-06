@@ -96,6 +96,7 @@ class User < ActiveRecord::Base
   has_many :received_messages, :foreign_key => :to_id, :class_name => "Message"
   
   has_one :logon, :dependent => :destroy # keep track of last logon
+  has_one :reminder, :dependent => :destroy
 
   # WATCHLISTS
   has_many :watchlists, :dependent => :destroy
@@ -412,6 +413,7 @@ class User < ActiveRecord::Base
     mystuff[:jobs] = {
       :recent_applications => recent_applications_for_jobs_count }
       
+
     mystuff[:totals] = {
       :recent_comments => mystuff[:ideas][:recent_comments] + mystuff[:projects][:recent_comments],
       :recent_watching => mystuff[:ideas][:recent_watching] + mystuff[:projects][:recent_watching],
@@ -419,35 +421,39 @@ class User < ActiveRecord::Base
       :recent_projects => mystuff[:ideas][:recent_projects],
       :recent_applications => mystuff[:jobs][:recent_applications]
     }
-
+    
+    mystuff_total = mystuff[:totals].collect{|i| i[1]}.sum
 
     # watchlist stuff (things user is watching)
     # based on associations
-    w_ideas_projects = watched_ideas_recent_projects
-    w_projects_jobs = watched_projects_recent_jobs
-    w_people_ideas = watched_people_ideas
-    w_people_projects = watched_people_projects
-    w_people_jobs = watched_people_recent_jobs
+ 
+    w_ideas_projects_count = watched_ideas_recent_projects.count
+    w_projects_jobs_count = watched_projects_recent_jobs.count
+    w_people_ideas_count = watched_people_ideas.count
+    w_people_projects_count = watched_people_projects.count
+    w_people_jobs_count = watched_people_recent_jobs.count
 
     watching[:ideas] = {
-      :recent_projects => w_ideas_projects.size }
+      :recent_projects => w_ideas_projects_count }
 
     watching[:projects] = {
-      :recent_jobs => w_projects_jobs.size }
+      :recent_jobs => w_projects_jobs_count }
 
     watching[:people] = {
-      :recent_ideas => w_people_ideas.size,
-      :recent_projects => w_people_projects.size,
-      :recent_jobs => w_people_jobs.size }
+      :recent_ideas => w_people_ideas_count,
+      :recent_projects => w_people_projects_count,
+      :recent_jobs => w_people_jobs_count }
       
     watching[:totals] = {
-      :recent_jobs => (w_projects_jobs | w_people_jobs).size,
-      :recent_projects => (w_ideas_projects | w_people_projects).size,
-      :recent_ideas => watching[:people][:recent_ideas]
+      :recent_jobs => ( watched_projects_recent_jobs | watched_people_recent_jobs ).size,
+      :recent_projects => ( watched_ideas_recent_projects | watched_people_projects ).size,
+      :recent_ideas => w_people_ideas_count
     }
 
+    watching_total = watching[:totals].collect{|i| i[1]}.sum
+
         
-    return { :mystuff => mystuff, :watching => watching }  
+    return { :mystuff => mystuff, :watching => watching, :total => mystuff_total + watching_total  }  
   end
   
 
@@ -465,8 +471,9 @@ class User < ActiveRecord::Base
   protected
 
   def create_some_objects
-    self.create_scorecard
-    self.create_logon
+    create_scorecard
+    create_logon
+    create_reminder
   end
 
   def make_activation_code

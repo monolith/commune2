@@ -1,0 +1,9 @@
+<%=h @user.name.gsub(/\b\w/){$&.upcase} %>, this is your weekly dashboard reminder.  You have <%=h pluralize(@user.dashboard_stats[:total], "new item") %> on your dashboard since you last logged in.
+
+Log in to see more...
+http://www.commune2.com
+
+Don't want to get these alerts?  Update your account settings:
+<%= edit_user_url(@user) %>
+
+(Do not reply to this email address)

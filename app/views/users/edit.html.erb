@@ -41,15 +41,16 @@
       <tr><td valign="top"><%= label_tag 'Headline' %></td><td valign="top"><%= f.text_field :headline, :style=>"width:300px;" %></td></tr>
 
       <tr><td valign="top"><%= label_tag 'Are you an individual user or another entity (organization)?' %></td><td valign="top">
-      <%= f.radio_button :individual, "true" %>Individual
-      <%= f.radio_button :individual, "false" %>Entity</td></tr>
+      <%= f.radio_button :individual, "true" %><%= label :user, :individual_true, "Individual" %> 
+
+      <%= f.radio_button :individual, "false" %><%= label :user, :individual_false, "Entity" %></td></tr>
       
       <tr><td valign="top"><%= label_tag 'Currently available to work on projects?' %></td><td valign="top">
-      <%= f.radio_button :currently_available, "true" %>Yes
-      <%= f.radio_button :currently_available, "false" %>No</td></tr>
+      <%= f.radio_button :currently_available, "true" %><%= label :user, :currently_available_true, "Yes" %> 
+      <%= f.radio_button :currently_available, "false" %><%= label :user, :currently_available_false, "No" %></td></tr>
       
       
-      <tr><td valign="top"><%= label_tag 'What kind of compensation do you require?' %></td><td valign="top"><%= f.radio_button :no_cash_ok, "true" %>Anything goes <%= f.radio_button :no_cash_ok, "false" %>Cash ONLY</td></tr>
+      <tr><td valign="top"><%= label_tag 'What kind of compensation do you require?' %></td><td valign="top"><%= f.radio_button :no_cash_ok, "true" %><%= label :user, :no_cash_ok_true, "Anything goes" %> <%= f.radio_button :no_cash_ok, "false" %><%= label :user, :no_cash_ok_false, "Cash ONLY" %></td></tr>
 
   
     <tr><td valign="top" colspan="2"><%= label_tag 'General interests' %></td></tr>
@@ -93,12 +94,25 @@
       
       </td></tr>   
       <tr><td valign="top"><%= label_tag "What's the status of your account?" %></td><td valign="top">
-      <%= f.radio_button :active, "true" %>Active<br /><%= f.radio_button :active, "false" %>Inactive (no one will be able to view your profile)<br /><br /></td></tr>
+      <%= f.radio_button :active, "true" %><%= label :user, :active_true, "Active" %><br /><%= f.radio_button :active, "false" %><%= label :user, :active_false, "Inactive (no one will be able to view your profile)" %><br /><br /></td></tr>
       <tr><td valign="top"><%= label_tag 'Login (username)' %></td><td valign="top"><%= f.text_field :login, :style=>"width:300px;" %></td></tr>
 
       <tr><td valign="top"><%= label_tag 'Email (no one else can see this)' %></td><td valign="top"><%= f.text_field :email, :style=>"width:300px;" %></td></tr>
       <tr><td valign="top"><%= label_tag 'Secondary email (no one else can see this)' %></td><td valign="top"><%= f.text_field :secondary_email, :style=>"width:300px;" %></td></tr>
         
+
+      <tr><td valign="top"><%= label_tag 'Alerts' %></td><td valign="top"><p>We can send an alert to you once a week if you have something new on your dashboard...</p>
+      
+        <p><% fields_for @user.reminder do |r| %>
+            <%= r.check_box :dashboard %>
+            <%= label :reminder, :dashboard, "Do you want this alert?" %> 
+          <% end %>
+        </p>
+        
+        <p><i>(You are currently set to <%= "<b>NOT</b>" unless current_user.reminder.dashboard %> receive alerts.)</i></p>
+
+
+      </td></tr>
 
       </table>
       
@@ -114,6 +128,7 @@
     <tr><td colspan="2"><p>Want to change your password?  Do it <%= link_to "here", change_password_path %> (any changes you made above would not be saved).</td></tr>
 
     </table>
+
 
     
   <% end %>       

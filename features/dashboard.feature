@@ -85,7 +85,6 @@
       And I should not see "Dashboard - Watchlist" image
 
 
-
   Scenario: Recent watchlists on ideas should be reflected in the count
     Given the following user records
       | login     | last_logon                    |
@@ -244,7 +243,7 @@
       And I should see "Job Applications: 3"
       And I should not see "Dashboard - Watchlist" image
 
-
+@focus
   Scenario: I should see how many ideas have been posted by watched users since last logon
     Given the following user records
       | login    | last_logon                   |
@@ -320,6 +319,7 @@
     Then I should see "Dashboard - Watchlist" image
       And I should see "Projects: 4"
       And I should not see "Dashboard - My Stuff" image
+
       
   Scenario: I should see how many jobs have been posted by watched people and from watched projects since last logon
     Given the following user records

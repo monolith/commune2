@@ -9,7 +9,7 @@
         <% end %>
 
         <%= check_box_tag "skill_ids[#{skill.id}]", {}, skill_ids.include?(skill.id) %>
-        <%= label_tag skill.name %><br />
+        <%= label "skill_ids", skill.id.to_s, skill.name %> <br />
 
         <% i += 1 %>
       <% end %>

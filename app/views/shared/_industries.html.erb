@@ -10,7 +10,7 @@
         <% end %>
 
         <%= check_box_tag "industry_ids[#{industry.id}]", {}, industry_ids.include?(industry.id) %>
-        <%= label_tag industry.name %><br />
+        <%= label "industry_ids", industry.id.to_s, industry.name %> <br />
            
         <% i += 1 %>
       <% end %>

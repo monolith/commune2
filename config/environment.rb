@@ -13,7 +13,6 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 require File.join(File.dirname(__FILE__), 'secret')
 
-
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -32,7 +31,6 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
-
 
   # Only load the plugins named here, in the order given. By default, all plugins
   # in vendor/plugins are loaded in alphabetical order.

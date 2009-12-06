@@ -173,9 +173,11 @@ class UsersController < ApplicationController
       success = Industry.update_industries(:object=> @user, :industry_ids => @industry_ids) && success
       success = GeneralSkill.update_general_skills(:object=> @user, :skill_ids => @skill_ids) && success
 
+      success = @user.reminder.update_attributes(params[:reminder]) && success
+
 
       # will need to add javascript support to make the lookups via user browser possible, to reduce number of requests from single IP
-      if params[:location_select] || @new_location and @new_location.length > 0
+       if params[:location_select] || @new_location and @new_location.length > 0
         @location = Locate.new params[:location_select] || @new_location
         add_location = @location.add @user
 

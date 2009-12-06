@@ -1,5 +1,10 @@
 # custom steps based on webrat_steps.rb
 
+
+Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
+  field_labeled(label).should_not be_checked
+end
+
 Then /^I should see "([^\"]*)" button$/ do |name|
   button = find_button_with_value(name)
   button.should contain(name)

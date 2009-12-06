@@ -15,6 +15,13 @@ Then /^a user with "([^\"]*)" login should not exist$/ do |login|
 end
 
 
+Then /^(.*) should have total of (.*) items on dashboard$/ do |login, count|
+  User.find_by_login(login).dashboard_stats[:total].should == count.to_i
+end
+
+Given /^all users are activated$/ do
+  User.all.each {|user| user.update_attribute(:activation_code, nil)}
+end
 
 
 def parse_table_and_add_users(table)

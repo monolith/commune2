@@ -1,0 +1,28 @@
+one:
+  name: industry1
+  description: industry number 1
+
+two:
+  name: industry2
+  description: industry number 2
+
+three:
+  name: industry3
+  description: industry number 3
+
+four:
+  name: industry4
+  description: industry number 4
+
+five:
+  name: industry5
+  description: industry number 5
+
+six:
+  name: industry6
+  description: industry number 6
+
+seven:
+  name: industry7
+  description: industry number 7
+

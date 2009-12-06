@@ -110,20 +110,35 @@ Then /^"([^\"]*)" should receive an email with "([^\"]*)" in subject$/ do |email
   # then it parses through them and collects emails matching the subject in the subject line
   # NOTE: there could be other things in the subject line, this is not an exact match
   # lastly, since nil will be returned for emails that do not match, 
-  # the compact method removes the nils
+  # the compact method removes the nils (notice that we cannot use compact! since that will return nil when the object is not changed)
 
   # there may be a better way of doing this
   # such as: find_email(email_address, :with_subject => subject )
-  emails = unread_emails_for(email_address).collect { |e| e if e.subject =~ Regexp.new(subject) }.compact!
+  emails = unread_emails_for(email_address).collect { |e| e if e.subject =~ Regexp.new(subject) }.compact
+  emails =[] if emails.nil? # needed because if nil, the below will cause an error
   emails.size.should >= 1 # Note that there can be more than one
   
   # this is done to make /^I open this email$/ work (see below)
   set_received_with_subject(emails[0]) unless emails.size == 0
 end
 
+Then /^"([^\"]*)" should not receive an email with "([^\"]*)" in subject$/ do |email_address, subject|
+  # based on above
+
+  emails = unread_emails_for(email_address).collect { |e| e if e.subject =~ Regexp.new(subject) }.compact
+  emails =[] if emails.nil? # needed because if nil, the below will cause an error
+  emails.size.should == 0 # Note that there can be more than one
+  
+  # this is done to make /^I open this email$/ work (see below)
+  set_received_with_subject(emails[0]) unless emails.size == 0
+end
+
+
+
 Then /^I should receive an email with "([^\"]*)" in subject$/ do |subject|
   # logic almost same as above
-  emails = unread_emails_for(current_email_address).collect { |e| e if e.subject =~ Regexp.new(subject) }.compact!
+  emails = unread_emails_for(current_email_address).collect { |e| e if e.subject =~ Regexp.new(subject) }.compact
+  emails =[] if emails.nil? # needed because if nil, the below will cause an error
   emails.size.should >= 1 # Note that there can be more than one
   set_received_with_subject(emails[0]) unless emails.size == 0  
 end

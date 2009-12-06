@@ -1,0 +1,28 @@
+one:
+  name: skill1
+  description: SKill number 1
+
+two:
+  name: skill2
+  description: SKill number 2
+
+three:
+  name: skill3
+  description: SKill number 3
+
+four:
+  name: skill4
+  description: SKill number 4
+
+five:
+  name: skill5
+  description: SKill number 5
+
+six:
+  name: skill6
+  description: SKill number 6
+
+seven:
+  name: skill7
+  description: SKill number 7
+

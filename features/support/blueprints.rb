@@ -8,6 +8,7 @@ Sham.last_name(:unique => false) { Faker::Name.last_name }
 Sham.login { Sham.first_name + '_' + Sham.last_name }
 Sham.company(:unique => false) { Faker::Company.name }
 Sham.email { Faker::Internet.email }
+Sham.word(:unique => false) { Faker::Lorem.words(1) }
 Sham.sentence(:unique => false) { Faker::Lorem.sentence[0..49] }
 Sham.body(:unique => false) { Faker::Lorem.paragraph[0..249] }
 
@@ -106,16 +107,30 @@ Rating.blueprint do
   stars { rand(5) + 1 }
 end
 
+Industry.blueprint do
+  name {Sham.first_name}
+end
+
 RelevantIndustry.blueprint do
   # example: user.relevant_industries.make
+
+  10.times {Industry.make} if Industry.all.size == 0
+
   industries = Industry.all
   
   id = rand(industries.size)
   industry { industries[id] }
 end
 
+
+GeneralSkill.blueprint do
+  name {Sham.first_name}
+  description {Sham.sentence}
+end
+
 PolymorphicGeneralSkill.blueprint do
   # example: user.polymorphic_general_skills.make
+  10.times {GeneralSkill.make} if GeneralSkill.all.size == 0
 
   skills = GeneralSkill.all
   
@@ -131,8 +146,9 @@ Icebreaker.blueprint do
 end
 
 
+
 def create_user_with_associations!(attributes = {})
-     
+  
   user = User.make_unsaved(attributes[:user])
   user.save(false) # false because it will not like no location
 
@@ -295,6 +311,23 @@ def create_icebreaker_with_author!(attributes = {})
 
 end
 
+def create_reminder_with_user!(attributes = {})
+  # check if the user exists, find or create
+  # create uses blueprint
+  
+  if attributes[:user] && attributes[:user][:login]
+    user = User.find_by_login( attributes[:user][:login] ) || create_user_with_associations!( { :user=> attributes[:user] } )  
+  else
+    user = create_user_with_associations!( { :user=> attributes[:user] } )    
+  end
+
+  if attributes[:logon]
+    user.logon.update_attributes(attributes[:logon])
+  end
+  
+  user.reminder.update_attributes(attributes[:reminder])
+
+end
 
 
 def create_on_the_fly(class_name, attributes = {})
