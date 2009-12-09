@@ -41,15 +41,18 @@ end
 
 
 every :reboot do
+  # get into the right folder
+  command "cd /var/www/apps/commune2/current"
+
   # start up thinking sphinx after reboot
-  command "cd /var/www/apps/commune2/current && rake ts:start RAILS_ENV=production"
+  command "rake ts:start RAILS_ENV=production"
   
   # for background stuff
   # start up starling...
-  command "starling -d -P tmp/pids/starling.pid -q log/"
-  # and we need workling...
-  command "script/workling_client start"
+  command "starling -d -P tmp/pids/starling.pid -q log/ -p 15151"
 
+  # and we need workling...
+  command "RAILS_ENV=production ./script/workling_client start -t"    
 end
 
 every :sunday, :at => "5:00am" do
