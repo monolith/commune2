@@ -30,7 +30,7 @@ every 2.hours do
   
   # also send out reminders
   # this is a background task
-  runner "MailingsWorker.async_reminders"
+    runner "MailingsWorker.async_reminders"
 end
 
 #every 5.minutes do
@@ -49,10 +49,10 @@ every :reboot do
   
   # for background stuff
   # start up starling...
-  command "starling -d -P tmp/pids/starling.pid -q log/ -p 15151"
+#  command "starling -d -P tmp/pids/starling.pid -q log/ -p 15151"
 
   # and we need workling...
-  command "RAILS_ENV=production ./script/workling_client start -t"    
+#  command "RAILS_ENV=production ./script/workling_client start -t"    
 end
 
 every :sunday, :at => "5:00am" do
