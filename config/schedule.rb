@@ -30,13 +30,13 @@ every 2.hours do
   
   # also send out reminders
   # this is a background task
-#  runner "MailingsWorker.async_reminders"
-end
-
-every 5.minutes do
-  #this is just a quick test and should be removed
   runner "MailingsWorker.async_reminders"
 end
+
+#every 5.minutes do
+#  #this is just a quick test and should be removed
+#  runner "MailingsWorker.async_reminders"
+#end
 
 
 
