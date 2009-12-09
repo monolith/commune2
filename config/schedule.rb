@@ -30,7 +30,7 @@ every 2.hours do
   
   # also send out reminders
   # this is a background task
-    runner "MailingsWorker.async_reminders"
+  #  runner "MailingsWorker.async_reminders"
 end
 
 #every 5.minutes do
@@ -41,11 +41,9 @@ end
 
 
 every :reboot do
-  # get into the right folder
-  command "cd /var/www/apps/commune2/current"
 
   # start up thinking sphinx after reboot
-  command "rake ts:start RAILS_ENV=production"
+  command "cd /var/www/apps/commune2/current && rake ts:start RAILS_ENV=production"
   
   # for background stuff
   # start up starling...
