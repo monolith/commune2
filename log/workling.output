@@ -10,4 +10,19 @@ Reminding...** Exiting
 ** Rails loaded.
 ** Starting Workling::Remote::Invokers::ThreadedPoller...
 ** Use CTRL-C to stop.
-Reminding...Reminding...
+Reminding...Reminding...** Exiting
+/opt/ruby-enterprise-1.8.6-20090610/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/mysql_adapter.rb:585:in `real_connect': Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) (Mysql::Error)
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `join'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `each'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/listen.rb:24
+	from /home/anatoly/.gem/ruby/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `load'
+	from /home/anatoly/.gem/ruby/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `start_load'
+	from /home/anatoly/.gem/ruby/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:257:in `start'
+	from /home/anatoly/.gem/ruby/1.8/gems/daemons-1.0.10/lib/daemons/controller.rb:69:in `run'
+	from /home/anatoly/.gem/ruby/1.8/gems/daemons-1.0.10/lib/daemons.rb:139:in `run'
+	from /home/anatoly/.gem/ruby/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `call'
+	from /home/anatoly/.gem/ruby/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `catch_exceptions'
+	from /home/anatoly/.gem/ruby/1.8/gems/daemons-1.0.10/lib/daemons.rb:138:in `run'
+	from script/workling_client:17
