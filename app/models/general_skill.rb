@@ -4,7 +4,7 @@ class GeneralSkill < ActiveRecord::Base
 
   has_many :polymorphic_general_skills
   
-  attr_accessible # nothing should be modifiable here
+  attr_accessible  :name, :description
 
   def self.update_general_skills( args )
   # THIS ENTIRE THING IS REALLY A HACK
