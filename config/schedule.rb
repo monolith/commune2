@@ -33,9 +33,9 @@ every 2.hours do
   #  runner "MailingsWorker.async_reminders"
 end
 
-every 5.minutes do
+every 2.minutes do
   #this is just a quick test and should be removed
-  runner "MailingsWorker.async_reminders"
+  script/runner "MailingsWorker.async_reminders"
 end
 
 
