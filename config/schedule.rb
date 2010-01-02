@@ -35,7 +35,8 @@ end
 
 every 2.minutes do
   #this is just a quick test and should be removed
-  script/runner "MailingsWorker.async_reminders"
+  command "cd /var/www/apps/commune2/current"
+  runner "MailingsWorker.async_reminders"
 end
 
 
@@ -47,10 +48,10 @@ every :reboot do
   
   # for background stuff
   # start up starling...
-#  command "starling -d -P tmp/pids/starling.pid -q log/ -p 15151"
+  command "starling -d -P tmp/pids/starling.pid -q log/ -p 15151"
 
   # and we need workling...
-#  command "RAILS_ENV=production ./script/workling_client start -t"    
+  command "RAILS_ENV=production script/workling_client start -t"    
 end
 
 every :sunday, :at => "5:00am" do
