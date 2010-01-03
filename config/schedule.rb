@@ -35,7 +35,7 @@ end
 
 every 2.minutes do
   #this is just a quick test and should be removed
-  command "cd /var/www/apps/commune2/current && RAILS_ENV=production script/runner MailingsWorker.async_reminders"
+#  command "cd /var/www/apps/commune2/current && RAILS_ENV=production script/runner MailingsWorker.async_reminders"
 end
 
 
