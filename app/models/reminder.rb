@@ -6,8 +6,10 @@ class Reminder < ActiveRecord::Base
   # note users with reminders are email
   def self.users_with_reminders
     users = self.find_users_due_for_alert
-    users.collect{ |user| user if user.dashboard_stats[:total] > 0 }.compact    
+    users = users.collect{ |user| user if user.dashboard_stats[:total] > 0 }.compact
 
+    puts "Number of users: " + users.size.to_s
+    return users
   end  
   
   

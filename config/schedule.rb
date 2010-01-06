@@ -20,39 +20,44 @@
 # Learn more: http://github.com/javan/whenever
 
 
-
-every 2.hours do
-  # idea behind doing these every two hours, instead of less frequent
-  # because this way there will be less things to do at one time
-
-  # reindex with thinking sphinx every 2 hours
-  command "cd /var/www/apps/commune2/current && rake ts:index RAILS_ENV=production"
+case RAILS_ENV
+  when "production"
+    RAILS_ROOT = "/var/www/apps/commune2/current"
+      
+  when "development"
+    RAILS_ROOT = "~/rails_apps/commune2"
   
-  # also send out reminders
-  # this is a background task
-  #  runner "MailingsWorker.async_reminders"
+  else
+    environment_should_be_skipped = true  
 end
 
-every 2.minutes do
-  #this is just a quick test and should be removed
-#  command "cd /var/www/apps/commune2/current && RAILS_ENV=production script/runner MailingsWorker.async_reminders"
-end
+unless environment_should_be_skipped # set above in the case statement
+
+  every 2.hours do
+    # idea behind doing these every two hours, instead of less frequent
+    # because this way there will be less things to do at one time
+
+    # reindex with thinking sphinx every 2 hours
+    command "cd #{RAILS_ROOT} && rake ts:index RAILS_ENV=#{RAILS_ENV}"
+    
+    # also send out reminders
+    # this is a background task
+    command "cd #{RAILS_ROOT} && RAILS_ENV=#{RAILS_ENV} script/runner MailingsWorker.async_reminders"
+  end
+
+  every 1.minute do
+    # proof of concept in prod
+    command "cd #{RAILS_ROOT} && RAILS_ENV=#{RAILS_ENV} script/runner MailingsWorker.async_reminders"
+  end
 
 
+  every :reboot do
+    # start up god monitoring
+    command "god restart commune2 -c #{RAILS_ROOT}/config/commune2.god"
+  end
 
-every :reboot do
+  every :sunday, :at => "5:00am" do
+    command "rm -rf #{RAILS_ROOT}/tmp/cache"
+  end
 
-  # start up thinking sphinx after reboot
-  command "cd /var/www/apps/commune2/current && rake ts:start RAILS_ENV=production"
-  
-  # for background stuff
-  # start up starling...
-#  command "starling -d -P tmp/pids/starling.pid -q log/ -p 15151"
-
-  # and we need workling...
-#  command "RAILS_ENV=production script/workling_client start -t"    
-end
-
-every :sunday, :at => "5:00am" do
-  command "rm -rf #{RAILS_ROOT}/tmp/cache"
 end

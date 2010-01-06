@@ -78,4 +78,24 @@ Rails::Initializer.run do |config|
 
   config.active_record.observers = :user_observer, :invitation_observer
 
+# commented out for now, added to crontab (schedule.rb) on reboot
+# and on deploy
+
+#  if RAILS_ENV == "development" or RAILS_ENV == "production"
+
+#    begin 
+#      puts "god killall..."
+#      system "killall god"
+#    rescue => e
+#      puts "could not terminate: #{e}"
+#    end
+
+#    begin 
+#      puts "starting up god..."
+#      system "god -c config/commune2.god"
+#      system "god status"
+#    rescue => e
+#      puts "could not start god: #{e}"
+#    end
+#  end
 end
