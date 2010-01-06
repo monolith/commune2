@@ -23,10 +23,8 @@
 case RAILS_ENV
   when "production"
     RAILS_ROOT = "/var/www/apps/commune2/current"
-    su = "su depl0y &&" # this is because depl0y will need to stop this during deployment and restart 
   when "development"
     RAILS_ROOT = "~/rails_apps/commune2"
-    su = ""
   else
     environment_should_be_skipped = true  
 end
@@ -53,7 +51,7 @@ unless environment_should_be_skipped # set above in the case statement
 
   every :reboot do
     # start up god monitoring
-    command "#{su} god start commune2 -c #{RAILS_ROOT}/config/commune2.god"
+    command "god start commune2 -c #{RAILS_ROOT}/config/commune2.god"
   end
 
   every :sunday, :at => "5:00am" do
