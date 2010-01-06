@@ -53,7 +53,8 @@ unless environment_should_be_skipped # set above in the case statement
 
   every :reboot do
     # start up god monitoring
-    command "god restart commune2 -c #{RAILS_ROOT}/config/commune2.god"
+    command "su depl0y" if RAILS_ENV == "production" # this is because depl0y will need to stop this during deployment and restart
+    command "god start commune2 -c #{RAILS_ROOT}/config/commune2.god"
   end
 
   every :sunday, :at => "5:00am" do
