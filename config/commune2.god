@@ -35,10 +35,27 @@ end
 
 # STARLING
 God.watch do |w|
+
+
   w.name = "commune2-starling"
   w.group = "commune2"
   w.interval = 60.seconds
-  w.start = "starling -d -P #{RAILS_ROOT}/log/starling.pid -q #{RAILS_ROOT}/log/ -p 22122"
+
+  case RAILS_ENV 
+
+    when "production"
+      port = 15151
+
+    when "development"
+      port = 22122
+  
+    else
+      port = 12345
+  
+  end
+    
+  w.start = "starling -d -P #{RAILS_ROOT}/log/starling.pid -q #{RAILS_ROOT}/log/ -p #{port.to_s}"
+  
   w.stop = "kill `cat #{RAILS_ROOT}/log/starling.pid`"
   w.start_grace = 10.seconds
   w.restart_grace = 10.seconds
