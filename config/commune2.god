@@ -97,7 +97,7 @@ God.watch do |w|
   w.stop = "#{script} ts:stop"
   w.start_grace = 20.seconds
   w.restart_grace = 20.seconds
-  w.pid_file = "#{RAILS_ROOT}/log/searchd.development.pid"
+  w.pid_file = "#{RAILS_ROOT}/log/searchd.#{RAILS_ENV.downcase}.pid"
   
   w.behavior(:clean_pid_file)
   
