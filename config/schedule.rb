@@ -34,17 +34,13 @@ unless environment_should_be_skipped # set above in the case statement
   every 2.hours do
     # idea behind doing these every two hours, instead of less frequent
     # because this way there will be less things to do at one time
+    # may need to adjust the frequency later
 
     # reindex with thinking sphinx every 2 hours
     command "cd #{RAILS_ROOT} && rake ts:index RAILS_ENV=#{RAILS_ENV}"
     
     # also send out reminders
     # this is a background task
-    command "cd #{RAILS_ROOT} && RAILS_ENV=#{RAILS_ENV} script/runner MailingsWorker.async_reminders"
-  end
-
-  every 1.minute do
-    # proof of concept in prod
     command "cd #{RAILS_ROOT} && RAILS_ENV=#{RAILS_ENV} script/runner MailingsWorker.async_reminders"
   end
 

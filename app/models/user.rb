@@ -269,7 +269,10 @@ class User < ActiveRecord::Base
   def name
     f = self.first_name || ""
     l = self.last_name || ""
-    (f + " " + l).strip
+    n = (f + " " + l).strip
+    
+    n.size > 0 ? n : self.login
+    
   end
 
 
