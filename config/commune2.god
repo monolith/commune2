@@ -71,7 +71,7 @@ end
 
 # WORKLING
 God.watch do |w|
-  script = "RAILS_ENV=#{RAILS_ENV} #{RAILS_ROOT}/script/workling_client"
+  script = "cd #{RAILS_ROOT} && RAILS_ENV=#{RAILS_ENV} script/workling_client"
   w.name = "commune2-workling"
   w.group = "commune2"
   w.interval = 60.seconds
