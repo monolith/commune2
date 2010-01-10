@@ -1,7 +1,7 @@
 <% content_for :title do %>Editing Profile<% end %>
 
   <% form_for @user do |f| -%>
-  <%= f.error_messages :header_tag => "h1 style='color:#CF4326'", :class => "error" %>
+  <%= f.error_messages :header_tag => "h1 style='color:#CF4326'", :class => "error", :header_message => "#{pluralize @user.errors.count, "error"} prohibited this profile from being saved" %>
 
   <h1>My Profile and Account</h1>
   <p><%= link_to 'Click here', user_path(current_user) %> to see how other people see your profile.</p>
@@ -14,23 +14,31 @@
     
     <table border="0" cellspacing="10" cellpadding="0">
 
-      <tr><td valign="top">You are in <%= pluralize @user.locations.count, "location" %></td>
-        <td valign="top">
+      <% location_count = @user.locations.count %>
+      <tr><td valign="top"><%= label_tag 'Location' %></td>
 
-        <% geocodes = "" %>
-        <% @user.locations.each do |location| %>
-          <%= location.location %>
-          <%= link_to '(remove)', remove_location_path + '?' + (location.location.to_query 'location') if @user.locations.count > 1 %><br/>
-          <% geocodes += location.longitude.to_s + "," + location.latitude.to_s + ",smallred|" %>
+        <td valign="top">
+        
+        <% if location_count > 0 %>
+        
+          <p>You are in <%= pluralize location_count, "location" %>:</p>
+          <p><b>
+          <% geocodes = "" %>
+          <% @user.locations.each do |location| %>
+            <%= location.location %>
+            <%= link_to '(remove)', remove_location_path + '?' + (location.location.to_query 'location') if @user.locations.count > 1 %><br/>
+            <% geocodes += location.longitude.to_s + "," + location.latitude.to_s + ",smallred|" %>
+          <% end %>
+          </b></p>
+          
+          <div id="map_canvas" style="width: 255px; height: 100px"><img src="http://maps.google.com/staticmap?markers=<%= geocodes %>&zoom=0&size=255x100&key=<%= GoogleAPIKey %>&sensor=false&format=png8&" border="0"></div>
+
+            <p><i>Want to add another <%= pluralize location_count, "location" %>?</i><br />
+            
         <% end %>
 
-        <% if @user.locations.count > 0 %>
-          <div id="map_canvas" style="width: 255px; height: 100px"><img src="http://maps.google.com/staticmap?markers=<%= geocodes %>&zoom=0&size=255x100&key=<%= GoogleAPIKey %>&sensor=false&format=png8&" border="0"></div>
-          <% end %>
-
           <%= render :partial => '/shared/add_location' %>
-          
-          <br /><br />
+          </p>
       
         </td>
       </tr>

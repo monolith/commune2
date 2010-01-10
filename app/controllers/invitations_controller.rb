@@ -26,6 +26,7 @@ class InvitationsController < ApplicationController
 
   def create
     @invitation = current_user.invitations.new(params[:invitation])
+    @invitation.email.strip! # in case there was an extra space after the email or before
      success = @invitation && @invitation.save
      if success && @invitation.errors.empty?
        flash[:notice] = "Invitation has been sent to " + @invitation.email + ".  Thank you."

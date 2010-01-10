@@ -45,8 +45,9 @@ class User < ActiveRecord::Base
   # may also want to require general skills and industries, but need to add at sign up
   # only reason not to add now has been to reduce complexity of registration
   # however, the industry and general_skills models, through update, will require addition of these
-  validates_size_of         :general_skills, :maximum => 5, :message => "error: you cannot select more than 5 general skills."
-  validates_size_of         :relevant_industries, :maximum => 5, :message => "error: you cannot select more than 5 interests."
+  # see Industry and General Skill models
+  validates_size_of         :general_skills, :maximum => 5, :message => "you cannot select more than 5 general skills."
+  validates_size_of         :relevant_industries, :maximum => 5, :message => "you cannot select more than 5 interests."
 
   has_many :invitations, :dependent => :destroy
   has_many :ideas

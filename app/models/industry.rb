@@ -27,8 +27,14 @@ class Industry < ActiveRecord::Base
       object.industry_ids = industry_ids
       return true # success
     else
-      what = object.class == User ? "interests" : "industries"        
-      object.errors.add(what, " should be between #{ min } and #{ max }.")
+      what = object.class == User ? "interests" : "industries"  
+
+      if industry_ids.size < min
+        object.errors.add_to_base "At least #{ min } #{ what } should be selected (but no more than #{ max })"
+      else
+        object.errors.add_to_base "No more than #{ max } #{ what } should be selected (but at least 1)"       
+      end
+
       return false # failed (more than 5)
     end
   end

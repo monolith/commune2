@@ -27,8 +27,13 @@ class GeneralSkill < ActiveRecord::Base
       object.general_skill_ids = skill_ids
       return true # success
     else
-      object.errors.add(:general_skills, " should be between #{ min } and #{ max }.")
-      return false # failed (more than 5)
+      if skill_ids.size < min
+        object.errors.add_to_base "At least #{ min } general skill should be selected (but no more than #{ max })"
+      else
+        object.errors.add_to_base "No more than #{ max } general skills should be selected (but at least 1)"       
+      end
+
+      return false # failed
     end
 
   end

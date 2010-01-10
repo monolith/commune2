@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :login_required, :update_login_time, :except => [ :new, :create, :activate, :forgot_password, :reset_password, :resend_activation_link ]
   # render new.rhtml
   def new
-    @user = User.new
+    @user = User.new(:email => params[:email])
     @idea = Idea.new
   end
 
@@ -59,7 +59,9 @@ class UsersController < ApplicationController
 
               
               if @user.errors.empty? and @user.save
-                flash[:notice] = "Thank you for registering.  An activation email will be sent to " + @user.email + " shortly.  You will be able to log in only after you activate your account."
+                flash[:notice] = "Thank you for registering."
+                flash[:special_attention_notice] = "An activation link will be sent to " + @user.email + " shortly.  You will be able to log in only after you activate your account.  Please check your email."
+                
 
                 @user.ideas << @idea
                 @idea.save(false) # validations already done above
@@ -89,7 +91,7 @@ class UsersController < ApplicationController
     case
     when (!params[:activation_code].blank?) && user && !user.active?
       user.activate!
-      flash[:notice] = "Your account has been activated.  You can now log in."
+      flash[:special_attention_notice] = "Your account has been activated.  You are now ready to log in!"
       redirect_to :login
 
     when params[:activation_code].blank?

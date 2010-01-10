@@ -9,7 +9,7 @@ class Invitation < ActiveRecord::Base
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
   validates_presence_of     :message
-  validates_length_of       :message, :maximum => 250
+  validates_length_of       :message, :maximum => 500
 
   validate :invitation_limit_check
   validate :email_not_in_user_table

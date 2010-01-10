@@ -142,6 +142,11 @@
                <% unless flash[:notice].blank? %>
                   <div id="notice"><%=h flash[:notice] %> </div>
                <% end %>
+               <% unless flash[:special_attention_notice].blank? %>
+                  <div id="special_attention_notice">ATTENTION<br/><%=h flash[:special_attention_notice] %> </div>
+               <% end %>
+               
+               
 
                       
               <%= yield %>

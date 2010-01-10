@@ -642,6 +642,19 @@ color: #B1B1B1;
   font-size: large;
 }
 
+#special_attention_notice {
+  border-left: 10px solid #33CCFF;
+  background-color: #FFFFFF;
+  padding: 5px;
+  line-height: 30px;
+  margin-bottom: 10px;
+
+  background-image:url('/images/stat_bg.jpg');
+  background-repeat: repeat-y;
+  background-position: top left;
+
+  font-size: large;
+}
 
 #error {
   border-left: 5px solid #CF4326;
