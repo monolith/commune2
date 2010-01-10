@@ -1,3 +1,5 @@
+ENV['GEM_PATH'] = "/usr/local/lib/ruby/gems/1.8:#{ENV['GEM_PATH']}"
+
 # Settings specified here will take precedence over those in config/environment.rb
 
 # In the development environment your application's code is reloaded on
