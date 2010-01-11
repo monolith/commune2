@@ -12,7 +12,6 @@ class Reminder < ActiveRecord::Base
     return users
   end  
   
-  
   private
   
     def self.find_users_due_for_alert

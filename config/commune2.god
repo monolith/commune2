@@ -108,25 +108,4 @@ God.watch do |w|
 end
 
 
-#God.watch do |w|
-
-#  script = "cd #{RAILS_ROOT} && RAILS_ENV=development lib/daemons/dashboard_reminder_ctl"
-#  w.name = "commune2-dashboard-reminder"
-#  w.group = "commune2"
-#  w.interval = 60.seconds
-#  w.start = "#{script} start"
-#  w.restart = "#{script} restart"
-#  w.stop = "#{script} stop"
-
-
-#  w.start_grace = 20.seconds
-#  w.restart_grace = 20.seconds
-#  
-#  w.behavior(:clean_pid_file)
-#  
-#  generic_monitoring(w, :cpu_limit => 80.percent, :memory_limit => 100.megabytes)
-
-#end
-
-
 
