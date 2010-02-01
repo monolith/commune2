@@ -13,7 +13,7 @@ html, body{
 	background-image:url('/images/green-banner.jpg');
 
   background-repeat:repeat-x;
-  height: 100%; 
+  height: 100%;
 
 }
 #site-container {
@@ -26,7 +26,7 @@ html, body{
     max-width: 1250px;
     min-width: 1000px;
 
-    border: none;  
+    border: none;
 
   }
 
@@ -38,7 +38,7 @@ html, body{
 #banner {
   position: relative;
   padding-top: 15px;
-  
+
   height: 148px;
   width: 100%;
 
@@ -53,10 +53,10 @@ html, body{
 
   width: 100%;
   height: 100%;
-  
+
   border-left: 1px solid #FFFFFF;
   letter-spacing:0px;
-  
+
 }
 
 #menu-filler {
@@ -67,22 +67,22 @@ html, body{
 }
 
 #banner-menu-ideas {
-  background: #4f391a; 
-  background:url(/images/menu_icons/ideas_icon_lg.png) center center no-repeat; 
+  background: #4f391a;
+  background:url(/images/menu_icons/ideas_icon_lg.png) center center no-repeat;
 }
 #banner-menu-projects {
-  background: #4f391a; 
-  background:url(/images/menu_icons/projects_icon_lg.png) center center no-repeat; 
+  background: #4f391a;
+  background:url(/images/menu_icons/projects_icon_lg.png) center center no-repeat;
 }
 #banner-menu-jobs {
-  background: #4f391a; 
-  background:url(/images/menu_icons/jobs_icon_lg.png) center center no-repeat; 
+  background: #4f391a;
+  background:url(/images/menu_icons/jobs_icon_lg.png) center center no-repeat;
 }
 
 #banner-menu-people {
   border-right: 1px solid #FFFFFF;
-  background: #4f391a; 
-  background:url(/images/menu_icons/people_icon_lg.png) center center no-repeat; 
+  background: #4f391a;
+  background:url(/images/menu_icons/people_icon_lg.png) center center no-repeat;
 }
 
 #banner-logo {
@@ -117,7 +117,7 @@ html, body{
 p.banner {
   margin: 7px;
 }
-a.menu-ideas, a.menu-projects, a.menu-jobs, a.menu-people, a.menu-new, a.menu-my, a.menu-watchlist, a.menu-invite, #menu-filler { 
+a.menu-ideas, a.menu-projects, a.menu-jobs, a.menu-people, a.menu-new, a.menu-my, a.menu-watchlist, a.menu-invite, #menu-filler {
   display:block;
 	color: #FFFFFF;
 	text-decoration: none;
@@ -133,7 +133,7 @@ a.menu-ideas, a.menu-projects, a.menu-jobs, a.menu-people, a.menu-new, a.menu-my
 
 }
 
-a.menu-ideas-highlight, a.menu-projects-highlight, a.menu-jobs-highlight, a.menu-people-highlight, a.menu-new-highlight, a.menu-my-highlight, a.menu-watchlist-highlight, a.menu-invite-highlight, #menu-filler-highlight { 
+a.menu-ideas-highlight, a.menu-projects-highlight, a.menu-jobs-highlight, a.menu-people-highlight, a.menu-new-highlight, a.menu-my-highlight, a.menu-watchlist-highlight, a.menu-invite-highlight, #menu-filler-highlight {
   display:block;
 	color: #FFFFFF;
 	text-decoration: none;
@@ -150,7 +150,7 @@ a.menu-ideas-highlight, a.menu-projects-highlight, a.menu-jobs-highlight, a.menu
 }
 
 
-a.banner:hover, a.menu-new:hover, a.menu-my:hover, a.menu-watchlist:hover, a.menu-invite:hover { 
+a.banner:hover, a.menu-new:hover, a.menu-my:hover, a.menu-watchlist:hover, a.menu-invite:hover {
   font-weight: bold;
   background-color: #4f391a;
   letter-spacing:0.0px;
@@ -163,7 +163,7 @@ a.banner:hover, a.menu-new:hover, a.menu-my:hover, a.menu-watchlist:hover, a.men
 
 }
 
-a.banner-highlight:hover, a.menu-new-highlight:hover, a.menu-my-highlight:hover, a.menu-watchlist-highlight:hover, a.menu-invite-highlight:hover { 
+a.banner-highlight:hover, a.menu-new-highlight:hover, a.menu-my-highlight:hover, a.menu-watchlist-highlight:hover, a.menu-invite-highlight:hover {
   font-weight: bold;
   background-color: #F4C430;
   color: #4f391a;
@@ -176,13 +176,13 @@ a.banner-highlight:hover, a.menu-new-highlight:hover, a.menu-my-highlight:hover,
 }
 
 a.menu-ideas {
-  background:url(/images/menu_icons/ideas_menu_icon_brown.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/ideas_menu_icon_brown.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #A0C943;
 }
 
 a.menu-ideas:hover {
-  background:url(/images/menu_icons/ideas_menu_icon_green.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/ideas_menu_icon_green.png) 0 0 no-repeat;
   background-color: #4f391a;
   background-position: 10px center;
   font-color: #FFFFFF;
@@ -196,13 +196,13 @@ a.menu-ideas:hover {
 }
 
 a.menu-ideas-highlight {
-  background:url(/images/menu_icons/ideas_menu_icon_green.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/ideas_menu_icon_green.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #4f391a;
 }
 
 a.menu-ideas-highlight:hover {
-  background:url(/images/menu_icons/ideas_menu_icon_brown.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/ideas_menu_icon_brown.png) 0 0 no-repeat;
   background-color: #F4C430;
   color: #4f391a;
   background-position: 10px center;
@@ -217,13 +217,13 @@ a.menu-ideas-highlight:hover {
 }
 
 a.menu-projects {
-  background:url(/images/menu_icons/projects_menu_icon_brown.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/projects_menu_icon_brown.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #A0C943;
 
 }
 a.menu-projects:hover {
-  background:url(/images/menu_icons/projects_menu_icon_green.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/projects_menu_icon_green.png) 0 0 no-repeat;
   background-color: #4f391a;
   background-position: 10px center;
   font-color: #FFFFFF;
@@ -237,13 +237,13 @@ a.menu-projects:hover {
 }
 
 a.menu-projects-highlight {
-  background:url(/images/menu_icons/projects_menu_icon_green.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/projects_menu_icon_green.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #4f391a;
 
 }
 a.menu-projects-highlight:hover {
-  background:url(/images/menu_icons/projects_menu_icon_brown.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/projects_menu_icon_brown.png) 0 0 no-repeat;
   background-color: #F4C430;
   color: #4f391a;
   background-position: 10px center;
@@ -258,13 +258,13 @@ a.menu-projects-highlight:hover {
 }
 
 a.menu-jobs {
-  background:url(/images/menu_icons/jobs_menu_icon_brown.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/jobs_menu_icon_brown.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #A0C943;
 
 }
 a.menu-jobs:hover {
-  background:url(/images/menu_icons/jobs_menu_icon_green.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/jobs_menu_icon_green.png) 0 0 no-repeat;
   background-color: #4f391a;
   background-position: 10px center;
   font-color: #FFFFFF;
@@ -278,13 +278,13 @@ a.menu-jobs:hover {
 
 
 a.menu-jobs-highlight {
-  background:url(/images/menu_icons/jobs_menu_icon_green.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/jobs_menu_icon_green.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #4f391a;
 
 }
 a.menu-jobs-highlight:hover {
-  background:url(/images/menu_icons/jobs_menu_icon_brown.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/jobs_menu_icon_brown.png) 0 0 no-repeat;
   background-color: #F4C430;
   color: #4f391a;
   background-position: 10px center;
@@ -299,13 +299,13 @@ a.menu-jobs-highlight:hover {
 
 
 a.menu-people {
-  background:url(/images/menu_icons/people_menu_icon_brown.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/people_menu_icon_brown.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #A0C943;
 
 }
 a.menu-people:hover {
-  background:url(/images/menu_icons/people_menu_icon_green.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/people_menu_icon_green.png) 0 0 no-repeat;
   background-color: #4f391a;
   background-position: 10px center;
   font-color: #FFFFFF;
@@ -318,13 +318,13 @@ a.menu-people:hover {
 }
 
 a.menu-people-highlight {
-  background:url(/images/menu_icons/people_menu_icon_green.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/people_menu_icon_green.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #4f391a;
 
 }
 a.menu-people-highlight:hover {
-  background:url(/images/menu_icons/people_menu_icon_brown.png) 0 0 no-repeat; 
+  background:url(/images/menu_icons/people_menu_icon_brown.png) 0 0 no-repeat;
   background-color: #F4C430;
   color: #4f391a;
   background-position: 10px center;
@@ -338,53 +338,53 @@ a.menu-people-highlight:hover {
 }
 
 a.menu-new {
-  background:url(/images/submenu_icons/new_submenu_icon.png) 0 0 no-repeat; 
+  background:url(/images/submenu_icons/new_submenu_icon.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #A0C943;
 
 }
 
 a.menu-new-highlight {
-  background:url(/images/submenu_icons/new_submenu_icon.png) 0 0 no-repeat; 
+  background:url(/images/submenu_icons/new_submenu_icon.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #4f391a;
 
 }
 
 a.menu-my {
-  background:url(/images/submenu_icons/my_submenu_icon.png) 0 0 no-repeat; 
+  background:url(/images/submenu_icons/my_submenu_icon.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #A0C943;
 
 }
 
 a.menu-my-highlight {
-  background:url(/images/submenu_icons/my_submenu_icon.png) 0 0 no-repeat; 
+  background:url(/images/submenu_icons/my_submenu_icon.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #4f391a;
 
 }
 
 a.menu-watchlist {
-  background:url(/images/submenu_icons/watchlist_submenu_icon.png) 0 0 no-repeat; 
+  background:url(/images/submenu_icons/watchlist_submenu_icon.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #A0C943;
 
 }
 
 a.menu-watchlist-highlight {
-  background:url(/images/submenu_icons/watchlist_submenu_icon.png) 0 0 no-repeat; 
+  background:url(/images/submenu_icons/watchlist_submenu_icon.png) 0 0 no-repeat;
   background-position: 10px center;
   background-color: #4f391a;
 
 }
 
-a.banner-no-block { 
+a.banner-no-block {
 	color: #FFFFFF;
 	text-decoration: none;
 }
 
-a.banner-no-block:hover { 
+a.banner-no-block:hover {
   color: #4f391a;
 }
 
@@ -394,7 +394,7 @@ a.banner-no-block:hover {
 
 /* left menu links */
 
-a.action_menu_edit, a.action_menu_launch_project, a.action_menu_delete, a.action_menu_stop_watching, a.action_menu_start_watching, a.action_menu_show_interest, a.action_menu_end_interest, a.action_menu_new_job, a.action_menu_send_message { 
+a.action_menu_edit, a.action_menu_launch_project, a.action_menu_delete, a.action_menu_stop_watching, a.action_menu_start_watching, a.action_menu_show_interest, a.action_menu_end_interest, a.action_menu_new_job, a.action_menu_send_message {
   display:block;
 	color: #000000;
 	text-decoration: none;
@@ -406,11 +406,11 @@ a.action_menu_edit, a.action_menu_launch_project, a.action_menu_delete, a.action
 }
 
 a.action_menu_edit{
-  background:url(/images/other_icons/edit_icon_sm.png) 0 0 no-repeat; 
+  background:url(/images/other_icons/edit_icon_sm.png) 0 0 no-repeat;
   background-position: 98% center;
 
 }
-a.action_menu_edit:hover{ 
+a.action_menu_edit:hover{
   background:url(/images/other_icons/edit_icon_sm_brown.png) 0 0 no-repeat;
   background-position: 98% center;
 
@@ -423,11 +423,11 @@ a.action_menu_edit:hover{
 }
 
 a.action_menu_launch_project{
-  background:url(/images/other_icons/projects_icon_sm.png) 0 0 no-repeat; 
+  background:url(/images/other_icons/projects_icon_sm.png) 0 0 no-repeat;
   background-position: 98% center;
 
 }
-a.action_menu_launch_project:hover{ 
+a.action_menu_launch_project:hover{
   background:url(/images/other_icons/projects_icon_sm_brown.png) 0 0 no-repeat;
   background-position: 98% center;
 
@@ -439,11 +439,11 @@ a.action_menu_launch_project:hover{
 }
 
 a.action_menu_delete{
-  background:url(/images/other_icons/delete_icon.png) 0 0 no-repeat; 
+  background:url(/images/other_icons/delete_icon.png) 0 0 no-repeat;
   background-position: 98% center;
 
 }
-a.action_menu_delete:hover{ 
+a.action_menu_delete:hover{
   background-color: #F4C430;
   /* for IE */
   filter:alpha(opacity=80);
@@ -453,11 +453,11 @@ a.action_menu_delete:hover{
 }
 
 a.action_menu_start_watching{
-  background:url(/images/other_icons/watching_icon_sm.png) 0 0 no-repeat; 
+  background:url(/images/other_icons/watching_icon_sm.png) 0 0 no-repeat;
   background-position: 98% center;
 
 }
-a.action_menu_start_watching:hover{ 
+a.action_menu_start_watching:hover{
   background:url(/images/other_icons/watching_icon_sm_brown.png) 0 0 no-repeat;
   background-position: 98% center;
 
@@ -469,11 +469,11 @@ a.action_menu_start_watching:hover{
 }
 
 a.action_menu_stop_watching{
-  background:url(/images/other_icons/remove_from_watchlist_icon.png) 0 0 no-repeat; 
+  background:url(/images/other_icons/remove_from_watchlist_icon.png) 0 0 no-repeat;
   background-position: 98% center;
 
 }
-a.action_menu_stop_watching:hover{ 
+a.action_menu_stop_watching:hover{
   background:url(/images/other_icons/remove_from_watchlist_icon_brown.png) 0 0 no-repeat;
   background-position: 98% center;
 
@@ -486,11 +486,11 @@ a.action_menu_stop_watching:hover{
 
 
 a.action_menu_show_interest{
-  background:url(/images/other_icons/interest_icon_sm.png) 0 0 no-repeat; 
+  background:url(/images/other_icons/interest_icon_sm.png) 0 0 no-repeat;
   background-position: 98% center;
 
 }
-a.action_menu_show_interest:hover{ 
+a.action_menu_show_interest:hover{
   background:url(/images/other_icons/interest_icon_sm_brown.png) 0 0 no-repeat;
   background-position: 98% center;
 
@@ -502,11 +502,11 @@ a.action_menu_show_interest:hover{
 }
 
 a.action_menu_end_interest{
-  background:url(/images/other_icons/remove_interest_icon.png) 0 0 no-repeat; 
+  background:url(/images/other_icons/remove_interest_icon.png) 0 0 no-repeat;
   background-position: 98% center;
 
 }
-a.action_menu_end_interest:hover{ 
+a.action_menu_end_interest:hover{
   background:url(/images/other_icons/remove_interest_icon_brown.png) 0 0 no-repeat;
   background-position: 98% center;
 
@@ -518,11 +518,11 @@ a.action_menu_end_interest:hover{
 }
 
 a.action_menu_new_job{
-  background:url(/images/other_icons/jobs_icon_sm.png) 0 0 no-repeat; 
+  background:url(/images/other_icons/jobs_icon_sm.png) 0 0 no-repeat;
   background-position: 98% center;
 
 }
-a.action_menu_new_job:hover{ 
+a.action_menu_new_job:hover{
   background:url(/images/other_icons/jobs_icon_sm_brown.png) 0 0 no-repeat;
   background-position: 98% center;
 
@@ -534,11 +534,11 @@ a.action_menu_new_job:hover{
 }
 
 a.action_menu_send_message{
-  background:url(/images/other_icons/send_message_icon_sm.png) 0 0 no-repeat; 
+  background:url(/images/other_icons/send_message_icon_sm.png) 0 0 no-repeat;
   background-position: 98% center;
 
 }
-a.action_menu_send_message:hover{ 
+a.action_menu_send_message:hover{
   background:url(/images/other_icons/send_message_icon_sm_brown.png) 0 0 no-repeat;
   background-position: 98% center;
 
@@ -550,7 +550,7 @@ a.action_menu_send_message:hover{
 }
 
 
-a.job-menu, a.job-menu-highlighted{ 
+a.job-menu, a.job-menu-highlighted{
   display:block;
 	color: #000000;
 	text-decoration: h1;
@@ -560,7 +560,7 @@ a.job-menu, a.job-menu-highlighted{
   padding-left: 10px;
 }
 
-a.job-menu:hover, a.job-menu-highlighted:hover{ 
+a.job-menu:hover, a.job-menu-highlighted:hover{
   background-color: #F4C430;
 	color: #4f391a;
 
@@ -601,7 +601,7 @@ color: #B1B1B1;
 
 
 #system_message {
-  border-left: 5px solid #F4C430;
+  border-left: 5px solid #3399CC;
   background-color: #FFFFFF;
   padding: 5px;
   line-height: 30px;
@@ -656,7 +656,7 @@ color: #B1B1B1;
   font-size: large;
 }
 
-#error {
+#error, #fieldWithErrors {
   border-left: 5px solid #CF4326;
   background-color: #FFFFFF;
   padding: 5px;
@@ -666,6 +666,13 @@ color: #B1B1B1;
   background-image:url('/images/stat_bg.jpg');
   background-repeat: repeat-y;
   background-position: top left;
+}
+
+div.fieldWithErrors, div.errorExplanation {
+  border-left: 5px solid #CF4326;
+  background-color: #FFFFFF;
+  padding: 5px;
+
 }
 
 #disclaimer {
@@ -710,9 +717,9 @@ background-color: #ffffff;
   filter:alpha(opacity=40);
   /* CSS3 standard */
   opacity:0.40;
-  
+
   border: 1px solid #CF4326;
- 
+
 }
 
 #job-filled{
@@ -722,7 +729,7 @@ background-color: #ffffff;
   opacity:0.60;
   margin-left: 50px;
   border: 1px solid #B1B1B1;
-   
+
 }
 
 #snippet-stat, #snippet-stat-align-right {
@@ -776,7 +783,7 @@ TD.snippet-stat{
 #show-main-container{
   position: relative;
   float: left;
-  
+
   width: 626px;
   background-image:url('/images/snippet_bg.jpg');
   background-repeat: repeat-y;
@@ -795,7 +802,7 @@ TD.snippet-stat{
   background-image:url('/images/stat_bg.jpg');
   background-repeat: repeat-y;
   background-position: top left;
-  
+
   font-size: menu;
 }
 
@@ -803,7 +810,7 @@ TD.snippet-stat{
 #show-stat {
   position:relative;
   float: left;
-  
+
   margin-left: 10px;
   padding: 10px;
   padding-top: 0px;
@@ -847,7 +854,7 @@ TD.snippet-stat{
 
 }
 #snippet_header h3{
-  color: #4f391a;  
+  color: #4f391a;
 }
 
 
@@ -990,7 +997,7 @@ input.big_button {
   width: 98%;
   margin-bottom: 5px;
   background-color: #E8E8E8;
- 
+
 }
 
 #recent-activity {
@@ -1014,3 +1021,4 @@ input.big_button {
   padding-left: 0px;
 
 }
+

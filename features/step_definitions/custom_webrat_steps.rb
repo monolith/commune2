@@ -42,6 +42,23 @@ Then /^I should not see "([^\"]*)" image$/ do |alt|
 end
 
 
+Then /^I should see a link to "([^\"]*)"$/ do |text|
+  response_body.should have_selector("a") do |element|
+    element.should contain(text)
+  end
+
+end
+
+
+Then /^the output should include "([^\"]*)"$/ do |text|
+  response.body.include?(text).should equal(true)
+end
+
+Then /^the output should not include "([^\"]*)"$/ do |text|
+  response.body.include?(text).should_not equal(true)
+end
+
+
 private
 
 # functions used by the above
@@ -56,6 +73,6 @@ def find_button_with_value(name)
   buttons = Hpricot(doc.search("[@type='submit']").to_html) # will find <input ... type=submit ....>
   button = buttons.search("[@value=#{name}]")
   # ugly code to get should to work below
-  button.empty? ? "" : name  
+  button.empty? ? "" : name
 end
 

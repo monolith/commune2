@@ -58,8 +58,10 @@ end
 Job.blueprint do
   # needs to be called with the create method below
   title { Sham.sentence }
+  compensation_type { Job.COMPENSATION_TYPES[rand(Job.COMPENSATION_TYPES.length)] }
   description { Sham.body }
   active { true }
+  external_publish_ok { true }
 #  open { true } # doesn't work, open a reserved word?... will be true be default however
 end
 
@@ -117,7 +119,7 @@ RelevantIndustry.blueprint do
   10.times {Industry.make} if Industry.all.size == 0
 
   industries = Industry.all
-  
+
   id = rand(industries.size)
   industry { industries[id] }
 end
@@ -133,7 +135,7 @@ PolymorphicGeneralSkill.blueprint do
   10.times {GeneralSkill.make} if GeneralSkill.all.size == 0
 
   skills = GeneralSkill.all
-  
+
   id = rand(skills.size)
   general_skill { skills[id] }
 end
@@ -148,14 +150,14 @@ end
 
 
 def create_user_with_associations!(attributes = {})
-  
+
   user = User.make_unsaved(attributes[:user])
   user.save(false) # false because it will not like no location
 
   # ASSOCIATIONS
   # add location
   (rand(2)+1).times { user.locations.make(attributes[:locations]) }
-  
+
   # add general skills (up to 2)
   (rand(2)+1).times { user.polymorphic_general_skills.make(attributes[:skills]) }
 
@@ -171,9 +173,9 @@ def create_idea_with_industries!(attributes = {})
   # create uses blueprint
 
   if attributes[:author] && attributes[:author][:login]
-    user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )  
+    user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )
   else
-    user = create_user_with_associations!( { :user=> attributes[:author] } )    
+    user = create_user_with_associations!( { :user=> attributes[:author] } )
   end
   idea = user.ideas.make_unsaved(attributes[:idea])
   idea.save(false) # false because it will not like no industries
@@ -188,13 +190,13 @@ end
 def create_project_with_industries!(attributes = {})
   # check if the user exists, find or create
   # create uses blueprint
-  
+
   if attributes[:author]
-    user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )  
+    user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )
   else
-    user = create_user_with_associations!   
+    user = create_user_with_associations!
   end
-  
+
   project = user.projects.make_unsaved(attributes[:project])
   if attributes[:idea]
     project.idea = Idea.find_by_title( attributes[:idea][:title] ) || create_idea_with_industries!( { :author => { :login => user.login }, :idea => { :title => attributes[:idea][:title] } } )
@@ -213,8 +215,8 @@ def create_job_with_skills!(attributes = {})
 
   # check if the user exists, find or create
   # create uses blueprint
-  
-  user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )  
+
+  user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )
 
   job = user.jobs.make_unsaved(attributes[:job])
 
@@ -236,15 +238,15 @@ end
 
 def create_job_application!(attributes = {})
   # check if these exist, find or create
-  
-  user = User.find_by_login( attributes[:applicant][:login] ) || create_user_with_associations!( { :user=> attributes[:applicant] } )  
-  
-  job = Job.find_by_title( attributes[:job][:title] ) || create_job_with_skills!( { :job=> attributes[:job], :project => attributes[:project] } )  
+
+  user = User.find_by_login( attributes[:applicant][:login] ) || create_user_with_associations!( { :user=> attributes[:applicant] } )
+
+  job = Job.find_by_title( attributes[:job][:title] ) || create_job_with_skills!( { :job=> attributes[:job], :project => attributes[:project] } )
 
   application = user.job_applications.make_unsaved(attributes[:application])
   application.project = job.project
   application.job = job
-  
+
   return application if application.save! # resaving to make sure the model works
 end
 
@@ -253,18 +255,18 @@ def create_comment!(attributes = {})
   # check if these exist, find or create
 
   if attributes[:commentator]
-    user = User.find_by_login( attributes[:commentator][:login] ) || create_user_with_associations!( { :user=> attributes[:commentator] } )  
+    user = User.find_by_login( attributes[:commentator][:login] ) || create_user_with_associations!( { :user=> attributes[:commentator] } )
   else
-    user = create_user_with_associations!  
+    user = create_user_with_associations!
   end
 
   # this code assumes that commentable has a title attributes (e.g. ideas, projects)
   # commentable is required
   commentable = eval(attributes[:commentable][:commentable_type].capitalize).find_by_title attributes[:commentable][:title] || create_on_the_fly(attributes[:commentable][:commentable_type], { :title => attributes[:commentable][:title] })
-    
+
   comment = user.comments.make_unsaved(attributes[:comment])
   comment.commentable = commentable
-  
+
   return comment if comment.save! # resaving to make sure the model works
 end
 
@@ -272,9 +274,9 @@ end
 def create_rating!(attributes = {})
   # check if these exist, find or create
   if attributes[:ratee]
-    user = User.find_by_login( attributes[:ratee][:login] ) || create_user_with_associations!( { :user=> attributes[:ratee] } )  
+    user = User.find_by_login( attributes[:ratee][:login] ) || create_user_with_associations!( { :user=> attributes[:ratee] } )
   else
-    user = create_user_with_associations!  
+    user = create_user_with_associations!
   end
 
   rated = case attributes[:rated][:class_name].capitalize
@@ -285,13 +287,13 @@ def create_rating!(attributes = {})
       Idea.find_by_title( attributes[:rated][:search_query] ) || create_idea_with_industries!( { :idea => { :title => attributes[:rated][:search_query] } } )
     when "Project"
 
-      Project.find_by_title( attributes[:rated][:search_query] ) || create_project_with_industries!( { :idea=> { :title => attributes[:rated][:search_query] } } )    
+      Project.find_by_title( attributes[:rated][:search_query] ) || create_project_with_industries!( { :idea=> { :title => attributes[:rated][:search_query] } } )
   end
-  
-  
+
+
   rating = user.ratings.make_unsaved(attributes[:rating])
   rating.scorecard = rated.scorecard
-  
+
   return rating if rating.save! # resaving to make sure the model works
 end
 
@@ -302,11 +304,11 @@ def create_icebreaker_with_author!(attributes = {})
   # create uses blueprint
 
   if attributes[:author] && attributes[:author][:login]
-    user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )  
+    user = User.find_by_login( attributes[:author][:login] ) || create_user_with_associations!( { :user=> attributes[:author] } )
   else
     user = create_user_with_associations!(:user => {:admin => true})
   end
-  
+
   icebreaker = user.icebreakers.make(attributes[:icebreaker])
 
 end
@@ -314,17 +316,17 @@ end
 def create_reminder_with_user!(attributes = {})
   # check if the user exists, find or create
   # create uses blueprint
-  
+
   if attributes[:user] && attributes[:user][:login]
-    user = User.find_by_login( attributes[:user][:login] ) || create_user_with_associations!( { :user=> attributes[:user] } )  
+    user = User.find_by_login( attributes[:user][:login] ) || create_user_with_associations!( { :user=> attributes[:user] } )
   else
-    user = create_user_with_associations!( { :user=> attributes[:user] } )    
+    user = create_user_with_associations!( { :user=> attributes[:user] } )
   end
 
   if attributes[:logon]
     user.logon.update_attributes(attributes[:logon])
   end
-  
+
   user.reminder.update_attributes(attributes[:reminder])
 
 end
@@ -338,14 +340,12 @@ def create_on_the_fly(class_name, attributes = {})
       create_user_with_associations!(attributes)
     when "Idea"
       create_idea_with_industries!(attributes)
-    when "Project"  
+    when "Project"
       create_project_with_industries!(attributes)
     when "Job"
       create_job_application!(attributes)
     else
-      eval(object).make 
+      eval(object).make
   end
 end
-
-
 

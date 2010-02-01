@@ -41,10 +41,10 @@ module ApplicationHelper
         when "jobs"
           img_path << "jobs_icon_lg.png"
         when "users", "profiles"
-          img_path << "people_icon_lg.png"        
+          img_path << "people_icon_lg.png"
       end
     end
-    
+
     if img_path.length > 0
       image_tag("menu_icons/" + img_path, :border=> 0)
     else
@@ -59,47 +59,47 @@ module ApplicationHelper
     unless current_user
       id = "not_logged_in"
     else
-    
+
       id =  case object.class.to_s
 
       when "Idea", "Project", "User"
         if object.active == false
           "snippet-inactive"
-        elsif current_user.watched_ideas.include?(object)  
+        elsif current_user.watched_ideas.include?(object)
           "snippet-watching"
         else
           "snippet"
         end
-      
+
       when "Job"
         if object.active == false
           "snippet-inactive"
-        elsif current_user.watched_ideas.include?(object)  
+        elsif current_user.watched_ideas.include?(object)
           "snippet-watching"
         elsif object.status.upcase == "FILLED"
-          "job-filled"  
+          "job-filled"
         else
           "snippet"
-        end        
+        end
       else
-        "not_mapped"      
+        "not_mapped"
       end
 
     end
-    
+
     tag("div", :id => id)
 
   end
-  
-  
+
+
   def dashboard_for(object)
     return unless current_user # no dashboard unless logged in
     dashboard = ""
-    
+
     @icons_show = false
 
     case object.class.to_s
-      
+
       when "Idea"
         if current_user.watched_ideas.include?(object)
           watching = true
@@ -112,7 +112,7 @@ module ApplicationHelper
 
           count = recent_interested_count(object)
           (dashboard << " | " << show_interested_count(count)) if count > 0
-          
+
           count = recent_projects_count(object)
           (dashboard << " | " << show_projects_count(count)) if count > 0
 
@@ -126,7 +126,7 @@ module ApplicationHelper
       when "Project"
         if current_user.watched_projects.include?(object)
           watching = true
-          
+
           count = recent_comments_count(object)
           (dashboard << " | " << show_comments_count(count)) if count > 0
 
@@ -135,10 +135,10 @@ module ApplicationHelper
 
           count = recent_interested_count(object)
           (dashboard << " | " << show_interested_count(count)) if count > 0
-          
+
           count = recent_jobs_count(object)
           (dashboard << " | " << show_jobs_count(count)) if count > 0
-          
+
           count = recent_members_count(object)
           (dashboard << " | " << show_members_count(count)) if count > 0
 
@@ -160,14 +160,14 @@ module ApplicationHelper
             dashboard << "Open"
           else
             hired = object.hired_user
-            if hired == current_user        
+            if hired == current_user
               dashboard << "You are hired!"
             else
-              dashboard << "Hired " << h(hired.login) 
+              dashboard << "Hired " << h(hired.login)
             end
           end
 
-        end      
+        end
 
       when "User"
         if current_user.watched_people.include?(object)
@@ -195,25 +195,25 @@ module ApplicationHelper
 
 
     end
-   
+
     if watching
 
-      
+
       if object.updated_since? current_user.logon.previous
-        dashboard = tag("strong") << "Updated: " << tag("/strong") << 
+        dashboard = tag("strong") << "Updated: " << tag("/strong") <<
                       time_ago_in_words(object.updated_at) << " ago" <<
                       tag("br") << dashboard
       end
-      
+
       dashboard = "No change since your last logon" if dashboard.blank?
       # return
       tag("div", :id => "dashboard") << dashboard << tag("/div")
 
     end
-  
+
   end
-  
-  
+
+
   def stats_for(object, options={})
 
     @icons_show = options[:icons_show] || true
@@ -221,9 +221,9 @@ module ApplicationHelper
     breakout = options[:breakout] || false
 
     stats = object.active ? "" : "<b style='color:#CF4326'>INACTIVE</b><hr />"
-    
+
     case object.class.to_s
-      
+
       when "Idea"
 
           stats << show_comments_count(total_comments(object)) << tag("br")
@@ -233,7 +233,7 @@ module ApplicationHelper
           if breakout
             object.interested.each do |profile|
               stats << "&nbsp;&nbsp;&nbsp;&nbsp;" << link_to(h(profile.login), user_path(profile)) << tag("br")
-            end       
+            end
           end
 
           stats << show_projects_count(active_projects(object))
@@ -243,7 +243,7 @@ module ApplicationHelper
               stats << "&nbsp;&nbsp;&nbsp;&nbsp;" << link_to(h(project.title), project_path(project)) << tag("br")
             end
           end
-      
+
       when "Project"
 
           stats << show_members_count(active_members(object)) << tag("br")
@@ -254,14 +254,14 @@ module ApplicationHelper
           if breakout
             object.interested.each do |profile|
               stats << "&nbsp;&nbsp;&nbsp;&nbsp;" << link_to(h(profile.login), user_path(profile)) << tag("br")
-            end       
+            end
           end
 
           stats << show_jobs_count(active_jobs(object)) << tag("br")
           if breakout
             object.open_jobs.each do |job|
               stats << "&nbsp;&nbsp;&nbsp;&nbsp;" << link_to(h(job.title), job_path(job)) << tag("br")
-            end       
+            end
           end
 
       when "User"
@@ -271,7 +271,7 @@ module ApplicationHelper
           stats << show_projects_count(active_projects(object)) << tag("br")
           stats << show_jobs_count(active_jobs(object))  << tag("br")
           stats << show_watchers_count(total_watchers(object))
-      
+
 
       when "Job"
           if object.status.upcase == "OPEN"
@@ -279,29 +279,29 @@ module ApplicationHelper
           elsif object.status.upcase == "FILLED"
             stats << "<b>" << object.status.downcase << "</b> <br />"
           else
-            stats << object.status.downcase << " <br />" 
+            stats << object.status.downcase << " <br />"
           end
 
           stats << show_watchers_count(total_watchers(object)) << tag("br")
           stats << show_applicants_count(object.applicants.count) << tag("br")
 
     end
-    
+
     stats
   end
-  
-  
+
+
   # TOTAL
   def total_comments(object)
     object.scorecard.total_comments_count
   end
-  
+
   def total_watchers(object)
     object.watchers_count
   end
-  
+
   def total_interested(object)
-    object.interested_count    
+    object.interested_count
   end
 
 
@@ -309,36 +309,36 @@ module ApplicationHelper
 
   def active_ideas(object)
     object.scorecard.active_ideas_count
-  end  
+  end
 
   def active_projects(object)
     object.scorecard.active_projects_count
-  end  
-  
+  end
+
   def active_jobs(object)
     object.scorecard.active_jobs_count
-  end  
- 
+  end
+
   def active_members(object)
     object.scorecard.active_members_count
-  end  
+  end
 
   # RECENT (since previous logon)
   # user should be logged in as current_user
   # initial check here performed in dashboard method, so not checked here
-  
-  def recent_comments_count(object) 
+
+  def recent_comments_count(object)
     object.comments_since current_user.logon.previous
   end
-  
+
   def recent_watchers_count(object)
     object.watchers_since current_user.logon.previous
   end
-  
+
   def recent_interested_count(object)
     object.interested_since current_user.logon.previous
   end
-  
+
   def recent_projects_count(object)
     object.projects_since current_user.logon.previous
   end
@@ -354,10 +354,10 @@ module ApplicationHelper
   def recent_ideas_count(object)
     object.ideas_since current_user.logon.previous
   end
-  
+
   # END RECENT
-  
-    
+
+
   # START DISPLAY (show)
   def table_this(left, right)
    width_left=''
@@ -367,16 +367,16 @@ module ApplicationHelper
       left = right
       right = tmp
       width_left="width='30'"
-      
+
     else
       width_right="width='30'"
-    
+
     end
 
       "<table border='0' cellspacing='0' cellpadding='0' align='right' width='100%'><tr><td valign='center' align='#{@icons_side}' #{ width_left}>" << left << "</td><td valign='center' align='#{@icons_side}' #{ width_right}>" << right << "</td></tr></table>"
 
   end
-  
+
   def show_comments_count(count)
     if @icons_show
       table_this(pluralize(count, "comment"), image_tag("other_icons/comment_icon_sm.png", :border => 0))
@@ -396,7 +396,7 @@ module ApplicationHelper
   def show_interested_count(count)
     if @icons_show
       table_this(count.to_s + " interested", image_tag("other_icons/interest_icon_sm.png", :border => 0))
-    else      
+    else
       count.to_s + " interested"
     end
   end
@@ -408,7 +408,7 @@ module ApplicationHelper
       pluralize(count, "project")
     end
   end
-  
+
   def show_members_count(count)
     if @icons_show
       table_this(pluralize(count, "member"), image_tag("other_icons/member_icon_sm.png", :border => 0))
@@ -432,7 +432,7 @@ module ApplicationHelper
       pluralize(count, "idea")
     end
   end
-  
+
   def show_applicants_count(count)
     if @icons_show
       table_this(pluralize(count, "applicants"), image_tag("other_icons/applicants_icon_sm.png", :border => 0))
@@ -440,9 +440,9 @@ module ApplicationHelper
       pluralize(count, "applicants")
     end
   end
-  
-  
-  
+
+
+
   def show_description(object)
     if object.active
       description  = h(object.description[0..150])
@@ -453,11 +453,11 @@ module ApplicationHelper
     else
       "<i>Inactive " << object.class.to_s.downcase << "...</i>"
     end
-    
+
   end
-  
-  
-  
+
+
+
   def button_to_delete_if_allowed(object)
     if current_user.admin?
 
@@ -469,9 +469,9 @@ module ApplicationHelper
 #                  object.class.to_s.downcase + "?"
 
 #      "<hr>" << button
-      
-      
-      
+
+
+
       link_to("delete " + object.class.to_s.downcase,
                 polymorphic_path(object),
                 :id => "delete",
@@ -481,15 +481,15 @@ module ApplicationHelper
               )
     end
   end
-  
+
   def show_recent
     ideas     = Idea.recent(3)      || []
     projects  = Project.recent(3)   || []
     jobs      = Job.recent(3)       || []
     people    = User.recent(3)      || []
-    
+
     html =[]
-    
+
     if ideas.size > 0
       html << "<h2>New Ideas</h2><h3>"
       ideas.each do |idea|
@@ -497,7 +497,7 @@ module ApplicationHelper
         html << " || " unless idea == ideas.last
       end
       html << "</h3>"
-    end    
+    end
 
     if projects.size > 0
       html << "<h2>New Projects</h2><h3>"
@@ -506,7 +506,7 @@ module ApplicationHelper
         html << " || " unless project == projects.last
       end
       html << "</h3>"
-    end    
+    end
 
     if jobs.size > 0
       html << "<h2>New Jobs</h2><h3>"
@@ -515,7 +515,7 @@ module ApplicationHelper
         html << " || " unless job == jobs.last
       end
       html << "</h3>"
-    end    
+    end
 
     if people.size > 0
       html << "<h2>New People</h2><h3>"
@@ -524,14 +524,14 @@ module ApplicationHelper
         html << " || " unless person == people.last
       end
       html << "</h3>"
-    end    
-    
+    end
+
     if html == []
       html = "There is no recent activity"
     end
-        
+
     html
-    
+
   end
 
 
@@ -546,8 +546,8 @@ module ApplicationHelper
       counts = current_user.dashboard_stats
 
       mystuff = counts[:mystuff]
-      
-      
+
+
       mycount = mystuff[:totals][:recent_comments] + mystuff[:totals][:recent_watching] +
                 mystuff[:totals][:recent_interested] + mystuff[:totals][:recent_projects] + mystuff[:totals][:recent_applications]
 
@@ -555,9 +555,9 @@ module ApplicationHelper
       my_html =""
       if mycount > 0
 
-        my_html = "<div id='dashboard-my'>"        
+        my_html = "<div id='dashboard-my'>"
         my_html << "<table border='0' cellspacing='0' cellpadding='0' width='100%' height='100%'><tr><td width='30' valign='center' align='center' bgcolor='#A0C943'>"
-        my_html << image_tag("submenu_icons/my_submenu_icon.png", :border=> 0, :title => "My Stuff", :alt => "Dashboard - My Stuff") + "</td><td valign='center' align='left'>&nbsp;" 
+        my_html << image_tag("submenu_icons/my_submenu_icon.png", :border=> 0, :title => "My Stuff", :alt => "Dashboard - My Stuff") + "</td><td valign='center' align='left'>&nbsp;"
         my_html << " Comments: <b>" + mystuff[:totals][:recent_comments].to_s + "</b> |" if mystuff[:totals][:recent_comments] > 0
         my_html << " Watchers: <b>" + mystuff[:totals][:recent_watching].to_s + "</b> |" if mystuff[:totals][:recent_watching] > 0
         my_html << " Interested: <b>" + mystuff[:totals][:recent_interested].to_s + "</b> |" if mystuff[:totals][:recent_interested] > 0
@@ -565,32 +565,32 @@ module ApplicationHelper
         my_html << " Job Applications: <b>" + mystuff[:totals][:recent_applications].to_s + "</b> |" if mystuff[:totals][:recent_applications] > 0
         my_html << "</td></tr></table></div>"
       end
-      
-      
+
+
       watching = counts[:watching]
-   
-      
+
+
       watch_html =""
       if watching[:totals][:recent_ideas] + watching[:totals][:recent_projects] + watching[:totals][:recent_jobs]> 0
 
         watch_html = "<div id='dashboard-watchlist'>"
         watch_html << "<table border='0' cellspacing='0' cellpadding='0' width='100%' height='100%'><tr><td width='30' valign='center' align='center' bgcolor='#A0C943'>"
-        watch_html << image_tag("submenu_icons/watchlist_submenu_icon.png", :border=> 0, :title => "Watchlist", :alt => "Dashboard - Watchlist") + "</td><td valign='center' align='left'>&nbsp;" 
-              
+        watch_html << image_tag("submenu_icons/watchlist_submenu_icon.png", :border=> 0, :title => "Watchlist", :alt => "Dashboard - Watchlist") + "</td><td valign='center' align='left'>&nbsp;"
+
         watch_html << " Ideas: <b>" + watching[:totals][:recent_ideas].to_s + "</b> |" if watching[:totals][:recent_ideas] > 0
         watch_html << " Projects: <b>" + watching[:totals][:recent_projects].to_s + "</b> |" if watching[:totals][:recent_projects] > 0
         watch_html << " Jobs: <b>" + watching[:totals][:recent_jobs].to_s + "</b> |" if watching[:totals][:recent_jobs] > 0
 
         watch_html << "</td></tr></table></div>"
       end
-         
+
       if my_html.length + watch_html.length > 0
         "<h1>DASHBOARD</h1><div id=\"dashboard-container\">" + my_html + watch_html + "</div>"
       end
-      
-      
+
+
     end
-  end    
-  
-  
+  end
+
 end
+

@@ -4,7 +4,8 @@ class Job < ActiveRecord::Base
   validates_presence_of     :description
   validates_presence_of     :title
   validates_presence_of     :general_skills, :message => "error: you must select at least one general skill"
- 
+  validates_presence_of     :compensation_type
+
   validates_size_of         :title, :maximum => 100
   validates_size_of         :general_skills, :maximum => 5, :message => "error: you cannot select more than 5 general skills"
 
@@ -12,8 +13,8 @@ class Job < ActiveRecord::Base
   belongs_to  :project
   has_many    :job_applications, :dependent => :destroy
   has_many    :applicants, :through => :job_applications, :source => :user
-  has_one     :hired_user, :through => :job_applications, :source => :user, :conditions => "job_applications.hired" 
-  has_many    :users_with_offers, :through => :job_applications, :source => :user, :conditions => "job_applications.offered" 
+  has_one     :hired_user, :through => :job_applications, :source => :user, :conditions => "job_applications.hired"
+  has_many    :users_with_offers, :through => :job_applications, :source => :user, :conditions => "job_applications.offered"
 
   has_many    :polymorphic_general_skills, :as => :object, :dependent => :destroy
   has_many    :general_skills, :through => :polymorphic_general_skills
@@ -30,8 +31,10 @@ class Job < ActiveRecord::Base
   attr_accessible :title,
                   :description,
                   :active,
-                  :project_id
-                  
+                  :project_id,
+                  :compensation_type,
+                  :external_publish_ok
+
   def self.get(conditions, order, page)
      paginate :include => [:user, :project],
               :per_page => 10, :page => page,
@@ -71,28 +74,32 @@ class Job < ActiveRecord::Base
 
   def general_skills_string
       ind = String.new
-      self.general_skills.each do |skill| 
+      self.general_skills.each do |skill|
         ind << " " << skill.name << " |"
-      end            
+      end
       ind.chop.strip
   end
 
 
   def self.recent(how_many = 3) # default is 3
     # this is a class method
-    # usage => Idea.recent(5)
-    
+    # usage => Job.recent(5)
+
     find :all,  :limit => how_many.to_i, :include => :user,
                 :conditions => 'jobs.active = true and jobs.open = true and users.activation_code is Null and users.active = true',
                 :order => "jobs.created_at DESC"
-  end    
+  end
 
+
+  def self.COMPENSATION_TYPES
+    ["Fun, but no pay (volunteer)", "You help me, I help you", "Freelance", "Salary", "Equity", "Depends"]
+  end
 
   private
 
   # THE BELOW COUNTERS ARE MEANT TO TRACK OPEN JOBS POSTED BY USER
   # AS WELL AS OPEN JOBS FOR A PROJECT
-  # NOTE: whether someone has been hired
+  # whether someone has been hired
   # is taken care of in the job_application model (that users project count, and project's member count)
 
   def custom_counter_cache_after_create
@@ -102,7 +109,7 @@ class Job < ActiveRecord::Base
       increment_active_job_counters
     end
   end
-  
+
   def custom_counter_cache_before_update
     if active_changed? or open_changed?
       if active and open
@@ -112,11 +119,11 @@ class Job < ActiveRecord::Base
       else
         # either became inactive or closed
         # if closed, someone was accepted the job (was hired)
-        decrement_active_job_counters      
+        decrement_active_job_counters
       end
     end
   end
-  
+
   def custom_counter_cache_before_destroy
     if active and open
       # this was counted in user's idea counter
@@ -136,14 +143,14 @@ class Job < ActiveRecord::Base
 
   def decrement_active_job_counters
     # job poster
-    user.scorecard.decrement! :active_jobs_count        
-    
+    user.scorecard.decrement! :active_jobs_count
+
     if project # for future, in case job is created without idea
       # project
       project.scorecard.decrement! :active_jobs_count
     end
   end
-  
+
   def log
     logger.error "\n\n!!!DELETED JOB\n"
     logger.error self.attributes.to_yaml
@@ -163,7 +170,8 @@ class Job < ActiveRecord::Base
     has user_id, created_at, watchers_count
 
     where "jobs.active = true and jobs.open = true" # search only active ideas
-    set_property :delta => true 
+    set_property :delta => true
   end
 
 end
+

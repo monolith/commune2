@@ -22,14 +22,23 @@
     </div>
 
     <div id="show-main-container">
-    
+
       <h1><%= image_tag("/images/other_icons/watched_item_icon_yellow.png", :border => 0, :title => "On Watchlist") if current_user.watched_jobs.include?(@job) %> <%=h @job.title %></h1>
 
       <p>
         Posted: <%= time_ago_in_words(@job.created_at) %> ago
         <% if @job.created_at < @job.updated_at %>
           | Updated: <%= time_ago_in_words(@job.updated_at) %> ago
-        <% end %>  
+        <% end %>
+
+        <% if @job.status == "Open" and @job.project and @job.project.members.include? current_user %>
+          <br/>
+          <% if @job.external_publish_ok %>
+            <div id="special_attention_notice">Published externally (i.e. <a href=http://www.indeed.com target=_blank>indeed.com</a>), edit job if you want to change this</div>
+          <% else %>
+            This job is posted on this website only (edit the job to publish externally).
+          <% end %>
+        <% end %>
       </p>
 
       <% if @job.hired_user %>
@@ -37,9 +46,16 @@
         <%= render :partial => "users/user", :object => @job.hired_user %>
       <% end %>
 
+      <p><b>Compensation type</b><br />
+      <%=h @job.compensation_type %></p>
 
       <p><b>General skills</b><br />
       <%=h @job.general_skills_string %></p>
+
+      <% if @job.project %>
+        <p><b>Relevant industries (based on project - see below)</b><br />
+        <%= @job.project.industries_string %></p>
+      <% end %>
 
       <p><b>Details</b><br />
       <%= simple_format(h(strip_tags(@job.description))) %></p>
@@ -62,8 +78,8 @@
 
                 <div id="snippet_header"><h3>&nbsp;<%=h application.user.login %></h3></div>
                   <p><%= simple_format sanitize(strip_tags(application.message)) %></p>
-         
-         
+
+
                       <% if @job.status == "Open" %>
                         <% form_for application do |f| -%>
                           <%= f.hidden_field :offered, :value => "true" %>
@@ -79,7 +95,7 @@
                           <%= f.hidden_field :offered, :value => "false" %>
                           <%= submit_tag "Withdraw Offer" %>
                         <% end %>
-                      <% end %>  
+                      <% end %>
 
                 <%= button_to "Send Message", new_user_message_path(application.user), :method => :get %>
 
@@ -108,7 +124,7 @@
                 <p><%= submit_tag "Accept Job" %></p>
             <% end %>
 
-          
+
         <% else %>
 
             <p><b>You applied for this job on <%= time_ago_in_words(@application.created_at) %> ago.</b></p>
@@ -117,7 +133,7 @@
              <%= f.text_area :message, :rows => 10, :cols => 60 %>
               <p><%= submit_tag 'Update Job Application' %></p>
             <% end %>
-            
+
             <%= button_to "Delete Application", job_application_path(@application), :confirm => "Are you sure you want to delete your application?", :method => :delete %>
 
 
@@ -137,7 +153,7 @@
         <% end %>
 
       <% end %>
-      
+
 
 
 

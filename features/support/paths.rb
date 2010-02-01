@@ -7,10 +7,10 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-    
+
     when /the homepage/
       '/'
-      
+
     when /the registration page/
       new_user_path
 
@@ -22,7 +22,7 @@ module NavigationHelpers
 
     when /redirected to login page/
       new_session_path
-    
+
     when /^"(.*)'s" profile$/
       user_path($1)
 
@@ -40,12 +40,15 @@ module NavigationHelpers
 
     when /ideas page/
       ideas_path
-      
+
     when /projects page/
       projects_path
 
     when /jobs page/
       jobs_path
+
+    when /indeed job feed page/
+      jobs_indeed_xml_feed_path
 
     when /profiles page/
       users_path
@@ -58,7 +61,7 @@ module NavigationHelpers
 
     when /new idea page/
       new_idea_path
-  
+
     when /new project page/
       new_project_path
 
@@ -67,7 +70,7 @@ module NavigationHelpers
 
     when /new invitation page/
       new_invitation_path
-  
+
     when /view "(.*)" idea/
       idea = Idea.find_by_title $1
       idea_path(idea)
@@ -82,11 +85,19 @@ module NavigationHelpers
       job = Job.find_by_title $1
       job_path(job)
 
+    when /"([^\"]*)" job page$/
+      job = Job.find_by_title $1
+      job_path(job)
+
+    when /view "([^\"]*)" job through public preview$/
+      job = Job.find_by_title $1
+      job_public_preview_path(job)
+
 
     when /new job for "(.*)" project$/
       project = Project.find_by_title $1
       new_job_path(:project_id => project.id)
-    
+
     when /edit "(.*)" idea$/
       idea = Idea.find_by_title $1
       edit_idea_path(idea)
@@ -98,8 +109,8 @@ module NavigationHelpers
     when /edit "([^\"]*)" job$/
       job = Job.find_by_title $1
       edit_job_path(job)
-      
-    
+
+
     # Add more mappings here.
     # Here is a more fancy example:
     #
@@ -114,3 +125,4 @@ module NavigationHelpers
 end
 
 World(NavigationHelpers)
+

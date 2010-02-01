@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100109221218) do
+ActiveRecord::Schema.define(:version => 20100131023436) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
@@ -115,16 +115,18 @@ ActiveRecord::Schema.define(:version => 20100109221218) do
   add_index "job_applications", ["user_id"], :name => "index_job_applications_on_user_id"
 
   create_table "jobs", :force => true do |t|
-    t.boolean  "active",                        :default => true, :null => false
-    t.integer  "user_id",                                         :null => false
+    t.boolean  "active",                             :default => true,  :null => false
+    t.integer  "user_id",                                               :null => false
     t.integer  "project_id"
-    t.string   "title",          :limit => 100,                   :null => false
+    t.string   "title",               :limit => 100,                    :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "delta"
-    t.integer  "watchers_count",                :default => 0
-    t.boolean  "open",                          :default => true
+    t.integer  "watchers_count",                     :default => 0
+    t.boolean  "open",                               :default => true
+    t.text     "compensation_type",                                     :null => false
+    t.boolean  "external_publish_ok",                :default => false, :null => false
   end
 
   add_index "jobs", ["active"], :name => "index_jobs_on_active"
@@ -163,10 +165,10 @@ ActiveRecord::Schema.define(:version => 20100109221218) do
   add_index "logons", ["user_id"], :name => "index_logons_on_user_id", :unique => true
 
   create_table "messages", :force => true do |t|
-    t.integer  "from_id",                   :null => false
-    t.integer  "to_id",                     :null => false
+    t.integer  "from_id",                  :null => false
+    t.integer  "to_id",                    :null => false
     t.string   "subject",    :limit => 50
-    t.text     "body",       :limit => 255
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

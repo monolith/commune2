@@ -8,7 +8,7 @@
 <!-- if IE6 or less, this is needed to get PNG's to work -->
 <!--[if lt IE 7]>
  <%= javascript_include_tag 'unitpngfix.js' %>
-<![endif]--> 
+<![endif]-->
 
   </head>
   <body>
@@ -20,19 +20,19 @@
 
 
 
-          <div id="banner">    
+          <div id="banner">
 
             <!-- banner table container -->
             <table border="0" cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td valign="top">
-                 
+
                   <span id="banner-logo">
                     <%= link_to image_tag("c2_banner_logo_brown.png", :border => 0), root_path %>
 
                     <table border="0" cellspacing="0" cellpadding="0" width="100%">
                       <tr>
-                        <td valign="bottom" align="left" height="90">                 
+                        <td valign="bottom" align="left" height="90">
                           <%= section_icon %>
                         </td>
                         <td valign="top">
@@ -45,17 +45,17 @@
                   </span>
                 </td>
 
-            
-            
+
+
             <% if logged_in? and request.path_parameters[:controller] != "user" %>
 
                 <td valign="top" width="140">
-              
+
                   <span id="banner-menu-ideas">
                     <%= link_to "ideas", ideas_path, :class => menu_link_class("ideas", "ideas") %>
-                    <%= link_to "post new", new_idea_path, :class => menu_link_class("ideas", "new") %>                    
+                    <%= link_to "post new", new_idea_path, :class => menu_link_class("ideas", "new") %>
                     <%= link_to "watchlist", watchlist_ideas_path, :class => menu_link_class("ideas", "watchlist") %>
-                    <%= link_to "my ideas", my_ideas_path, :class => menu_link_class("ideas", "my") %>                    
+                    <%= link_to "my ideas", my_ideas_path, :class => menu_link_class("ideas", "my") %>
                   </span>
                 </td>
                 <td valign="top" width="155">
@@ -80,31 +80,31 @@
                 </td>
                 <td valign="top" width="135">
 
- 
+
                   <span id="banner-menu-people">
                     <%= link_to "people", users_path, :class => menu_link_class("users", "people") %>
                     <%= link_to "invite", new_invitation_path, :class => menu_link_class("users", "new") %>
                     <%= link_to "watchlist", watchlist_people_path, :class => menu_link_class("users", "watchlist") %>
                     <%= link_to "my profile", edit_user_path(current_user), :class => menu_link_class("users", "my") %>
 
-                  </span>             
-                  
+                  </span>
+
                 </td>
-           
-           
+
+
            <% else %>
-              <td>           
+              <td>
                  <h1 style="text-transform: none;">Share Ideas. Learn. Collaborate. Build. Change the World.</h1>
               </td>
           <% end %>
-          <% if logged_in? %>      
+          <% if logged_in? %>
                 <td valign="top">
                   <span id="banner-search">
                         <% form_tag searches_path, :method => :get do %>
                         <%= text_field_tag :search, params[:search] %>
                         <%= submit_tag "Search", :name => nil %>
                         <% end %>
-        
+
                     <p class="banner"> &nbsp; </p>
                     <p class="banner">logged in as: <%= link_to current_user.login, edit_user_path(current_user), :class=> "banner-no-block" %> (<%= link_to "logout", logout_path, :class => "banner-no-block" %>)</p>
 
@@ -126,13 +126,13 @@
 
       <!--[if lt IE 7]>
       <div style='border: 5px solid #CF4326; background: #FEEFDA; text-align: center; clear: both; height: 75px; position: relative;'>    <div style='position: absolute; right: 3px; top: 3px; font-family: courier new; font-weight: bold;'><a href='#' onclick='javascript:this.parentNode.parentNode.style.display="none"; return false;'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-cornerx.jpg' style='border: none;' alt='Close this notice'/></a></div>    <div style='width: 640px; margin: 0 auto; text-align: left; padding: 0; overflow: hidden; color: black;'>      <div style='width: 75px; float: left;'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-warning.jpg' alt='Warning!'/></div>      <div style='width: 275px; float: left; font-family: Arial, sans-serif;'>        <div style='font-size: 16px; font-weight: bold; margin-top: 12px; '>You are using an outdated browser</div>        <div style='font-size: 12px; margin-top: 6px; line-height: 12px;'>For a better experience using this site, please upgrade to a modern web browser.</div>      </div>      <div style='width: 75px; float: left;'><a href='http://www.firefox.com' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-firefox.jpg' style='border: none;' alt='Get Firefox 3.5'/></a></div>      <div style='width: 75px; float: left;'><a href='http://www.browserforthebetter.com/download.html' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-ie8.jpg' style='border: none;' alt='Get Internet Explorer 8'/></a></div>      <div style='width: 73px; float: left;'><a href='http://www.apple.com/safari/download/' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-safari.jpg' style='border: none;' alt='Get Safari 4'/></a></div>      <div style='float: left;'><a href='http://www.google.com/chrome' target='_blank'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-chrome.jpg' style='border: none;' alt='Get Google Chrome'/></a></div>    </div>  </div>
-      
+
       <![endif]-->
 
 
             <div id="content">
 
-              <div id="system_message">Please note that this website is still under test.  You can help us by playing with it!</div>
+              <div id="system_message">Please note that this website is still a prototype.  But it is real, it works, and you can help us by using it!</div>
 
                <% unless flash[:error].blank? %>
                  <div id="error"><%=h flash[:error] %> </div>
@@ -143,10 +143,10 @@
                <% unless flash[:special_attention_notice].blank? %>
                   <div id="special_attention_notice">ATTENTION<br/><%=h flash[:special_attention_notice] %> </div>
                <% end %>
-               
-               
 
-                      
+
+
+
               <%= yield %>
 
             </div>
@@ -156,9 +156,9 @@
       </tr>
       <tr> <!-- content table container -->
         <td valign="bottom">
-        
+
           <div id="disclaimer">
-            <p>&copy; 2009 Commune2.com. A social networking enterprise.
+            <p>&copy; 2009-<%= Time.now.year %> Commune2.com. A social networking enterprise.
             Owned by <a href=http://www.bisonpeak.com>Bison Peak Corporation</a>.  All rights reserved.</p>
           </div>
 
@@ -186,3 +186,4 @@
 </html>
 
 <% flash.discard %>
+

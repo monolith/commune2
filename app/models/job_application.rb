@@ -2,8 +2,8 @@ class JobApplication < ActiveRecord::Base
   belongs_to :user
   belongs_to :job
   belongs_to :project
-  
-  validates_presence_of     :user  
+
+  validates_presence_of     :user
   validates_presence_of     :job
 
   validates_presence_of     :message
@@ -47,7 +47,7 @@ class JobApplication < ActiveRecord::Base
 
   # THE BELOW COUNTERS ARE MEANT TO TRACK OPEN JOBS POSTED BY USER
   # AS WELL AS OPEN JOBS FOR A PROJECT
-  # NOTE: whether someone has been hired
+  # whether someone has been hired
   # is taken care of in the job_application model
 
   def custom_counter_cache_after_create
@@ -55,7 +55,7 @@ class JobApplication < ActiveRecord::Base
       update_counters_for_new_hire
     end
   end
-  
+
   def custom_counter_cache_before_update
     if self.hired_changed? and user.active # only counting active users in counter
       if hired
@@ -66,8 +66,8 @@ class JobApplication < ActiveRecord::Base
         update_counters_for_reopened_position
        end
     end
-  end 
-  
+  end
+
   def custom_counter_cache_before_destroy
     if hired and user.active # if the destroyed applicaction is of a hired user who is active
       update_counters_for_reopened_position
@@ -91,7 +91,7 @@ class JobApplication < ActiveRecord::Base
 
   def update_counters_for_reopened_position
     # in case the person held more than one position on the project,
-    # this check is done 
+    # this check is done
     unless project.filled_positions.count(:conditions => "user_id = " + user.id.to_s) > 1
       # these counters should be decremented only if the person
       # does not hold another position on the project
@@ -102,11 +102,11 @@ class JobApplication < ActiveRecord::Base
   end
 
   def increment_user_projects_counter
-    user.scorecard.increment! :active_projects_count            
+    user.scorecard.increment! :active_projects_count
   end
 
   def decrement_user_projects_counter
-    user.scorecard.decrement! :active_projects_count            
+    user.scorecard.decrement! :active_projects_count
   end
 
   def increment_project_members_counter
@@ -120,16 +120,17 @@ class JobApplication < ActiveRecord::Base
   end
 
   # update job open status
-  
+
   def update_job_status
     if hired_changed? and job
       if hired
-        self.job.update_attribute :open, false      
+        self.job.update_attribute :open, false
       else
-        self.job.update_attribute :open, true      
+        self.job.update_attribute :open, true
       end
     end
   end
 
 
 end
+

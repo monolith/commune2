@@ -1,11 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :icebreakers
 
-  
-  map.root :controller => 'user', :action => 'index' # should change this
-  map.resources :episodes # should remove this
 
-  
+  map.root :controller => 'user', :action => 'index' # should change this
+
+
   map.resource :session
   map.logout '/logout/', :controller => 'sessions', :action => 'destroy'
   map.login '/login/', :controller => 'sessions', :action => 'new'
@@ -22,13 +21,13 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-  # try adding as nested resource to user 
+  # try adding as nested resource to user
   map.my_ideas '/my/ideas/', :controller => 'ideas', :action => 'my_ideas'
   map.post_idea_comment '/post/idea/comment/', :controller => 'ideas', :action => 'add_comment'
 
   map.my_projects '/my/projects/', :controller => 'projects', :action => 'my_projects'
   map.post_project_comment '/post/project/comment/', :controller => 'projects', :action => 'add_comment'
- 
+
   map.my_jobs '/my/jobs/', :controller => 'jobs', :action => 'my_jobs'
   map.open_job_postings '/jobs/open_job_postings/', :controller => 'jobs', :action => 'open_job_postings'
   map.job_posting_history '/jobs/job_posting_history/', :controller => 'jobs', :action => 'job_posting_history'
@@ -36,8 +35,9 @@ ActionController::Routing::Routes.draw do |map|
   map.applied_for_job_history '/jobs/applied_for_job_history/', :controller => 'jobs', :action => 'applied_for_job_history'
   map.current_positions '/jobs/current_positions/', :controller => 'jobs', :action => 'current_positions'
   map.active_current_positions '/jobs/active_current_positions/', :controller => 'jobs', :action => 'active_current_positions'
+  map.jobs_indeed_xml_feed '/jobs/indeed_feed', :controller => 'jobs', :action => 'indeed_feed'
+  map.job_public_preview '/jobs/public_preview/:id', :controller => 'jobs', :action => 'public_preview'
 
- 
   # need to RESTify these
   map.remove_location '/remove_location/', :controller => 'users', :action => 'remove_location'
 
@@ -64,11 +64,11 @@ ActionController::Routing::Routes.draw do |map|
                 :interests,
                 :invitations,
                 :comments
-                
+
   map.resources :users, :has_many => [:messages, :comments]
   map.resources :ideas, :has_many => [:projects, :comments]
   map.resources :projects, :has_many => [:jobs, :comments]
-  
+
   map.resources :searches
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -114,3 +114,4 @@ ActionController::Routing::Routes.draw do |map|
   #    map.connect ':controller/:action/:id'
   #    map.connect ':controller/:action/:id.:format'
 end
+
