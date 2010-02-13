@@ -103,7 +103,6 @@ Given /^my email is "([^\"]*)"$/ do |email|
   set_my_email email
 end
 
-
 Then /^"([^\"]*)" should receive an email with "([^\"]*)" in subject$/ do |email_address, subject|
   # there are several tings happening here:
   # first, unread emails are found for given address
@@ -134,7 +133,6 @@ Then /^"([^\"]*)" should not receive an email with "([^\"]*)" in subject$/ do |e
 end
 
 
-
 Then /^I should receive an email with "([^\"]*)" in subject$/ do |subject|
   # logic almost same as above
   emails = unread_emails_for(current_email_address).collect { |e| e if e.subject =~ Regexp.new(subject) }.compact
@@ -146,6 +144,14 @@ end
 When /^(.*) opens? this email$/ do |ignore|
   set_current_email(received_with_subject)
 end
+When /^I open the email with "([^\"]*)" in subject$/ do |subject|
+  open_email(current_email_address, :with_subject => subject)
+end
+
+When /^I open the email sent to "([^\"]*)" with "([^\"]*)" in subject$/ do |address, subject|
+  open_email(address, :with_subject => subject)
+end
+
 
 Then /^(.*) should see "([^\"]*)" in this email$/ do |ignore, text|
   current_email.body.should =~ Regexp.new(text)

@@ -11,9 +11,10 @@ class JobApplication < ActiveRecord::Base
 
   # the logic for these counters should be looked at in tandem with those in the job model
   before_create :custom_counter_cache_after_create
+  after_create :notify_job_poster_of_new_application
   before_update :custom_counter_cache_before_update
   before_destroy :custom_counter_cache_before_destroy, :update_job_status
-  after_save :update_job_status
+  after_save :update_job_status, :notify_change_in_status
 
   def allowed_to_update_application?(user)
     self.user == user ? true : false
@@ -42,6 +43,7 @@ class JobApplication < ActiveRecord::Base
       return false
     end
   end
+
 
   private
 
@@ -131,6 +133,31 @@ class JobApplication < ActiveRecord::Base
     end
   end
 
+  def notify_job_poster_of_new_application
+    # do not send unless a job exists
+    # do not send if the applicant is also the job poster
+    # do not sent if the job is not open or not active
+    if job and user != job.user and job.status.downcase == "open" # if true then it is open and also active
+      MailingsWorker.async_new_job_application_notification(self)
+    end
+  end
 
+  def notify_change_in_status
+    # notify applicant when an offer is made
+    if offered_changed? and offered == true and job
+      notify_applicant_of_job_offer unless job.user == user # no point sending if the job poster and applicants are same people
+    elsif hired_changed? and hired == true and job
+      # notify job poster when applicant accepts offer
+      notify_job_poster_of_accepted_offer unless job.user == user # no point sending if the job poster and applicants are same people
+    end
+  end
+
+  def notify_applicant_of_job_offer
+    MailingsWorker.async_notify_applicant_of_job_offer(self)
+  end
+
+  def notify_job_poster_of_accepted_offer
+    MailingsWorker.async_notify_job_poster_of_accepted_offer(self)
+  end
 end
 

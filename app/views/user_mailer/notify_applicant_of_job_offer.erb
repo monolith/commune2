@@ -1,0 +1,7 @@
+<%=h @job_application.user.name.gsub(/\b\w/){$&.upcase} %>, you received an offer for the <%=h @job_application.job.title %> job. This is for the <%= @job_application.job.project.title %> project.  Congratulations!
+
+Log in to accept...
+http://<%=h @domain %><%= job_path(@job_application.job) %>
+
+(Do not reply to this email address)
+

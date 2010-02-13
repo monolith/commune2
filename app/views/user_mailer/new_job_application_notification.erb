@@ -1,0 +1,11 @@
+<%=h @job_application.job.user.name.gsub(/\b\w/){$&.upcase} %>, you have a new applicant for <%=h @job_application.job.title %> job. This is for the <%= @job_application.job.project.title %> project.
+
+Here's the message from the applicant:
+
+<%=h @job_application.message %>
+
+Log in for more...
+http://<%=h @domain %><%= job_path(@job_application.job) %>
+
+(Do not reply to this email address)
+

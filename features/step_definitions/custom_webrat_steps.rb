@@ -58,6 +58,9 @@ Then /^the output should not include "([^\"]*)"$/ do |text|
   response.body.include?(text).should_not equal(true)
 end
 
+Then /^I should have (\d+) emails?$/ do |n|
+  mailbox_for(current_email_address).size.should == n.to_i
+end
 
 private
 

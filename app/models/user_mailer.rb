@@ -2,9 +2,9 @@ class UserMailer < ActionMailer::Base
   def dashboard_alert(user)
     setup_email(user)
     @subject    += 'Dashboard reminder'
-    
+
   end
-    
+
   def signup_notification(user)
     setup_email(user)
     @subject    += 'Please activate your new account'
@@ -57,7 +57,39 @@ class UserMailer < ActionMailer::Base
     @body[:message]   = msg.body
     @body[:who]       = who
     @body[:profile]   = msg.from
-    
+
+  end
+
+  def new_job_application_notification(job_application)
+    @recipients = job_application.job.user.email
+    @from       = postman
+    @subject    = "[commune2] New applicant for #{ job_application.job.title }"
+    @sent_on    = Time.now.utc
+
+    @body[:job_application] = job_application
+    @body[:domain]  = domain
+  end
+
+  def notify_applicant_of_job_offer(job_application)
+
+    @recipients = job_application.user.email
+    @from       = postman
+    @subject    = "[commune2] Job Offer for #{ job_application.job.title }"
+    @sent_on    = Time.now.utc
+
+    @body[:job_application] = job_application
+    @body[:domain]  = domain
+  end
+
+  def notify_job_poster_of_accepted_offer(job_application)
+
+    @recipients = job_application.job.user.email
+    @from       = postman
+    @subject    = "[commune2] Job Offer Accepted for #{ job_application.job.title }"
+    @sent_on    = Time.now.utc
+
+    @body[:job_application] = job_application
+    @body[:domain]  = domain
   end
 
   protected
@@ -74,7 +106,7 @@ class UserMailer < ActionMailer::Base
 private
 
   def domain
-    ENV['RAILS_ENV'] == "production" ? "commune2.com" : "localhost"
+    ENV['RAILS_ENV'] == "production" ? "commune2.com" : "commune2.local"
   end
 
   def postman
@@ -82,3 +114,4 @@ private
   end
 
 end
+

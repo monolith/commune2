@@ -224,7 +224,12 @@ class JobsController < ApplicationController
     @job = Job.find params[:id], :include => [:project, :user, {:user => :locations}]
 
     if logged_in?
-      redirect_to job_path(@job)
+      if @job
+        redirect_to job_path(@job)
+      else
+        redirect_to root_path
+        flash[:notice] = "You tried reaching an unknown job post"
+      end
     else
       unless @job and @job.status == "Open" and @job.external_publish_ok
         @job = nil
