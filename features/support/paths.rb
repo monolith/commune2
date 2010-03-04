@@ -41,6 +41,9 @@ module NavigationHelpers
     when /ideas page/
       ideas_path
 
+    when /suggestions page/
+      suggestions_path
+
     when /projects page/
       projects_path
 

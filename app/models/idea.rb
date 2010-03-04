@@ -1,7 +1,7 @@
 class Idea < ActiveRecord::Base
   validates_presence_of  :title
   validates_size_of :title, :maximum => 100
-  
+
   validates_presence_of  :description
   validates_size_of      :description, :maximum => 1000
 
@@ -35,11 +35,26 @@ class Idea < ActiveRecord::Base
                   :active
 
 
-  def self.get(conditions, order, page)
-     paginate :include => [:user, :scorecard],
-              :per_page => 10, :page => page,
-              :conditions => conditions,
-              :order => order
+  def self.get(options={})  #(conditions, order, page, options)
+
+    # CONDITION SETTING LOGIC
+    conditions =[]
+    conditions << "ideas.active = true" unless options[:show_inactive] == true
+    conditions << "users.activation_code is Null" unless options[:include_unactivated_users] == true # does not exclude activated inactive users
+    conditions << options[:filter] if options[:filter]
+    conditions << options[:conditions] if options[:conditions]
+
+    conditions.compact! # remove nil (just in case some got in)
+    conditions = conditions.join(" and ")
+
+    # END OF CONDITION SETTING
+
+     paginate :include =>     options[:include]     || [:user, :scorecard, :active_projects, :comments, :interested, :watchers, :industries],
+              :conditions =>  conditions            || Nil,
+              :order =>       options[:order]       || "ideas.id DESC",
+              :per_page =>    options[:per_page]    || 10,
+              :page =>        options[:page]        || 1
+
   end
 
   def author?(author)
@@ -50,55 +65,55 @@ class Idea < ActiveRecord::Base
   def attach_comment(comment, commentator)
     self.comments.create( :comment => comment, :user => commentator )
   end
-    
+
   def locations
     self.user ? self.user.locations : [ Location.new(:location => 'Unknown') ]
   end
 
   def location_string
       loc = String.new
-      self.locations.each do |location| 
+      self.locations.each do |location|
         loc << " " << location.location + " |"
-      end            
-      loc.chop.strip    
+      end
+      loc.chop.strip
   end
-  
+
   def industries_string
       ind = String.new
-      self.industries.each do |industry| 
+      self.industries.each do |industry|
         ind << " " << industry.name << " |"
-      end            
+      end
       ind.chop.strip
   end
 
   def watchers_since(timestamp)
     wlists.count :conditions => "watchlists.created_at > timestamp('" << timestamp.to_s << "')"
   end
-  
+
   def interested_since(timestamp)
     interests.count :conditions => "interests.created_at > timestamp('" << timestamp.to_s << "')"
   end
-  
+
   def projects_since(timestamp)
     projects.count :conditions => "projects.created_at > timestamp('" << timestamp.to_s << "') and projects.active = true"
   end
-  
+
   def comments_since(timestamp)
-    comments.count :conditions => "comments.created_at > timestamp('" << timestamp.to_s << "')"    
+    comments.count :conditions => "comments.created_at > timestamp('" << timestamp.to_s << "')"
   end
-  
+
   def updated_since?(timestamp)
     updated_at > timestamp # returns true if updated since date, false otherwise
   end
-  
+
   def self.recent(how_many = 3) # default is 3
     # this is a class method
     # usage => Idea.recent(5)
-    
+
     find :all,  :limit => how_many.to_i, :include => :user,
                 :conditions => 'ideas.active = true and users.activation_code is Null',
                 :order => "ideas.created_at DESC"
-  end    
+  end
 
   private
 
@@ -114,7 +129,7 @@ class Idea < ActiveRecord::Base
       increment_counter
     end
   end
-  
+
   def custom_counter_cache_before_update
 
     if self.active_changed? && user
@@ -128,8 +143,8 @@ class Idea < ActiveRecord::Base
         decrement_counter
       end
     end
-  end 
-  
+  end
+
   def custom_counter_cache_before_destroy
     if active
       # this was counted in user's idea counter
@@ -138,10 +153,10 @@ class Idea < ActiveRecord::Base
     end
   end
 
-  def increment_counter  
+  def increment_counter
     user.scorecard.increment! :active_ideas_count
   end
-  
+
   def decrement_counter
     user.scorecard.decrement! :active_ideas_count
   end
@@ -171,9 +186,10 @@ class Idea < ActiveRecord::Base
 
     where "ideas.active = true" # search only active ideas
 
-    set_property :delta => true 
+    set_property :delta => true
   end
 
 
 
 end
+

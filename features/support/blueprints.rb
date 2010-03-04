@@ -151,6 +151,11 @@ end
 
 def create_user_with_associations!(attributes = {})
 
+  # clean the hash of nil values
+  if attributes.has_key? "user"
+    attributes[:user].each_pair { |key, value| attributes[:user].delete key if value == nil  }
+  end
+
   user = User.make_unsaved(attributes[:user])
   user.save(false) # false because it will not like no location
 
@@ -169,6 +174,7 @@ end
 
 
 def create_idea_with_industries!(attributes = {})
+
   # check if the user exists, find or create
   # create uses blueprint
 

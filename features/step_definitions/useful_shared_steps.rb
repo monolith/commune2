@@ -10,10 +10,14 @@ Given /^(.*) "([^\"]*)" becomes (.*)$/ do |class_name, attribute_value, state|
   when "User"
     User.find_by_login attribute_value
   else
-    eval(class_name).find_by_title attribute_value    
+    eval(class_name).find_by_title attribute_value
   end
-  
+
   state == "active" ? object.active = true : object.active = false
   object.save(false)
+end
+
+Then /^I want to debug$/ do
+  debugger
 end
 

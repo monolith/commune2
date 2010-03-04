@@ -1,0 +1,49 @@
+<% content_for :title do %>Suggestion Box<% end %>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  <td width="70%" valign="top">
+
+<h1><%= pluralize(@suggestions.total_entries, "Suggestion") %></h1>
+<p>This page is a list of suggestions for enhancing Commune2.  Please review and rate the suggestions, or scroll to the bottom to suggest something yourself.</p>
+
+<% if params[:search] %><h2>Search Criteria: <%=h params[:search] %></h2><% end %>
+<%= render :partial => @suggestions %>
+
+<%= will_paginate @suggestions %>
+
+
+    <h1>Suggest something!</h1>
+
+<p>Remember, this here allows you to suggest ideas for Commune2 enhancement.  If you have something, but not specific to Commune2, please post through the <%= link_to "new idea", new_idea_path %> page.</p>
+
+    <div id="post">
+
+      <% form_for @idea do |f| -%>
+         <%= f.error_messages %>
+
+          <p><%= label_tag 'Title' %><br/>
+          <%= f.text_field :title, :style=>"width:100%;" %></p>
+
+          <p><%= label_tag 'Description' %><br/>
+          <%= f.text_area :description, :rows => 3, :style=>"width:100%;" %></p>
+
+        <%= hidden_field_tag "redirect", "suggestion" %>
+       <%= hidden_field_tag "industry_ids[#{@industry.id}]", "1" %>
+
+          <p><%= submit_tag "Suggest" %></p>
+      <% end %>
+    </div>
+
+
+
+</td>
+<td valign="top" align="center">
+  <table border="0" width="90%" cellspacing="0" cellpadding="0" align="center">
+    <tr><td align="left">
+      <h1>Want to improve Commune2?</h2>
+  <h2>Feel free to suggest ideas for Commune2 enhancement, or give us feedback on existing suggestions.</h2><br />
+  <h2>Have an idea, but not specific to Commune2? Then go to the <%= link_to "new idea", new_idea_path %> page.</h2>
+  </td></tr></table>
+</td></tr></table>
+

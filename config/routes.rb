@@ -24,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
   # try adding as nested resource to user
   map.my_ideas '/my/ideas/', :controller => 'ideas', :action => 'my_ideas'
   map.post_idea_comment '/post/idea/comment/', :controller => 'ideas', :action => 'add_comment'
+  map.suggestions '/suggestions/', :controller => 'ideas', :action => 'suggestions'
 
   map.my_projects '/my/projects/', :controller => 'projects', :action => 'my_projects'
   map.post_project_comment '/post/project/comment/', :controller => 'projects', :action => 'add_comment'
@@ -43,18 +44,20 @@ ActionController::Routing::Routes.draw do |map|
 
   map.rate '/rate/', :controller => 'rating', :action => 'rate'
 
+
+
   map.resend_invitation '/resend_invitation', :controller => 'invitations', :action => 'resend'
 
   map.add_to_watchlist '/watchlists/add', :controller => 'watchlists', :action => 'add'
 
-  map.watchlist_ideas '/watchlists/ideas', :controller => 'watchlists', :action => 'ideas'
-  map.watchlist_projects '/watchlists/projects', :controller => 'watchlists', :action => 'projects'
-  map.watchlist_jobs '/watchlists/jobs', :controller => 'watchlists', :action => 'jobs'
-  map.watchlist_people '/watchlists/people', :controller => 'watchlists', :action => 'people'
+  map.watchlist_ideas '/watchlists/ideas/', :controller => 'watchlists', :action => 'ideas'
+  map.watchlist_projects '/watchlists/projects/', :controller => 'watchlists', :action => 'projects'
+  map.watchlist_jobs '/watchlists/jobs/', :controller => 'watchlists', :action => 'jobs'
+  map.watchlist_people '/watchlists/people/', :controller => 'watchlists', :action => 'people'
 
-  map.add_to_interests '/interests/add', :controller => 'interests', :action => 'add'
-  map.interest_ideas '/interests/ideas', :controller => 'interests', :action => 'ideas'
-  map.interest_projects '/interests/projects', :controller => 'interests', :action => 'projects'
+  map.add_to_interests '/interests/add/', :controller => 'interests', :action => 'add'
+  map.interest_ideas '/interests/ideas/', :controller => 'interests', :action => 'ideas'
+  map.interest_projects '/interests/projects/', :controller => 'interests', :action => 'projects'
 
   map.resources :users, :as => :people
 

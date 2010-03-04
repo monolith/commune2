@@ -38,6 +38,11 @@
                         <td valign="top">
                           <p class="banner"><%= link_to "home", root_path, :class=> "banner-no-block"  %></p>
                           <p class="banner"><%= link_to "about", help_path, :class=> "banner-no-block"  %></p>
+
+                          <% if logged_in? %>
+                            <p class="banner"><%= link_to "suggestion box", suggestions_path, :class=> "banner-no-block"  %></p>
+                          <% end %>
+
                         </td>
                       </tr>
                     </table>
