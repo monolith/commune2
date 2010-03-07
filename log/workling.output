@@ -1469,3 +1469,177 @@ Reminding... Thu Mar 04 01:00:05 UTC 2010
 Number of users: 0
 Reminding... Thu Mar 04 03:00:03 UTC 2010
 Number of users: 0
+** Exiting
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/mysql_adapter.rb:585:in `real_connect': Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) (Mysql::Error)
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `join'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `each'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/listen.rb:24
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `start_load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:257:in `start'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/controller.rb:69:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:139:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `call'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `catch_exceptions'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:138:in `run'
+	from script/workling_client:17
+=> Loading Rails...
+/home/anatoly/rails_apps/commune2/app/models/user.rb:147: warning: Object#id will be deprecated; use Object#object_id
+** Rails loaded.
+** Starting Workling::Remote::Invokers::ThreadedPoller...
+** Use CTRL-C to stop.
+Reminding... Fri Mar 05 01:00:03 UTC 2010
+Number of users: 0
+** Exiting
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/mysql_adapter.rb:585:in `real_connect': Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) (Mysql::Error)
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `join'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `each'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/listen.rb:24
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `start_load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:257:in `start'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/controller.rb:69:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:139:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `call'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `catch_exceptions'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:138:in `run'
+	from script/workling_client:17
+=> Loading Rails...
+/home/anatoly/rails_apps/commune2/app/models/user.rb:147: warning: Object#id will be deprecated; use Object#object_id
+** Rails loaded.
+** Starting Workling::Remote::Invokers::ThreadedPoller...
+** Use CTRL-C to stop.
+** Exiting
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/mysql_adapter.rb:585:in `real_connect': Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) (Mysql::Error)
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `join'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `each'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/listen.rb:24
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `start_load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:257:in `start'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/controller.rb:69:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:139:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `call'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `catch_exceptions'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:138:in `run'
+	from script/workling_client:17
+=> Loading Rails...
+/home/anatoly/rails_apps/commune2/app/models/user.rb:147: warning: Object#id will be deprecated; use Object#object_id
+** Rails loaded.
+** Starting Workling::Remote::Invokers::ThreadedPoller...
+** Use CTRL-C to stop.
+Reminding... Fri Mar 05 03:00:05 UTC 2010
+Number of users: 0
+** Exiting
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/mysql_adapter.rb:585:in `real_connect': Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) (Mysql::Error)
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `join'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `each'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/listen.rb:24
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `start_load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:257:in `start'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/controller.rb:69:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:139:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `call'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `catch_exceptions'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:138:in `run'
+	from script/workling_client:17
+=> Loading Rails...
+=> Loading Rails...
+/home/anatoly/rails_apps/commune2/app/models/user.rb:147: warning: Object#id will be deprecated; use Object#object_id
+** Rails loaded.
+** Starting Workling::Remote::Invokers::ThreadedPoller...
+** Use CTRL-C to stop.
+** Exiting
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/mysql_adapter.rb:585:in `real_connect': Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) (Mysql::Error)
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `join'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `each'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/listen.rb:24
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `start_load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:257:in `start'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/controller.rb:69:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:139:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `call'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `catch_exceptions'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:138:in `run'
+	from script/workling_client:17
+=> Loading Rails...
+/home/anatoly/rails_apps/commune2/app/models/user.rb:147: warning: Object#id will be deprecated; use Object#object_id
+=> Loading Rails...
+/home/anatoly/rails_apps/commune2/app/models/user.rb:147: warning: Object#id will be deprecated; use Object#object_id
+** Rails loaded.
+** Starting Workling::Remote::Invokers::ThreadedPoller...
+** Use CTRL-C to stop.
+Reminding... Sat Mar 06 05:00:05 UTC 2010
+Number of users: 0
+** Exiting
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/mysql_adapter.rb:585:in `real_connect': Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) (Mysql::Error)
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `join'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `each'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/listen.rb:24
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `start_load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:257:in `start'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/controller.rb:69:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:139:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `call'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `catch_exceptions'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:138:in `run'
+	from script/workling_client:17
+=> Loading Rails...
+/home/anatoly/rails_apps/commune2/app/models/user.rb:147: warning: Object#id will be deprecated; use Object#object_id
+** Rails loaded.
+** Starting Workling::Remote::Invokers::ThreadedPoller...
+** Use CTRL-C to stop.
+** Exiting
+/usr/local/lib/ruby/gems/1.8/gems/activerecord-2.3.4/lib/active_record/connection_adapters/mysql_adapter.rb:585:in `real_connect': Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) (Mysql::Error)
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `join'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `each'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/../lib/workling/remote/invokers/threaded_poller.rb:37:in `listen'
+	from /home/anatoly/rails_apps/commune2/vendor/plugins/workling/script/listen.rb:24
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `start_load'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/application.rb:257:in `start'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/controller.rb:69:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:139:in `run'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `call'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `catch_exceptions'
+	from /usr/local/lib/ruby/gems/1.8/gems/daemons-1.0.10/lib/daemons.rb:138:in `run'
+	from script/workling_client:17
+=> Loading Rails...
+/home/anatoly/rails_apps/commune2/app/models/user.rb:147: warning: Object#id will be deprecated; use Object#object_id
+** Rails loaded.
+** Starting Workling::Remote::Invokers::ThreadedPoller...
+** Use CTRL-C to stop.
+Reminding... Sat Mar 06 17:00:04 UTC 2010
+Number of users: 0
+Reminding... Sat Mar 06 19:00:04 UTC 2010
+Number of users: 0
+Reminding... Sat Mar 06 21:00:04 UTC 2010
+Number of users: 0
+Reminding... Sat Mar 06 23:00:04 UTC 2010
+Number of users: 0
+Reminding... Sun Mar 07 01:00:03 UTC 2010
+Number of users: 0
+Reminding... Sun Mar 07 03:00:04 UTC 2010
+Number of users: 0
+Reminding... Sun Mar 07 05:00:04 UTC 2010
+Number of users: 0
+Reminding... Sun Mar 07 17:00:03 UTC 2010
+Number of users: 0
+Reminding... Sun Mar 07 19:00:05 UTC 2010
+Number of users: 0

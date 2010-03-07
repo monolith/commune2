@@ -46,9 +46,13 @@ Then /^I should see a link to "([^\"]*)"$/ do |text|
   response_body.should have_selector("a") do |element|
     element.should contain(text)
   end
-
 end
 
+Then /^I should not see a link to "([^\"]*)"$/ do |text|
+  response_body.should_not have_selector("a") do |element|
+    element.should_not contain(text)
+  end
+end
 
 Then /^the output should include "([^\"]*)"$/ do |text|
   response.body.include?(text).should equal(true)

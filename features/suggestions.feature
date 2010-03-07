@@ -47,7 +47,6 @@ Feature: Suggestion box
     Then I should see "Another suggestion"
       And I should see "more notifications"
 
-@focus
 
   Scenario: Submit suggestion through regular idea page
     Given I am logged in as "monolith"

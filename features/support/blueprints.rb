@@ -147,7 +147,11 @@ Icebreaker.blueprint do
   approved { true }
 end
 
-
+Promo.blueprint do
+  # needs to be called with the create method below
+  code { Sham.sentence }
+  active { true }
+end
 
 def create_user_with_associations!(attributes = {})
 

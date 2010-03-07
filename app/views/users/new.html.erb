@@ -32,6 +32,13 @@
     <p><%= label_tag 'password_confirmation', 'Confirm Password' %> (CaSe SeNsitIvE)<br/>
     <%= f.password_field :password_confirmation, :style=>"width:300px;" %></p>
 
+
+
+    <p><%= label_tag 'Promo code' %> (only if you have one)<br/>
+      <div id="<%= @promo_class %>">
+        <%= text_field_tag :promo_code, @code, :style=>"width:300px;" %>
+      </div>
+    </p>
     <p>&nbsp;</p>
 
 
@@ -52,7 +59,7 @@
         <p><%= label_tag 'Title' %><br />
           <%= text_field_tag 'idea[title]', @idea.title, :style=>"width:600px;" %>
         </p>
-   
+
         <p><%= label_tag 'Description' %><br/>
           <%= text_area_tag 'idea[description]', @idea.description, :rows => 10 ,:style=>"width:600px;" %>
         </p>
@@ -60,7 +67,7 @@
 
 
     <p>&nbsp;</p>
-   
+
 
 <div id="section_header"><h2>&nbsp;Almost there...</h2></div>
 
@@ -69,8 +76,9 @@
     <%= render :partial => '/shared/reCAPTCHA' %>
 
     <p>&nbsp;</p>
-    
+
     <p><%= submit_tag 'Register', :class=>"big_button" %></p>
   <% end -%>
 
 </div>
+

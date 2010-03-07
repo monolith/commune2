@@ -29,31 +29,40 @@ def parse_table_and_add_users(table)
 
    # this may or may not be there.. will be used at the bottom
     last_logon = attributes[:last_logon] # will be used below
+    promo_code = attributes[:promo]
+
 
     user = attributes.dup
     user.delete("last_logon") # since this is not part of the model
+    user.delete("promo") # this is the code, not the id
 
     user = create_user_with_associations!( :user => user )
     # activate account.... also makes profile active
     visit activate_path(:activation_code => user.activation_code)
-    
+
     # check if the user should be inactive per table instruction
     # this is needed because upon activation, everyone becomes active
-    # see User#activate!    
+    # see User#activate!
     if attributes[:active] == "false"
       user.reload # reload needed otherwise not saved
       # user record here is not in sync with the db if not reloaded
       user.active = false # sets this to false as instructed by the table
       user.save(false)
     end
-    
-    if last_logon 
+
+    if last_logon
       user.logon.last = last_logon.to_time
       user.logon.previous = last_logon.to_time
       user.logon.save(false)
     end
 
-  end  
+    if promo_code
+      promo = Promo.find_by_code promo_code
+      user.promo = promo
+      user.save(false)
+    end
+
+  end
 end
 
 
@@ -104,7 +113,7 @@ end
 
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |login, password|
   visit logout_path
-  
+
   unless login.blank?
     visit login_url
     fill_in "login", :with => login

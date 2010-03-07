@@ -1,0 +1,24 @@
+<% content_for :title do %>Promo Codes<% end %>
+
+<h1>Promo Codes</h1>
+<p>Used for registering without an invitation</p>
+
+<table border="1">
+  <tr>
+    <th>Status</th>
+    <th>Code</th>
+    <th># of people</th>
+    <th>Actions</th>
+  </tr>
+  <% for promo in @promos %>
+    <tr>
+      <td><%=h promo.status %></td>
+      <td><%=h promo.code %></td>
+      <td><%=h promo.users.count %>
+      <td><%= link_to "Edit", edit_promo_path(promo) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Promo", new_promo_path %></p>
+

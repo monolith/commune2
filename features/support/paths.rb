@@ -62,6 +62,10 @@ module NavigationHelpers
     when /icebreakers page/
       icebreakers_path
 
+    when /promos page/
+      promos_path
+
+
     when /new idea page/
       new_idea_path
 
@@ -70,6 +74,9 @@ module NavigationHelpers
 
     when /new job page/
       new_job_path
+
+    when /new promo page/
+      new_promo_path
 
     when /new invitation page/
       new_invitation_path

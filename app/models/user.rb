@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
-  
+
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   has_many :applied_for_history, :source => :job, :through => :job_applications, :include => :project, :conditions => "jobs.created_at != projects.created_at"
 
   has_many :positions, :class_name => "JobApplication", :conditions => "job_applications.hired"
-  
+
   has_many :active_positions, :class_name => "JobApplication", :include => :project, :conditions => "job_applications.hired and projects.active"
 
   has_many :current_jobs, :through => :positions, :source => :job
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
 
   has_many :active_projects, :through => :active_positions, :source => :project, :uniq => true
 
- 
+
   has_many :ratings
   has_one  :scorecard, :as => :scorable, :dependent => :destroy
   has_many :interests, :dependent => :destroy
@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
 
   has_many :sent_messages, :foreign_key => :from_id, :class_name => "Message"
   has_many :received_messages, :foreign_key => :to_id, :class_name => "Message"
-  
+
   has_one :logon, :dependent => :destroy # keep track of last logon
   has_one :reminder, :dependent => :destroy
 
@@ -120,26 +120,26 @@ class User < ActiveRecord::Base
 
 
   has_many :watched_jobs, :through => :watchlists, :source => :watch, :source_type => "Job"
-  
+
   # for dashboard - watched people
   has_many :watched_people, :through => :watchlists, :source => :watch, :source_type => "User", :conditions => "users.active"
-  
+
   has_many :watched_people_ideas, :class_name => 'Idea', :finder_sql =>  'select distinct `ideas`.* from `ideas` JOIN `watchlists` ON `watchlists`.watch_id = `ideas`.user_id and `watchlists`.watch_type = \'User\' JOIN `users` ON `users`.id = `watchlists`.user_id WHERE `users`.id = #{id} AND `ideas`.created_at > \'#{logon.previous.to_time}\' ORDER BY `ideas`.created_at DESC'
 
   has_many :watched_people_projects, :class_name => 'Project',
       :finder_sql =>  'select distinct `projects`.* from `projects` JOIN `job_applications` ON `projects`.id = `job_applications`.project_id JOIN         `watchlists` ON `watchlists`.watch_id = `job_applications`.user_id and `watchlists`.watch_type = \'User\' JOIN `users` ON `users`.id = `watchlists`.user_id JOIN `jobs` ON `jobs`.id = `job_applications`.job_id WHERE `users`.id = #{id} and `job_applications`.hired and `projects`.active and `jobs`.active and `projects`.created_at > \'#{logon.previous.to_time}\' ORDER BY `projects`.created_at DESC',
-      
+
       :counter_sql => 'select count(distinct `projects`.id) from `projects` JOIN `job_applications` ON `projects`.id = `job_applications`.project_id JOIN `watchlists` ON `watchlists`.watch_id = `job_applications`.user_id and `watchlists`.watch_type = \'User\' JOIN `users` ON `users`.id = `watchlists`.user_id JOIN `jobs` ON `jobs`.id = `job_applications`.job_id WHERE `users`.id = #{id} and `job_applications`.hired and `projects`.active and `jobs`.active and `projects`.created_at > \'#{logon.previous.to_time}\' ORDER BY `projects`.created_at DESC'
 
   has_many :watched_people_recent_jobs, :class_name => 'Job', :finder_sql =>  'select distinct `jobs`.* from `jobs` JOIN `watchlists` ON `watchlists`.watch_id = `jobs`.user_id and `watchlists`.watch_type = \'User\' JOIN `users` ON `users`.id = `watchlists`.user_id WHERE `users`.id = #{id} and `jobs`.open and `jobs`.active AND `jobs`.created_at > \'#{logon.previous.to_time}\' ORDER BY `jobs`.created_at DESC'
 
   # USER'S DASHBOARD STATS
-  # stats on ideas  
+  # stats on ideas
   has_many :comments_on_ideas, :through => :active_ideas, :source => :comments
   has_many :watchlists_for_ideas, :through => :active_ideas, :source => :wlists
   has_many :interests_in_ideas, :through => :active_ideas, :source => :interests
   has_many :projects_from_ideas, :through => :active_ideas, :source => :projects
-  # stats on projects  
+  # stats on projects
   has_many :comments_on_projects, :through => :active_projects, :source => :comments
   has_many :watchlists_for_projects, :through => :active_projects, :source => :wlists
   has_many :interests_in_projects, :through => :active_projects, :source => :interests
@@ -155,7 +155,10 @@ class User < ActiveRecord::Base
   before_destroy :log   # decreaseing active member count on projects not needed
                         # because this will be handled through destroy of job application
 
-  
+
+  belongs_to :promo
+
+
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
@@ -178,8 +181,8 @@ class User < ActiveRecord::Base
                   :password_confirmation,
                   :last_logon,
                   :previous_logon,
-                  :idea_attributes # virtual attribute
-
+                  :idea_attributes, # virtual attribute
+                  :promo_id
 
   def self.get(conditions, order, page)
      paginate :include => [ :scorecard ],
@@ -271,9 +274,9 @@ class User < ActiveRecord::Base
     f = self.first_name || ""
     l = self.last_name || ""
     n = (f + " " + l).strip
-    
+
     n.size > 0 ? n : self.login
-    
+
   end
 
 
@@ -284,7 +287,7 @@ class User < ActiveRecord::Base
 #  def watching_projects
 #    extract_from_watchlist( self.watchlists.find_all_by_watch_type('Project') )
 #  end
-#  
+#
 #  def watching_users
 #    extract_from_watchlist( self.watchlists.find_all_by_watch_type('User') )
 #  end
@@ -304,11 +307,11 @@ class User < ActiveRecord::Base
   def updated_since?(timestamp)
     updated_at > timestamp # returns true if updated since date, false otherwise
   end
-    
+
   def comments_since(timestamp)
-    comments.count :conditions => "comments.created_at > timestamp('" + timestamp.to_s + "')"    
+    comments.count :conditions => "comments.created_at > timestamp('" + timestamp.to_s + "')"
   end
-  
+
   def jobs_since(timestamp)
     jobs.count :conditions => "jobs.created_at > timestamp('" + timestamp.to_s + "') and jobs.active = true and jobs.open = true"
   end
@@ -332,8 +335,8 @@ class User < ActiveRecord::Base
       # minus number of invites in 24 hours (86400 seconds)
       x -= invitations.count :conditions =>  ["created_at > ?", Time.now.utc - 86400 ]
       # return x or 0, which ever is greater
-      x > 0 ? x : 0 
-      
+      x > 0 ? x : 0
+
     end
   end
 
@@ -352,7 +355,7 @@ class User < ActiveRecord::Base
     end
   end
 
- 
+
   def admin?
     admin
   end
@@ -387,22 +390,22 @@ class User < ActiveRecord::Base
      self.interests_in_projects.count :conditions => ["interests.created_at > ?", self.logon.previous]
   end
 
-  
+
   def recent_applications_for_jobs_count
      self.open_job_applications.count :conditions => ["job_applications.created_at > ?", self.logon.previous]
   end
- 
+
 
 
 
   def dashboard_stats
 
     # really need to optimize this logic to reduce number of queries
-    
+
     mystuff ={}
     watching ={}
 
-    # user's own stuff    
+    # user's own stuff
     mystuff[:ideas] = {
       :recent_comments => recent_comments_on_ideas_count,
       :recent_watching => recent_watchlists_for_ideas_count,
@@ -416,7 +419,7 @@ class User < ActiveRecord::Base
 
     mystuff[:jobs] = {
       :recent_applications => recent_applications_for_jobs_count }
-      
+
 
     mystuff[:totals] = {
       :recent_comments => mystuff[:ideas][:recent_comments] + mystuff[:projects][:recent_comments],
@@ -425,12 +428,12 @@ class User < ActiveRecord::Base
       :recent_projects => mystuff[:ideas][:recent_projects],
       :recent_applications => mystuff[:jobs][:recent_applications]
     }
-    
+
     mystuff_total = mystuff[:totals].collect{|i| i[1]}.sum
 
     # watchlist stuff (things user is watching)
     # based on associations
- 
+
     w_ideas_projects_count = watched_ideas_recent_projects.count
     w_projects_jobs_count = watched_projects_recent_jobs.count
     w_people_ideas_count = watched_people_ideas.count
@@ -447,7 +450,7 @@ class User < ActiveRecord::Base
       :recent_ideas => w_people_ideas_count,
       :recent_projects => w_people_projects_count,
       :recent_jobs => w_people_jobs_count }
-      
+
     watching[:totals] = {
       :recent_jobs => ( watched_projects_recent_jobs | watched_people_recent_jobs ).size,
       :recent_projects => ( watched_ideas_recent_projects | watched_people_projects ).size,
@@ -456,22 +459,22 @@ class User < ActiveRecord::Base
 
     watching_total = watching[:totals].collect{|i| i[1]}.sum
 
-        
-    return { :mystuff => mystuff, :watching => watching, :total => mystuff_total + watching_total  }  
+
+    return { :mystuff => mystuff, :watching => watching, :total => mystuff_total + watching_total  }
   end
-  
+
 
   def self.recent(how_many = 3) # default is 3
     # this is a class method
     # usage => User.recent(5)
-    
+
     find :all,  :limit => how_many.to_i,
                 :conditions => 'active = true and activation_code is Null',
                 :order => "created_at DESC"
-  end    
+  end
 
 
- 
+
   protected
 
   def create_some_objects
@@ -496,7 +499,7 @@ class User < ActiveRecord::Base
     list.each do |item|
       stuff << item.watch unless item.watch.nil?
     end
-    stuff      
+    stuff
   end
 
   def extract_from_interests(list)
@@ -504,7 +507,7 @@ class User < ActiveRecord::Base
     list.each do |item|
       stuff << item.interest unless item.interest.nil?
     end
-    stuff      
+    stuff
   end
 
 
@@ -528,10 +531,10 @@ class User < ActiveRecord::Base
         decrement_projects_members_counter
       end
     end
-  end 
-  
+  end
+
   def increment_projects_members_counter
-    all_projects.each { |project| project.scorecard.increment! :active_members_count }    
+    all_projects.each { |project| project.scorecard.increment! :active_members_count }
   end
 
   def decrement_projects_members_counter
@@ -541,8 +544,8 @@ class User < ActiveRecord::Base
 
   define_index do
     indexes [first_name, last_name, company, login], :as => :person
-    indexes headline    
-    indexes purpose    
+    indexes headline
+    indexes purpose
     indexes education
     indexes experience
     indexes skills
@@ -562,9 +565,10 @@ class User < ActiveRecord::Base
     # for geosearch see user_location
 
     where "users.active = true and activated_at > 0" # search only activated users
-    set_property :delta => true 
+    set_property :delta => true
 
   end
 
 
 end
+

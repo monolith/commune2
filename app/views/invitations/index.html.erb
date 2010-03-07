@@ -3,6 +3,8 @@
 <h1><%= pluralize @invitations.total_entries, "Invitation" %> | <%= link_to "Invite Another Person", new_invitation_path %>
   <% if current_user.admin? %>
     | <%= link_to "Icebreakers", icebreakers_path %>
+    | <%= link_to "Promo Codes", promos_path %>
+
   <% end %>
 </h1>
 
@@ -15,3 +17,4 @@
 <%= render :partial => @invitations %>
 
 <%= will_paginate @invitations %>
+

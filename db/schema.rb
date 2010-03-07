@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100131023436) do
+ActiveRecord::Schema.define(:version => 20100307173354) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
@@ -209,6 +209,13 @@ ActiveRecord::Schema.define(:version => 20100131023436) do
   add_index "projects", ["updated_at"], :name => "index_projects_on_updated_at"
   add_index "projects", ["user_id"], :name => "index_projects_on_user_id"
 
+  create_table "promos", :force => true do |t|
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "active",     :default => true, :null => false
+  end
+
   create_table "ratings", :force => true do |t|
     t.integer  "scorecard_id", :null => false
     t.integer  "user_id",      :null => false
@@ -299,6 +306,7 @@ ActiveRecord::Schema.define(:version => 20100131023436) do
     t.integer  "watchers_count",                           :default => 0
     t.boolean  "individual",                               :default => true
     t.boolean  "admin",                                    :default => false, :null => false
+    t.integer  "promo_id"
   end
 
   add_index "users", ["active"], :name => "index_users_on_active"

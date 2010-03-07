@@ -11,13 +11,18 @@ class UsersController < ApplicationController
     # check passcode to confirm this person was invited.  This is basic hard coded thing, will need to be replaced.
       @user = User.new(params[:user])
       @idea = Idea.new(params[:idea])
-      
+
+      @code = params[:promo_code].strip
+      @promo = Promo.find_by_code @code, :conditions => {:active => true}
+      @user.promo_id = @promo.id if @promo
+
+
     # will need to add javascript support to make the lookups via user browser possible, to reduce number of requests from single IP
       @new_location = params[:location_select] || params[:new_location].strip
 
       if @user
         @invitation = Invitation.find_by_email(@user.email)
-        if @invitation || User.count == 0
+        if @invitation || User.count == 0 || @promo
           if @invitation
             @user.invited_by_id = @invitation.user_id
           else
@@ -31,19 +36,19 @@ class UsersController < ApplicationController
                 @location = Locate.new params[:location_select] || @new_location
                 add_location = @location.add @user
 
-                if add_location[:status] == true 
+                if add_location[:status] == true
                   location_changed = true
                 else
                   location_changed = false
                   flash[:error] = "Account has NOT been created.  Please narrow location."
-                  
+
                   @user.errors.add(:location, add_location[:message])
-                  render :action => 'new'                  
+                  render :action => 'new'
 
                   return
                 end
-              end             
-     
+              end
+
               # add industry
               @idea.industries << (Industry.find_by_name("Just for fun") || Industry.find(:first)) # prevents an error if name changes
               # check if idea is valid
@@ -57,16 +62,16 @@ class UsersController < ApplicationController
                 end
               end
 
-              
+
               if @user.errors.empty? and @user.save
                 flash[:notice] = "Thank you for registering."
                 flash[:special_attention_notice] = "An activation link will be sent to " + @user.email + " shortly.  You will be able to log in only after you activate your account.  Please check your email."
-                
+
 
                 @user.ideas << @idea
                 @idea.save(false) # validations already done above
                 redirect_to :login
-              else                
+              else
                 flash[:error]  = "Your registration attempt failed.  Try again."
                 render :action => :new
               end
@@ -77,6 +82,12 @@ class UsersController < ApplicationController
        else
           flash[:error]  = "Could not register.  You must be invited to join this network before you can register."
           @user.errors.add(:email, " #{ '(' + @user.email + ')' if @user.email.length > 0 } not found on the invitation list.")
+
+          if @code.size > 0 and @promo.nil?
+            @user.errors.add(:promo_code, "not valid")
+            @promo_class = "fieldWithErrors"
+          end
+
           render :action => 'new'
        end
     else
@@ -118,8 +129,8 @@ class UsersController < ApplicationController
         },
         :match_mode    => :extended,
         :page          => params[:page],
-        :order         => "@relevance DESC, adjusted_rating DESC, watchers_count DESC, last_logon DESC" 
-    
+        :order         => "@relevance DESC, adjusted_rating DESC, watchers_count DESC, last_logon DESC"
+
     else
       @profiles = User.get('active', 'login asc', params[:page])
     end
@@ -128,47 +139,47 @@ class UsersController < ApplicationController
   def show
 
     @user = User.find_by_login params[:id],
-                :include => [:active_ideas, :active_projects, :active_positions, :open_job_postings, 
+                :include => [:active_ideas, :active_projects, :active_positions, :open_job_postings,
                   :scorecard, :interests, :general_skills, :industries, :locations ],
                 :conditions => "active"
-                            
+
     unless @user
       flash[:error] = "Profile for #{params[:id] } is currently inactive or doesn't exist."
     end
 
   end
-  
-  
+
+
   def edit
 
     @user = User.find_by_login params[:id]
-    
+
     unless @user == current_user
       flash[:error] = "This is not your profile, you cannot edit it!"
-      redirect_to user_path(@user)   
-      return 
+      redirect_to user_path(@user)
+      return
     end
-    
+
     @industry_ids = @user.industry_ids
     @skill_ids = @user.general_skill_ids
-        
+
   end
 
 
   def update
     params[:password] ||= {}
-  
+
     @user = User.find current_user.id
     @industry_ids = (params[:industry_ids] || {}).keys.collect{|s| s.to_i}
     @skill_ids = (params[:skill_ids] || {}).keys.collect{|s| s.to_i}
     @new_location = params[:new_location].strip
-    
+
 
     # IMPORTANT
     # to update correctly, attribute must be in attr_accessible in the user model!
     @user.attributes = params[:user] # does not save, update_attributes would save, but want to authenticate before saving
     # reason for this is to make sure all entered values are displayed even if there is a bad password
-                                     
+
     if User.authenticate(current_user.login, params[:password])
 
       success = @user.save
@@ -183,30 +194,30 @@ class UsersController < ApplicationController
         @location = Locate.new params[:location_select] || @new_location
         add_location = @location.add @user
 
-        if add_location[:status] == true 
+        if add_location[:status] == true
           location_changed = true
         else
           location_changed = false
           @user.errors.add(:location, add_location[:message])
         end
-      end             
+      end
 
-      
+
       if success && @user.errors.empty?
         flash[:notice] = "Profile updated"
-        redirect_to edit_user_path(@user)    
+        redirect_to edit_user_path(@user)
       else
-      
-        flash[:error] = "Could not save changes"    
+
+        flash[:error] = "Could not save changes"
         render :action => :edit
-      end  
+      end
 
     else
-      flash[:error] = "Could not save changes, incorrect password."    
+      flash[:error] = "Could not save changes, incorrect password."
       render :action => :edit
     end
 
-    
+
   end
 
 
@@ -218,10 +229,10 @@ class UsersController < ApplicationController
       if location
         flash[:notice] = "Location removed" if location.destroy
       else
-        flash[:error] = "Unknown location"      
+        flash[:error] = "Unknown location"
       end
     end
-    
+
     redirect_to :back
   end
 
@@ -321,10 +332,10 @@ class UsersController < ApplicationController
     user = User.find_by_login params[:login]
     if user
       if !user.active?
-        UserMailer.deliver_signup_notification(user) 
+        UserMailer.deliver_signup_notification(user)
         flash[:notice] = "Activation email resent, please check you mail (for security reasons we are not displaying the email address here). "
       else
-        flash[:error] = "This account is already active."      
+        flash[:error] = "This account is already active."
       end
     else
       flash[:error] = "Unknown user."
@@ -334,7 +345,7 @@ class UsersController < ApplicationController
 
 
   def destroy
-    @user = User.find_by_login params[:id]    
+    @user = User.find_by_login params[:id]
     if @user and current_user.admin?
       if @user.destroy
         flash[:notice] = "The user was deleted."
@@ -346,8 +357,9 @@ class UsersController < ApplicationController
     else
       flash[:error] = "This user does not exist, or you are not allowed to destroy it."
       redirect_to :back
-    end    
+    end
   end
 
 
 end
+
