@@ -211,7 +211,7 @@ class JobsController < ApplicationController
 
 
   def indeed_feed
-    @jobs = Job.find :all, :conditions => ["jobs.open and jobs.active and jobs.external_publish_ok"], :include => [:user, {:user => :locations}]
+    @jobs = Job.find :all, :conditions => ["jobs.open and jobs.active and jobs.external_publish_ok"], :include => [:user, {:user => :locations}], :order => 'updated_at DESC'
 
     respond_to do |format|
       format.xml
