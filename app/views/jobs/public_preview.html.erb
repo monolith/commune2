@@ -4,7 +4,7 @@
   <div id="show-main-container">
 
     <div id="special_attention_notice" style="color:#CC3300; font-size:small;">
-      Hello.  <%= link_to "Log in", job_path(@job) %> to apply for this job. If you do not have an account, please understand that this is an invitation only social network.  If you need an invitation, ask a friend, or send an email to invitations at commune2 dot com (tell us who you are and why you want to join).
+      <p>Hello.  <%= link_to "Log in", job_path(@job) %> to apply for this job. If you do not have an account, please understand that this is an invitation only social network.  If you need an invitation, ask a friend, or send an email to invitations at commune2 dot com (tell us who you are and why you want to join).</p>
     </div>
     <h1><%=h @job.title %></h1>
 
@@ -31,7 +31,9 @@
       <%= simple_format(h(strip_tags(@job.description))) %></p>
 
     <div id="special_attention_notice" style="color:#CC3300; font-size:small;">
-      REMINDER:  <%= link_to "Log in", job_path(@job) %> to apply for this job if you are a Commune2 member. If you are not a member, ask a friend, or send an email to invitations at commune2 dot com.
+      <p>REMINDER:  <%= link_to "Log in", job_path(@job) %> to apply for this job if you are a Commune2 member. If you are not a member, ask a friend, or send an email to invitations at commune2 dot com.</p>
+
+      <p><b>Currently you can also <%= link_to "join", new_user_path %> with promo code "jobs"</b></p>
     </div>
 
   </div>
