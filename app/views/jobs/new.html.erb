@@ -25,10 +25,12 @@
        <%= f.radio_button :active, "false" %>Inactive <br />
        <i>Only active job posts can be viewed by others.</i></p>
 
-     <p>Publish this job to external job sites?
+      <div id="notice"><p><b>EXTERNAL PUBLISHING IS STILL A WORK IN PROGRESS...</b><br/>
+     Publish this job to external job sites?
        <%= f.radio_button :external_publish_ok, "true" %>Yes
        <%= f.radio_button :external_publish_ok, "false", :checked => true %>No <br />
        <i>Only open and active job posts will be published.</i></p>
+       </div>
 
 
           <p><%= label_tag 'Job title' %><br/>
