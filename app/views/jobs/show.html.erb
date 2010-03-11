@@ -34,7 +34,12 @@
         <% if @job.status == "Open" and @job.project and @job.project.members.include? current_user %>
           <br/>
           <% if @job.external_publish_ok %>
-            <div id="special_attention_notice">Published externally (i.e. <a href=http://www.indeed.com target=_blank>indeed.com</a>), edit job if you want to change this</div>
+
+
+            <div id="special_attention_notice">External publishing enabled, edit job if you want to change this</div>
+
+
+
           <% else %>
             This job is posted on this website only (edit the job to publish externally).
           <% end %>
