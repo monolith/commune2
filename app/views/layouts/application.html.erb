@@ -136,9 +136,9 @@
 
 
             <div id="content">
-
-              <div id="system_message">Please note that this website is still a prototype.  But it is real, it works, and you can help us by using it!</div>
-
+               <% unless flash[:system_message].blank? %>
+                <div id="system_message"><%=h flash[:system_message] %></div>
+              <% end %>
                <% unless flash[:error].blank? %>
                  <div id="error"><%=h flash[:error] %> </div>
                <% end %>
